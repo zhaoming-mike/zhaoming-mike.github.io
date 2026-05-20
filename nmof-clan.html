@@ -6,6 +6,7 @@
 <title>NMOF 军团数据中心</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+<script src="color-scale.js"></script>
 <style>
 /* ============================================================
    CSS Reset & Variables
@@ -41,6 +42,33 @@ body{
   color:var(--text-primary);
   line-height:1.5;
   overflow:hidden;
+}
+/* Hamburger menu button (mobile) */
+.hamburger{
+  display:none;
+  position:fixed;top:8px;left:8px;z-index:100;
+  width:36px;height:36px;
+  background:var(--bg-card);
+  border:1px solid var(--border);
+  border-radius:6px;
+  cursor:pointer;
+  flex-direction:column;
+  align-items:center;justify-content:center;
+  gap:4px;
+  padding:8px;
+}
+.hamburger span{
+  display:block;
+  width:100%;height:2px;
+  background:var(--text-secondary);
+  border-radius:1px;
+  transition:all 0.2s;
+}
+/* Sidebar overlay for mobile */
+.sidebar-overlay{
+  display:none;
+  position:fixed;inset:0;background:rgba(0,0,0,0.5);
+  z-index:9;
 }
 
 /* ============================================================
@@ -135,27 +163,29 @@ body{
 }
 .stat-grid{
   display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(200px,1fr));
-  gap:12px;
-  margin-bottom:20px;
+  grid-template-columns:repeat(5,1fr);
+  gap:10px;
+  margin-bottom:16px;
 }
 .stat-card{
   background:var(--bg-card);
   border:1px solid var(--border);
   border-radius:var(--radius);
-  padding:16px;
-  text-align:center;
+  padding:16px 14px;
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  min-width:0;
 }
 .stat-value{
-  font-size:28px;
+  font-size:20px;
   font-weight:700;
-  color:var(--accent);
-  line-height:1.2;
+  color:var(--text-primary);
+  line-height:1.3;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
 }
 .stat-label{
-  font-size:12px;
+  font-size:14px;
   color:var(--text-muted);
-  margin-top:4px;
+  flex-shrink:0;
 }
 .chart-container{
   position:relative;
@@ -195,9 +225,16 @@ tbody td{
 tbody tr{cursor:pointer;transition:background 0.1s}
 tbody tr:hover{background:var(--bg-hover)}
 .winrate{font-weight:600;font-family:'JetBrains Mono',monospace}
-.winrate.good{color:var(--green)}
-.winrate.avg{color:var(--orange)}
-.winrate.bad{color:var(--red)}
+.tier-very_bad{color:var(--tier-very_bad)}
+.tier-bad{color:var(--tier-bad)}
+.tier-below_average{color:var(--tier-below_average)}
+.tier-average{color:var(--tier-average)}
+.tier-above_average{color:var(--tier-above_average)}
+.tier-good{color:var(--tier-good)}
+.tier-very_good{color:var(--tier-very_good)}
+.tier-great{color:var(--tier-great)}
+.tier-unicum{color:var(--tier-unicum)}
+.tier-super_unicum{color:var(--tier-super_unicum)}
 
 /* Clan description */
 .clan-desc{
@@ -221,8 +258,7 @@ tbody tr:hover{background:var(--bg-hover)}
 
 /* Grid card height matching */
 .grid-2>.card,.grid-3>.card{display:flex;flex-direction:column}
-.grid-2>.card .rank-list{flex:1;overflow-y:auto;max-height:420px}
-.rank-list{overflow-y:auto}
+.rank-list{display:grid;grid-template-columns:1fr 1fr;gap:2px 20px}
 
 /* ============================================================
    Controls
@@ -290,31 +326,31 @@ tbody tr:hover{background:var(--bg-hover)}
 .role-reservist{background:rgba(120,144,156,0.15);color:#78909c}
 .epaulette-icon{
   display:inline-block;
-  width:24px;height:24px;
+  width:28px;height:28px;
   background:url('images/epaulettes.png') no-repeat;
-  background-size:288px 24px;
+  background-size:336px 28px;
   vertical-align:middle;
   margin-right:4px;
   border-radius:2px;
 }
 .epaulette-commander{background-position:0 0}
-.epaulette-executive_officer{background-position:-24px 0}
-.epaulette-personnel_officer{background-position:-48px 0}
-.epaulette-combat_officer{background-position:-72px 0}
-.epaulette-intelligence_officer{background-position:-96px 0}
-.epaulette-quartermaster{background-position:-120px 0}
-.epaulette-recruitment_officer{background-position:-144px 0}
-.epaulette-junior_officer{background-position:-168px 0}
-.epaulette-private{background-position:-192px 0}
-.epaulette-recruit{background-position:-216px 0}
-.epaulette-reservist{background-position:-240px 0}
-.epaulette-none{background-position:-264px 0}
+.epaulette-executive_officer{background-position:-28px 0}
+.epaulette-personnel_officer{background-position:-56px 0}
+.epaulette-combat_officer{background-position:-84px 0}
+.epaulette-intelligence_officer{background-position:-112px 0}
+.epaulette-quartermaster{background-position:-140px 0}
+.epaulette-recruitment_officer{background-position:-168px 0}
+.epaulette-junior_officer{background-position:-196px 0}
+.epaulette-private{background-position:-224px 0}
+.epaulette-recruit{background-position:-252px 0}
+.epaulette-reservist{background-position:-280px 0}
+.epaulette-none{background-position:-308px 0}
 
 /* ============================================================
    Detail View
    ============================================================ */
 .detail-header{
-  display:flex;align-items:center;gap:12px;margin-bottom:20px;
+  display:flex;align-items:center;gap:12px;margin-bottom:16px;
 }
 .back-btn{
   background:none;border:1px solid var(--border);
@@ -323,14 +359,14 @@ tbody tr:hover{background:var(--bg-hover)}
   cursor:pointer;font-size:13px;
 }
 .back-btn:hover{color:var(--text-primary);background:var(--bg-hover)}
-.detail-stats{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin-bottom:20px}
+.detail-stats{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin-bottom:16px}
 .detail-stat{
   background:var(--bg-hover);
   border-radius:var(--radius);
   padding:12px;
   text-align:center;
 }
-.detail-stat .val{font-size:20px;font-weight:700;color:var(--accent)}
+.detail-stat .val{font-size:20px;font-weight:700;color:var(--text-primary)}
 .detail-stat .lbl{font-size:11px;color:var(--text-muted);margin-top:2px}
 
 /* ============================================================
@@ -338,25 +374,25 @@ tbody tr:hover{background:var(--bg-hover)}
    ============================================================ */
 .rank-list{}
 .rank-item{
-  display:flex;align-items:center;gap:12px;
-  padding:10px 12px;
-  border-bottom:1px solid rgba(42,45,53,0.5);
+  display:flex;align-items:center;gap:4px;
+  padding:4px 0;
 }
 .rank-num{
-  width:28px;height:28px;
+  width:24px;height:24px;
   border-radius:50%;
   display:flex;align-items:center;justify-content:center;
-  font-size:13px;font-weight:700;
+  font-size:12px;font-weight:700;
   background:var(--bg-hover);
   color:var(--text-secondary);
+  flex-shrink:0;
 }
 .rank-item:nth-child(1) .rank-num{background:rgba(233,202,93,0.2);color:var(--accent)}
 .rank-item:nth-child(2) .rank-num{background:rgba(192,192,192,0.15);color:var(--text-secondary)}
 .rank-item:nth-child(3) .rank-num{background:rgba(205,127,50,0.2);color:#cd7f32}
-.rank-info{flex:1}
-.rank-name{font-size:14px;font-weight:500}
+.rank-info{min-width:0}
+.rank-name{font-size:13px;font-weight:500}
 .rank-role{font-size:11px;color:var(--text-muted)}
-.rank-value{font-size:15px;font-weight:600;color:var(--accent)}
+.rank-value{font-size:14px;font-weight:600;color:var(--text-primary);margin-left:6px}
 
 /* ============================================================
    Toast & Misc
@@ -376,13 +412,107 @@ tbody tr:hover{background:var(--bg-hover)}
 }
 .members-count{font-size:13px;color:var(--text-secondary)}
 .empty{text-align:center;color:var(--text-muted);padding:40px;font-size:14px}
+
+/* ============================================================
+   Responsive - Mobile & Tablet
+   ============================================================ */
+@media(max-width:768px){
+  /* Stack header cards */
+  #overview-header{flex-direction:column}
+  #sync-card{flex-direction:row!important;min-width:auto!important}
+  #sync-card>div{display:flex;gap:8px;align-items:baseline}
+  /* Show hamburger, hide sidebar by default */
+  .hamburger{display:flex}
+  .sidebar{
+    position:fixed;left:-240px;top:0;bottom:0;
+    transition:left 0.25s;
+    width:240px;min-width:240px;
+    z-index:20;
+  }
+  .sidebar.open{left:0}
+  .sidebar-overlay.active{display:block}
+  .main{padding:14px 10px;padding-top:50px}
+
+  /* Stack grids */
+  .grid-2,.grid-3{grid-template-columns:1fr}
+  .stat-grid{grid-template-columns:repeat(3,1fr);gap:8px}
+  .stat-card{padding:12px 10px}
+  .stat-value{font-size:17px}
+  .stat-label{font-size:13px}
+
+  /* Cards */
+  .card{padding:14px;margin-bottom:12px}
+  .rank-list{grid-template-columns:1fr}
+
+  /* Controls: stack vertically */
+  .controls{gap:6px}
+  .controls .search-input,
+  .controls .filter-select,
+  .controls .filter-input{width:100%}
+  .controls .btn-sm{width:100%;justify-content:center}
+
+  /* Charts */
+  .chart-container{height:260px}
+  .chart-container.tall{height:300px}
+  .chart-container.half{height:240px}
+
+  /* Tables */
+  table{font-size:12px}
+  thead th,tbody td{padding:8px 6px;font-size:11px}
+
+  /* Detail stats: 4 columns */
+  .detail-stats{grid-template-columns:repeat(4,1fr)!important;gap:6px}
+  .detail-stat{padding:8px 4px}
+  .detail-stat .val{font-size:16px}
+  .detail-stat .lbl{font-size:10px}
+
+  /* Sidebar adjustments */
+  .sidebar-header{padding:16px 12px}
+
+  /* Clan card */
+  #clan-card img{width:48px!important;height:48px!important}
+  #clan-card [style*="font-size:22px"]{font-size:18px!important}
+
+  /* Detail header */
+  .detail-header{flex-wrap:wrap;gap:8px}
+
+  /* Nav */
+  .nav-item{padding:10px 14px;font-size:13px}
+}
+
+@media(max-width:480px){
+  .stat-grid{grid-template-columns:repeat(2,1fr);gap:6px}
+  .stat-card{padding:10px 8px}
+  .stat-value{font-size:16px}
+  .stat-label{font-size:12px}
+
+  .detail-stats{grid-template-columns:repeat(2,1fr)!important}
+  .detail-stat .val{font-size:15px}
+  .detail-stat .lbl{font-size:10px}
+
+  .chart-container{height:220px}
+  .chart-container.tall{height:260px}
+  .chart-container.half{height:200px}
+
+  .card-title{font-size:14px}
+  .btn{padding:6px 12px;font-size:12px}
+
+  /* Toast narrower */
+  .toast{left:10px;right:10px;transform:none;text-align:center}
+}
 </style>
 </head>
 <body>
 
 <div id="app">
+  <!-- Hamburger -->
+  <button class="hamburger" id="hamburger" aria-label="菜单">
+    <span></span><span></span><span></span>
+  </button>
+  <!-- Sidebar overlay -->
+  <div class="sidebar-overlay" id="sidebar-overlay"></div>
   <!-- Sidebar -->
-  <nav class="sidebar">
+  <nav class="sidebar" id="sidebar">
     <div class="sidebar-header">
       <span class="clan-tag" id="sidebar-tag">NMOF</span>
       <span class="clan-name" id="sidebar-name">载入中...</span>
@@ -406,15 +536,18 @@ tbody tr:hover{background:var(--bg-hover)}
   <main class="main" id="main-content">
     <!-- Overview Page -->
     <div class="page active" id="page-overview">
-      <div class="card" id="clan-card"></div>
+      <div style="display:flex;gap:16px;align-items:stretch;margin-bottom:16px" id="overview-header">
+        <div class="card" id="clan-card" style="flex:1;margin-bottom:0"></div>
+        <div class="card" id="sync-card" style="flex-shrink:0;display:flex;align-items:center;justify-content:center;min-width:130px;margin-bottom:0"></div>
+      </div>
       <div class="stat-grid" id="summary-stats"></div>
       <div class="grid-2">
         <div class="card"><div class="card-header"><span class="card-title">胜率分布</span></div><div class="chart-container"><canvas id="chart-winrate-dist"></canvas></div></div>
         <div class="card"><div class="card-header"><span class="card-title">场次 vs 均伤</span></div><div class="chart-container"><canvas id="chart-battles-dmg"></canvas></div></div>
       </div>
       <div class="grid-2">
-        <div class="card"><div class="card-header"><span class="card-title">Rating 排行 Top 10</span></div><div id="rank-list-rating" class="rank-list"></div></div>
-        <div class="card"><div class="card-header"><span class="card-title">场均伤害排行 Top 10</span><button class="btn btn-sm btn-secondary" onclick="exportCard('rank-list-dmg')">保存图片</button></div><div id="rank-list-dmg" class="rank-list"></div></div>
+        <div class="card"><div class="card-header"><span class="card-title">PR 排行 Top 10</span></div><div id="rank-list-rating" class="rank-list"></div></div>
+        <div class="card"><div class="card-header"><span class="card-title">场均伤害排行 Top 10</span></div><div id="rank-list-dmg" class="rank-list"></div></div>
       </div>
     </div>
 
@@ -445,7 +578,7 @@ tbody tr:hover{background:var(--bg-hover)}
               <th data-sort="battles" onclick="setSort('battles')">场次 <span class="sort-arrow"></span></th>
               <th data-sort="avg_damage" onclick="setSort('avg_damage')">均伤 <span class="sort-arrow"></span></th>
               <th data-sort="avg_frags" onclick="setSort('avg_frags')">场均击杀 <span class="sort-arrow"></span></th>
-              <th data-sort="global_rating" onclick="setSort('global_rating')">Rating <span class="sort-arrow"></span></th>
+              <th data-sort="global_rating" onclick="setSort('global_rating')">PR <span class="sort-arrow"></span></th>
               <th data-sort="last_battle_time" onclick="setSort('last_battle_time')">最后战斗 <span class="sort-arrow"></span></th>
             </tr>
           </thead>
@@ -532,12 +665,12 @@ let sortDir = 'desc';
 
 const ROLE_CLASS = {
   commander:'军团长', executive_officer:'副军团长', personnel_officer:'人事官',
-  combat_officer:'战斗官', recruitment_officer:'招募官',
-  intelligence_officer:'情报官', quartermaster:'军需官', private:'成员',
+  combat_officer:'指战官', recruitment_officer:'招募官',
+  intelligence_officer:'情报官', quartermaster:'军需官', private:'士兵',
   recruit:'新兵', junior_officer:'初级军官', commander_reserve:'预备指挥', reservist:'预备役',
 };
 
-function roleLabel(r){return ROLE_CLASS[r]||r||'成员'}
+function roleLabel(r){return ROLE_CLASS[r]||r||'士兵'}
 function roleBadge(r){return '<span class="role-badge role-'+r+'"><i class="epaulette-icon epaulette-'+r+'"></i>'+roleLabel(r)+'</span>'}
 
 // ============================================================
@@ -610,11 +743,21 @@ function initApp(){
   document.getElementById('sidebar-tag').textContent=c.tag;
   document.getElementById('sidebar-name').textContent=c.name;
 
+  // Hamburger toggle (mobile)
+  var hamburger=document.getElementById('hamburger');
+  var sidebarEl=document.getElementById('sidebar');
+  var overlay=document.getElementById('sidebar-overlay');
+  function openSidebar(){sidebarEl.classList.add('open');overlay.classList.add('active')}
+  function closeSidebar(){sidebarEl.classList.remove('open');overlay.classList.remove('active')}
+  hamburger.addEventListener('click',function(){sidebarEl.classList.contains('open')?closeSidebar():openSidebar()});
+  overlay.addEventListener('click',closeSidebar);
+
   // Nav clicks
   document.querySelectorAll('.nav-item').forEach(el=>{
-    el.addEventListener('click',()=>{
-      const page=el.dataset.page;
+    el.addEventListener('click',function(){
+      var page=el.dataset.page;
       if(page===currentPage&&page!=='detail')return;
+      closeSidebar();
       navigateTo(page);
     });
   });
@@ -678,13 +821,27 @@ function renderOverview(){
      '</div>'+
      '<span class="clan-desc-toggle" id="clan-desc-toggle" onclick="toggleClanDesc()">展开 ▼</span>'
     :'';
+  // Data sync card (separate from clan intro)
+  var syncHTML='<div style="text-align:center;font-size:12px;color:var(--text-muted);line-height:1.8">'+
+    '<div>数据同步</div>'+
+    '<div style="font-size:18px;font-weight:600;color:var(--text-secondary)">—</div>';
+  if(DATA._generated_at){
+    var sd=new Date(DATA._generated_at);
+    syncHTML='<div style="text-align:center;font-size:12px;color:var(--text-muted);line-height:1.8">'+
+      '<div>数据同步</div>'+
+      '<div style="font-size:16px;font-weight:600;color:var(--text-primary)">'+sd.toLocaleDateString('zh-CN')+'</div>'+
+      '<div style="color:var(--text-secondary)">'+sd.toLocaleTimeString('zh-CN',{hour:'2-digit',minute:'2-digit'})+'</div>'+
+    '</div>';
+  }
+  document.getElementById('sync-card').innerHTML=syncHTML;
+
   document.getElementById('clan-card').innerHTML=
     '<div style="display:flex;align-items:flex-start;gap:16px">'+
     (c.emblems?.x64?'<img src="'+(c.emblems.x64.wot||c.emblems.x64.portal)+'" style="width:64px;height:64px;border-radius:6px;flex-shrink:0" onerror="this.style.display=\'none\'">':'')+
     '<div style="flex:1;min-width:0">'+
       '<div style="font-size:22px;font-weight:700;color:var(--text-primary);word-break:break-word">['+c.tag+'] '+c.name+'</div>'+
       '<div style="font-size:13px;color:var(--text-secondary);margin-top:4px">'+
-        '创建于 <span style="color:var(--accent)">'+created+'</span> | <span style="color:var(--accent)">'+ms.length+'</span> 名成员'+
+        '创建于 <span style="color:var(--text-primary)">'+created+'</span> | <span style="color:var(--text-primary)">'+ms.length+'</span> 名成员'+
       '</div>'+
       descHtml+
     '</div></div>';
@@ -692,12 +849,12 @@ function renderOverview(){
   // Summary stats
   const avgFrags=clanAvg(m=>parseFloat(mAvgFrags(m)));
   document.getElementById('summary-stats').innerHTML=[
-    {v:totalBattles.toLocaleString(),l:'总场次',c:'var(--accent)'},
-    {v:avgWr+'%',l:'平均胜率',c:avgWr>=50?'var(--green)':'var(--orange)'},
-    {v:avgDmg.toLocaleString(),l:'场均伤害',c:'var(--accent2)'},
-    {v:avgFrags.toFixed(2),l:'场均击杀',c:'var(--accent2)'},
-    {v:active+' / '+ms.length,l:'活跃 / 总成员',c:'var(--accent)'},
-  ].map(s=>'<div class="stat-card"><div class="stat-value" style="color:'+s.c+'">'+s.v+'</div><div class="stat-label">'+s.l+'</div></div>').join('');
+    {v:totalBattles.toLocaleString(),l:'总场次',c:'var(--text-primary)'},
+    {v:avgWr+'%',l:'平均胜率',c:colorScale.get(avgWr,'winrate').hex},
+    {v:avgDmg.toLocaleString(),l:'场均伤害',c:colorScale.get(avgDmg,'dpg').hex},
+    {v:avgFrags.toFixed(2),l:'场均击杀',c:colorScale.get(avgFrags,'frags').hex},
+    {v:active+' / '+ms.length,l:'活跃 / 总成员',c:'var(--text-primary)'},
+  ].map(s=>'<div class="stat-card"><span class="stat-label">'+s.l+'：</span><span class="stat-value" style="color:'+s.c+'">'+s.v+'</span></div>').join('');
 
   // Winrate distribution histogram
   const wrData=ms.filter(m=>mBattles(m)>0).map(m=>mWinrate(m));
@@ -730,8 +887,11 @@ function renderOverview(){
   document.getElementById('rank-list-rating').innerHTML=topRating.map((m,i)=>
     '<div class="rank-item">'+
       '<div class="rank-num">'+(i+1)+'</div>'+
-      '<div class="rank-info"><div class="rank-name">'+m.account_name+'</div><div class="rank-role">'+roleLabel(m.role)+' | '+mBattles(m).toLocaleString()+' 场</div></div>'+
-      '<div class="rank-value">'+mRating(m).toLocaleString()+'</div>'+
+      '<div class="rank-info">'+
+        '<span class="rank-name">'+m.account_name+'</span>'+
+        '<span class="rank-value">'+mRating(m).toLocaleString()+'</span>'+
+        '<div class="rank-role">'+roleLabel(m.role)+' | '+mBattles(m).toLocaleString()+' 场</div>'+
+      '</div>'+
     '</div>'
   ).join('');
 
@@ -740,8 +900,11 @@ function renderOverview(){
   document.getElementById('rank-list-dmg').innerHTML=topDmg.map((m,i)=>
     '<div class="rank-item">'+
       '<div class="rank-num">'+(i+1)+'</div>'+
-      '<div class="rank-info"><div class="rank-name">'+m.account_name+'</div><div class="rank-role">'+roleLabel(m.role)+' | '+mBattles(m).toLocaleString()+' 场</div></div>'+
-      '<div class="rank-value">'+mAvgDmg(m).toLocaleString()+'</div>'+
+      '<div class="rank-info">'+
+        '<span class="rank-name">'+m.account_name+'</span>'+
+        '<span class="rank-value" style="color:'+colorScale.get(mAvgDmg(m),'dpg').hex+'">'+mAvgDmg(m).toLocaleString()+'</span>'+
+        '<div class="rank-role">'+roleLabel(m.role)+' | '+mBattles(m).toLocaleString()+' 场</div>'+
+      '</div>'+
     '</div>'
   ).join('');
 }
@@ -831,15 +994,15 @@ function renderMemberTable(){
 
   tbody.innerHTML=sorted.map(m=>{
     const wr=mWinrate(m);
-    const wrClass=wr>=53?'good':wr>=47?'avg':'bad';
+    const wrTier=colorScale.get(wr,'winrate');
     const lastBattle=m.last_battle_time?new Date(m.last_battle_time*1000).toLocaleDateString('zh-CN'):'-';
     return '<tr onclick="showMemberDetail('+m.account_id+')">'+
       '<td style="font-weight:500">'+m.account_name+'</td>'+
       '<td>'+roleBadge(m.role)+'</td>'+
-      '<td><span class="winrate '+wrClass+'">'+wr.toFixed(2)+'%</span></td>'+
+      '<td><span class="winrate '+wrTier.cssClass+'">'+wr.toFixed(2)+'%</span></td>'+
       '<td>'+mBattles(m).toLocaleString()+'</td>'+
-      '<td>'+mAvgDmg(m).toLocaleString()+'</td>'+
-      '<td>'+mAvgFrags(m)+'</td>'+
+      '<td style="color:'+colorScale.get(mAvgDmg(m),'dpg').hex+'">'+mAvgDmg(m).toLocaleString()+'</td>'+
+      '<td style="color:'+colorScale.get(parseFloat(mAvgFrags(m)),'frags').hex+'">'+mAvgFrags(m)+'</td>'+
       '<td>'+mRating(m).toLocaleString()+'</td>'+
       '<td>'+lastBattle+'</td>'+
     '</tr>';
@@ -878,26 +1041,26 @@ function renderMemberDetail(id){
     // 60-day stats
     (has60d?'<div class="card-title" style="margin-bottom:8px;color:var(--accent)">60日统计 <span style="font-size:11px;color:var(--text-muted);font-weight:400">(tomato.gg)</span></div>'+
     '<div class="detail-stats" style="grid-template-columns:repeat(8,1fr)">'+
-      statItem('胜率',(r60.winrate!=null?r60.winrate.toFixed(2)+'%':'-'),'-')+
+      statItem('胜率',(r60.winrate!=null?r60.winrate.toFixed(2)+'%':'-'),'-',colorScale.get(r60.winrate,'winrate').hex)+
       statItem('场次',(r60.battles||0).toLocaleString(),'-')+
-      statItem('场均伤害',(r60.dpg!=null?r60.dpg.toLocaleString():'-'),'-')+
-      statItem('WN8',(r60.wn8!=null?r60.wn8.toLocaleString():'-'),'-')+
-      statItem('WNX',(r60.wnx!=null?r60.wnx.toLocaleString():'-'),'-')+
-      statItem('场均击杀',(r60.frags!=null?r60.frags.toFixed(2):'-'),'-')+
+      statItem('场均伤害',(r60.dpg!=null?r60.dpg.toLocaleString():'-'),'-',colorScale.get(r60.dpg,'dpg').hex)+
+      statItem('WN8',(r60.wn8!=null?r60.wn8.toLocaleString():'-'),'-',colorScale.get(r60.wn8,'wn8').hex)+
+      statItem('WNX',(r60.wnx!=null?r60.wnx.toLocaleString():'-'),'-',colorScale.get(r60.wnx,'wnx').hex)+
+      statItem('场均击杀',(r60.frags!=null?r60.frags.toFixed(2):'-'),'-',colorScale.get(r60.frags,'frags').hex)+
       statItem('场均点亮',(r60.spots!=null?r60.spots.toFixed(2):'-'),'-')+
       statItem('场均助攻',(r60.assist!=null?Math.round(r60.assist).toLocaleString():'-'),'-')+
     '</div>':'')+
     // All-time stats
     '<div class="card-title" style="margin-bottom:8px">全部统计 <span style="font-size:11px;color:var(--text-muted);font-weight:400">(WG API)</span></div>'+
     '<div class="detail-stats" style="grid-template-columns:repeat(8,1fr)">'+
-      statItem('胜率',mWinrate(m).toFixed(2)+'%',clanAvgWr.toFixed(2)+'%')+
+      statItem('胜率',mWinrate(m).toFixed(2)+'%',clanAvgWr.toFixed(2)+'%',colorScale.get(mWinrate(m),'winrate').hex)+
       statItem('场次',mBattles(m).toLocaleString(),clanAvgBattles.toLocaleString())+
-      statItem('场均伤害',mAvgDmg(m).toLocaleString(),clanAvgDmg.toLocaleString())+
-      statItem('场均击杀',mAvgFrags(m),'-')+
+      statItem('场均伤害',mAvgDmg(m).toLocaleString(),clanAvgDmg.toLocaleString(),colorScale.get(mAvgDmg(m),'dpg').hex)+
+      statItem('场均击杀',mAvgFrags(m),'-',colorScale.get(parseFloat(mAvgFrags(m)),'frags').hex)+
       statItem('最高伤害',(m.statistics.max_damage||0).toLocaleString(),'-')+
       statItem('最高击杀',(m.statistics.max_frags||0).toLocaleString(),'-')+
-      statItem('Rating',(mRating(m)||0).toLocaleString(),'-')+
-      statItem('存活率',mBattles(m)>0?((m.statistics.survived_battles||0)/mBattles(m)*100).toFixed(1)+'%':'0%','-')+
+      statItem('PR',(mRating(m)||0).toLocaleString(),'-')+
+      statItem('存活率',mBattles(m)>0?((m.statistics.survived_battles||0)/mBattles(m)*100).toFixed(1)+'%':'0%','-',colorScale.get(mBattles(m)>0?((m.statistics.survived_battles||0)/mBattles(m)*100):0,'survival').hex)+
     '</div>'+
     // Charts
     '<div class="grid-2">'+
@@ -914,7 +1077,7 @@ function renderMemberDetail(id){
     createChart('detail-radar',{
       type:'radar',
       data:{
-        labels:['胜率','场次','均伤','Rating','场均击杀'],
+        labels:['胜率','场次','均伤','PR','场均击杀'],
         datasets:[
           {label:m.account_name,data:[
             mWinrate(m)/maxWr*100,mBattles(m)/maxBattles*100,
@@ -945,8 +1108,8 @@ function renderMemberDetail(id){
     });
   },100);
 
-  function statItem(label,value,avg){
-    return '<div class="detail-stat"><div class="val">'+value+'</div><div class="lbl">'+label+(avg!=='-'?' | 军团平均 '+avg:'')+'</div></div>';
+  function statItem(label,value,avg,color){
+    var c=color||'var(--text-primary)';return '<div class="detail-stat"><div class="val" style="color:'+c+'">'+value+'</div><div class="lbl">'+label+(avg!=='-'?' | 军团平均 '+avg:'')+'</div></div>';
   }
 }
 
@@ -1031,17 +1194,21 @@ function renderRanking60(){
   if (th) th.querySelector('.sort-arrow').textContent = ranking60SortDir === 'asc' ? ' ▲' : ' ▼';
 
   tbody.innerHTML = list.map((d, i) => {
-    const wrClass = d.battles > 0 ? (d.winrate >= 53 ? 'good' : d.winrate >= 47 ? 'avg' : 'bad') : '';
+    var wrTier = d.battles > 0 ? colorScale.get(d.winrate, 'winrate') : null;
+    var dpgTier = d.battles > 0 ? colorScale.get(d.dpg, 'dpg') : null;
+    var wn8Tier = d.battles > 0 ? colorScale.get(d.wn8, 'wn8') : null;
+    var survTier = d.battles > 0 ? colorScale.get(d.survival, 'survival') : null;
+    var kdTier = d.battles > 0 ? colorScale.get(d.kd, 'kd') : null;
     return '<tr onclick="showMemberDetail(' + d.account_id + ')">' +
       '<td style="color:var(--text-muted);font-size:12px">' + (i + 1) + '</td>' +
       '<td style="font-weight:500">' + d.nickname + '</td>' +
       '<td>' + roleBadge(d.role) + '</td>' +
       '<td>' + d.battles.toLocaleString() + '</td>' +
-      '<td style="font-weight:600;color:var(--accent)">' + (d.battles > 0 ? d.dpg.toLocaleString() : '-') + '</td>' +
-      '<td>' + (d.battles > 0 ? '<span class="winrate ' + wrClass + '">' + d.winrate.toFixed(2) + '%</span>' : '-') + '</td>' +
-      '<td>' + (d.battles > 0 ? d.wn8.toLocaleString() : '-') + '</td>' +
-      '<td>' + (d.battles > 0 ? d.survival.toFixed(1) + '%' : '-') + '</td>' +
-      '<td>' + (d.battles > 0 ? d.kd.toFixed(2) : '-') + '</td>' +
+      '<td style="font-weight:600;color:' + (d.battles > 0 ? dpgTier.hex : 'var(--text-muted)') + '">' + (d.battles > 0 ? d.dpg.toLocaleString() : '-') + '</td>' +
+      '<td>' + (d.battles > 0 ? '<span class="winrate ' + wrTier.cssClass + '">' + d.winrate.toFixed(2) + '%</span>' : '-') + '</td>' +
+      '<td style="color:' + (d.battles > 0 ? wn8Tier.hex : 'var(--text-muted)') + '">' + (d.battles > 0 ? d.wn8.toLocaleString() : '-') + '</td>' +
+      '<td style="color:' + (d.battles > 0 ? survTier.hex : 'var(--text-muted)') + '">' + (d.battles > 0 ? d.survival.toFixed(1) + '%' : '-') + '</td>' +
+      '<td style="color:' + (d.battles > 0 ? kdTier.hex : 'var(--text-muted)') + '">' + (d.battles > 0 ? d.kd.toFixed(2) : '-') + '</td>' +
       '</tr>';
   }).join('');
 }
@@ -1105,6 +1272,11 @@ function renderAnalysis(){
 // ============================================================
 // Export
 // ============================================================
+function isMobile(){
+  return /Android|iPhone|iPad|iPod|webOS/i.test(navigator.userAgent) ||
+    (navigator.maxTouchPoints>0&&window.innerWidth<768);
+}
+
 async function exportCard(elementId){
   const el=document.getElementById(elementId);
   if(!el)return;
@@ -1121,11 +1293,32 @@ async function exportCard(elementId){
       const m=members().find(x=>x.account_id===currentMemberId);
       if(m)suffix=m.account_name+'_'+currentMemberId;
     }
-    const link=document.createElement('a');
-    link.download='NMOF_'+suffix+'_'+new Date().toISOString().slice(0,10)+'.png';
-    link.href=canvas.toDataURL('image/png');
-    link.click();
-    showToast('图片已保存');
+    const fileName='NMOF_'+suffix+'_'+new Date().toISOString().slice(0,10)+'.png';
+
+    if(isMobile()){
+      // On mobile: use canvas.toBlob for Share API or open in new tab
+      canvas.toBlob(async (blob)=>{
+        if(navigator.share&&navigator.canShare&&navigator.canShare({files:[new File([blob],fileName,{type:'image/png'})]})){
+          try{
+            await navigator.share({files:[new File([blob],fileName,{type:'image/png'})]});
+            showToast('图片已分享');
+            return;
+          }catch(e){}
+        }
+        // Fallback: open image in new tab for long-press save
+        const url=URL.createObjectURL(blob);
+        const w=window.open(url,'_blank');
+        if(!w)showToast('请允许弹窗后重试，或长按下方图片保存');
+        showToast('图片已在新标签页打开，长按即可保存');
+      },'image/png');
+    }else{
+      // Desktop: download
+      const link=document.createElement('a');
+      link.download=fileName;
+      link.href=canvas.toDataURL('image/png');
+      link.click();
+      showToast('图片已保存');
+    }
   }catch(e){
     showToast('导出失败: '+e.message);
   }

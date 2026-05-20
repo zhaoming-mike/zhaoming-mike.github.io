@@ -194,32 +194,35 @@ function createCard(item, idx) {
   col.className = 'col-xl-3 col-lg-4 col-md-6 col-sm-6';
   col.style.animationDelay = `${idx * 0.04}s`;
 
-  const domain = extractDomain(item.url);
 
-  col.innerHTML = `
-    <div class="link-card" data-id="${item.id}">
-      <div class="card-emoji-wrap">
-        <span class="card-emoji">${escapeHTML(item.emoji || '🔗')}</span>
-      </div>
-      <div class="card-title" title="${escapeHTML(item.title)}">${escapeHTML(item.title)}</div>
-      <div class="card-url" title="${escapeHTML(item.url)}">${escapeHTML(domain)}</div>
-      <div class="card-desc">${escapeHTML(item.description || '暂无描述')}</div>
-      <div class="card-footer-actions">
-        <span class="card-badge">${escapeHTML(item.category || '未分类')}</span>
-        <div class="card-btn-group" onclick="event.stopPropagation()">
-          <button class="btn-icon btn-copy" data-copy="${escapeAttr(item.url)}" title="复制链接">
-            <i class="bi bi-clipboard"></i>
-          </button>
-          <button class="btn-icon btn-edit" data-edit="${item.id}" title="编辑">
-            <i class="bi bi-pencil-square"></i>
-          </button>
-          <button class="btn-icon btn-delete" data-delete="${item.id}" data-name="${escapeAttr(item.title)}" title="删除">
-            <i class="bi bi-trash3"></i>
-          </button>
-        </div>
-      </div>
-    </div>
-  `;
+	col.innerHTML = `
+	    <div class="link-card" data-id="${item.id}">
+	      <div class="card-header-row">
+	        <div class="card-emoji-wrap">
+	          <span class="card-emoji">${escapeHTML(item.emoji || '🔗')}</span>
+	        </div>
+	        <div class="card-info">
+	          <div class="card-title" title="${escapeHTML(item.title)}">${escapeHTML(item.title)}</div>
+	          <div class="card-url" title="${escapeHTML(item.url)}">${escapeHTML(item.url)}</div>
+	        </div>
+	      </div>
+	      <div class="card-desc">${escapeHTML(item.description || '暂无描述')}</div>
+	      <div class="card-footer-actions">
+	        <span class="card-badge">${escapeHTML(item.category || '未分类')}</span>
+	        <div class="card-btn-group" onclick="event.stopPropagation()">
+	          <button class="btn-icon btn-copy" data-copy="${escapeAttr(item.url)}" title="复制链接">
+	            <i class="bi bi-clipboard"></i>
+	          </button>
+	          <button class="btn-icon btn-edit" data-edit="${item.id}" title="编辑">
+	            <i class="bi bi-pencil-square"></i>
+	          </button>
+	          <button class="btn-icon btn-delete" data-delete="${item.id}" data-name="${escapeAttr(item.title)}" title="删除">
+	            <i class="bi bi-trash3"></i>
+	          </button>
+	        </div>
+	      </div>
+	    </div>
+	  `;
 
   // Click card → open URL
   col.querySelector('.link-card').addEventListener('click', (e) => {
@@ -496,13 +499,6 @@ function downloadFile(filename, content, mimeType) {
   a.click();
   document.body.removeChild(a);
   URL.revokeObjectURL(url);
-}
-
-function extractDomain(url) {
-  try {
-    const u = new URL(url);
-    return u.hostname.replace(/^www\./, '');
-  } catch { return url; }
 }
 
 function escapeHTML(str) {

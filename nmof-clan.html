@@ -258,7 +258,8 @@ tbody tr:hover{background:var(--bg-hover)}
 
 /* Grid card height matching */
 .grid-2>.card,.grid-3>.card{display:flex;flex-direction:column}
-.rank-list{display:grid;grid-template-columns:1fr 1fr;gap:2px 20px}
+.rank-list{display:grid;grid-template-columns:1fr 1fr 1fr;gap:2px 12px;overflow:hidden;grid-auto-rows:44px}
+#rank-list-rating,#rank-list-dmg{height:308px}
 
 /* ============================================================
    Controls
@@ -375,13 +376,13 @@ tbody tr:hover{background:var(--bg-hover)}
 .rank-list{}
 .rank-item{
   display:flex;align-items:center;gap:4px;
-  padding:4px 0;
+  padding:3px 0;
 }
 .rank-num{
-  width:24px;height:24px;
+  width:18px;height:18px;
   border-radius:50%;
   display:flex;align-items:center;justify-content:center;
-  font-size:12px;font-weight:700;
+  font-size:9px;font-weight:700;
   background:var(--bg-hover);
   color:var(--text-secondary);
   flex-shrink:0;
@@ -389,10 +390,12 @@ tbody tr:hover{background:var(--bg-hover)}
 .rank-item:nth-child(1) .rank-num{background:rgba(233,202,93,0.2);color:var(--accent)}
 .rank-item:nth-child(2) .rank-num{background:rgba(192,192,192,0.15);color:var(--text-secondary)}
 .rank-item:nth-child(3) .rank-num{background:rgba(205,127,50,0.2);color:#cd7f32}
-.rank-info{min-width:0}
-.rank-name{font-size:13px;font-weight:500}
-.rank-role{font-size:11px;color:var(--text-muted)}
-.rank-value{font-size:14px;font-weight:600;color:var(--text-primary);margin-left:6px}
+.rank-info{min-width:0;flex:1}
+.rank-row1{text-align:center}
+.rank-name{font-size:12px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100px;display:inline-block;vertical-align:bottom}
+.rank-role{font-size:10px;color:var(--text-muted)}
+.rank-value{font-size:12px;font-weight:600;color:var(--text-primary);white-space:nowrap}
+.rank-meta{font-size:10px;color:var(--text-muted);text-align:center}
 
 /* ============================================================
    Toast & Misc
@@ -406,6 +409,38 @@ tbody tr:hover{background:var(--bg-hover)}
   pointer-events:none;
 }
 .toast.show{opacity:1}
+
+/* Modal */
+.modal-overlay{
+  position:fixed;inset:0;background:rgba(0,0,0,0.6);
+  z-index:998;display:flex;align-items:flex-start;justify-content:center;
+  opacity:0;pointer-events:none;transition:opacity 0.25s;
+  overflow-y:auto;padding:40px 0;
+}
+.modal-overlay.active{opacity:1;pointer-events:auto}
+.modal-box{
+  background:var(--bg-card);border:1px solid var(--border);
+  border-radius:10px;width:90vw;max-width:600px;
+  display:flex;flex-direction:column;margin:0 auto;
+}
+.modal-header{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px 18px;border-bottom:1px solid var(--border);
+  flex-shrink:0;
+}
+.modal-title{font-size:16px;font-weight:600;color:var(--text-primary)}
+.modal-close{
+  background:none;border:none;color:var(--text-muted);
+  font-size:20px;cursor:pointer;padding:4px 8px;line-height:1;
+}
+.modal-close:hover{color:var(--text-primary)}
+.modal-body{padding:12px 18px}
+.modal-filters{
+  display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;
+  align-items:center;
+}
+.modal-filters .filter-input,.modal-filters .filter-select{font-size:12px;padding:6px 10px}
+
 .loading{
   display:flex;align-items:center;justify-content:center;
   height:200px;color:var(--text-muted);font-size:14px;
@@ -419,8 +454,8 @@ tbody tr:hover{background:var(--bg-hover)}
 @media(max-width:768px){
   /* Stack header cards */
   #overview-header{flex-direction:column}
-  #sync-card{flex-direction:row!important;min-width:auto!important}
-  #sync-card>div{display:flex;gap:8px;align-items:baseline}
+  #sync-card,#changelog-card{flex-direction:row!important;min-width:auto!important}
+  #sync-card>div,#changelog-card>div{display:flex;gap:8px;align-items:baseline}
   /* Show hamburger, hide sidebar by default */
   .hamburger{display:flex}
   .sidebar{
@@ -539,6 +574,7 @@ tbody tr:hover{background:var(--bg-hover)}
       <div style="display:flex;gap:16px;align-items:stretch;margin-bottom:16px" id="overview-header">
         <div class="card" id="clan-card" style="flex:1;margin-bottom:0"></div>
         <div class="card" id="sync-card" style="flex-shrink:0;display:flex;align-items:center;justify-content:center;min-width:130px;margin-bottom:0"></div>
+        <div class="card" id="changelog-card" style="flex-shrink:0;display:flex;align-items:center;justify-content:center;min-width:130px;margin-bottom:0;cursor:pointer" onclick="showChangelog()"></div>
       </div>
       <div class="stat-grid" id="summary-stats"></div>
       <div class="grid-2">
@@ -546,8 +582,8 @@ tbody tr:hover{background:var(--bg-hover)}
         <div class="card"><div class="card-header"><span class="card-title">场次 vs 均伤</span></div><div class="chart-container"><canvas id="chart-battles-dmg"></canvas></div></div>
       </div>
       <div class="grid-2">
-        <div class="card"><div class="card-header"><span class="card-title">PR 排行 Top 10</span></div><div id="rank-list-rating" class="rank-list"></div></div>
-        <div class="card"><div class="card-header"><span class="card-title">场均伤害排行 Top 10</span></div><div id="rank-list-dmg" class="rank-list"></div></div>
+        <div class="card"><div class="card-header"><span class="card-title">个等排行 <small>(Personal Rating)</small></span><button class="btn btn-sm btn-secondary" onclick="showFullRanking('rating')">更多 ▸</button></div><div id="rank-list-rating" class="rank-list"></div></div>
+        <div class="card"><div class="card-header"><span class="card-title">场均排行 <small>(DPG = Damage Per Game)</small></span><button class="btn btn-sm btn-secondary" onclick="showFullRanking('dpg')">更多 ▸</button></div><div id="rank-list-dmg" class="rank-list"></div></div>
       </div>
     </div>
 
@@ -609,6 +645,17 @@ tbody tr:hover{background:var(--bg-hover)}
           <select class="filter-select" id="ranking60-filter-role" onchange="renderRanking60()">
             <option value="">全部角色</option>
           </select>
+          <input class="filter-input" id="ranking60-dpg-min" placeholder="DPG≥" type="number" min="0" onchange="renderRanking60()">
+          <input class="filter-input" id="ranking60-wn8-min" placeholder="WN8≥" type="number" min="0" onchange="renderRanking60()">
+          <input class="filter-input" id="ranking60-wnx-min" placeholder="WNX≥" type="number" min="0" onchange="renderRanking60()">
+          <input class="filter-input" id="ranking60-wr-min" placeholder="胜率≥" type="number" min="0" max="100" onchange="renderRanking60()">
+          <input class="filter-input" id="ranking60-wr-max" placeholder="胜率≤" type="number" min="0" max="100" onchange="renderRanking60()">
+          <input class="filter-input" id="ranking60-survival-min" placeholder="存活率≥" type="number" min="0" max="100" onchange="renderRanking60()">
+          <input class="filter-input" id="ranking60-kd-min" placeholder="KD≥" type="number" min="0" step="0.1" onchange="renderRanking60()">
+          <select class="filter-select" id="ranking60-filter-logic" onchange="renderRanking60()">
+            <option value="and">满足全部 (且)</option>
+            <option value="or">满足任一 (或)</option>
+          </select>
           <button class="btn btn-sm btn-secondary" onclick="resetRanking60Filters()">重置</button>
         </div>
         <div style="overflow-x:auto">
@@ -622,6 +669,7 @@ tbody tr:hover{background:var(--bg-hover)}
               <th data-sort="dpg" onclick="setRanking60Sort('dpg')">场均伤害 <span class="sort-arrow"></span></th>
               <th data-sort="winrate" onclick="setRanking60Sort('winrate')">胜率 <span class="sort-arrow"></span></th>
               <th data-sort="wn8" onclick="setRanking60Sort('wn8')">WN8 <span class="sort-arrow"></span></th>
+              <th data-sort="wnx" onclick="setRanking60Sort('wnx')">WNX <span class="sort-arrow"></span></th>
               <th data-sort="survival" onclick="setRanking60Sort('survival')">存活率 <span class="sort-arrow"></span></th>
               <th data-sort="kd" onclick="setRanking60Sort('kd')">KD <span class="sort-arrow"></span></th>
             </tr>
@@ -692,16 +740,19 @@ function formatDescription(text){
     .replace(/(https?:\/\/[^\s<>"]+)/gi,'<a href="$1" target="_blank" rel="noopener" style="color:var(--accent2)">$1</a>');
 }
 
+let CHANGELOG = '';
 async function loadData(){
   try{
-    const [dataResp,tankResp,tomatoResp]=await Promise.all([
+    const [dataResp,tankResp,tomatoResp,clResp]=await Promise.all([
       fetch('data/05_nmof_complete.json'),
       fetch('data/08_tank_names.json'),
       fetch('data/07_tomato_60day.json'),
+      fetch('CHANGELOG.md'),
     ]);
     DATA=await dataResp.json();
     TANK_NAMES=await tankResp.json();
     TOMATO=await tomatoResp.json();
+    CHANGELOG = clResp.ok ? await clResp.text() : '';
     initApp();
   }catch(e){
     document.getElementById('page-overview').innerHTML=
@@ -797,7 +848,22 @@ function createChart(id,config){
   return chartInstances[id];
 }
 
-const chartColors={accent:'#e9ca5d',blue:'#4fc3f7',green:'#66bb6a',red:'#ef5350',orange:'#ffa726'};
+var _tiers = colorScale.allTiers();
+function _hexToRgba(hex, alpha) {
+  var r = parseInt(hex.slice(1, 3), 16);
+  var g = parseInt(hex.slice(3, 5), 16);
+  var b = parseInt(hex.slice(5, 7), 16);
+  return 'rgba(' + r + ',' + g + ',' + b + ',' + alpha + ')';
+}
+const chartColors={
+  accent: _tiers[4].hex,
+  blue:   _tiers[6].hex,
+  green:  _tiers[5].hex,
+  red:    _tiers[0].hex,
+  orange: _tiers[1].hex,
+  // Full 10-tier palette for multi-category charts
+  palette: _tiers.map(function(t){return t.hex;}),
+};
 Chart.defaults.color='#9aa0a8';
 Chart.defaults.borderColor='rgba(42,45,53,0.5)';
 Chart.defaults.font.family='Inter,-apple-system,sans-serif';
@@ -835,6 +901,9 @@ function renderOverview(){
   }
   document.getElementById('sync-card').innerHTML=syncHTML;
 
+  // Changelog card
+  renderChangelogCard();
+
   document.getElementById('clan-card').innerHTML=
     '<div style="display:flex;align-items:flex-start;gap:16px">'+
     (c.emblems?.x64?'<img src="'+(c.emblems.x64.wot||c.emblems.x64.portal)+'" style="width:64px;height:64px;border-radius:6px;flex-shrink:0" onerror="this.style.display=\'none\'">':'')+
@@ -865,45 +934,54 @@ function renderOverview(){
     return wrData.filter(v=>v>=lo&&v<hi).length;
   });
 
+  const wrColors=wrLabels.map(function(l){
+    var mid=parseFloat(l.replace(/[<%]/g,''))||42;
+    if (/\+/.test(l)) mid=62;
+    return colorScale.get(mid,'winrate').hex;
+  });
   createChart('chart-winrate-dist',{
     type:'bar',
-    data:{labels:wrLabels,datasets:[{label:'成员数',data:wrCounts,backgroundColor:chartColors.accent,borderRadius:4}]},
+    data:{labels:wrLabels,datasets:[{label:'成员数',data:wrCounts,backgroundColor:wrColors,borderRadius:4}]},
     options:{responsive:true,maintainAspectRatio:false,
       plugins:{legend:{display:false}},
       scales:{y:{beginAtZero:true,title:{display:true,text:'人数'}},x:{title:{display:true,text:'胜率区间'}}}}
   });
 
   // Battles vs Avg Damage scatter
-  const scatterData=ms.filter(m=>mBattles(m)>0&&mBattles(m)<=40000).map(m=>({x:mBattles(m),y:mAvgDmg(m)}));
+  const scatterData=ms.filter(m=>mBattles(m)>0&&mBattles(m)<=40000).map(function(m){
+    var dpg=mAvgDmg(m);
+    return {x:mBattles(m),y:dpg,nickname:m.account_name,dpg:dpg};
+  });
   createChart('chart-battles-dmg',{
     type:'scatter',
-    data:{datasets:[{label:'成员',data:scatterData,backgroundColor:chartColors.blue,pointRadius:5,pointHoverRadius:7}]},
+    data:{datasets:[{label:'成员',data:scatterData,
+      backgroundColor:function(ctx){var d=ctx.raw;return colorScale.get(d.dpg,'dpg').hex;},
+      pointRadius:5,pointHoverRadius:7}]},
     options:{responsive:true,maintainAspectRatio:false,
-      scales:{x:{title:{display:true,text:'场次'}},y:{title:{display:true,text:'均伤'}}}}
+      scales:{x:{title:{display:true,text:'场次'}},y:{title:{display:true,text:'均伤'}}},
+      plugins:{tooltip:{callbacks:{label:function(ctx){return ctx.raw.nickname+': '+ctx.raw.y.toLocaleString()+' / '+ctx.raw.x+'场';}}}}}
   });
 
-  // Top 10 Rating
-  const topRating=[...ms].sort((a,b)=>mRating(b)-mRating(a)).slice(0,10);
+  // Rating ranking
+  const topRating=[...ms].sort((a,b)=>mRating(b)-mRating(a));
   document.getElementById('rank-list-rating').innerHTML=topRating.map((m,i)=>
     '<div class="rank-item">'+
       '<div class="rank-num">'+(i+1)+'</div>'+
       '<div class="rank-info">'+
-        '<span class="rank-name">'+m.account_name+'</span>'+
-        '<span class="rank-value">'+mRating(m).toLocaleString()+'</span>'+
-        '<div class="rank-role">'+roleLabel(m.role)+' | '+mBattles(m).toLocaleString()+' 场</div>'+
+        '<div class="rank-row1"><span class="rank-name">'+m.account_name+'</span> <span class="rank-value">'+mRating(m).toLocaleString()+'</span></div>'+
+        '<div class="rank-meta">'+mWinrate(m).toFixed(1)+'% | '+mBattles(m).toLocaleString()+'场</div>'+
       '</div>'+
     '</div>'
   ).join('');
 
-  // Top 10 Avg Damage
-  const topDmg=[...ms].filter(m=>mBattles(m)>=100).sort((a,b)=>mAvgDmg(b)-mAvgDmg(a)).slice(0,10);
+  // Avg Damage ranking
+  const topDmg=[...ms].filter(m=>mBattles(m)>=100).sort((a,b)=>mAvgDmg(b)-mAvgDmg(a));
   document.getElementById('rank-list-dmg').innerHTML=topDmg.map((m,i)=>
     '<div class="rank-item">'+
       '<div class="rank-num">'+(i+1)+'</div>'+
       '<div class="rank-info">'+
-        '<span class="rank-name">'+m.account_name+'</span>'+
-        '<span class="rank-value" style="color:'+colorScale.get(mAvgDmg(m),'dpg').hex+'">'+mAvgDmg(m).toLocaleString()+'</span>'+
-        '<div class="rank-role">'+roleLabel(m.role)+' | '+mBattles(m).toLocaleString()+' 场</div>'+
+        '<div class="rank-row1"><span class="rank-name">'+m.account_name+'</span> <span class="rank-value" style="color:'+colorScale.get(mAvgDmg(m),'dpg').hex+'">'+mAvgDmg(m).toLocaleString()+'</span></div>'+
+        '<div class="rank-meta">'+mWinrate(m).toFixed(1)+'% | '+mBattles(m).toLocaleString()+'场</div>'+
       '</div>'+
     '</div>'
   ).join('');
@@ -1082,11 +1160,11 @@ function renderMemberDetail(id){
           {label:m.account_name,data:[
             mWinrate(m)/maxWr*100,mBattles(m)/maxBattles*100,
             mAvgDmg(m)/maxDmg*100,mRating(m)/10000*100,parseFloat(mAvgFrags(m))/5*100
-          ],borderColor:chartColors.accent,backgroundColor:'rgba(233,202,93,0.1)',pointRadius:4},
+          ],borderColor:chartColors.accent,backgroundColor:_hexToRgba(chartColors.accent,0.1),pointRadius:4},
           {label:'军团平均',data:[
             clanAvgWr/maxWr*100,clanAvgBattles/maxBattles*100,
             clanAvgDmg/maxDmg*100,members().reduce((s,x)=>s+mRating(x),0)/members().length/10000*100,0
-          ],borderColor:chartColors.blue,backgroundColor:'rgba(79,195,247,0.1)',pointRadius:4},
+          ],borderColor:chartColors.blue,backgroundColor:_hexToRgba(chartColors.blue,0.1),pointRadius:4},
         ]
       },
       options:{responsive:true,maintainAspectRatio:false,
@@ -1132,6 +1210,7 @@ function ranking60Data(){
       dpg: r60.dpg != null ? r60.dpg : 0,
       winrate: r60.winrate != null ? r60.winrate : 0,
       wn8: r60.wn8 != null ? r60.wn8 : 0,
+      wnx: r60.wnx != null ? r60.wnx : 0,
       survival: r60.survivalRate != null ? r60.survivalRate : 0,
       kd: r60.kd != null ? r60.kd : 0,
     };
@@ -1161,6 +1240,14 @@ function resetRanking60Filters(){
   document.getElementById('ranking60-search').value = '';
   document.getElementById('ranking60-battles-min').value = '';
   document.getElementById('ranking60-filter-role').value = '';
+  document.getElementById('ranking60-dpg-min').value = '';
+  document.getElementById('ranking60-wn8-min').value = '';
+  document.getElementById('ranking60-wnx-min').value = '';
+  document.getElementById('ranking60-wr-min').value = '';
+  document.getElementById('ranking60-wr-max').value = '';
+  document.getElementById('ranking60-survival-min').value = '';
+  document.getElementById('ranking60-kd-min').value = '';
+  document.getElementById('ranking60-filter-logic').value = 'and';
   renderRanking60();
 }
 
@@ -1168,12 +1255,29 @@ function renderRanking60(){
   const search = document.getElementById('ranking60-search').value.toLowerCase();
   const battlesMin = parseInt(document.getElementById('ranking60-battles-min').value) || 0;
   const role = document.getElementById('ranking60-filter-role').value;
+  const dpgMin = parseInt(document.getElementById('ranking60-dpg-min').value) || 0;
+  const wn8Min = parseInt(document.getElementById('ranking60-wn8-min').value) || 0;
+  const wnxMin = parseInt(document.getElementById('ranking60-wnx-min').value) || 0;
+  const wrMin = parseFloat(document.getElementById('ranking60-wr-min').value) || 0;
+  const wrMax = parseFloat(document.getElementById('ranking60-wr-max').value) || 100;
+  const survMin = parseFloat(document.getElementById('ranking60-survival-min').value) || 0;
+  const kdMin = parseFloat(document.getElementById('ranking60-kd-min').value) || 0;
+  const logic = document.getElementById('ranking60-filter-logic').value;
 
   let list = ranking60Data().filter(d => {
-    if (search && !d.nickname.toLowerCase().includes(search)) return false;
-    if (role && d.role !== role) return false;
-    if (d.battles < battlesMin) return false;
-    return true;
+    var conds = [];
+    if (search) conds.push(d.nickname.toLowerCase().includes(search));
+    if (role) conds.push(d.role === role);
+    if (battlesMin > 0) conds.push(d.battles >= battlesMin);
+    if (dpgMin > 0) conds.push(d.dpg >= dpgMin);
+    if (wn8Min > 0) conds.push(d.wn8 >= wn8Min);
+    if (wnxMin > 0) conds.push(d.wnx >= wnxMin);
+    if (wrMin > 0) conds.push(d.winrate >= wrMin);
+    if (wrMax < 100) conds.push(d.winrate <= wrMax);
+    if (survMin > 0) conds.push(d.survival >= survMin);
+    if (kdMin > 0) conds.push(d.kd >= kdMin);
+    if (conds.length === 0) return true;
+    return logic === 'or' ? conds.some(function(c){return c;}) : conds.every(function(c){return c;});
   });
 
   list.sort((a, b) => {
@@ -1197,6 +1301,7 @@ function renderRanking60(){
     var wrTier = d.battles > 0 ? colorScale.get(d.winrate, 'winrate') : null;
     var dpgTier = d.battles > 0 ? colorScale.get(d.dpg, 'dpg') : null;
     var wn8Tier = d.battles > 0 ? colorScale.get(d.wn8, 'wn8') : null;
+    var wnxTier = d.battles > 0 ? colorScale.get(d.wnx, 'wnx') : null;
     var survTier = d.battles > 0 ? colorScale.get(d.survival, 'survival') : null;
     var kdTier = d.battles > 0 ? colorScale.get(d.kd, 'kd') : null;
     return '<tr onclick="showMemberDetail(' + d.account_id + ')">' +
@@ -1207,6 +1312,7 @@ function renderRanking60(){
       '<td style="font-weight:600;color:' + (d.battles > 0 ? dpgTier.hex : 'var(--text-muted)') + '">' + (d.battles > 0 ? d.dpg.toLocaleString() : '-') + '</td>' +
       '<td>' + (d.battles > 0 ? '<span class="winrate ' + wrTier.cssClass + '">' + d.winrate.toFixed(2) + '%</span>' : '-') + '</td>' +
       '<td style="color:' + (d.battles > 0 ? wn8Tier.hex : 'var(--text-muted)') + '">' + (d.battles > 0 ? d.wn8.toLocaleString() : '-') + '</td>' +
+      '<td style="color:' + (d.battles > 0 ? wnxTier.hex : 'var(--text-muted)') + '">' + (d.battles > 0 ? d.wnx.toLocaleString() : '-') + '</td>' +
       '<td style="color:' + (d.battles > 0 ? survTier.hex : 'var(--text-muted)') + '">' + (d.battles > 0 ? d.survival.toFixed(1) + '%' : '-') + '</td>' +
       '<td style="color:' + (d.battles > 0 ? kdTier.hex : 'var(--text-muted)') + '">' + (d.battles > 0 ? d.kd.toFixed(2) : '-') + '</td>' +
       '</tr>';
@@ -1234,9 +1340,14 @@ function renderAnalysis(){
   const wrBins=[0,44,47,50,53,56,60,100];
   const wrLabels=['<44%','44-47%','47-50%','50-53%','53-56%','56-60%','60%+'];
   const wrCounts=wrBins.slice(0,-1).map((lo,i)=>ms.filter(m=>mWinrate(m)>=lo&&mWinrate(m)<wrBins[i+1]).length);
+  const wrColors2=wrLabels.map(function(l){
+    var mid=parseFloat(l.replace(/[<%]/g,''))||42;
+    if (/\+/.test(l)) mid=62;
+    return colorScale.get(mid,'winrate').hex;
+  });
   createChart('chart-winrate-dist2',{
     type:'bar',
-    data:{labels:wrLabels,datasets:[{label:'成员数',data:wrCounts,backgroundColor:chartColors.green,borderRadius:4}]},
+    data:{labels:wrLabels,datasets:[{label:'成员数',data:wrCounts,backgroundColor:wrColors2,borderRadius:4}]},
     options:{responsive:true,maintainAspectRatio:false,
       plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,title:{display:true,text:'人数'}}}}
   });
@@ -1244,9 +1355,15 @@ function renderAnalysis(){
   // Battles vs Winrate scatter
   createChart('chart-battles-wr',{
     type:'scatter',
-    data:{datasets:[{label:'成员',data:ms.filter(m=>mBattles(m)<=40000).map(m=>({x:mBattles(m),y:mWinrate(m)})),backgroundColor:chartColors.orange,pointRadius:5}]},
+    data:{datasets:[{label:'成员',data:ms.filter(m=>mBattles(m)<=40000).map(function(m){
+      var wr=mWinrate(m);
+      return {x:mBattles(m),y:wr,nickname:m.account_name,wr:wr};
+    }),
+      backgroundColor:function(ctx){var d=ctx.raw;return colorScale.get(d.wr,'winrate').hex;},
+      pointRadius:5}]},
     options:{responsive:true,maintainAspectRatio:false,
-      scales:{x:{title:{display:true,text:'场次'}},y:{title:{display:true,text:'胜率 %'},min:30,max:70}}}
+      scales:{x:{title:{display:true,text:'场次'}},y:{title:{display:true,text:'胜率 %'},min:30,max:70}},
+      plugins:{tooltip:{callbacks:{label:function(ctx){return ctx.raw.nickname+': '+ctx.raw.y.toFixed(1)+'% / '+ctx.raw.x+'场';}}}}}
   });
 
   // Role distribution
@@ -1255,7 +1372,7 @@ function renderAnalysis(){
   const roleEntries=Object.entries(roleMap).sort((a,b)=>b[1]-a[1]);
   createChart('chart-roles',{
     type:'doughnut',
-    data:{labels:roleEntries.map(e=>e[0]),datasets:[{data:roleEntries.map(e=>e[1]),backgroundColor:[chartColors.accent,chartColors.blue,chartColors.green,chartColors.red,chartColors.orange,'#ab47bc','#26c6da','#78909c','#8d6e63','#ff7043']}]},
+    data:{labels:roleEntries.map(e=>e[0]),datasets:[{data:roleEntries.map(e=>e[1]),backgroundColor:chartColors.palette}]},
     options:{responsive:true,maintainAspectRatio:false,
       plugins:{legend:{position:'right',labels:{padding:12,font:{size:12}}}}}
   });
@@ -1263,9 +1380,15 @@ function renderAnalysis(){
   // Damage vs Frags scatter
   createChart('chart-dmg-frags',{
     type:'scatter',
-    data:{datasets:[{label:'成员',data:ms.filter(m=>mBattles(m)>0&&mBattles(m)<=40000).map(m=>({x:mAvgDmg(m),y:parseFloat(mAvgFrags(m))})),backgroundColor:chartColors.green,pointRadius:5}]},
+    data:{datasets:[{label:'成员',data:ms.filter(m=>mBattles(m)>0&&mBattles(m)<=40000).map(function(m){
+      var dpg=mAvgDmg(m);
+      return {x:dpg,y:parseFloat(mAvgFrags(m)),nickname:m.account_name,dpg:dpg};
+    }),
+      backgroundColor:function(ctx){var d=ctx.raw;return colorScale.get(d.dpg,'dpg').hex;},
+      pointRadius:5}]},
     options:{responsive:true,maintainAspectRatio:false,
-      scales:{x:{title:{display:true,text:'场均伤害'}},y:{title:{display:true,text:'场均击杀'}}}}
+      scales:{x:{title:{display:true,text:'场均伤害'}},y:{title:{display:true,text:'场均击杀'}}},
+      plugins:{tooltip:{callbacks:{label:function(ctx){return ctx.raw.nickname+': '+ctx.raw.x.toLocaleString()+' / '+ctx.raw.y.toFixed(2);}}}}}
   });
 }
 
@@ -1325,6 +1448,148 @@ async function exportCard(elementId){
 }
 
 // ============================================================
+// Changelog
+// ============================================================
+function parseChangelog(md){
+  if (!md) return [];
+  var entries = [];
+  var lines = md.split('\n');
+  var current = null;
+  for (var i = 0; i < lines.length; i++) {
+    var line = lines[i].trim();
+    if (!line) continue;
+    if (line.match(/^##\s+(\d{4}-\d{2}-\d{2})/)) {
+      if (current) entries.push(current);
+      current = { date: RegExp.$1, items: [] };
+    } else if (current && line.startsWith('- ')) {
+      current.items.push(line.slice(2));
+    }
+  }
+  if (current) entries.push(current);
+  return entries;
+}
+
+function renderChangelogCard(){
+  var entries = parseChangelog(CHANGELOG);
+  var card = document.getElementById('changelog-card');
+  if (!entries.length) { card.style.display = 'none'; return; }
+  var latest = entries[0].date;
+  card.innerHTML =
+    '<div style="text-align:center;font-size:12px;color:var(--text-muted);line-height:1.8">' +
+      '<div>更新日志</div>' +
+      '<div style="font-size:16px;font-weight:600;color:var(--text-primary)">' + latest + '</div>' +
+      '<div style="color:var(--text-secondary)">点击查看详情</div>' +
+    '</div>';
+}
+
+function showChangelog(){
+  var entries = parseChangelog(CHANGELOG);
+  var modal = document.getElementById('full-ranking-modal');
+  var title = document.getElementById('full-ranking-title');
+  var body = document.getElementById('full-ranking-body');
+  title.textContent = '更新日志';
+  var html = '';
+  for (var i = 0; i < entries.length; i++) {
+    var e = entries[i];
+    html += '<div style="margin-bottom:16px">' +
+      '<div style="font-size:14px;font-weight:600;color:var(--text-primary);margin-bottom:6px">' + e.date + '</div>' +
+      '<ul style="margin:0;padding-left:18px;color:var(--text-secondary);font-size:13px;line-height:1.8">';
+    for (var j = 0; j < e.items.length; j++) {
+      html += '<li>' + e.items[j] + '</li>';
+    }
+    html += '</ul></div>';
+  }
+  body.innerHTML = html;
+  modalRankingType = 'changelog';
+  modal.classList.add('active');
+}
+
+// ============================================================
+// Full Ranking Modal
+// ============================================================
+var modalRankingType = '';
+var modalRoles = [];
+
+function showFullRanking(type){
+  modalRankingType = type;
+  var modal = document.getElementById('full-ranking-modal');
+  var title = document.getElementById('full-ranking-title');
+  var body = document.getElementById('full-ranking-body');
+  var ms = members();
+
+  title.textContent = type === 'rating' ? '个等排行 (Personal Rating)' : '场均排行 (DPG = Damage Per Game)';
+
+  var roleSet = new Set();
+  ms.forEach(function(m){ if(m.role) roleSet.add(m.role); });
+  modalRoles = Array.from(roleSet).sort();
+
+  body.innerHTML =
+    '<div class="modal-filters">' +
+      '<input class="filter-input" id="modal-search" placeholder="搜索昵称..." oninput="renderModalRanking()" style="width:140px">' +
+      '<select class="filter-select" id="modal-role" onchange="renderModalRanking()">' +
+        '<option value="">全部角色</option>' +
+        modalRoles.map(function(r){return '<option value="'+r+'">'+roleLabel(r)+'</option>';}).join('') +
+      '</select>' +
+      '<input class="filter-input" id="modal-battles-min" placeholder="场次≥" type="number" min="0" onchange="renderModalRanking()" style="width:80px">' +
+      '<span style="font-size:12px;color:var(--text-muted)" id="modal-count"></span>' +
+    '</div>' +
+    '<div id="modal-rank-list" class="rank-list"></div>';
+
+  renderModalRanking();
+  modal.classList.add('active');
+}
+
+function renderModalRanking(){
+  var search = (document.getElementById('modal-search')?.value || '').toLowerCase();
+  var role = document.getElementById('modal-role')?.value || '';
+  var battlesMin = parseInt(document.getElementById('modal-battles-min')?.value) || 0;
+  var ms = members();
+
+  var list;
+  if (modalRankingType === 'rating') {
+    list = [...ms].sort(function(a,b){return mRating(b) - mRating(a);});
+  } else {
+    list = [...ms].filter(function(m){return mBattles(m) >= 100;}).sort(function(a,b){return mAvgDmg(b) - mAvgDmg(a);});
+  }
+
+  list = list.filter(function(m){
+    if (search && !m.account_name.toLowerCase().includes(search)) return false;
+    if (role && m.role !== role) return false;
+    if (battlesMin > 0 && mBattles(m) < battlesMin) return false;
+    return true;
+  });
+
+  var countEl = document.getElementById('modal-count');
+  if (countEl) countEl.textContent = '(' + list.length + '人)';
+
+  var listEl = document.getElementById('modal-rank-list');
+  if (!listEl) return;
+
+  listEl.innerHTML = list.map(function(m, i){
+    if (modalRankingType === 'rating') {
+      return '<div class="rank-item">' +
+        '<div class="rank-num">' + (i + 1) + '</div>' +
+        '<div class="rank-info">' +
+          '<div class="rank-row1"><span class="rank-name">' + m.account_name + '</span> <span class="rank-value">' + mRating(m).toLocaleString() + '</span></div>' +
+          '<div class="rank-meta">' + mWinrate(m).toFixed(1) + '% | ' + mBattles(m).toLocaleString() + '场</div>' +
+        '</div>' +
+      '</div>';
+    }
+    return '<div class="rank-item">' +
+      '<div class="rank-num">' + (i + 1) + '</div>' +
+      '<div class="rank-info">' +
+        '<div class="rank-row1"><span class="rank-name">' + m.account_name + '</span> <span class="rank-value" style="color:' + colorScale.get(mAvgDmg(m), 'dpg').hex + '">' + mAvgDmg(m).toLocaleString() + '</span></div>' +
+        '<div class="rank-meta">' + mWinrate(m).toFixed(1) + '% | ' + mBattles(m).toLocaleString() + '场</div>' +
+      '</div>' +
+    '</div>';
+  }).join('');
+}
+
+function closeFullRanking(){
+  document.getElementById('full-ranking-modal').classList.remove('active');
+}
+
+// ============================================================
 // Toast
 // ============================================================
 let toastTimer;
@@ -1340,5 +1605,14 @@ function showToast(msg){
 // ============================================================
 loadData();
 </script>
+<div class="modal-overlay" id="full-ranking-modal" onclick="if(event.target===this)closeFullRanking()">
+  <div class="modal-box">
+    <div class="modal-header">
+      <span class="modal-title" id="full-ranking-title"></span>
+      <button class="modal-close" onclick="closeFullRanking()">✕</button>
+    </div>
+    <div class="modal-body" id="full-ranking-body"></div>
+  </div>
+</div>
 </body>
 </html>

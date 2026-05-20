@@ -169,6 +169,14 @@ body {
   opacity: 1;
 }
 
+/* ---- Card header row: icon left, title + url right ---- */
+.card-header-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 10px;
+}
+
 .card-emoji-wrap {
   width: 56px;
   height: 56px;
@@ -177,7 +185,6 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 14px;
   flex-shrink: 0;
 }
 
@@ -186,11 +193,16 @@ body {
   line-height: 1;
 }
 
+.card-info {
+  flex: 1;
+  min-width: 0;
+}
+
 .card-title {
   font-size: 1rem;
   font-weight: 700;
   color: #212529;
-  margin-bottom: 4px;
+  margin-bottom: 2px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -199,11 +211,9 @@ body {
 .card-url {
   font-size: 0.78rem;
   color: var(--app-accent);
-  margin-bottom: 10px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  position: relative;
 }
 
 .card-desc {
@@ -382,6 +392,7 @@ body {
   .search-wrapper { padding: 0 14px; }
   .search-input { font-size: 0.88rem; padding: 12px 0; }
   .link-card { padding: 18px 14px 16px; }
+  .card-header-row { gap: 10px; }
   .card-emoji-wrap { width: 44px; height: 44px; border-radius: 12px; }
   .card-emoji { font-size: 1.4rem; }
 }

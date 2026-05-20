@@ -1,0 +1,1151 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NMOF 军团数据中心</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+<style>
+/* ============================================================
+   CSS Reset & Variables
+   ============================================================ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg-primary:#0d0f12;
+  --bg-secondary:#14171c;
+  --bg-card:#1a1d24;
+  --bg-hover:#1f232b;
+  --border:#2a2d35;
+  --text-primary:#e8eaed;
+  --text-secondary:#9aa0a8;
+  --text-muted:#5f6368;
+  --accent:#e9ca5d;
+  --accent2:#4fc3f7;
+  --green:#66bb6a;
+  --red:#ef5350;
+  --orange:#ffa726;
+  --radius:8px;
+  --radius-lg:12px;
+  --shadow:0 2px 8px rgba(0,0,0,0.3);
+  --chart-1:var(--accent);
+  --chart-2:var(--accent2);
+  --chart-3:var(--green);
+  --chart-4:var(--red);
+  --chart-5:var(--orange);
+}
+html,body{height:100%}
+body{
+  font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+  background:var(--bg-primary);
+  color:var(--text-primary);
+  line-height:1.5;
+  overflow:hidden;
+}
+
+/* ============================================================
+   Layout
+   ============================================================ */
+#app{display:flex;height:100vh}
+.sidebar{
+  width:220px;min-width:220px;
+  background:var(--bg-secondary);
+  border-right:1px solid var(--border);
+  display:flex;flex-direction:column;
+  padding:0;
+  z-index:10;
+}
+.sidebar-header{
+  padding:20px 16px 16px;
+  border-bottom:1px solid var(--border);
+  display:flex;align-items:center;gap:10px;
+}
+.sidebar-header .clan-tag{
+  background:var(--accent);
+  color:#000;
+  font-weight:800;
+  font-size:13px;
+  padding:3px 8px;
+  border-radius:4px;
+}
+.sidebar-header .clan-name{
+  font-size:14px;
+  font-weight:600;
+  color:var(--text-primary);
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.nav-item{
+  display:flex;align-items:center;gap:10px;
+  padding:12px 16px;
+  cursor:pointer;
+  color:var(--text-secondary);
+  font-size:14px;
+  transition:all 0.15s;
+  border-left:3px solid transparent;
+  user-select:none;
+}
+.nav-item:hover{color:var(--text-primary);background:var(--bg-hover)}
+.nav-item.active{
+  color:var(--accent);
+  background:rgba(233,202,93,0.06);
+  border-left-color:var(--accent);
+}
+.nav-item .icon{font-size:18px;width:24px;text-align:center}
+.nav-section{
+  padding:8px 16px 4px;
+  font-size:11px;
+  color:var(--text-muted);
+  text-transform:uppercase;
+  letter-spacing:1px;
+  margin-top:8px;
+}
+.main{
+  flex:1;
+  overflow-y:auto;
+  overflow-x:hidden;
+  padding:24px 28px;
+}
+.page{display:none}
+.page.active{display:block}
+
+/* ============================================================
+   Cards & Components
+   ============================================================ */
+.card{
+  background:var(--bg-card);
+  border:1px solid var(--border);
+  border-radius:var(--radius-lg);
+  padding:20px;
+  margin-bottom:16px;
+}
+.card-header{
+  display:flex;align-items:center;justify-content:space-between;
+  margin-bottom:16px;
+}
+.card-title{
+  font-size:15px;
+  font-weight:600;
+  color:var(--text-primary);
+}
+.card-subtitle{
+  font-size:12px;
+  color:var(--text-muted);
+}
+.stat-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(200px,1fr));
+  gap:12px;
+  margin-bottom:20px;
+}
+.stat-card{
+  background:var(--bg-card);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:16px;
+  text-align:center;
+}
+.stat-value{
+  font-size:28px;
+  font-weight:700;
+  color:var(--accent);
+  line-height:1.2;
+}
+.stat-label{
+  font-size:12px;
+  color:var(--text-muted);
+  margin-top:4px;
+}
+.chart-container{
+  position:relative;
+  width:100%;
+  height:320px;
+}
+.chart-container.tall{height:400px}
+.chart-container.half{height:280px}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px}
+@media(max-width:1200px){.grid-2,.grid-3{grid-template-columns:1fr}}
+
+/* ============================================================
+   Table
+   ============================================================ */
+table{width:100%;border-collapse:collapse}
+thead th{
+  padding:10px 12px;
+  text-align:left;
+  font-size:12px;
+  font-weight:600;
+  color:var(--text-muted);
+  text-transform:uppercase;
+  letter-spacing:0.5px;
+  border-bottom:1px solid var(--border);
+  cursor:pointer;
+  white-space:nowrap;
+  user-select:none;
+}
+thead th:hover{color:var(--text-primary)}
+thead th .sort-arrow{margin-left:4px;font-size:10px}
+tbody td{
+  padding:10px 12px;
+  font-size:13px;
+  border-bottom:1px solid rgba(42,45,53,0.5);
+}
+tbody tr{cursor:pointer;transition:background 0.1s}
+tbody tr:hover{background:var(--bg-hover)}
+.winrate{font-weight:600;font-family:'JetBrains Mono',monospace}
+.winrate.good{color:var(--green)}
+.winrate.avg{color:var(--orange)}
+.winrate.bad{color:var(--red)}
+
+/* Clan description */
+.clan-desc{
+  font-size:13px;color:var(--text-secondary);margin-top:8px;
+  line-height:1.7;max-width:700px;
+  position:relative;overflow:hidden;
+}
+.clan-desc.collapsed{max-height:4.6em}
+.clan-desc-inner{white-space:pre-wrap;word-break:break-word}
+.clan-desc.collapsed .clan-desc-inner::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:2em;
+  background:linear-gradient(transparent,var(--bg-card));
+}
+.clan-desc a{color:var(--accent2);text-decoration:none}
+.clan-desc a:hover{text-decoration:underline}
+.clan-desc-toggle{
+  font-size:12px;color:var(--accent2);cursor:pointer;
+  margin-top:4px;display:inline-block;user-select:none;
+}
+.clan-desc-toggle:hover{text-decoration:underline}
+
+/* Grid card height matching */
+.grid-2>.card,.grid-3>.card{display:flex;flex-direction:column}
+.grid-2>.card .rank-list{flex:1;overflow-y:auto;max-height:420px}
+.rank-list{overflow-y:auto}
+
+/* ============================================================
+   Controls
+   ============================================================ */
+.controls{
+  display:flex;gap:10px;flex-wrap:wrap;
+  margin-bottom:16px;align-items:center;
+}
+.search-input{
+  background:var(--bg-card);
+  border:1px solid var(--border);
+  color:var(--text-primary);
+  padding:8px 14px;
+  border-radius:6px;
+  font-size:13px;
+  width:240px;
+  outline:none;
+}
+.search-input:focus{border-color:var(--accent)}
+.search-input::placeholder{color:var(--text-muted)}
+.filter-select,.filter-input{
+  background:var(--bg-card);
+  border:1px solid var(--border);
+  color:var(--text-primary);
+  padding:8px 12px;
+  border-radius:6px;
+  font-size:13px;
+  outline:none;
+}
+.filter-input{width:90px}
+.btn{
+  padding:8px 16px;
+  border-radius:6px;
+  font-size:13px;
+  font-weight:500;
+  border:none;
+  cursor:pointer;
+  transition:all 0.15s;
+  display:inline-flex;align-items:center;gap:6px;
+}
+.btn-primary{background:var(--accent);color:#000}
+.btn-primary:hover{filter:brightness(110%)}
+.btn-secondary{background:var(--bg-hover);color:var(--text-primary);border:1px solid var(--border)}
+.btn-secondary:hover{background:var(--border)}
+.btn-sm{padding:5px 10px;font-size:12px}
+.role-badge{
+  display:inline-block;
+  padding:2px 8px;
+  border-radius:4px;
+  font-size:12px;
+  font-weight:500;
+  background:rgba(154,160,168,0.15);
+  color:var(--text-secondary);
+}
+.role-commander{background:rgba(233,202,93,0.2);color:var(--accent)}
+.role-executive_officer{background:rgba(79,195,247,0.15);color:var(--accent2)}
+.role-combat_officer{background:rgba(239,83,80,0.15);color:var(--red)}
+.role-personnel_officer{background:rgba(102,187,106,0.15);color:var(--green)}
+.role-recruitment_officer{background:rgba(255,167,38,0.15);color:var(--orange)}
+.role-intelligence_officer{background:rgba(171,71,188,0.15);color:#ab47bc}
+.role-quartermaster{background:rgba(38,198,218,0.15);color:#26c6da}
+.role-junior_officer{background:rgba(79,195,247,0.1);color:var(--accent2)}
+.role-commander_reserve{background:rgba(120,144,156,0.15);color:#78909c}
+.role-recruit{background:rgba(95,99,104,0.15);color:var(--text-muted)}
+.role-reservist{background:rgba(120,144,156,0.15);color:#78909c}
+.epaulette-icon{
+  display:inline-block;
+  width:24px;height:24px;
+  background:url('images/epaulettes.png') no-repeat;
+  background-size:288px 24px;
+  vertical-align:middle;
+  margin-right:4px;
+  border-radius:2px;
+}
+.epaulette-commander{background-position:0 0}
+.epaulette-executive_officer{background-position:-24px 0}
+.epaulette-personnel_officer{background-position:-48px 0}
+.epaulette-combat_officer{background-position:-72px 0}
+.epaulette-intelligence_officer{background-position:-96px 0}
+.epaulette-quartermaster{background-position:-120px 0}
+.epaulette-recruitment_officer{background-position:-144px 0}
+.epaulette-junior_officer{background-position:-168px 0}
+.epaulette-private{background-position:-192px 0}
+.epaulette-recruit{background-position:-216px 0}
+.epaulette-reservist{background-position:-240px 0}
+.epaulette-none{background-position:-264px 0}
+
+/* ============================================================
+   Detail View
+   ============================================================ */
+.detail-header{
+  display:flex;align-items:center;gap:12px;margin-bottom:20px;
+}
+.back-btn{
+  background:none;border:1px solid var(--border);
+  color:var(--text-secondary);
+  padding:6px 12px;border-radius:6px;
+  cursor:pointer;font-size:13px;
+}
+.back-btn:hover{color:var(--text-primary);background:var(--bg-hover)}
+.detail-stats{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin-bottom:20px}
+.detail-stat{
+  background:var(--bg-hover);
+  border-radius:var(--radius);
+  padding:12px;
+  text-align:center;
+}
+.detail-stat .val{font-size:20px;font-weight:700;color:var(--accent)}
+.detail-stat .lbl{font-size:11px;color:var(--text-muted);margin-top:2px}
+
+/* ============================================================
+   Ranking List
+   ============================================================ */
+.rank-list{}
+.rank-item{
+  display:flex;align-items:center;gap:12px;
+  padding:10px 12px;
+  border-bottom:1px solid rgba(42,45,53,0.5);
+}
+.rank-num{
+  width:28px;height:28px;
+  border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:13px;font-weight:700;
+  background:var(--bg-hover);
+  color:var(--text-secondary);
+}
+.rank-item:nth-child(1) .rank-num{background:rgba(233,202,93,0.2);color:var(--accent)}
+.rank-item:nth-child(2) .rank-num{background:rgba(192,192,192,0.15);color:var(--text-secondary)}
+.rank-item:nth-child(3) .rank-num{background:rgba(205,127,50,0.2);color:#cd7f32}
+.rank-info{flex:1}
+.rank-name{font-size:14px;font-weight:500}
+.rank-role{font-size:11px;color:var(--text-muted)}
+.rank-value{font-size:15px;font-weight:600;color:var(--accent)}
+
+/* ============================================================
+   Toast & Misc
+   ============================================================ */
+.toast{
+  position:fixed;bottom:24px;left:50%;transform:translateX(-50%);
+  background:var(--bg-card);border:1px solid var(--border);
+  color:var(--text-primary);padding:10px 20px;
+  border-radius:8px;font-size:13px;
+  z-index:999;opacity:0;transition:opacity 0.3s;
+  pointer-events:none;
+}
+.toast.show{opacity:1}
+.loading{
+  display:flex;align-items:center;justify-content:center;
+  height:200px;color:var(--text-muted);font-size:14px;
+}
+.members-count{font-size:13px;color:var(--text-secondary)}
+.empty{text-align:center;color:var(--text-muted);padding:40px;font-size:14px}
+</style>
+</head>
+<body>
+
+<div id="app">
+  <!-- Sidebar -->
+  <nav class="sidebar">
+    <div class="sidebar-header">
+      <span class="clan-tag" id="sidebar-tag">NMOF</span>
+      <span class="clan-name" id="sidebar-name">载入中...</span>
+    </div>
+    <div class="nav-section">菜单</div>
+    <div class="nav-item active" data-page="overview">
+      <span class="icon">&#x1f4ca;</span> 军团概览
+    </div>
+    <div class="nav-item" data-page="members">
+      <span class="icon">&#x1f465;</span> 成员列表
+    </div>
+    <div class="nav-item" data-page="ranking60">
+      <span class="icon">&#x1f3c6;</span> 60日排名
+    </div>
+    <div class="nav-item" data-page="analysis">
+      <span class="icon">&#x1f4c8;</span> 数据分析
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="main" id="main-content">
+    <!-- Overview Page -->
+    <div class="page active" id="page-overview">
+      <div class="card" id="clan-card"></div>
+      <div class="stat-grid" id="summary-stats"></div>
+      <div class="grid-2">
+        <div class="card"><div class="card-header"><span class="card-title">胜率分布</span></div><div class="chart-container"><canvas id="chart-winrate-dist"></canvas></div></div>
+        <div class="card"><div class="card-header"><span class="card-title">场次 vs 均伤</span></div><div class="chart-container"><canvas id="chart-battles-dmg"></canvas></div></div>
+      </div>
+      <div class="grid-2">
+        <div class="card"><div class="card-header"><span class="card-title">Rating 排行 Top 10</span></div><div id="rank-list-rating" class="rank-list"></div></div>
+        <div class="card"><div class="card-header"><span class="card-title">场均伤害排行 Top 10</span><button class="btn btn-sm btn-secondary" onclick="exportCard('rank-list-dmg')">保存图片</button></div><div id="rank-list-dmg" class="rank-list"></div></div>
+      </div>
+    </div>
+
+    <!-- Members Page -->
+    <div class="page" id="page-members">
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">成员列表 <span class="members-count" id="members-count-label"></span></span>
+        </div>
+        <div id="members-card">
+        <div class="controls">
+          <input class="search-input" id="member-search" placeholder="搜索昵称..." oninput="renderMemberTable()">
+          <select class="filter-select" id="filter-role" onchange="renderMemberTable()">
+            <option value="">全部角色</option>
+          </select>
+          <input class="filter-input" id="filter-wr-min" placeholder="胜率≥" type="number" min="0" max="100" onchange="renderMemberTable()">
+          <input class="filter-input" id="filter-wr-max" placeholder="胜率≤" type="number" min="0" max="100" onchange="renderMemberTable()">
+          <input class="filter-input" id="filter-battles-min" placeholder="场次≥" type="number" min="0" onchange="renderMemberTable()">
+          <button class="btn btn-sm btn-secondary" onclick="resetFilters()">重置</button>
+        </div>
+        <div style="overflow-x:auto">
+        <table>
+          <thead>
+            <tr>
+              <th data-sort="account_name" onclick="setSort('account_name')">昵称 <span class="sort-arrow"></span></th>
+              <th data-sort="role_i18n" onclick="setSort('role_i18n')">角色 <span class="sort-arrow"></span></th>
+              <th data-sort="winrate" onclick="setSort('winrate')">胜率 <span class="sort-arrow"></span></th>
+              <th data-sort="battles" onclick="setSort('battles')">场次 <span class="sort-arrow"></span></th>
+              <th data-sort="avg_damage" onclick="setSort('avg_damage')">均伤 <span class="sort-arrow"></span></th>
+              <th data-sort="avg_frags" onclick="setSort('avg_frags')">场均击杀 <span class="sort-arrow"></span></th>
+              <th data-sort="global_rating" onclick="setSort('global_rating')">Rating <span class="sort-arrow"></span></th>
+              <th data-sort="last_battle_time" onclick="setSort('last_battle_time')">最后战斗 <span class="sort-arrow"></span></th>
+            </tr>
+          </thead>
+          <tbody id="member-table-body"></tbody>
+        </table>
+        </div>
+        <div class="empty" id="members-empty" style="display:none">没有匹配的成员</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Detail Page -->
+    <div class="page" id="page-detail">
+      <div id="detail-content"></div>
+    </div>
+
+    <!-- 60-Day Ranking Page -->
+    <div class="page" id="page-ranking60">
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">60日场均排名 <span class="members-count" id="ranking60-count-label"></span></span>
+          <button class="btn btn-sm btn-secondary" onclick="exportCard('ranking60-card')">保存图片</button>
+        </div>
+        <div id="ranking60-card">
+        <div class="controls">
+          <input class="search-input" id="ranking60-search" placeholder="搜索昵称..." oninput="renderRanking60()">
+          <input class="filter-input" id="ranking60-battles-min" placeholder="场次≥" type="number" min="0" onchange="renderRanking60()">
+          <select class="filter-select" id="ranking60-filter-role" onchange="renderRanking60()">
+            <option value="">全部角色</option>
+          </select>
+          <button class="btn btn-sm btn-secondary" onclick="resetRanking60Filters()">重置</button>
+        </div>
+        <div style="overflow-x:auto">
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th data-sort="nickname" onclick="setRanking60Sort('nickname')">昵称 <span class="sort-arrow"></span></th>
+              <th data-sort="role" onclick="setRanking60Sort('role')">角色 <span class="sort-arrow"></span></th>
+              <th data-sort="battles" onclick="setRanking60Sort('battles')">60日场次 <span class="sort-arrow"></span></th>
+              <th data-sort="dpg" onclick="setRanking60Sort('dpg')">场均伤害 <span class="sort-arrow"></span></th>
+              <th data-sort="winrate" onclick="setRanking60Sort('winrate')">胜率 <span class="sort-arrow"></span></th>
+              <th data-sort="wn8" onclick="setRanking60Sort('wn8')">WN8 <span class="sort-arrow"></span></th>
+              <th data-sort="survival" onclick="setRanking60Sort('survival')">存活率 <span class="sort-arrow"></span></th>
+              <th data-sort="kd" onclick="setRanking60Sort('kd')">KD <span class="sort-arrow"></span></th>
+            </tr>
+          </thead>
+          <tbody id="ranking60-table-body"></tbody>
+        </table>
+        </div>
+        <div class="empty" id="ranking60-empty" style="display:none">没有匹配的成员或60日数据不可用</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Analysis Page -->
+    <div class="page" id="page-analysis">
+      <div class="grid-2">
+        <div class="card"><div class="card-header"><span class="card-title">场次分布</span></div><div class="chart-container"><canvas id="chart-battles-dist"></canvas></div></div>
+        <div class="card"><div class="card-header"><span class="card-title">胜率分布</span></div><div class="chart-container"><canvas id="chart-winrate-dist2"></canvas></div></div>
+      </div>
+      <div class="grid-2">
+        <div class="card"><div class="card-header"><span class="card-title">场次 vs 胜率</span></div><div class="chart-container"><canvas id="chart-battles-wr"></canvas></div></div>
+        <div class="card"><div class="card-header"><span class="card-title">角色分布</span></div><div class="chart-container"><canvas id="chart-roles"></canvas></div></div>
+      </div>
+      <div class="card"><div class="card-header"><span class="card-title">场均伤害 vs 场均击杀</span></div><div class="chart-container"><canvas id="chart-dmg-frags"></canvas></div></div>
+    </div>
+  </main>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ============================================================
+// Data & State
+// ============================================================
+let DATA = null;
+let TOMATO = {};
+let TANK_NAMES = {};
+let currentPage = 'overview';
+let currentMemberId = null;
+let sortField = 'battles';
+let sortDir = 'desc';
+
+const ROLE_CLASS = {
+  commander:'军团长', executive_officer:'副军团长', personnel_officer:'人事官',
+  combat_officer:'战斗官', recruitment_officer:'招募官',
+  intelligence_officer:'情报官', quartermaster:'军需官', private:'成员',
+  recruit:'新兵', junior_officer:'初级军官', commander_reserve:'预备指挥', reservist:'预备役',
+};
+
+function roleLabel(r){return ROLE_CLASS[r]||r||'成员'}
+function roleBadge(r){return '<span class="role-badge role-'+r+'"><i class="epaulette-icon epaulette-'+r+'"></i>'+roleLabel(r)+'</span>'}
+
+// ============================================================
+// Data Loading
+// ============================================================
+function toggleClanDesc(){
+  const el=document.getElementById('clan-desc');
+  const btn=document.getElementById('clan-desc-toggle');
+  if(!el||!btn)return;
+  el.classList.toggle('collapsed');
+  btn.textContent=el.classList.contains('collapsed')?'展开 ▼':'收起 ▲';
+}
+
+function tankName(id){const t=TANK_NAMES[id];return t?t.short_name:'ID:'+id}
+function formatDescription(text){
+  return text
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+    .replace(/\*([^*]+)\*/g,'<strong>$1</strong>')
+    .replace(/(https?:\/\/[^\s<>"]+)/gi,'<a href="$1" target="_blank" rel="noopener" style="color:var(--accent2)">$1</a>');
+}
+
+async function loadData(){
+  try{
+    const [dataResp,tankResp,tomatoResp]=await Promise.all([
+      fetch('data/05_nmof_complete.json'),
+      fetch('data/08_tank_names.json'),
+      fetch('data/07_tomato_60day.json'),
+    ]);
+    DATA=await dataResp.json();
+    TANK_NAMES=await tankResp.json();
+    TOMATO=await tomatoResp.json();
+    initApp();
+  }catch(e){
+    document.getElementById('page-overview').innerHTML=
+      '<div class="empty">数据加载失败。请确保 data/05_nmof_complete.json 文件存在。<br><br>错误: '+e.message+'</div>';
+  }
+}
+
+// ============================================================
+// Derived Data Helpers
+// ============================================================
+function members(){return DATA.members}
+function mBattles(m){return m.statistics.battles||0}
+function mWins(m){return m.statistics.wins||0}
+function mWinrate(m){return parseFloat(m.statistics.winrate)||0}
+function mAvgDmg(m){
+  const b=mBattles(m);
+  return b>0?Math.round((m.statistics.damage_dealt||0)/b):0;
+}
+function mAvgFrags(m){
+  const b=mBattles(m);
+  return b>0?((m.statistics.frags||0)/b).toFixed(2):'0.00';
+}
+function mRating(m){return m.global_rating||0}
+function clanAvg(fn){
+  const ms=members().filter(m=>mBattles(m)>0);
+  if(ms.length===0)return 0;
+  return Math.round(ms.reduce((s,m)=>s+fn(m),0)/ms.length);
+}
+function activeMembers(){
+  return members().filter(m=>m.last_battle_time&&m.last_battle_time>0);
+}
+
+// ============================================================
+// Init
+// ============================================================
+function initApp(){
+  // Update sidebar
+  const c=DATA.clan;
+  document.getElementById('sidebar-tag').textContent=c.tag;
+  document.getElementById('sidebar-name').textContent=c.name;
+
+  // Nav clicks
+  document.querySelectorAll('.nav-item').forEach(el=>{
+    el.addEventListener('click',()=>{
+      const page=el.dataset.page;
+      if(page===currentPage&&page!=='detail')return;
+      navigateTo(page);
+    });
+  });
+
+  renderOverview();
+  initMemberFilters();
+  renderMemberTable();
+  initRanking60Filters();
+  renderRanking60();
+  renderAnalysis();
+}
+
+function navigateTo(page){
+  currentPage=page;
+  document.querySelectorAll('.nav-item').forEach(e=>e.classList.remove('active'));
+  const navItem=document.querySelector('.nav-item[data-page="'+page+'"]');
+  if(navItem)navItem.classList.add('active');
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('page-'+page).classList.add('active');
+  document.getElementById('main-content').scrollTop=0;
+
+  if(page==='detail'&&currentMemberId)renderMemberDetail(currentMemberId);
+}
+
+// ============================================================
+// Charts Helper
+// ============================================================
+const chartInstances={};
+function destroyChart(id){
+  if(chartInstances[id]){chartInstances[id].destroy();delete chartInstances[id]}
+}
+function createChart(id,config){
+  destroyChart(id);
+  const ctx=document.getElementById(id);
+  if(!ctx)return null;
+  chartInstances[id]=new Chart(ctx,config);
+  return chartInstances[id];
+}
+
+const chartColors={accent:'#e9ca5d',blue:'#4fc3f7',green:'#66bb6a',red:'#ef5350',orange:'#ffa726'};
+Chart.defaults.color='#9aa0a8';
+Chart.defaults.borderColor='rgba(42,45,53,0.5)';
+Chart.defaults.font.family='Inter,-apple-system,sans-serif';
+
+// ============================================================
+// Overview Page
+// ============================================================
+function renderOverview(){
+  const c=DATA.clan;
+  const ms=members();
+  const totalBattles=ms.reduce((s,m)=>s+mBattles(m),0);
+  const avgWr=clanAvg(m=>mWinrate(m));
+  const avgDmg=clanAvg(m=>mAvgDmg(m));
+  const active=activeMembers().length;
+  const created=new Date(c.created_at*1000).toLocaleDateString('zh-CN');
+
+  // Clan card
+  const descHtml=c.description
+    ?'<div class="clan-desc collapsed" id="clan-desc">'+
+       '<div class="clan-desc-inner">'+formatDescription(c.description)+'</div>'+
+     '</div>'+
+     '<span class="clan-desc-toggle" id="clan-desc-toggle" onclick="toggleClanDesc()">展开 ▼</span>'
+    :'';
+  document.getElementById('clan-card').innerHTML=
+    '<div style="display:flex;align-items:flex-start;gap:16px">'+
+    (c.emblems?.x64?'<img src="'+(c.emblems.x64.wot||c.emblems.x64.portal)+'" style="width:64px;height:64px;border-radius:6px;flex-shrink:0" onerror="this.style.display=\'none\'">':'')+
+    '<div style="flex:1;min-width:0">'+
+      '<div style="font-size:22px;font-weight:700;color:var(--text-primary);word-break:break-word">['+c.tag+'] '+c.name+'</div>'+
+      '<div style="font-size:13px;color:var(--text-secondary);margin-top:4px">'+
+        '创建于 <span style="color:var(--accent)">'+created+'</span> | <span style="color:var(--accent)">'+ms.length+'</span> 名成员'+
+      '</div>'+
+      descHtml+
+    '</div></div>';
+
+  // Summary stats
+  const avgFrags=clanAvg(m=>parseFloat(mAvgFrags(m)));
+  document.getElementById('summary-stats').innerHTML=[
+    {v:totalBattles.toLocaleString(),l:'总场次',c:'var(--accent)'},
+    {v:avgWr+'%',l:'平均胜率',c:avgWr>=50?'var(--green)':'var(--orange)'},
+    {v:avgDmg.toLocaleString(),l:'场均伤害',c:'var(--accent2)'},
+    {v:avgFrags.toFixed(2),l:'场均击杀',c:'var(--accent2)'},
+    {v:active+' / '+ms.length,l:'活跃 / 总成员',c:'var(--accent)'},
+  ].map(s=>'<div class="stat-card"><div class="stat-value" style="color:'+s.c+'">'+s.v+'</div><div class="stat-label">'+s.l+'</div></div>').join('');
+
+  // Winrate distribution histogram
+  const wrData=ms.filter(m=>mBattles(m)>0).map(m=>mWinrate(m));
+  const wrBins=[0,44,47,50,53,56,60,100];
+  const wrLabels=['<44%','44-47%','47-50%','50-53%','53-56%','56-60%','60%+'];
+  const wrCounts=wrBins.slice(0,-1).map((lo,i)=>{
+    const hi=wrBins[i+1];
+    return wrData.filter(v=>v>=lo&&v<hi).length;
+  });
+
+  createChart('chart-winrate-dist',{
+    type:'bar',
+    data:{labels:wrLabels,datasets:[{label:'成员数',data:wrCounts,backgroundColor:chartColors.accent,borderRadius:4}]},
+    options:{responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false}},
+      scales:{y:{beginAtZero:true,title:{display:true,text:'人数'}},x:{title:{display:true,text:'胜率区间'}}}}
+  });
+
+  // Battles vs Avg Damage scatter
+  const scatterData=ms.filter(m=>mBattles(m)>0&&mBattles(m)<=40000).map(m=>({x:mBattles(m),y:mAvgDmg(m)}));
+  createChart('chart-battles-dmg',{
+    type:'scatter',
+    data:{datasets:[{label:'成员',data:scatterData,backgroundColor:chartColors.blue,pointRadius:5,pointHoverRadius:7}]},
+    options:{responsive:true,maintainAspectRatio:false,
+      scales:{x:{title:{display:true,text:'场次'}},y:{title:{display:true,text:'均伤'}}}}
+  });
+
+  // Top 10 Rating
+  const topRating=[...ms].sort((a,b)=>mRating(b)-mRating(a)).slice(0,10);
+  document.getElementById('rank-list-rating').innerHTML=topRating.map((m,i)=>
+    '<div class="rank-item">'+
+      '<div class="rank-num">'+(i+1)+'</div>'+
+      '<div class="rank-info"><div class="rank-name">'+m.account_name+'</div><div class="rank-role">'+roleLabel(m.role)+' | '+mBattles(m).toLocaleString()+' 场</div></div>'+
+      '<div class="rank-value">'+mRating(m).toLocaleString()+'</div>'+
+    '</div>'
+  ).join('');
+
+  // Top 10 Avg Damage
+  const topDmg=[...ms].filter(m=>mBattles(m)>=100).sort((a,b)=>mAvgDmg(b)-mAvgDmg(a)).slice(0,10);
+  document.getElementById('rank-list-dmg').innerHTML=topDmg.map((m,i)=>
+    '<div class="rank-item">'+
+      '<div class="rank-num">'+(i+1)+'</div>'+
+      '<div class="rank-info"><div class="rank-name">'+m.account_name+'</div><div class="rank-role">'+roleLabel(m.role)+' | '+mBattles(m).toLocaleString()+' 场</div></div>'+
+      '<div class="rank-value">'+mAvgDmg(m).toLocaleString()+'</div>'+
+    '</div>'
+  ).join('');
+}
+
+// ============================================================
+// Member Table
+// ============================================================
+function initMemberFilters(){
+  const roles=new Set();
+  members().forEach(m=>{if(m.role)roles.add(m.role)});
+  const sel=document.getElementById('filter-role');
+  Array.from(roles).sort().forEach(r=>{
+    const opt=document.createElement('option');
+    opt.value=r;opt.textContent=roleLabel(r);
+    sel.appendChild(opt);
+  });
+  document.getElementById('members-count-label').textContent='('+members().length+')';
+}
+
+function setSort(field){
+  if(sortField===field)sortDir=sortDir==='asc'?'desc':'asc';
+  else{sortField=field;sortDir='desc'}
+  renderMemberTable();
+}
+
+function resetFilters(){
+  document.getElementById('member-search').value='';
+  document.getElementById('filter-role').value='';
+  document.getElementById('filter-wr-min').value='';
+  document.getElementById('filter-wr-max').value='';
+  document.getElementById('filter-battles-min').value='';
+  renderMemberTable();
+}
+
+function getFilteredMembers(){
+  const search=document.getElementById('member-search').value.toLowerCase();
+  const role=document.getElementById('filter-role').value;
+  const wrMin=parseFloat(document.getElementById('filter-wr-min').value)||0;
+  const wrMax=parseFloat(document.getElementById('filter-wr-max').value)||100;
+  const battlesMin=parseInt(document.getElementById('filter-battles-min').value)||0;
+
+  return members().filter(m=>{
+    if(search&&!m.account_name.toLowerCase().includes(search))return false;
+    if(role&&m.role!==role)return false;
+    const wr=mWinrate(m);
+    if(wr<wrMin||wr>wrMax)return false;
+    if(mBattles(m)<battlesMin)return false;
+    return true;
+  });
+}
+
+function sortMembers(list){
+  const getVal=(m)=>{
+    switch(sortField){
+      case 'account_name':return m.account_name.toLowerCase();
+      case 'role_i18n':return roleLabel(m.role);
+      case 'winrate':return mWinrate(m);
+      case 'battles':return mBattles(m);
+      case 'avg_damage':return mAvgDmg(m);
+      case 'avg_frags':return parseFloat(mAvgFrags(m));
+      case 'global_rating':return mRating(m);
+      case 'last_battle_time':return m.last_battle_time||0;
+      default:return 0;
+    }
+  };
+  return list.sort((a,b)=>{
+    const va=getVal(a),vb=getVal(b);
+    if(typeof va==='string')return sortDir==='asc'?va.localeCompare(vb):vb.localeCompare(va);
+    return sortDir==='asc'?va-vb:vb-va;
+  });
+}
+
+function renderMemberTable(){
+  const filtered=getFilteredMembers();
+  const sorted=sortMembers([...filtered]);
+  const tbody=document.getElementById('member-table-body');
+  const empty=document.getElementById('members-empty');
+  document.getElementById('members-count-label').textContent='('+sorted.length+'/'+members().length+')';
+
+  if(sorted.length===0){tbody.innerHTML='';empty.style.display='block';return}
+  empty.style.display='none';
+
+  // Update sort arrows
+  document.querySelectorAll('thead th .sort-arrow').forEach(a=>a.textContent='');
+  const th=document.querySelector('thead th[data-sort="'+sortField+'"]');
+  if(th)th.querySelector('.sort-arrow').textContent=sortDir==='asc'?' ▲':' ▼';
+
+  tbody.innerHTML=sorted.map(m=>{
+    const wr=mWinrate(m);
+    const wrClass=wr>=53?'good':wr>=47?'avg':'bad';
+    const lastBattle=m.last_battle_time?new Date(m.last_battle_time*1000).toLocaleDateString('zh-CN'):'-';
+    return '<tr onclick="showMemberDetail('+m.account_id+')">'+
+      '<td style="font-weight:500">'+m.account_name+'</td>'+
+      '<td>'+roleBadge(m.role)+'</td>'+
+      '<td><span class="winrate '+wrClass+'">'+wr.toFixed(2)+'%</span></td>'+
+      '<td>'+mBattles(m).toLocaleString()+'</td>'+
+      '<td>'+mAvgDmg(m).toLocaleString()+'</td>'+
+      '<td>'+mAvgFrags(m)+'</td>'+
+      '<td>'+mRating(m).toLocaleString()+'</td>'+
+      '<td>'+lastBattle+'</td>'+
+    '</tr>';
+  }).join('');
+}
+
+// ============================================================
+// Member Detail
+// ============================================================
+function showMemberDetail(id){
+  currentMemberId=id;
+  navigateTo('detail');
+}
+
+function renderMemberDetail(id){
+  const m=members().find(x=>x.account_id===id);
+  if(!m){document.getElementById('detail-content').innerHTML='<div class="empty">成员未找到</div>';return}
+
+  const clanAvgWr=clanAvg(x=>mWinrate(x));
+  const clanAvgDmg=clanAvg(x=>mAvgDmg(x));
+  const clanAvgBattles=Math.round(members().reduce((s,x)=>s+mBattles(x),0)/members().length);
+
+  const ts=TOMATO.data?.[m.account_id]||{};
+  const r60=ts.recent_60d||{};
+  const has60d=r60.battles>0;
+
+  document.getElementById('detail-content').innerHTML=
+    '<button class="back-btn" onclick="navigateTo(\'members\')">← 返回成员列表</button>'+
+    '<div style="display:flex;align-items:center;gap:12px;margin:16px 0;flex-wrap:wrap">'+
+      '<div style="font-size:24px;font-weight:700">'+m.account_name+'</div>'+
+      '<span style="font-size:12px;color:var(--text-muted);font-family:monospace">ID:'+m.account_id+'</span>'+
+      roleBadge(m.role)+
+      '<button class="btn btn-sm btn-secondary" onclick="exportCard(\'detail-card\')">保存图片</button>'+
+    '</div>'+
+    '<div id="detail-card">'+
+    // 60-day stats
+    (has60d?'<div class="card-title" style="margin-bottom:8px;color:var(--accent)">60日统计 <span style="font-size:11px;color:var(--text-muted);font-weight:400">(tomato.gg)</span></div>'+
+    '<div class="detail-stats" style="grid-template-columns:repeat(8,1fr)">'+
+      statItem('胜率',(r60.winrate!=null?r60.winrate.toFixed(2)+'%':'-'),'-')+
+      statItem('场次',(r60.battles||0).toLocaleString(),'-')+
+      statItem('场均伤害',(r60.dpg!=null?r60.dpg.toLocaleString():'-'),'-')+
+      statItem('WN8',(r60.wn8!=null?r60.wn8.toLocaleString():'-'),'-')+
+      statItem('WNX',(r60.wnx!=null?r60.wnx.toLocaleString():'-'),'-')+
+      statItem('场均击杀',(r60.frags!=null?r60.frags.toFixed(2):'-'),'-')+
+      statItem('场均点亮',(r60.spots!=null?r60.spots.toFixed(2):'-'),'-')+
+      statItem('场均助攻',(r60.assist!=null?Math.round(r60.assist).toLocaleString():'-'),'-')+
+    '</div>':'')+
+    // All-time stats
+    '<div class="card-title" style="margin-bottom:8px">全部统计 <span style="font-size:11px;color:var(--text-muted);font-weight:400">(WG API)</span></div>'+
+    '<div class="detail-stats" style="grid-template-columns:repeat(8,1fr)">'+
+      statItem('胜率',mWinrate(m).toFixed(2)+'%',clanAvgWr.toFixed(2)+'%')+
+      statItem('场次',mBattles(m).toLocaleString(),clanAvgBattles.toLocaleString())+
+      statItem('场均伤害',mAvgDmg(m).toLocaleString(),clanAvgDmg.toLocaleString())+
+      statItem('场均击杀',mAvgFrags(m),'-')+
+      statItem('最高伤害',(m.statistics.max_damage||0).toLocaleString(),'-')+
+      statItem('最高击杀',(m.statistics.max_frags||0).toLocaleString(),'-')+
+      statItem('Rating',(mRating(m)||0).toLocaleString(),'-')+
+      statItem('存活率',mBattles(m)>0?((m.statistics.survived_battles||0)/mBattles(m)*100).toFixed(1)+'%':'0%','-')+
+    '</div>'+
+    // Charts
+    '<div class="grid-2">'+
+      '<div class="card"><div class="card-title" style="margin-bottom:12px">个人 vs 军团平均</div><div class="chart-container half"><canvas id="detail-radar"></canvas></div></div>'+
+      '<div class="card"><div class="card-title" style="margin-bottom:12px">常用坦克 Top 10</div><div class="chart-container half"><canvas id="detail-tanks"></canvas></div></div>'+
+    '</div>'+
+    '</div>';
+
+  // Radar chart
+  setTimeout(()=>{
+    const maxWr=Math.max(mWinrate(m),clanAvgWr)*1.1;
+    const maxDmg=Math.max(mAvgDmg(m),clanAvgDmg)*1.2;
+    const maxBattles=Math.max(mBattles(m),clanAvgBattles)*1.2;
+    createChart('detail-radar',{
+      type:'radar',
+      data:{
+        labels:['胜率','场次','均伤','Rating','场均击杀'],
+        datasets:[
+          {label:m.account_name,data:[
+            mWinrate(m)/maxWr*100,mBattles(m)/maxBattles*100,
+            mAvgDmg(m)/maxDmg*100,mRating(m)/10000*100,parseFloat(mAvgFrags(m))/5*100
+          ],borderColor:chartColors.accent,backgroundColor:'rgba(233,202,93,0.1)',pointRadius:4},
+          {label:'军团平均',data:[
+            clanAvgWr/maxWr*100,clanAvgBattles/maxBattles*100,
+            clanAvgDmg/maxDmg*100,members().reduce((s,x)=>s+mRating(x),0)/members().length/10000*100,0
+          ],borderColor:chartColors.blue,backgroundColor:'rgba(79,195,247,0.1)',pointRadius:4},
+        ]
+      },
+      options:{responsive:true,maintainAspectRatio:false,
+        scales:{r:{min:0,max:100,ticks:{display:false}}},
+        plugins:{tooltip:{callbacks:{label:ctx=>ctx.dataset.label+': '+ctx.raw.toFixed(1)}}}}
+    });
+
+    // Top tanks
+    const tanks=(m.tanks_summary?.top_tanks||[]).slice(0,10);
+    createChart('detail-tanks',{
+      type:'bar',
+      data:{
+        labels:tanks.map(t=>tankName(t.tank_id)),
+        datasets:[{label:'场次',data:tanks.map(t=>t.battles),backgroundColor:chartColors.accent,borderRadius:4}]
+      },
+      options:{responsive:true,maintainAspectRatio:false,indexAxis:'y',
+        plugins:{legend:{display:false}},
+        scales:{x:{beginAtZero:true,title:{display:true,text:'场次'}}}}
+    });
+  },100);
+
+  function statItem(label,value,avg){
+    return '<div class="detail-stat"><div class="val">'+value+'</div><div class="lbl">'+label+(avg!=='-'?' | 军团平均 '+avg:'')+'</div></div>';
+  }
+}
+
+// ============================================================
+// 60-Day Ranking Page
+// ============================================================
+let ranking60SortField = 'dpg';
+let ranking60SortDir = 'desc';
+
+function ranking60Data(){
+  const map = {};
+  members().forEach(m => {
+    const t = TOMATO.data?.[m.account_id];
+    const r60 = t?.recent_60d || {};
+    map[m.account_id] = {
+      account_id: m.account_id,
+      nickname: m.account_name,
+      role: m.role,
+      battles: r60.battles || 0,
+      dpg: r60.dpg != null ? r60.dpg : 0,
+      winrate: r60.winrate != null ? r60.winrate : 0,
+      wn8: r60.wn8 != null ? r60.wn8 : 0,
+      survival: r60.survivalRate != null ? r60.survivalRate : 0,
+      kd: r60.kd != null ? r60.kd : 0,
+    };
+  });
+  return Object.values(map);
+}
+
+function initRanking60Filters(){
+  const roles = new Set();
+  members().forEach(m => { if (m.role) roles.add(m.role); });
+  const sel = document.getElementById('ranking60-filter-role');
+  sel.innerHTML = '<option value="">全部角色</option>';
+  Array.from(roles).sort().forEach(r => {
+    const opt = document.createElement('option');
+    opt.value = r; opt.textContent = roleLabel(r);
+    sel.appendChild(opt);
+  });
+}
+
+function setRanking60Sort(field){
+  if (ranking60SortField === field) ranking60SortDir = ranking60SortDir === 'asc' ? 'desc' : 'asc';
+  else { ranking60SortField = field; ranking60SortDir = 'desc'; }
+  renderRanking60();
+}
+
+function resetRanking60Filters(){
+  document.getElementById('ranking60-search').value = '';
+  document.getElementById('ranking60-battles-min').value = '';
+  document.getElementById('ranking60-filter-role').value = '';
+  renderRanking60();
+}
+
+function renderRanking60(){
+  const search = document.getElementById('ranking60-search').value.toLowerCase();
+  const battlesMin = parseInt(document.getElementById('ranking60-battles-min').value) || 0;
+  const role = document.getElementById('ranking60-filter-role').value;
+
+  let list = ranking60Data().filter(d => {
+    if (search && !d.nickname.toLowerCase().includes(search)) return false;
+    if (role && d.role !== role) return false;
+    if (d.battles < battlesMin) return false;
+    return true;
+  });
+
+  list.sort((a, b) => {
+    const va = a[ranking60SortField], vb = b[ranking60SortField];
+    if (typeof va === 'string') return ranking60SortDir === 'asc' ? va.localeCompare(vb) : vb.localeCompare(va);
+    return ranking60SortDir === 'asc' ? va - vb : vb - va;
+  });
+
+  document.getElementById('ranking60-count-label').textContent = '(' + list.length + ')';
+
+  const tbody = document.getElementById('ranking60-table-body');
+  const empty = document.getElementById('ranking60-empty');
+  if (list.length === 0) { tbody.innerHTML = ''; empty.style.display = 'block'; return; }
+  empty.style.display = 'none';
+
+  document.querySelectorAll('#page-ranking60 thead th .sort-arrow').forEach(a => a.textContent = '');
+  const th = document.querySelector('#page-ranking60 thead th[data-sort="' + ranking60SortField + '"]');
+  if (th) th.querySelector('.sort-arrow').textContent = ranking60SortDir === 'asc' ? ' ▲' : ' ▼';
+
+  tbody.innerHTML = list.map((d, i) => {
+    const wrClass = d.battles > 0 ? (d.winrate >= 53 ? 'good' : d.winrate >= 47 ? 'avg' : 'bad') : '';
+    return '<tr onclick="showMemberDetail(' + d.account_id + ')">' +
+      '<td style="color:var(--text-muted);font-size:12px">' + (i + 1) + '</td>' +
+      '<td style="font-weight:500">' + d.nickname + '</td>' +
+      '<td>' + roleBadge(d.role) + '</td>' +
+      '<td>' + d.battles.toLocaleString() + '</td>' +
+      '<td style="font-weight:600;color:var(--accent)">' + (d.battles > 0 ? d.dpg.toLocaleString() : '-') + '</td>' +
+      '<td>' + (d.battles > 0 ? '<span class="winrate ' + wrClass + '">' + d.winrate.toFixed(2) + '%</span>' : '-') + '</td>' +
+      '<td>' + (d.battles > 0 ? d.wn8.toLocaleString() : '-') + '</td>' +
+      '<td>' + (d.battles > 0 ? d.survival.toFixed(1) + '%' : '-') + '</td>' +
+      '<td>' + (d.battles > 0 ? d.kd.toFixed(2) : '-') + '</td>' +
+      '</tr>';
+  }).join('');
+}
+
+// ============================================================
+// Analysis Page
+// ============================================================
+function renderAnalysis(){
+  const ms=members().filter(m=>mBattles(m)>0);
+
+  // Battles distribution
+  const battleBins=[0,100,500,1000,3000,5000,10000,20000,50000];
+  const battleLabels=['<100','100-500','500-1K','1K-3K','3K-5K','5K-10K','10K-20K','20K+'];
+  const battleCounts=battleBins.slice(0,-1).map((lo,i)=>ms.filter(m=>mBattles(m)>=lo&&mBattles(m)<battleBins[i+1]).length);
+  createChart('chart-battles-dist',{
+    type:'bar',
+    data:{labels:battleLabels,datasets:[{label:'成员数',data:battleCounts,backgroundColor:chartColors.blue,borderRadius:4}]},
+    options:{responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,title:{display:true,text:'人数'}}}}
+  });
+
+  // Winrate distribution (analysis version)
+  const wrBins=[0,44,47,50,53,56,60,100];
+  const wrLabels=['<44%','44-47%','47-50%','50-53%','53-56%','56-60%','60%+'];
+  const wrCounts=wrBins.slice(0,-1).map((lo,i)=>ms.filter(m=>mWinrate(m)>=lo&&mWinrate(m)<wrBins[i+1]).length);
+  createChart('chart-winrate-dist2',{
+    type:'bar',
+    data:{labels:wrLabels,datasets:[{label:'成员数',data:wrCounts,backgroundColor:chartColors.green,borderRadius:4}]},
+    options:{responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,title:{display:true,text:'人数'}}}}
+  });
+
+  // Battles vs Winrate scatter
+  createChart('chart-battles-wr',{
+    type:'scatter',
+    data:{datasets:[{label:'成员',data:ms.filter(m=>mBattles(m)<=40000).map(m=>({x:mBattles(m),y:mWinrate(m)})),backgroundColor:chartColors.orange,pointRadius:5}]},
+    options:{responsive:true,maintainAspectRatio:false,
+      scales:{x:{title:{display:true,text:'场次'}},y:{title:{display:true,text:'胜率 %'},min:30,max:70}}}
+  });
+
+  // Role distribution
+  const roleMap={};
+  members().forEach(m=>{const r=roleLabel(m.role);roleMap[r]=(roleMap[r]||0)+1});
+  const roleEntries=Object.entries(roleMap).sort((a,b)=>b[1]-a[1]);
+  createChart('chart-roles',{
+    type:'doughnut',
+    data:{labels:roleEntries.map(e=>e[0]),datasets:[{data:roleEntries.map(e=>e[1]),backgroundColor:[chartColors.accent,chartColors.blue,chartColors.green,chartColors.red,chartColors.orange,'#ab47bc','#26c6da','#78909c','#8d6e63','#ff7043']}]},
+    options:{responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{position:'right',labels:{padding:12,font:{size:12}}}}}
+  });
+
+  // Damage vs Frags scatter
+  createChart('chart-dmg-frags',{
+    type:'scatter',
+    data:{datasets:[{label:'成员',data:ms.filter(m=>mBattles(m)>0&&mBattles(m)<=40000).map(m=>({x:mAvgDmg(m),y:parseFloat(mAvgFrags(m))})),backgroundColor:chartColors.green,pointRadius:5}]},
+    options:{responsive:true,maintainAspectRatio:false,
+      scales:{x:{title:{display:true,text:'场均伤害'}},y:{title:{display:true,text:'场均击杀'}}}}
+  });
+}
+
+// ============================================================
+// Export
+// ============================================================
+async function exportCard(elementId){
+  const el=document.getElementById(elementId);
+  if(!el)return;
+  try{
+    showToast('正在生成图片...');
+    const canvas=await html2canvas(el,{
+      backgroundColor:'#1a1d24',
+      scale:2,
+      useCORS:true,
+      logging:false,
+    });
+    let suffix=elementId;
+    if(elementId==='detail-card'&&currentMemberId){
+      const m=members().find(x=>x.account_id===currentMemberId);
+      if(m)suffix=m.account_name+'_'+currentMemberId;
+    }
+    const link=document.createElement('a');
+    link.download='NMOF_'+suffix+'_'+new Date().toISOString().slice(0,10)+'.png';
+    link.href=canvas.toDataURL('image/png');
+    link.click();
+    showToast('图片已保存');
+  }catch(e){
+    showToast('导出失败: '+e.message);
+  }
+}
+
+// ============================================================
+// Toast
+// ============================================================
+let toastTimer;
+function showToast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer=setTimeout(()=>t.classList.remove('show'),2000);
+}
+
+// ============================================================
+// Start
+// ============================================================
+loadData();
+</script>
+</body>
+</html>

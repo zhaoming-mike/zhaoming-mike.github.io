@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NMOFTI — NMOF Type Indicator 人格分析</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+:root {
+  --bg: #0f172a; --card: #1e293b; --border: #334155;
+  --text: #e2e8f0; --muted: #94a3b8; --accent: #38bdf8; --radius: 8px;
+  --rank-H: #22c55e; --rank-M: #eab308; --rank-L: #94a3b8;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+.app { max-width: 1400px; margin: 0 auto; padding: 16px; }
+
+.header { text-align: center; padding: 30px 0 16px; }
+.header h1 { font-size: 2rem; letter-spacing: 2px; }
+.header h1 span { color: var(--accent); }
+.header .subtitle { color: var(--muted); font-size: 0.88rem; margin-top: 4px; }
+
+nav { display: flex; gap: 2px; margin-bottom: 20px; background: var(--card); border-radius: var(--radius); padding: 4px; }
+nav button { flex: 1; padding: 10px 16px; border: none; border-radius: 6px; cursor: pointer; font-size: 0.85rem; font-weight: 600; background: transparent; color: var(--muted); transition: all 0.15s; }
+nav button.active { background: var(--accent); color: #0f172a; }
+nav button:hover:not(.active) { color: var(--text); }
+
+.card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px; margin-bottom: 14px; }
+.card h3 { font-size: 0.95rem; margin-bottom: 10px; color: var(--accent); }
+
+.stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; margin-bottom: 14px; }
+.stat-card { background: #0f172a; border-radius: 6px; padding: 12px; text-align: center; }
+.stat-card .val { font-size: 1.6rem; font-weight: 700; color: var(--accent); }
+.stat-card .lbl { font-size: 0.7rem; color: var(--muted); margin-top: 2px; }
+
+.toolbar { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; align-items: center; }
+.toolbar input, .toolbar select { padding: 7px 10px; border: 1px solid var(--border); border-radius: 6px; background: var(--bg); color: var(--text); font-size: 0.82rem; }
+.toolbar input { flex: 1; min-width: 150px; }
+
+.radar-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 12px; }
+.member-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px; cursor: pointer; transition: border-color 0.15s; }
+.member-card:hover { border-color: var(--accent); }
+.member-card .card-hd { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+.member-card .name { font-weight: 700; font-size: 0.95rem; }
+.member-card .type-badge { padding: 3px 10px; border-radius: 12px; font-size: 0.72rem; font-weight: 700; }
+.member-card .type-badge.GHOST { background: #475569; color: #94a3b8; }
+.member-card .pattern { font-size: 0.7rem; color: var(--muted); font-family: monospace; margin-bottom: 4px; }
+.member-card canvas { max-height: 200px; }
+
+.table-wrap { overflow-x: auto; max-height: 70vh; overflow-y: auto; }
+table { width: 100%; border-collapse: collapse; font-size: 0.78rem; }
+th, td { padding: 6px 9px; text-align: left; border-bottom: 1px solid var(--border); white-space: nowrap; }
+th { color: var(--muted); font-weight: 600; font-size: 0.7rem; cursor: pointer; position: sticky; top: 0; background: var(--card); z-index: 1; }
+th:hover { color: var(--accent); }
+tr:hover td { background: rgba(56,189,248,0.04); }
+
+.L { color: #94a3b8; } .M { color: #eab308; } .H { color: #22c55e; font-weight: 700; }
+
+.type-bar { display: flex; align-items: center; gap: 8px; margin: 4px 0; }
+.type-bar .code { font-size: 0.72rem; font-weight: 700; min-width: 60px; }
+.type-bar .bar-track { flex: 1; height: 18px; background: #0f172a; border-radius: 9px; overflow: hidden; }
+.type-bar .bar-fill { height: 100%; border-radius: 9px; background: var(--accent); transition: width 0.3s; display: flex; align-items: center; padding-left: 8px; font-size: 0.65rem; }
+
+.modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 100; justify-content: center; align-items: center; }
+.modal-overlay.show { display: flex; }
+.modal { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; max-width: 520px; width: 90%; max-height: 80vh; overflow-y: auto; }
+.modal h2 { margin-bottom: 4px; }
+.modal .type-name { font-size: 1.2rem; color: var(--accent); }
+.modal .type-desc { color: var(--muted); font-size: 0.82rem; margin: 8px 0 14px; }
+.modal .dim-list { display: grid; grid-template-columns: 1fr 1fr; gap: 4px 12px; font-size: 0.78rem; }
+.modal .dim-list .dim-lbl { color: var(--muted); }
+.modal .close-btn { float: right; background: none; border: none; color: var(--muted); font-size: 1.2rem; cursor: pointer; }
+.modal .close-btn:hover { color: var(--text); }
+
+.hidden { display: none !important; }
+.dim-label { font-size: 0.55rem; fill: var(--muted); }
+
+/* ── Responsive ───────────────────────────────────── */
+@media (max-width: 900px) {
+  .header h1 { font-size: 1.5rem; }
+  .header .subtitle { font-size: 0.78rem; }
+  nav button { padding: 9px 10px; font-size: 0.78rem; }
+  .radar-grid { grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 8px; }
+  .stats-grid { grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 8px; }
+  .app { padding: 10px; }
+  .card { padding: 14px; }
+  .modal { padding: 18px; width: 95%; }
+  .modal .dim-list { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 600px) {
+  .header { padding: 16px 0 10px; }
+  .header h1 { font-size: 1.3rem; letter-spacing: 1px; }
+  .header .subtitle { font-size: 0.7rem; }
+  nav { flex-wrap: wrap; gap: 2px; }
+  nav button { flex: 1 1 calc(50% - 2px); padding: 8px 6px; font-size: 0.72rem; }
+  .app { padding: 6px; }
+  .card { padding: 10px; margin-bottom: 8px; }
+  /* Overview panels stack vertically */
+  .card[style*="display:flex"] { flex-direction: column; gap: 12px; }
+  .card[style*="display:flex"] > div { min-width: 0 !important; }
+  .stats-grid { grid-template-columns: repeat(3, 1fr); gap: 6px; }
+  .stat-card { padding: 8px 4px; }
+  .stat-card .val { font-size: 1.1rem; }
+  .stat-card .lbl { font-size: 0.62rem; }
+  .radar-grid { grid-template-columns: 1fr; gap: 8px; }
+  .member-card { padding: 10px; }
+  .member-card .name { font-size: 0.85rem; }
+  .member-card .card-hd { flex-direction: column; align-items: flex-start; gap: 3px; }
+  .member-card canvas { max-height: 170px; }
+  .modal { padding: 14px; width: 96%; border-radius: 6px; }
+  .modal .type-name { font-size: 1rem; }
+  .modal .dim-list { grid-template-columns: 1fr; gap: 2px 8px; font-size: 0.72rem; }
+  .modal h2 { font-size: 1.1rem; }
+  .type-bar .code { min-width: 48px; font-size: 0.65rem; }
+  .table-wrap { font-size: 0.68rem; }
+  th, td { padding: 4px 5px; }
+  .toolbar { gap: 6px; }
+  .toolbar input, .toolbar select { font-size: 0.75rem; padding: 6px 8px; }
+}
+
+@media (max-width: 380px) {
+  .stats-grid { grid-template-columns: repeat(2, 1fr); }
+  nav button { flex: 1 1 100%; padding: 6px 4px; font-size: 0.7rem; }
+  .header h1 { font-size: 1.1rem; }
+}
+</style>
+</head>
+<body>
+<div class="app">
+
+<div class="header">
+  <h1>NMOF<span>TI</span></h1>
+  <div class="subtitle">NMOF Type Indicator — 坦克世界军团人格分析 · 基于客观游戏行为数据</div>
+</div>
+
+<nav>
+  <button id="tabOverview" class="active" onclick="switchTab('overview')">概览</button>
+  <button id="tabGallery" onclick="switchTab('gallery')">成员画廊</button>
+  <button id="tabTable" onclick="switchTab('table')">数据列表</button>
+  <button id="tabTypes" onclick="switchTab('types')">人格图鉴</button>
+</nav>
+
+<div id="viewOverview">
+  <div class="stats-grid" id="statsGrid"></div>
+
+  <div class="card" style="display:flex; gap:20px; flex-wrap:wrap;">
+    <div style="flex:1; min-width:300px;">
+      <h3>人格类型分布</h3>
+      <div id="typeBars"></div>
+    </div>
+    <div style="flex:1; min-width:300px;">
+      <h3>军团维度画像</h3>
+      <canvas id="clanRadar" height="280"></canvas>
+    </div>
+  </div>
+</div>
+
+<div id="viewGallery" class="hidden">
+  <div class="toolbar">
+    <input id="gallerySearch" placeholder="搜索成员名..." oninput="renderGallery()">
+    <select id="galleryType" onchange="renderGallery()">
+      <option value="">全部类型</option>
+    </select>
+  </div>
+  <div class="radar-grid" id="galleryGrid"></div>
+</div>
+
+<div id="viewTable" class="hidden">
+  <div class="toolbar">
+    <input id="tableSearch" placeholder="搜索..." oninput="renderTable()">
+    <select id="tableType" onchange="renderTable()"><option value="">全部类型</option></select>
+  </div>
+  <div class="table-wrap"><table id="mainTable"></table></div>
+</div>
+
+<div id="viewTypes" class="hidden">
+  <div id="archetypeList" style="display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:10px;"></div>
+</div>
+
+</div>
+
+<div class="modal-overlay" id="modal" onclick="if(event.target===this)closeModal()">
+  <div class="modal" id="modalContent"></div>
+</div>
+
+<script>
+// ── Data Loading ─────────────────────────────────────────
+let DATA = null;
+
+async function loadData() {
+  const resp = await fetch('nmofti_results.json');
+  DATA = await resp.json();
+  initUI();
+}
+
+// ── Initialization ───────────────────────────────────────
+function initUI() {
+  const types = [...new Set(DATA.members.map(m => m.result.typeCode))].sort();
+  const opts = types.map(t => `<option value="${t}">${t}</option>`).join('');
+  document.getElementById('galleryType').innerHTML += opts;
+  document.getElementById('tableType').innerHTML += opts;
+
+  renderOverview();
+  renderGallery();
+  renderTable();
+  renderTypes();
+}
+
+// ── Tabs ─────────────────────────────────────────────────
+function switchTab(name) {
+  const cap = name[0].toUpperCase() + name.slice(1);
+  ['Overview','Gallery','Table','Types'].forEach(t => {
+    document.getElementById('view'+t).classList.add('hidden');
+    document.getElementById('tab'+t).classList.remove('active');
+  });
+  document.getElementById('view'+cap).classList.remove('hidden');
+  document.getElementById('tab'+cap).classList.add('active');
+}
+
+// ── Overview ─────────────────────────────────────────────
+function renderOverview() {
+  const s = DATA.statistics;
+  const m = DATA.meta;
+
+  document.getElementById('statsGrid').innerHTML = `
+    <div class="stat-card"><div class="val">${s.totalMembers}</div><div class="lbl">总成员</div></div>
+    <div class="stat-card"><div class="val">${s.typeDistribution.length}</div><div class="lbl">人格类型数</div></div>
+    <div class="stat-card"><div class="val">${s.typeDistribution.find(t=>t.code==='GHOST')?.count||0}</div><div class="lbl">👻 幽灵</div></div>
+    <div class="stat-card"><div class="val">${s.typeDistribution.find(t=>t.code==='FISHPOND')?.count||0}</div><div class="lbl">🐟 鱼塘</div></div>
+    <div class="stat-card"><div class="val">${s.typeDistribution[0]?.code||'-'}</div><div class="lbl">最多类型</div></div>
+    <div class="stat-card"><div class="val">${m.archetypes}</div><div class="lbl">标准模板</div></div>
+  `;
+
+  // Type bars
+  const topTypes = s.typeDistribution.slice(0, 12);
+  const maxCount = topTypes[0]?.count || 1;
+  document.getElementById('typeBars').innerHTML = topTypes.map(t => `
+    <div class="type-bar">
+      <span class="code">${t.code}</span>
+      <div class="bar-track"><div class="bar-fill" style="width:${(t.count/maxCount*100).toFixed(0)}%">${t.count}人</div></div>
+      <span style="font-size:0.7rem;color:var(--muted)">${t.name}</span>
+    </div>
+  `).join('');
+
+  // Clan radar: average H/M/L for each dimension
+  const dimNames = ['N1攻击','N2风险','N3韧性','M1技巧','M2投入','M3成长','O1等级','O2广度','O3专精','F1团队','F2融入','F3活跃','T1效率','T2胜利','T3多面'];
+  const activeMembers = DATA.members.filter(m => !m.flags.isGhost);
+  const avgVec = new Array(15).fill(0);
+  activeMembers.forEach(m => { m.vector.forEach((v,i) => avgVec[i] += v); });
+  avgVec.forEach((_,i) => avgVec[i] = (avgVec[i] / activeMembers.length).toFixed(2));
+
+  const clanCanvas = document.getElementById('clanRadar');
+  const existingChart = Chart.getChart(clanCanvas);
+  if (existingChart) existingChart.destroy();
+  new Chart(clanCanvas, {
+    type: 'radar',
+    data: {
+      labels: dimNames,
+      datasets: [{
+        label: '军团均值 (' + activeMembers.length + '人)',
+        data: avgVec,
+        backgroundColor: 'rgba(56,189,248,0.15)',
+        borderColor: '#38bdf8',
+        pointBackgroundColor: '#38bdf8',
+        pointRadius: 3,
+      }]
+    },
+    options: {
+      responsive: true,
+      scales: { r: { min: 1, max: 3, ticks: { stepSize: 1, backdropColor:'transparent', color:'#94a3b8', font:{size:9} }, pointLabels: { color:'#94a3b8', font:{size:9} }, grid:{color:'#334155'} } },
+      plugins: { legend: { display: false } }
+    }
+  });
+}
+
+// ── Gallery ──────────────────────────────────────────────
+const dimLabels = ['N1攻击','N2风险','N3韧性','M1技巧','M2投入','M3成长','O1等级','O2广度','O3专精','F1团队','F2融入','F3活跃','T1效率','T2胜利','T3多面'];
+let galleryCharts = [];
+
+function renderGallery() {
+  // Destroy previous chart instances
+  galleryCharts.forEach(c => c.destroy());
+  galleryCharts = [];
+
+  const search = document.getElementById('gallerySearch').value.toLowerCase();
+  const type = document.getElementById('galleryType').value;
+
+  let members = DATA.members;
+  if (search) members = members.filter(m => m.name.toLowerCase().includes(search));
+  if (type) members = members.filter(m => m.result.typeCode === type);
+  members.sort((a,b) => a.flags.isGhost - b.flags.isGhost);
+
+  const grid = document.getElementById('galleryGrid');
+  grid.innerHTML = members.map((m,i) => `
+    <div class="member-card" onclick="showMember('${m.accountId}')">
+      <div class="card-hd">
+        <span class="name">${m.name}${m.flags.isGhost?' 👻':''}${m.flags.hasLowData?' ⚠':''}</span>
+        <span class="type-badge ${m.result.typeCode}" style="background:var(--rank-${m.result.typeCode==='GHOST'?'L':'H'});color:#000">${m.result.typeCode} ${m.result.typeName}</span>
+      </div>
+      <div class="pattern">${m.pattern}</div>
+      <canvas id="gallery-radar-${i}" height="160"></canvas>
+      <div style="text-align:center;font-size:0.7rem;color:var(--muted)">相似度 ${m.result.similarity}% ${m.result.runnerUp ? '· 次选 '+m.result.runnerUp.code : ''}</div>
+    </div>
+  `).join('');
+
+  // Draw radar charts after DOM is updated
+  requestAnimationFrame(() => {
+    members.forEach((m, i) => {
+      const canvas = document.getElementById('gallery-radar-'+i);
+      if (!canvas) return;
+      const chart = new Chart(canvas, {
+        type: 'radar',
+        data: {
+          labels: dimLabels,
+          datasets: [{
+            data: m.vector,
+            backgroundColor: m.flags.isGhost ? 'rgba(148,163,184,0.08)' : 'rgba(56,189,248,0.12)',
+            borderColor: m.flags.isGhost ? '#64748b' : '#38bdf8',
+            pointBackgroundColor: m.flags.isGhost ? '#64748b' : '#38bdf8',
+            pointRadius: 2,
+            borderWidth: 1.5,
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: { r: { min: 0.5, max: 3.5, ticks: { display:false }, pointLabels: { color:'#94a3b8', font:{size:7} }, grid:{color:'#334155'} } },
+          plugins: { legend: { display: false } }
+        }
+      });
+      galleryCharts.push(chart);
+    });
+  });
+}
+
+// ── Table ────────────────────────────────────────────────
+function renderTable() {
+  const search = document.getElementById('tableSearch').value.toLowerCase();
+  const type = document.getElementById('tableType').value;
+  let members = DATA.members;
+  if (search) members = members.filter(m => m.name.toLowerCase().includes(search));
+  if (type) members = members.filter(m => m.result.typeCode === type);
+
+  const patternCols = dimLabels.map((d,i) => `<th>${d}</th>`).join('');
+  document.getElementById('mainTable').innerHTML = `
+    <thead><tr>
+      <th>#</th><th>成员</th><th>类型</th><th>匹配度</th><th>Pattern</th>
+      ${patternCols}
+    </tr></thead>
+    <tbody>${members.map((m,i) => `
+      <tr onclick="showMember('${m.accountId}')" style="cursor:pointer">
+        <td>${i+1}</td>
+        <td>${m.name}${m.flags.isGhost?' 👻':''}${m.flags.hasLowData?' ⚠':''}</td>
+        <td><b>${m.result.typeCode}</b> ${m.result.typeName}</td>
+        <td>${m.result.similarity}%</td>
+        <td style="font-family:monospace;font-size:0.68rem">${m.pattern}</td>
+        ${m.lmh.map(v => `<td class="${v}">${v}</td>`).join('')}
+      </tr>`).join('')}
+    </tbody>`;
+}
+
+// ── Archetype Definitions ─────────────────────────────────
+window.ARCHETYPES = [
+    {code:'CMDER',name:'指挥官',desc:'全能型领袖，攻防兼备，团队核心。',emoji:'🎖️',pattern:'HHM-MHH-HMH-HHH-HMH'},
+    {code:'SNIPER',name:'狙击手',desc:'精准而致命，追求效率最大化。',emoji:'🎯',pattern:'MHL-HMH-LHM-LLM-HHH'},
+    {code:'RUSHER',name:'猛冲者',desc:'极限进攻，不顾一切冲向敌阵。',emoji:'⚡',pattern:'HHH-MLL-HML-MLL-LHL'},
+    {code:'SCOUT',name:'侦察兵',desc:'眼观六路，点亮全图。',emoji:'🔭',pattern:'MLH-MLL-LML-HHL-HMM'},
+    {code:'VET',name:'老兵',desc:'身经百战，沉稳老练。',emoji:'🛡️',pattern:'MMH-HHH-MHM-MHH-HMM'},
+    {code:'CASUAL',name:'摸鱼者',desc:'游戏只是生活的调味剂。',emoji:'🎮',pattern:'LLL-LML-LLL-LLL-LLL'},
+    {code:'RISER',name:'新星',desc:'冉冉升起的新势力。',emoji:'🚀',pattern:'HHL-MHL-MMH-MMH-HHM'},
+    {code:'GRINDER',name:'肝帝',desc:'场均千场的恐怖存在。',emoji:'💪',pattern:'MMM-HHH-MMM-MMM-HHH'},
+    {code:'BOMBER',name:'轰炸机',desc:'炮兵老哥，卫星视角掌控全局。',emoji:'💣',pattern:'HHL-LMH-MHL-LLL-MMH'},
+    {code:'JUGGER',name:'重装兵',desc:'钢铁洪流的化身。',emoji:'🏰',pattern:'HMH-MHL-MHL-MLL-MHL'},
+    {code:'FLANKER',name:'侧卫',desc:'灵活机动，战场游走者。',emoji:'🦅',pattern:'HHM-HMH-HML-HML-HMH'},
+    {code:'AMBUSH',name:'伏击者',desc:'草丛是第二层皮肤。',emoji:'🎭',pattern:'HML-HHL-HML-LLL-HMH'},
+    {code:'PATHFN',name:'探路者',desc:'轻坦专精，地图掌控者。',emoji:'🗺️',pattern:'MLH-MHL-LMH-HHH-HMM'},
+    {code:'LEADER',name:'领袖',desc:'军团灵魂人物。',emoji:'👑',pattern:'MHM-HMH-MMH-HHH-HHM'},
+    {code:'ACE',name:'王牌',desc:'全能战神，所有维度的天花板。',emoji:'⭐',pattern:'HHH-HHH-HHH-HHH-HHH'},
+    {code:'OGS',name:'老油条',desc:'经验丰富但已进入佛系状态。',emoji:'🧓',pattern:'MML-MMH-MMM-MMM-MMM'},
+    {code:'ROOKIE',name:'菜鸟',desc:'初来乍到的新兵蛋子。',emoji:'🐣',pattern:'LLL-LLL-LLL-LLL-LLM'},
+    {code:'1TRICK',name:'绝活哥',desc:'一辆车玩到极致。',emoji:'🔧',pattern:'MHM-HML-HLH-MLL-MMH'},
+    {code:'COLLEC',name:'收藏家',desc:'车库里的车比4S店还全。',emoji:'🏪',pattern:'MLM-MMH-HHL-MLM-MMM'},
+    {code:'TRYHRD',name:'分奴',desc:'以胜利为唯一目标。',emoji:'📈',pattern:'HHL-HMH-HMM-MLL-HHL'},
+    {code:'SOLDIER',name:'战士',desc:'可靠的中坚力量。',emoji:'⚔️',pattern:'MMM-MMM-MMM-MMM-MMM'},
+    {code:'SUPPORT',name:'辅助',desc:'甘当绿叶，团队优先。',emoji:'🤝',pattern:'LML-MLH-LML-HHM-MMH'},
+    {code:'BERSERK',name:'狂战士',desc:'永不刹车的战斗机器。',emoji:'🔥',pattern:'HHH-MHL-HHL-MLL-LLL'},
+    {code:'SURVIV',name:'生存者',desc:'血量管理大师。',emoji:'🩹',pattern:'LHM-HML-MML-MLH-HMM'},
+    {code:'WILDC',name:'变数',desc:'发挥极其不稳定。',emoji:'🎲',pattern:'HLM-MLH-MLH-MLM-HLH'}
+  ];
+  window.SPECIAL = {
+    FISHPOND: {code:'FISHPOND',name:'鱼塘之主',desc:'独特到无法被任何标准模板归类。',emoji:'🐟'},
+    GHOST: {code:'GHOST',name:'幽灵',desc:'长期未出战的退役老兵。',emoji:'👻'}
+  };
+</script>
+
+<script>
+function renderTypes() {
+  const all = [...(window.ARCHETYPES||[]), window.SPECIAL?.FISHPOND, window.SPECIAL?.GHOST].filter(Boolean);
+  const usedCodes = new Set(DATA?.members.map(m=>m.result.typeCode)||[]);
+  document.getElementById('archetypeList').innerHTML = all.map(a => {
+    const used = usedCodes.has(a.code);
+    return `
+    <div class="card" style="opacity:${used?1:0.45}">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <span style="font-weight:700">${a.emoji} ${a.code}</span>
+        <span style="color:var(--accent);font-weight:700">${a.name}</span>
+        ${DATA ? `<span style="font-size:0.7rem;color:var(--muted)">${DATA.statistics.typeDistribution.find(t=>t.code===a.code)?.count||0}人</span>` : ''}
+      </div>
+      <div style="font-size:0.75rem;color:var(--muted);margin-top:4px">${a.desc}</div>
+      ${a.pattern ? `<div style="font-family:monospace;font-size:0.7rem;margin-top:4px">${a.pattern}</div>` : ''}
+    </div>`;
+  }).join('');
+}
+
+// ── Member Detail Modal ──────────────────────────────────
+let modalChart = null;
+
+function showMember(accountId) {
+  if (modalChart) { modalChart.destroy(); modalChart = null; }
+
+  const m = DATA.members.find(m => m.accountId == accountId);
+  if (!m) return;
+  const r = m.result;
+  const d = m.dimensions;
+
+  document.getElementById('modalContent').innerHTML = `
+    <button class="close-btn" onclick="closeModal()">✕</button>
+    <h2>${m.flags.isGhost?'👻 ':''}${m.name}</h2>
+    <div class="type-name">${r.typeEmoji} ${r.typeCode} — ${r.typeName} <span style="font-size:0.75rem;color:var(--muted)">(${r.similarity}% 匹配)</span></div>
+    <div class="type-desc">${r.typeDesc}</div>
+    ${r.runnerUp ? `<div style="font-size:0.78rem;color:var(--muted);margin-bottom:8px">次选匹配: <b>${r.runnerUp.code} ${r.runnerUp.name}</b> (${r.runnerUp.similarity}%)</div>` : ''}
+    <div class="pattern" style="font-size:0.85rem;margin-bottom:12px">模式串: <b>${m.pattern}</b></div>
+    <h4 style="font-size:0.8rem;color:var(--accent);margin-bottom:6px">15维度详情</h4>
+    <div class="dim-list">
+      ${dimLabels.map((l,i) => `
+        <div><span class="dim-lbl">${l}</span> <span class="${m.lmh[i]}"><b>${m.lmh[i]}</b></span> <span style="font-size:0.65rem;color:var(--muted)">${(Object.values(d)[i]*100).toFixed(0)}%</span></div>
+      `).join('')}
+    </div>
+    <div style="margin-top:12px">
+      <canvas id="modalRadar" height="280"></canvas>
+    </div>
+  `;
+
+  document.getElementById('modal').classList.add('show');
+
+  setTimeout(() => {
+    const canvas = document.getElementById('modalRadar');
+    if (!canvas) return;
+    modalChart = new Chart(canvas, {
+      type: 'radar',
+      data: {
+        labels: dimLabels,
+        datasets: [{
+          data: m.vector,
+          backgroundColor: 'rgba(56,189,248,0.15)',
+          borderColor: '#38bdf8',
+          pointBackgroundColor: '#38bdf8',
+          pointRadius: 4,
+        }]
+      },
+      options: {
+        responsive: true,
+        scales: { r: { min: 0.5, max: 3.5, ticks: { stepSize:1, backdropColor:'transparent', color:'#94a3b8' }, pointLabels: { color:'#94a3b8', font:{size:9} }, grid:{color:'#334155'} } },
+        plugins: { legend: { display: false } }
+      }
+    });
+  }, 100);
+}
+
+function closeModal() {
+  if (modalChart) { modalChart.destroy(); modalChart = null; }
+  document.getElementById('modal').classList.remove('show');
+}
+
+// ── Bootstrap ────────────────────────────────────────────
+loadData();
+</script>
+</body>
+</html>

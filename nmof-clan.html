@@ -562,8 +562,11 @@ tbody tr:hover{background:var(--bg-hover)}
     <div class="nav-item" data-page="ranking60">
       <span class="icon">&#x1f3c6;</span> 60日排名
     </div>
+    <div class="nav-item" data-page="improvement">
+      <span class="icon">&#x1f4c8;</span> 进步排行
+    </div>
     <div class="nav-item" data-page="analysis">
-      <span class="icon">&#x1f4c8;</span> 数据分析
+      <span class="icon">&#x1f4ca;</span> 数据分析
     </div>
   </nav>
 
@@ -574,6 +577,7 @@ tbody tr:hover{background:var(--bg-hover)}
       <div style="display:flex;gap:16px;align-items:stretch;margin-bottom:16px" id="overview-header">
         <div class="card" id="clan-card" style="flex:1;margin-bottom:0"></div>
         <div class="card" id="sync-card" style="flex-shrink:0;display:flex;align-items:center;justify-content:center;min-width:130px;margin-bottom:0"></div>
+        <div class="card" id="clan-age-card" style="flex-shrink:0;display:flex;align-items:center;justify-content:center;min-width:130px;margin-bottom:0"></div>
         <div class="card" id="changelog-card" style="flex-shrink:0;display:flex;align-items:center;justify-content:center;min-width:130px;margin-bottom:0;cursor:pointer" onclick="showChangelog()"></div>
       </div>
       <div class="stat-grid" id="summary-stats"></div>
@@ -679,6 +683,31 @@ tbody tr:hover{background:var(--bg-hover)}
         </div>
         <div class="empty" id="ranking60-empty" style="display:none">没有匹配的成员或60日数据不可用</div>
         </div>
+      </div>
+    </div>
+
+    <!-- Improvement Page -->
+    <div class="page" id="page-improvement">
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">进步排行 <span class="members-count" id="improvement-count-label"></span></span>
+          <span style="font-size:12px;color:var(--text-muted)" id="improvement-subtitle">加载中...</span>
+        </div>
+        <div class="controls">
+          <input class="search-input" id="improvement-search" placeholder="搜索昵称..." oninput="renderImprovement()">
+          <select class="filter-select" id="improvement-filter-role" onchange="renderImprovement()">
+            <option value="">全部角色</option>
+          </select>
+          <input class="filter-input" id="improvement-battles-min" placeholder="当前60日场次≥" type="number" min="0" onchange="renderImprovement()">
+          <button class="btn btn-sm btn-secondary" onclick="resetImprovementFilters()">重置</button>
+        </div>
+        <div style="overflow-x:auto">
+        <table>
+          <thead id="improvement-table-head"></thead>
+          <tbody id="improvement-table-body"></tbody>
+        </table>
+        </div>
+        <div class="empty" id="improvement-empty" style="display:none">没有备份数据或没有匹配的成员</div>
       </div>
     </div>
 
@@ -818,6 +847,8 @@ function initApp(){
   renderMemberTable();
   initRanking60Filters();
   renderRanking60();
+  initImprovementFilters();
+  loadBackupData();
   renderAnalysis();
 }
 
@@ -900,6 +931,19 @@ function renderOverview(){
     '</div>';
   }
   document.getElementById('sync-card').innerHTML=syncHTML;
+
+  // Clan age card
+  var createdDate=new Date(c.created_at*1000);
+  var now=new Date();
+  var years=now.getFullYear()-createdDate.getFullYear();
+  var months=now.getMonth()-createdDate.getMonth();
+  if(now.getDate()<createdDate.getDate())months--;
+  if(months<0){years--;months+=12;}
+  document.getElementById('clan-age-card').innerHTML=
+    '<div style="text-align:center;font-size:12px;color:var(--text-muted);line-height:1.8">'+
+      '<div>军团成立</div>'+
+      '<div style="font-size:16px;font-weight:600;color:var(--text-primary)">'+(years>0?years+'年':'')+months+'月</div>'+
+    '</div>';
 
   // Changelog card
   renderChangelogCard();
@@ -1316,6 +1360,165 @@ function renderRanking60(){
       '<td style="color:' + (d.battles > 0 ? survTier.hex : 'var(--text-muted)') + '">' + (d.battles > 0 ? d.survival.toFixed(1) + '%' : '-') + '</td>' +
       '<td style="color:' + (d.battles > 0 ? kdTier.hex : 'var(--text-muted)') + '">' + (d.battles > 0 ? d.kd.toFixed(2) : '-') + '</td>' +
       '</tr>';
+  }).join('');
+}
+
+// ============================================================
+// Improvement Page
+// ============================================================
+var BACKUP_SNAPSHOTS = [];
+var improvementSortField = 'delta';
+var improvementSortDir = 'desc';
+
+async function loadBackupData(){
+  var currentDate = DATA._generated_at || '';
+
+  // 从清单文件动态发现所有备份
+  var snapshots = [];
+  try {
+    var mr = await fetch('data/backups.json');
+    if (mr.ok) {
+      var manifest = await mr.json();
+      for (var i = 0; i < manifest.length; i++) {
+        try {
+          var br = await fetch('data/' + manifest[i].dir + '/07_tomato_60day.json');
+          if (br.ok) {
+            var bdata = await br.json();
+            snapshots.push({ dir: manifest[i].dir, date: manifest[i].date, tomato: bdata });
+          }
+        } catch(e) {}
+      }
+    }
+  } catch(e) {}
+
+  // 添加当前数据作为最新快照
+  snapshots.push({ dir: '', date: (currentDate || '当前').slice(0,10), tomato: TOMATO });
+
+  snapshots.sort(function(a,b){ return a.date < b.date ? -1 : (a.date > b.date ? 1 : 0); });
+  BACKUP_SNAPSHOTS = snapshots;
+
+  if (snapshots.length > 1) {
+    document.getElementById('improvement-subtitle').textContent =
+      '每个日期对应当时采集的60日均伤，共 ' + snapshots.length + ' 个快照';
+  } else {
+    document.getElementById('improvement-subtitle').textContent = '无可用备份数据';
+  }
+  renderImprovement();
+}
+
+function initImprovementFilters(){
+  var roles = new Set();
+  members().forEach(function(m){ if (m.role) roles.add(m.role); });
+  var sel = document.getElementById('improvement-filter-role');
+  sel.innerHTML = '<option value="">全部角色</option>';
+  Array.from(roles).sort().forEach(function(r){
+    var opt = document.createElement('option');
+    opt.value = r; opt.textContent = roleLabel(r);
+    sel.appendChild(opt);
+  });
+}
+
+function setImprovementSort(field){
+  if (improvementSortField === field) improvementSortDir = improvementSortDir === 'asc' ? 'desc' : 'asc';
+  else { improvementSortField = field; improvementSortDir = 'desc'; }
+  renderImprovement();
+}
+
+function resetImprovementFilters(){
+  document.getElementById('improvement-search').value = '';
+  document.getElementById('improvement-filter-role').value = '';
+  document.getElementById('improvement-battles-min').value = '';
+  renderImprovement();
+}
+
+function buildImprovementData(){
+  var ms = members();
+  var snaps = BACKUP_SNAPSHOTS;
+  if (snaps.length === 0) return [];
+
+  return ms.map(function(m){
+    var row = { account_id: m.account_id, nickname: m.account_name, role: m.role, battles_now: 0 };
+    var hasAny = false;
+    for (var s = 0; s < snaps.length; s++) {
+      var t = snaps[s].tomato.data?.[m.account_id];
+      var r60 = t?.recent_60d || {};
+      var dpg = r60.dpg != null ? r60.dpg : 0;
+      row['dpg' + s] = dpg;
+      if (r60.battles > 0) hasAny = true;
+      if (s === snaps.length - 1) row.battles_now = r60.battles || 0;
+    }
+    if (!hasAny) return null;
+    var first = row['dpg0'], last = row['dpg' + (snaps.length - 1)];
+    row.delta = last - first;
+    row.pct = first > 0 ? ((last - first) / first * 100) : 0;
+    return row;
+  }).filter(function(d){return d != null;});
+}
+
+function renderImprovement(){
+  var snaps = BACKUP_SNAPSHOTS;
+  if (snaps.length === 0) {
+    document.getElementById('improvement-empty').style.display = 'block';
+    return;
+  }
+
+  var search = (document.getElementById('improvement-search')?.value || '').toLowerCase();
+  var role = document.getElementById('improvement-filter-role')?.value || '';
+  var battlesMin = parseInt(document.getElementById('improvement-battles-min')?.value) || 0;
+
+  var list = buildImprovementData().filter(function(d){
+    if (search && !d.nickname.toLowerCase().includes(search)) return false;
+    if (role && d.role !== role) return false;
+    if (d.battles_now < battlesMin) return false;
+    return true;
+  });
+
+  list.sort(function(a, b){
+    var va = a[improvementSortField], vb = b[improvementSortField];
+    if (typeof va === 'string') return improvementSortDir === 'asc' ? va.localeCompare(vb) : vb.localeCompare(va);
+    return improvementSortDir === 'asc' ? va - vb : vb - va;
+  });
+
+  document.getElementById('improvement-count-label').textContent = '(' + list.length + ')';
+
+  // Build header dynamically
+  var thead = document.getElementById('improvement-table-head');
+  var hhtml = '<tr><th>#</th>' +
+    '<th data-sort="nickname" onclick="setImprovementSort(\'nickname\')">昵称 <span class="sort-arrow"></span></th>' +
+    '<th data-sort="role" onclick="setImprovementSort(\'role\')">角色 <span class="sort-arrow"></span></th>';
+  for (var s = 0; s < snaps.length; s++) {
+    hhtml += '<th data-sort="dpg' + s + '" onclick="setImprovementSort(\'dpg' + s + '\')">' + snaps[s].date + ' <span class="sort-arrow"></span></th>';
+  }
+  hhtml += '<th data-sort="delta" onclick="setImprovementSort(\'delta\')">变化 <span class="sort-arrow"></span></th>' +
+    '<th data-sort="battles_now" onclick="setImprovementSort(\'battles_now\')">当前场次 <span class="sort-arrow"></span></th></tr>';
+  thead.innerHTML = hhtml;
+
+  var tbody = document.getElementById('improvement-table-body');
+  var empty = document.getElementById('improvement-empty');
+  if (list.length === 0) { tbody.innerHTML = ''; empty.style.display = 'block'; return; }
+  empty.style.display = 'none';
+
+  document.querySelectorAll('#page-improvement thead th .sort-arrow').forEach(function(a){a.textContent = '';});
+  var th = document.querySelector('#page-improvement thead th[data-sort="' + improvementSortField + '"]');
+  if (th) th.querySelector('.sort-arrow').textContent = improvementSortDir === 'asc' ? ' ▲' : ' ▼';
+
+  tbody.innerHTML = list.map(function(d, i){
+    var deltaSign = d.delta >= 0 ? '+' : '';
+    var deltaColor = d.delta > 0 ? 'var(--tier-above_average)' : (d.delta < 0 ? 'var(--tier-very_bad)' : 'var(--text-muted)');
+    var pctColor = d.pct > 0 ? 'var(--tier-above_average)' : (d.pct < 0 ? 'var(--tier-very_bad)' : 'var(--text-muted)');
+    var row = '<tr onclick="showMemberDetail(' + d.account_id + ')">' +
+      '<td style="color:var(--text-muted);font-size:12px">' + (i + 1) + '</td>' +
+      '<td style="font-weight:500">' + d.nickname + '</td>' +
+      '<td>' + roleBadge(d.role) + '</td>';
+    for (var s = 0; s < snaps.length; s++) {
+      var v = d['dpg' + s];
+      var tier = colorScale.get(v, 'dpg');
+      var isLast = s === snaps.length - 1;
+      row += '<td style="color:' + tier.hex + (isLast ? ';font-weight:600' : '') + '">' + (v > 0 ? v.toLocaleString() : '-') + '</td>';
+    }
+    row += '<td style="color:' + deltaColor + ';font-weight:600">' + deltaSign + d.delta.toLocaleString() + '</td>' +
+      '<td>' + d.battles_now.toLocaleString() + '</td></tr>';
+    return row;
   }).join('');
 }
 

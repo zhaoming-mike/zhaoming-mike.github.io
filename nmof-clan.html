@@ -6,6 +6,7 @@
 <title>NMOF 军团数据中心</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+<script src="https://d3js.org/d3.v7.min.js"></script>
 <script src="color-scale.js"></script>
 <style>
 /* ============================================================
@@ -585,6 +586,9 @@ tr.row-selected{background:rgba(233,202,93,0.06)!important}
     <div class="nav-item" data-page="analysis">
       <span class="icon">&#x1f4ca;</span> 数据分析
     </div>
+    <div class="nav-item" data-page="teamup">
+      <span class="icon">&#x1f91d;</span> 组队网络
+    </div>
   </nav>
 
   <!-- Main Content -->
@@ -742,6 +746,42 @@ tr.row-selected{background:rgba(233,202,93,0.06)!important}
       </div>
       <div class="card"><div class="card-header"><span class="card-title">场均伤害 vs 场均击杀</span></div><div class="chart-container"><canvas id="chart-dmg-frags"></canvas></div></div>
     </div>
+    <div class="page" id="page-teamup">
+      <div class="card" style="height:calc(100vh - 120px);margin-bottom:0;display:flex;flex-direction:column">
+        <div class="card-header" style="flex-wrap:wrap;gap:4px 8px">
+          <span class="card-title">组队关系网络</span>
+          <span style="font-size:10px;color:var(--text-muted);white-space:nowrap">
+            <span style="color:#4caf50">●</span> 节点颜色：场均伤害
+            <span style="margin-left:6px">●</span> 节点大小：组队人数
+            <span style="margin-left:6px;color:#e57373">—</span> 连线粗细：组队场次
+            <span style="margin-left:6px;color:#8bc34a">—</span> 连线颜色：组队胜率
+            <span style="margin-left:8px;color:#666">| 点击节点查看好基友</span>
+          </span>
+          <span style="font-size:11px;color:var(--text-muted)" id="teamup-stats"></span>
+          <span style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-left:auto">
+            <button onclick="refreshTeamUp()" style="background:#2a2a3e;color:#ddd;border:1px solid #444;border-radius:4px;padding:2px 10px;font-size:11px;cursor:pointer;white-space:nowrap" title="重新加载组队数据">&#x21bb; 刷新</button>
+            <span style="font-size:11px;color:var(--text-muted);white-space:nowrap">最少场次:</span>
+            <select id="teamup-min-battles" onchange="onTeamUpFilter()" style="background:#2a2a3e;color:#ddd;border:1px solid #444;border-radius:4px;padding:2px 8px;font-size:11px">
+              <option value="1">1 场</option>
+              <option value="3">3 场</option>
+              <option value="5">5 场</option>
+              <option value="10">10 场</option>
+              <option value="20">20 场</option>
+              <option value="50">50 场</option>
+            </select>
+            <span style="font-size:11px;color:var(--text-muted);white-space:nowrap">排斥力:</span>
+            <input type="range" id="teamup-charge" min="-2000" max="-100" value="-800" step="50" oninput="onChargeChange()" style="width:70px;accent-color:#ff9800" title="节点排斥力">
+            <span style="font-size:10px;color:var(--text-muted);min-width:32px" id="teamup-charge-val">-800</span>
+            <span style="font-size:11px;color:var(--text-muted);white-space:nowrap">大小:</span>
+            <input type="range" id="teamup-node-size" min="0.5" max="3" value="0.5" step="0.1" oninput="onNodeSizeChange()" style="width:70px;accent-color:#4caf50" title="节点大小比例">
+            <span style="font-size:10px;color:var(--text-muted);min-width:22px" id="teamup-node-size-val">0.5x</span>
+          </span>
+        </div>
+        <div style="flex:1;position:relative;overflow:hidden" id="teamup-container">
+          <div id="teamup-loading" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);color:var(--text-muted);z-index:1">加载中...</div>
+        </div>
+      </div>
+    </div>
   </main>
 </div>
 
@@ -882,6 +922,392 @@ function navigateTo(page){
   document.getElementById('main-content').scrollTop=0;
 
   if(page==='detail'&&currentMemberId)renderMemberDetail(currentMemberId);
+  if(page==='teamup')renderTeamUpGraph();
+}
+
+let teamUpSim = null;
+let teamUpDataCache = null;
+
+function dmgColor(avgDmg) {
+  if (avgDmg >= 1500) return '#e040fb';
+  if (avgDmg >= 1200) return '#4caf50';
+  if (avgDmg >= 900) return '#8bc34a';
+  if (avgDmg >= 600) return '#ffc107';
+  if (avgDmg >= 300) return '#ff9800';
+  return '#f44336';
+}
+
+function edgeWidth(battles) {
+  if (battles >= 200) return 6;
+  if (battles >= 100) return 5;
+  if (battles >= 50) return 4;
+  if (battles >= 20) return 3;
+  if (battles >= 10) return 2;
+  if (battles >= 3) return 1.5;
+  return 0.8;
+}
+
+function buildGraph(teammateData, memberList, minBattles) {
+  const nmofIds = new Set(memberList.map(m => m.account_id));
+  const nodeMap = {};
+  const edgeMap = {};
+
+  for (const m of memberList) {
+    const d = teammateData[m.account_id];
+    if (d && d.teammates && d.teammates.length > 0) {
+      nodeMap[m.account_id] = {
+        id: m.account_id,
+        name: m.account_name,
+        battles: m.battles || 0,
+        winrate: parseFloat(m.winrate) || 0,
+        avg_damage: parseFloat(m.avg_damage) || 0,
+      };
+    }
+  }
+
+  for (const [srcId, d] of Object.entries(teammateData)) {
+    const sid = parseInt(srcId, 10);
+    if (!nodeMap[sid] || !d.teammates) continue;
+    for (const t of d.teammates) {
+      if (!nmofIds.has(t.account_id) || !nodeMap[t.account_id]) continue;
+      if (t.battles_together < minBattles) continue;
+      const key = [sid, t.account_id].sort().join('-');
+      if (!edgeMap[key]) {
+        edgeMap[key] = { source: sid, target: t.account_id, battles: t.battles_together, winrate: t.winrate_together, lastPlayed: t.last_played };
+      } else {
+        edgeMap[key].battles = Math.max(edgeMap[key].battles, t.battles_together);
+      }
+    }
+  }
+
+  return {
+    nodes: Object.values(nodeMap),
+    links: Object.values(edgeMap),
+  };
+}
+
+async function renderTeamUpGraph() {
+  const container = document.getElementById('teamup-container');
+  const loading = document.getElementById('teamup-loading');
+  const stats = document.getElementById('teamup-stats');
+  if (!container || !loading) return;
+
+  if (!teamUpDataCache) {
+    try {
+      loading.style.display = 'block';
+      const [tr, mr] = await Promise.all([
+        fetch('data/09_teammates.json'),
+        fetch('data/06_member_list.json'),
+      ]);
+      if (!tr.ok) throw new Error('no data');
+      teamUpDataCache = { teammates: await tr.json(), members: await mr.json() };
+    } catch (e) {
+      loading.textContent = '组队数据不可用';
+      return;
+    }
+  }
+
+  const { teammates, members } = teamUpDataCache;
+  const td = teammates.data || {};
+  const sel = document.getElementById('teamup-min-battles');
+  const minBattles = parseInt(sel?.value || '1', 10);
+
+  let withData = 0;
+  for (const m of members) {
+    if (td[m.account_id] && td[m.account_id].teammates.length > 0) withData++;
+  }
+
+  const { nodes, links } = buildGraph(td, members, minBattles);
+  loading.style.display = 'none';
+  const legend = document.getElementById('teamup-legend');
+  if (legend) legend.style.display = 'block';
+  stats.textContent = `(${nodes.length} 节点, ${links.length} 连线, ${withData}/${members.length} 人有数据)`;
+
+  const W = container.clientWidth || 1200;
+  const H = container.clientHeight || 800;
+
+  container.querySelector('svg')?.remove();
+
+  const svg = d3.select('#teamup-container')
+    .append('svg')
+    .attr('width', '100%')
+    .attr('height', '100%')
+    .attr('viewBox', `0 0 ${W} ${H}`)
+    .attr('preserveAspectRatio', 'xMidYMid meet')
+    .style('background', '#1a1a2e');
+
+  const g = svg.append('g');
+
+  // Zoom — clamp translation so content never fully escapes viewport
+  const zoom = d3.zoom()
+    .scaleExtent([0.3, 4])
+    .on('zoom', (e) => {
+      const t = e.transform;
+      const pad = 50;
+      t.x = Math.min(pad, Math.max(-W * t.k + pad + W, t.x));
+      t.y = Math.min(pad, Math.max(-H * t.k + pad + H, t.y));
+      g.attr('transform', t);
+    });
+  svg.call(zoom).on('dblclick.zoom', null);
+
+  // Edge width scale
+  const maxB = d3.max(links, d => d.battles) || 1;
+
+  // Links
+  const link = g.append('g').selectAll('line')
+    .data(links).join('line')
+    .attr('stroke', d => {
+      if (d.winrate >= 55) return 'rgba(76,175,80,0.6)';
+      if (d.winrate >= 50) return 'rgba(156,204,101,0.5)';
+      if (d.winrate >= 45) return 'rgba(255,183,77,0.5)';
+      return 'rgba(229,115,115,0.45)';
+    })
+    .attr('stroke-width', d => edgeWidth(d.battles))
+    .attr('stroke-opacity', 0.7);
+
+  // Edge labels
+  const edgeLabel = g.append('g').selectAll('text')
+    .data(links.filter(d => d.battles >= 10)).join('text')
+    .text(d => d.battles)
+    .attr('font-size', 8)
+    .attr('fill', 'rgba(255,255,255,0.5)')
+    .attr('text-anchor', 'middle')
+    .attr('dy', -4);
+
+  // Nodes
+  const node = g.append('g').selectAll('g')
+    .data(nodes).join('g')
+    .call(d3.drag()
+      .on('start', (e, d) => { if (!e.active) sim.alphaTarget(0.3).restart(); d.fx = d.x; d.fy = d.y; })
+      .on('drag', (e, d) => { d.fx = e.x; d.fy = e.y; })
+      .on('end', (e, d) => { if (!e.active) sim.alphaTarget(0); d.fx = null; d.fy = null; }));
+
+  // Store connection count on nodes
+  for (const n of nodes) {
+    n._conns = links.filter(l => (l.source.id || l.source) === n.id || (l.target.id || l.target) === n.id).length;
+  }
+
+  function nodeRadius(d) {
+    const s = parseFloat(document.getElementById('teamup-node-size')?.value || 1);
+    const nameLen = (d.name || '').length;
+    const base = Math.max(14, 8 + d._conns * 3 + nameLen * 1.2);
+    return base * s;
+  }
+
+  // Node circles
+  node.append('circle')
+    .attr('r', d => nodeRadius(d))
+    .attr('fill', d => dmgColor(d.avg_damage))
+    .attr('stroke', 'rgba(255,255,255,0.3)')
+    .attr('stroke-width', 1.5);
+
+  // Node labels — centered inside circle
+  node.append('text')
+    .text(d => d.name)
+    .attr('font-size', d => Math.max(10, Math.min(13, 3 + d._conns * 1.5)))
+    .attr('fill', '#fff')
+    .attr('text-anchor', 'middle')
+    .attr('dominant-baseline', 'central')
+    .style('pointer-events', 'none')
+    .style('font-weight', 'bold')
+    .style('text-shadow', '0 0 3px rgba(0,0,0,0.7)');
+
+  window._teamUpNodes = node;
+
+  // Tooltip (clean up old one)
+  d3.select('#teamup-tooltip').remove();
+  const tooltip = d3.select('body').append('div')
+    .attr('id', 'teamup-tooltip')
+    .style('position', 'absolute')
+    .style('background', 'rgba(0,0,0,0.9)')
+    .style('color', '#fff')
+    .style('padding', '8px 12px')
+    .style('border-radius', '6px')
+    .style('font-size', '12px')
+    .style('pointer-events', 'none')
+    .style('opacity', 0)
+    .style('z-index', 9999);
+
+  node.on('mouseenter', function(e, d) {
+    const conn = links.filter(l => l.source.id === d.id || l.target.id === d.id);
+    tooltip.style('opacity', 1)
+      .html(`<b>${d.name}</b><br>总场次: ${d.battles.toLocaleString()}<br>场均伤害: ${d.avg_damage}<br>胜率: ${d.winrate}%<br>军团内队友: ${conn.length} 人`);
+    d3.select(this).select('circle').attr('stroke', '#fff').attr('stroke-width', 3);
+  }).on('mousemove', function(e) {
+    tooltip.style('left', (e.pageX + 12) + 'px').style('top', (e.pageY - 10) + 'px');
+  }).on('mouseleave', function() {
+    if (teamUpSelected) return;
+    tooltip.style('opacity', 0);
+    d3.select(this).select('circle').attr('stroke', 'rgba(255,255,255,0.3)').attr('stroke-width', 1.5);
+  });
+
+  link.on('mouseenter', function(e, d) {
+    if (teamUpSelected) return;
+    const sa = typeof d.source === 'object' ? d.source : {};
+    const ta = typeof d.target === 'object' ? d.target : {};
+    tooltip.style('opacity', 1)
+      .html(`<b>${sa.name || '?'} - ${ta.name || '?'}</b><br>一起组队: ${d.battles} 场<br>胜率: ${d.winrate != null ? d.winrate + '%' : 'N/A'}<br>最近: ${d.lastPlayed || 'N/A'}`);
+    d3.select(this).attr('stroke', 'rgba(255,255,255,0.95)').attr('stroke-width', edgeWidth(d.battles) + 2);
+  }).on('mousemove', function(e) {
+    tooltip.style('left', (e.pageX + 12) + 'px').style('top', (e.pageY - 10) + 'px');
+  }).on('mouseleave', function(e, d) {
+    tooltip.style('opacity', 0);
+    const c = d.winrate >= 55 ? 'rgba(76,175,80,0.6)' : d.winrate >= 50 ? 'rgba(156,204,101,0.5)' : d.winrate >= 45 ? 'rgba(255,183,77,0.5)' : 'rgba(229,115,115,0.45)';
+    d3.select(this).attr('stroke', c).attr('stroke-width', edgeWidth(d.battles));
+  });
+
+  // Node click to highlight connections
+  let teamUpSelected = null;
+
+  function highlightNode(d) {
+    teamUpSelected = d;
+    const neighbors = new Set();
+    neighbors.add(d.id);
+    for (const l of links) {
+      const sid = l.source.id || l.source;
+      const tid = l.target.id || l.target;
+      if (sid === d.id) neighbors.add(tid);
+      if (tid === d.id) neighbors.add(sid);
+    }
+
+    node.select('circle')
+      .transition().duration(200)
+      .attr('opacity', n => neighbors.has(n.id) ? 1 : 0.15)
+      .attr('stroke', n => n.id === d.id ? '#fff' : 'rgba(255,255,255,0.3)')
+      .attr('stroke-width', n => n.id === d.id ? 3 : 1.5);
+    node.select('text')
+      .transition().duration(200)
+      .attr('opacity', n => neighbors.has(n.id) ? 1 : 0.1);
+    link
+      .transition().duration(200)
+      .attr('stroke-opacity', l => {
+        const sid = l.source.id || l.source;
+        const tid = l.target.id || l.target;
+        return (sid === d.id || tid === d.id) ? 0.9 : 0.05;
+      })
+      .attr('stroke', l => {
+        const sid = l.source.id || l.source;
+        const tid = l.target.id || l.target;
+        if (sid === d.id || tid === d.id) {
+          if (l.winrate >= 55) return 'rgba(76,175,80,0.8)';
+          if (l.winrate >= 50) return 'rgba(156,204,101,0.7)';
+          if (l.winrate >= 45) return 'rgba(255,183,77,0.7)';
+          return 'rgba(229,115,115,0.65)';
+        }
+        return 'rgba(100,100,100,0.08)';
+      });
+    edgeLabel
+      .transition().duration(200)
+      .attr('opacity', l => {
+        const sid = l.source.id || l.source;
+        const tid = l.target.id || l.target;
+        return (sid === d.id || tid === d.id) ? 0.8 : 0;
+      });
+  }
+
+  function clearHighlight() {
+    teamUpSelected = null;
+    node.select('circle')
+      .transition().duration(200)
+      .attr('opacity', 1)
+      .attr('stroke', 'rgba(255,255,255,0.3)')
+      .attr('stroke-width', 1.5);
+    node.select('text')
+      .transition().duration(200)
+      .attr('opacity', 1);
+    link
+      .transition().duration(200)
+      .attr('stroke-opacity', 0.7)
+      .attr('stroke', d => d.winrate >= 55 ? 'rgba(76,175,80,0.6)' : d.winrate >= 50 ? 'rgba(156,204,101,0.5)' : d.winrate >= 45 ? 'rgba(255,183,77,0.5)' : 'rgba(229,115,115,0.45)');
+    edgeLabel
+      .transition().duration(200)
+      .attr('opacity', 1);
+  }
+
+  node.on('click', function(e, d) {
+    e.stopPropagation();
+    if (teamUpSelected && teamUpSelected.id === d.id) {
+      clearHighlight();
+    } else {
+      highlightNode(d);
+    }
+  });
+
+  svg.on('click', () => {
+    if (teamUpSelected) clearHighlight();
+  });
+
+  // Force simulation
+  const sim = d3.forceSimulation(nodes)
+    .force('link', d3.forceLink(links).id(d => d.id).distance(d => 200 - Math.log2(d.battles + 1) * 20))
+    .force('charge', d3.forceManyBody().strength(parseInt(document.getElementById('teamup-charge')?.value || -800, 10)))
+    .force('center', d3.forceCenter(W / 2, H / 2))
+    .force('collision', d3.forceCollide(d => nodeRadius(d) + 8))
+    .force('boundary', () => {
+      const pad = 60;
+      const strength = 0.15;
+      for (const n of nodes) {
+        if (n.x < pad) n.vx += (pad - n.x) * strength;
+        if (n.x > W - pad) n.vx -= (n.x - (W - pad)) * strength;
+        if (n.y < pad) n.vy += (pad - n.y) * strength;
+        if (n.y > H - pad) n.vy -= (n.y - (H - pad)) * strength;
+      }
+    })
+    .on('tick', () => {
+      link.attr('x1', d => d.source.x).attr('y1', d => d.source.y)
+        .attr('x2', d => d.target.x).attr('y2', d => d.target.y);
+      edgeLabel.attr('x', d => (d.source.x + d.target.x) / 2)
+        .attr('y', d => (d.source.y + d.target.y) / 2);
+      node.attr('transform', d => `translate(${d.x},${d.y})`);
+    });
+
+  teamUpSim = sim;
+
+  window._teamupResize = () => {
+    if (currentPage !== 'teamup') return;
+    const w = container.clientWidth || 1200, h = container.clientHeight || 800;
+    svg.attr('viewBox', `0 0 ${w} ${h}`);
+    zoom.extent([[0, 0], [w, h]]);
+    sim.force('center', d3.forceCenter(w / 2, h / 2)).restart();
+  };
+  if (!window._teamupResizeBound) {
+    window.addEventListener('resize', window._teamupResize);
+    window._teamupResizeBound = true;
+  }
+}
+
+function refreshTeamUp() {
+  teamUpDataCache = null;
+  renderTeamUpGraph();
+}
+
+function onTeamUpFilter() {
+  renderTeamUpGraph();
+}
+
+function onChargeChange() {
+  const val = document.getElementById('teamup-charge')?.value;
+  const label = document.getElementById('teamup-charge-val');
+  if (label) label.textContent = val;
+  if (teamUpSim) {
+    teamUpSim.force('charge', d3.forceManyBody().strength(parseInt(val, 10)));
+    teamUpSim.alpha(0.3).restart();
+  }
+}
+
+function onNodeSizeChange() {
+  const val = document.getElementById('teamup-node-size')?.value;
+  const label = document.getElementById('teamup-node-size-val');
+  if (label) label.textContent = val + 'x';
+  if (window._teamUpNodes) {
+    const s = parseFloat(val);
+    window._teamUpNodes.select('circle')
+      .attr('r', d => (Math.max(5, 3 + d._conns * 2.5)) * s);
+    window._teamUpNodes.select('text')
+      .attr('dy', d => (Math.max(5, 3 + d._conns * 2.5)) * s + 12);
+    teamUpSim.force('collision', d3.forceCollide(d => (Math.max(5, 3 + d._conns * 2.5)) * s + 8));
+    teamUpSim.alpha(0.3).restart();
+  }
 }
 
 // ============================================================
@@ -1534,6 +1960,15 @@ async function loadBackupData(){
 
   // 添加当前数据作为最新快照
   snapshots.push({ dir: '', date: (currentDate || '当前').slice(0,10), tomato: TOMATO });
+
+  // Deduplicate by date (keep first occurrence)
+  var seen = {};
+  snapshots = snapshots.filter(function(s) {
+    var k = s.date.slice(0, 10);
+    if (seen[k]) return false;
+    seen[k] = true;
+    return true;
+  });
 
   snapshots.sort(function(a,b){ return a.date < b.date ? -1 : (a.date > b.date ? 1 : 0); });
   BACKUP_SNAPSHOTS = snapshots;

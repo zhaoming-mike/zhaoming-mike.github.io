@@ -1940,8 +1940,11 @@ var improvementSortDir = 'desc';
 async function loadBackupData(){
   var currentDate = DATA._generated_at || '';
 
-  // 从清单文件动态发现所有备份
+  // 当前数据优先（最新采集结果）
   var snapshots = [];
+  snapshots.push({ dir: '', date: (currentDate || '当前').slice(0,10), tomato: TOMATO });
+
+  // 从清单文件动态发现所有备份
   try {
     var mr = await fetch('data/backups.json');
     if (mr.ok) {
@@ -1957,9 +1960,6 @@ async function loadBackupData(){
       }
     }
   } catch(e) {}
-
-  // 添加当前数据作为最新快照
-  snapshots.push({ dir: '', date: (currentDate || '当前').slice(0,10), tomato: TOMATO });
 
   // Deduplicate by date (keep first occurrence)
   var seen = {};

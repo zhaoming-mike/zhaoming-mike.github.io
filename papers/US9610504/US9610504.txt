@@ -1,0 +1,1819 @@
+USOO961.0504B2
+
+(12) United States Patent
+Kislyi et al.
+
+(10) Patent No.: US 9,610,504 B2
+(45) Date of Patent: *Apr. 4, 2017
+
+(54) MULTIPLAYER DYNAMIC BATTLE
+SESSION MATCHMAKING
+
+(71) Applicants: Victor Kislyi, Minsk (BY); Ivan Mikhnevich, Nicosia (CY)
+
+(72) Inventors: Victor Kislyi, Minsk (BY); Ivan Mikhnevich, Nicosia (CY)
+
+(73) Assignee: Wargaming.net Limited, Nicosia (CY)
+
+(*) Notice:
+
+Subject to any disclaimer, the term of this patent is extended or adjusted under 35 U.S.C. 154(b) by 397 days.
+This patent is Subject to a terminal dis
+claimer.
+
+(21) Appl. No.: 13/800,002
+
+(22) Filed: Mar. 13, 2013
+
+(65)
+
+Prior Publication Data
+
+US 2013/031 O181 A1 Nov. 21, 2013
+
+Related U.S. Application Data
+(63) Continuation of application No. 13/472,945, filed on May 16, 2012, now Pat. No. 8,425.330.
+
+(51) Int. C.
+
+A63F I3/00
+
+(2014.01)
+
+A63F 3/837
+
+(2014.01)
+
+A63F I3/30
+
+(2014.01)
+
+A63F 13/795
+
+(2014.01)
+
+(52) U.S. C.
+
+CPC ............ A63F 13/795 (2014.09); A63F 13/12
+
+(2013.01); A63F 13/837 (2014.09); A63F
+
+2300/5566 (2013.01); A63F2300/8076
+
+(2013.01)
+
+(58) Field of Classification Search
+
+USPC ............................................................ 463/42
+
+See application file for complete search history.
+
+(56)
+
+References Cited
+
+U.S. PATENT DOCUMENTS
+
+6,023,729 A
+6,322,451 B1 6,352.479 B1 6,641,481 B1 6,648,760 B1 6,758,754 B1 7,056,217 B1 7,275,994 B2
+7,491,123 B2
+7,614.955 B2 7,651,392 B2
+
+2/2000 Samuel et al.
+1 1/2001 Miura 3/2002 Sparks, II 1 1/2003 Mai et al. 1 1/2003 Nicastro 7/2004 Lavanchy et al. 6/2006 Pelkey et al. 10/2007 Eck et al.
+2, 2009 Smith
+11/2009 Farnham et al. 1/2010 Pennington et al.
+(Continued)
+
+OTHER PUBLICATIONS
+
+Jens Riegelsberger, et al., "Personality Matters: Incorporating
+Detailed User Attributes and Preferences into the Matchmaking Process', downloaded from <http://research.microsoft.com/en-us/ groups scg/profiles and matchmaking.pdf>.
+
+(Continued)
+
+Primary Examiner -- Dmitry Suhol
+Assistant Examiner -- Ankit Doshi
+(74) Attorney, Agent, or Firm -- Banner & Witcoff, Ltd.
+
+(57)
+
+ABSTRACT
+
+Methods and systems for performing Smart matchmaking in
+
+a massive multiplayer online game are described herein. A
+
+Video game Such as a vehicle-based combat game may
+
+include multiple types of vehicles, where each type of
+
+vehicle may progress through increasing tier levels. Differ
+
+ent types of vehicles within the same tier may have different capabilities, strengths, and weaknesses. When performing
+
+matchmaking for a game session, a matchmaking server
+
+may use a battle level table defining permissible tiers of each
+
+type of vehicle allowed within a particular battle level, and
+
+may also limit the number of a specific type of vehicle
+
+allowed in any one game session. The battle table may provide an advantage to premium vehicles by limiting the
+
+tiers of other vehicles against which a similarly tiered premium vehicle may compete. Battle level difficulty may
+
+be adjusted by adjusting the ranges of permissible vehicles
+
+in each battle level.
+
+33 Claims, 9 Drawing Sheets
+
+CENT3
+
+CLEN 4 10
+
+Oa -
+CeN 1
+
+.
+--...-1
+
+I WRUA
+ENVIRONMENT SERVER
+
+NETWORK f
+
+i. --
+
+3.
+
+- 106
+
+WATCHMAKING
+
+.
+
+SERVER
+
+---
+
+- 103
+
+WUAL
+
+E VIRTUAL
+
+NwrMMNT - ENVIRONMENT
+
+SERER
+
+SERVER
+
+US 9,610,504 B2
+Page 2
+
+(56)
+
+References Cited
+
+U.S. PATENT DOCUMENTS
+
+7,686,690 B2 7,780,533 B2 7,785,197 B2 7,787.972 B2
+7,846,024 B2
+7,896,734 B2
+7,955,175 B1
+8,002,618 B1 2004.0143852 A1 2005, OO336O1 A1 2005/O192097 A1 2006.0035692 A1 2006/0287096 A1 2007/0243936 A1
+2008, 022087.0 A1
+2008/02424.21 A1
+2008/0287.190 A1
+2009/0325712 A1
+2010. 0317430 A1
+2011/0201395 A1
+
+3/2010 Miura et al. 8/2010 Yamauchi et al. 8, 2010 Smith 8/2010 Schlottmann et al.
+12/2010 Graepel et al.
+3/2011 Kaminkow et al.
+6/2011 Holloway et al.
+8/2011 Lockton et al.
+7/2004 Meyers 2/2005 Kirby et al.
+9, 2005 Farnham et al.
+2/2006 Kirby et al. 12/2006 O'Kelley et al.
+10/2007 Binenstock et al.
+9, 2008 Zavolas et al.
+10/2008 Geisner et al.
+11/2008 Fulton et al.
+12/2009 Rance
+12/2010 Multerer et al.
+8/2011 Bansi et al.
+
+OTHER PUBLICATIONS
+"An In-Depth Evaluation of the Architecture, Protocols and Matchmaking Algorithms Behind Online Gaming', downloaded from <http://mms.ecs.soton.ac.uk/2011/papers/22.pdf>.
+
+"Fictional Scenario', downloaded from <http://hornbeam.cs.ucl.ac. uk/philip/reinvent06/presentations/scenario2.pdf>.
+"Xbox 360 Field Manual". UNSC Department of Doctrine and Training, downloaded from <www.xbox.com/haloreach. Apple, Inc. "Game Kit Programming Guide'. Jul. 17, 2012, down loaded from (http://developer.apple.com/library/ios/documenta tion/NetworkingInternet/Conceptual/GameKit Guide/GameKit Guide.pdf>.
+Tobias Fritsch, et al., "The Next Generation of Competitive Online Game Organization', downloaded from <http://www. benjaminvoigt.euftfthe next generation of cogo.pdf>.
+World of Tanks, European Server, Technical Support Service, Free experience, 1 page, Jul. 7, 2011.
+World of Tanks Archive--Game portal NORD OST, downloaded from <forum mordost.Su/archive/index.php/t-7557.html>, 30 pages, Jun. 15, 2010. World of Tanks Game Manual, Wargaming.net, 75 pages. World of Tanks, Wikipedia article Aug. 16, 2010 in Russian with English translation, 18 pages. "Personality Matters: Incorporating Detailed User Attributes and Preferences into the Matchmaking Process". "An In-Depth Evaluation of the Architecture, Protocols and Matchmaking Algorithms Behind Online Gaming".
+Xbox Webshots.
+Xbox 360 Field Manual.
+"Game Kit Programming Guide". "The Next Generation ofCompetitive Online Game Organization". Mar. 4, 2014 Office Action issued in U.S. Appl. No. 14/028, 100. Feb. 26, 2014 Notice of Allowance issued in U.S. Appl. No. 14/080,256.
+
+U.S. Patent Apr. 4, 2017 Sheet 1 of 9
+
+US 9,610,504 B2
+
+Nu 10 ic
+
+CEN 3
+
+(CEN 4
+
+/
+
+Oa -
+
+s
+
+CEN
+
+NETWORK
+QQ
+
+- -- ---- - -- ---- -- -- ------ -
+
+F. - - - - - - - - - - - - -
+WRA
+; : ENVRONVEN
+SERVER
+
+ar
+WRA
+ENWRONVEN
+SERVER
+
+---
+WACVAKNG S&WER
+O3
+r-------
+WRA
+ENWRONMEN
+SERVER
+
+U.S. Patent Apr. 4, 2017 Sheet 2 of 9
+
+US 9,610,504 B2
+
+3O3 \
+
+3O
+
+S
+
+RROOfM communication
+
+30
+
+M
+
+(7
+
+C DustRDE
+
+3OS
+
+OBEC SFASTICS
+
+POSION
+
+O3 CD
+
+3
+
+3.
+
+--
+
+312 --
+
+1 WOR
+
+3
+
+317
+
+SERVER SOVARE
+
+*
+
+G. 3
+
+U.S. Patent Apr. 4, 2017 Sheet 3 of 9
+
+US 9,610,504 B2
+
+GAir ANAGER
+
+NEWORK OU
+GRAPHCS OE
+Eiji RY
+MANAGER
+
+YSCS ENGINE
+OSEC ACE
+
+50
+
+Caracter
+
+Attributes:
+
+-3
+
+Naire raik Braun 512
+
+507
+
+A
+
+TQruaailniifnigcalteivoen-lD.ri5v0e0r -
+Competence of M3 Stuart
+
+61-3 34
+
+Additical Skills
+Repairs - 0% -85
+Firefighting a 50%
+509 - Camouflage = 100% -57
+
+U.S. Patent Apr. 4, 2017 Sheet 4 of 9
+
+US 9,610,504 B2
+
+SS
+
+555
+
+553
+
+C
+
+Attites:
+Naitte:itse: chiaktouis
+(weight/Load imit: 7.5/9.2 -
+55 Engine Power (h.p. e. 5 -365
+Speed limit at 46 km/h -568
+Hui Armor (frontiside/rear min}r 14f12 2 56 urret Armor (frontsidefirear min) is 4,122 88 Standard She arriage is 24-40 -569
+Standard Shei Penetration (min) 28-43 -570
+Rate of Fire (roundsirin) at 30 -57
+Turret Traverse Speed (deglisec) "-372
+View Range (n) is 270 --S3
+Signal Range (r). OO -374
+
+visie:
+
+u-575
+
+Gt.urre:t3.7D378M2-5 1 58 a
+
+Engine: Continental W-670
+
+(SRuasdpieonssiconR:2S0tguaTrt E-. 79
+
+589 Additional:
+
+-38
+
+FG. 5B
+
+U.S. Patent Apr. 4, 2017 Sheet 5 Of 9
+
+US 9,610,504 B2
+
+W19-08
+W89-180
+
+U.S. Patent Apr. 4, 2017 Sheet 6 of 9
+
+US 9,610,504 B2
+
+U.S. Patent Apr. 4, 2017 Sheet 7 Of 9
+|
+
+US 9,610,504 B2
+
+B?TIERUNS]
+[SENTCOI
+
+U.S. Patent Apr. 4, 2017 Sheet 9 Of 9
+
+US 9,610,504 B2
+
+US 9,610,504 B2
+
+1.
+
+2
+
+MULTIPLAYER DYNAMIC BATTLE SESSION MATCHMAKING
+
+vehicle tier. The game may include a plurality of different
+vehicle types, and a plurality of different hierarchical vehicle tiers. Matchmaking may further include assigning each
+
+CROSS-REFERENCE TO RELATED CASES
+
+vehicle to a battle session based on a battle level table
+
+defining a permissible range of battle levels for each vehicle
+
+This application is a continuation application of co based on vehicle type and vehicle tier, and then initiating the
+
+pending application Ser. No. 13/472,945, filed May 16, battle session with each of the assigned vehicles.
+
+2012, and having the title "Dynamic Battle Session Match The method may be performed based on instructions
+
+making in a Multiplayer Game, the contents of which are stored on a statutory computer readable medium, or
+
+herein incorporated by reference for all purposes.
+
+10 executed by a matchmaking server configured to perform as
+
+FIELD
+
+described herein.
+According to various aspects, a first vehicle type of a first
+
+Aspects of the disclosure relate to computer systems, computer Software, and video games. More particularly,
+aspects of the disclosure relate to video game software, administering massive multiplayer online games, matching players in multiplayer online games based on player expe
+
+15
+
+tier may be associated with a first range of battle levels, and a second vehicle type of the first tier may be associated with a second range of battle levels different from the first range
+of battle levels.
+According to other aspects, each vehicle may be one of a
+
+rience level, character experience level, and/or vehicle expe standard vehicle and a premium vehicle, where a first
+
+rience levels, and playing video games.
+
+premium vehicle is associated with a lower range of battle
+
+levels than a first standard vehicle of a same tier and/or type
+
+BACKGROUND
+
+as the first premium vehicle.
+
+In some aspects, assigning may include calculating the
+
+Video games are increasingly popular. Online multiplayer permissible range of battle levels as a function of a number
+
+Video games have become particularly popular due, at least 25 ofbattle sessions previously played using the vehicle. In one
+
+in part, to the ability of players to compete with multiple specific aspect, the calculating may be performed by deter
+
+other human players.
+
+mining a current maximum permissible battle level C based
+
+Popular genres of multiplayer games include the first on the following: For B-N: C=L+(B-1)((M-L-1)/N); For
+
+person-shooter (FPS) and the third-person shooter genres. In BaN: C-M, where L represents a lowest battle level defined
+
+FPS games, the players on-screen view simulates the view 30 the battle level table for the vehicle type and vehicle tier of
+
+of the character or vehicle controlled by the player; that is, the vehicle, M represents the maximum battle level defined
+
+the first-person view. The object of many FPS games is to the battle level table for the vehicle type and vehicle tier of
+
+accomplish a goal within a game. Common goals include the vehicle, B represents the number of battles previously
+
+killing other game characters that represent other players, played using the vehicle, rounding to a nearest integer value.
+
+capturing flags that represent opponents territory, assaulting 35 These and other aspects will be apparent upon reading the
+
+another team's base, and the like. Third person shooter detailed description below.
+
+games often have similar goals but differ in the perspective
+
+of the player. In third person shooters, the player views the
+
+BRIEF DESCRIPTION OF THE DRAWINGS
+
+game world from above or behind the character or vehicle
+
+controlled by the player.
+
+40 A more complete understanding of the present invention
+
+Because online multiplayer games have become increas and the advantages thereof may be acquired by referring to ingly common, there is Substantial competition between the the following description in consideration of the accompa
+
+offered games regarding obtaining and retaining consumers. nying drawings, in which like reference numbers indicate
+
+Repetitive play can often lead to players becoming bored like features, and wherein:
+
+with a particular game. In addition, if a player finds a game 45 FIG. 1 is an illustrative network environment in which
+
+too hard or too easy, the player may become frustrated or one or more aspects described herein may be used.
+
+bored, and cease playing prematurely.
+
+FIG. 2 is a block diagram illustrating an example virtual
+
+world client according to one or more aspects described
+
+SUMMARY
+
+herein.
+
+50 FIG. 3 is a block diagram illustrating an example virtual
+
+The following presents a simplified Summary of various world server according to one or more aspects described
+
+aspects described herein. This Summary is not an extensive herein.
+
+overview, and is not intended to identify key or critical FIG. 4 illustrates a block architecture diagram of software
+
+elements or to delineate the scope of the claims. The modules that may be used to implement various features
+
+following Summary merely presents some concepts in a 55 described herein.
+
+simplified form as an introductory prelude to the more FIG. 5A illustrates an instance of a character object
+
+detailed description provided below.
+
+according to various features described herein.
+
+To overcome limitations in the prior art described above, FIG. 5B illustrates an instance of a vehicle object accord
+
+and to overcome other limitations that will be apparent upon ing to various features described herein.
+
+reading and understanding the present specification, the 60 FIG. 6A illustrates a screenshot of a video game imple
+
+present invention is directed to methods and systems for menting one or more illustrative aspects described herein.
+
+performing matchmaking in a multiplayer online video FIG. 6B illustrates a screenshot of a video game imple
+
+game. According to an aspect, matchmaking may be per menting one or more illustrative aspects described herein.
+
+formed by receiving at a matchmaking server a battle FIG. 7 illustrates a screenshot of a video game imple
+
+session request from each of a plurality of client devices, 65 menting one or more illustrative aspects described herein.
+
+where each battle session request identifies a vehicle to be FIG. 8 illustrates battle level table according to an illus
+
+used in the game. Each vehicle has a vehicle type and trative embodiment described herein.
+
+US 9,610,504 B2
+
+3
+
+4
+
+FIG. 9 illustrates a flowchart for a method of performing without getting frustrated. Specific algorithms and tech
+
+Smart matchmaking according to an illustrative embodiment niques used for matchmaking are described in more detail
+
+described herein.
+
+below.
+
+FIG. 2 illustrates an example client device 200 such as PC
+
+DETAILED DESCRIPTION
+
+5 101b (FIG. 1) that may be used to access and interact with
+
+a virtual world provided by a virtual world server such as
+
+In the following description of the various aspects, ref server 105a of FIG. 1. Client device 200 may include a
+
+erence is made to the accompanying drawings, which form variety of components and modules including a processor
+
+a part hereof, and in which is shown by way of illustration 217, random access memory (RAM) 215, read only memory
+
+how various features described herein may be practiced. It 10 (ROM) 213, databases 201 and 203, client software 205,
+
+is understood that other embodiments may be used and structural and functional modifications may be made.
+FIG. 1 illustrates a network environment in which clients
+101 may interact with virtual world servers 105 to provide a virtual world for users to access. Clients 101 may include a variety ofdevices including generic data processing device 101a, personal computer (PC) 101b, laptop, portable, or
+
+15
+
+output adapter 211, input interface 209 and communication interface 207. Software, databases, operating systems, and the like may be stored in nonvolatile memory 206 (e.g., a magnetic disk or Solid state hard drive, or equivalent). Object database 201 may be configured to store data defin
+ing and otherwise associated with an object used by a user
+of device 200 to explore and interact with the virtual world. World database 203, on the other hand, may be configured
+
+netbook computer 101C, personal data assistant, mobile to store data for defining and generating the environment in
+
+phone or device 101d, a tablet device (not shown) and the which the objects exist. For example, world database 203
+
+like. Each of clients 101 may have a network adapter that may store texture maps for rendering a floor or ground,
+
+allows clients 101 to connect to virtual world servers 105 walls, a sky and the like. In another example, world database
+
+through network 100. In one example, network 100 may 203 may store simulated environments, buildings, trees and
+
+include an Internet Protocol (IP) based network, e.g., the other data defining animate or inanimate objects existing in
+
+Internet. Other networks may include cellular networks, 25 the world, data defining computer controlled characters and
+
+cable networks, fiber optic networks, wireless networks, the like. Each of database 201, 203 may or may not be a
+
+wired network and/or combinations thereof. Network 100 conventional database, and instead may refer to data stored
+
+may further include one or more sub-networks such as wired in a memory, accessed as needed by the client Software. Data
+
+or wireless local area networks (LANs), wide area networks associated with an object or the virtual world may be
+
+(WANs), and the like.
+
+30 communicated between client device 200 and a virtual world
+
+In one or more arrangements, virtual world servers 105 may be included in a virtual world server system 103 that includes multiple linked physical and/or logical servers 105. Using such a distributed system, servers 105 may be able to
+distribute load across each of server 105. For example, if server 105a is experienced high loads, some of the opera
+tions may be passed to either server 105b or 105c or both.
+
+server using communication interface 207. For example, object positions, attributes and status may be updated or environments may be changed by communicating such data
+through interface 207. The world and the objects may be graphically rendered by
+client software 205 and subsequently sent to output adapter
+211 and display 219. The client software 205 may, in one or more arrangements, be configured to generated three dimen
+
+Load may further be distributed based on user geography or on other predetermined bases. Alternatively, the virtual
+
+40
+
+sional (3-D) models of the virtual world and components thereofas well as the object corresponding to a user. A user
+
+world may be hosted on a single server, e.g., virtual world may control the object and interact with the world through
+
+server 105.a. Each of servers 105 may collectively generate input interface 209 using various types of input devices
+
+and manage a single instance of the virtual world, or each including keyboard 223 and mouse 225. Other types of input
+
+server 105a, 105b and 105c may provide independent devices may include a microphone (e.g., for voice commu
+
+instances of the world. An instance of a virtual world, as 45 nications over the network), joysticks, motion sensing
+
+used herein, describes a stand-alone instance of the virtual devices and/or combinations thereof. In one or more
+
+world that does not interact with or depend on other arrangements, music or other audio Such as speech may be
+
+instances of the virtual world. Depending on the processing included as part of the virtual world. In such instances, the
+
+load, a virtual world server system 103 may divide a audio may be outputted through speaker 221.
+
+plurality of users among multiple instances of the virtual 50 Client software 205, computer executable instructions,
+
+world, to reduce or alleviate overloading on a single server and other data used by processor 217 and other components
+
+or prevent overpopulation. Each server 105 may be logical of client device 200 may be stored RAM 215, ROM 213,
+
+or physical, e.g., multiple logical servers may reside and be nonvolatile memory 206 or a combination thereof. Other
+
+running on the same physical computing device/server, or types of memory may also be used, including both volatile
+
+servers may be physically separate devices.
+
+55 and nonvolatile memory. Software 205 may provide instruc
+
+The network environment of FIG. 1 may also associate tions to processor 217 such that when the instructions are
+
+with one or more matchmaking servers 106. As used herein, executed, processor 217, client device 200 and/or other
+
+a matchmaking server 106 may determine what set of components thereof are caused to perform functions and
+
+players to assign to a same instance of the virtual world to methods described herein. In one example, instructions for
+
+ensure that all players meet predefined criteria for that 60 generating a user interface for interfacing with the virtual
+
+instance of the virtual world. That is, if extremely experi world server may be stored in RAM 215, ROM 213 and/or
+
+enced players are paired with complete novices, the expe nonvolatile memory 206. Client software 205 may include
+
+rienced players may quickly become bored, while the novice both applications and operating system software, and may
+
+players may quickly become frustrated, causing each of include code segments, instructions, applets, pre-compiled
+
+them to stop playing the game altogether. Thus, the match- 65 code, compiled code, computer programs, program mod
+
+making server(s) 106 determine how to assign players to an ules, engines, program logic, and combinations thereof.
+
+instance of a virtual world So that every player is challenged, Computer executable instructions and data may further be
+
+US 9,610,504 B2
+
+5
+
+6
+
+stored on some physical form of computer readable storage described herein. In one example, reward points may be
+
+media (referred to herein as "computer memory') including, used to initiate or perform "research' to unlock more
+
+e.g., electrically erasable programmable read-only memory powerful, stronger, or otherwise more desirable elements
+
+(EEPROM), flash memory or other memory technology, within the game. The discussion below indicates various
+
+CD-ROM, DVD or other optical disk storage, magnetic features and items that may be researched and used, as a
+
+cassettes, magnetic tape, magnetic storage and the like. player develops a character or vehicle within the game. As
+
+Referring now to FIG. 3, a virtual world server 300 (e.g., players research and purchase more advanced technologies,
+
+an instance of server 105) may be configured to generate and those players advance in skill and ability, which also affects
+
+operate a massive multiplayer online game. Such as virtual how those players should be matched against other players
+
+world or the like. Server 300 may include processor 301, 10 in the game by matchmaking server 106.
+
+ROM 303, RAM 305, communication interface 307, object FIG. 4 illustrates a block diagram of a video game
+
+position database 309, world database 311, user database software application 401. Each block in FIG. 4 illustrates a
+
+313, server software 317, and a statistics database 312. logical Software module or function that performs an action,
+
+Object position database 309 may be configured to store provides a capability or feature, implements an object, or
+
+position information for each object (e.g., based on com 15 performs some other aspect of the video game. When the
+
+mands to move a vehicle received from each client). The Video game software 401 executes on a data processing
+
+statistics database 312 may be configured to store and/or system such as a PC or game console, the modules operate
+
+transfer statistics relevant to game operation, including, for collectively to provide a video game experience to a player.
+
+example, tracking player achievement and general game The modules illustrated in FIG. 4 are illustrative only, and
+
+server performance.
+
+additional or different modules may be used. The same,
+
+A world database 311 may store rules, algorithms and additional or different modules may be executed in tandem
+
+other data for interactions that are available in the world. For on a server with which each client device is connected.
+
+example, a manner in which a computer controller character Video game Software 401 may include, e.g., a game
+
+moves or otherwise behaves may be defined in data stored manager module 402, which manages the overall operation
+
+in world database 311. Additionally, item information may 25 of the video game and may be the initial module launched
+
+be defined in world database 311 so that items may not be when the video game is executed. Video game software 401
+
+modified by each client. In another example, world database may also include a network module 403, which manages
+
+311 may store location information for non-object items and network games sessions and communication with one or
+
+components. User database 313, on the other hand, may be more game servers. A network game session may include
+
+configured to store information describing a user controlling 30 e.g., a co-operative campaign with other networked players,
+
+an object. For example, user database 313 may include or other compartmentalized periods of game play involving
+
+account information, user preferences, one or more classes players located at discrete network locations. A memory
+
+of user experience points and/or levels, payment informa manager module 409 performs memory management during
+
+tion, user identification information, character definitions, execution of the video game 401. An input module 404 may
+
+state tables, and the like. Each of databases 309, 311, 312, 35 receive and interpret user input via a game controller,
+
+313 may or may not be a conventional database, and instead keyboard, mouse, and the like, and provide the interpreted
+
+may refer to data stored in a memory, accessed as needed by commands to game manager 402, network module 403, or
+
+the server software. For example, user database 313 may in other applicable module. UI module 405 may manage and
+
+fact be a collection of multiple databases or database tables. control the user interface, including the display displayed on
+
+Features described herein may be used with or in a variety 40 the video output device, interpreting input via the input
+
+of video games, including but not limited to, WORLD OF module 404, and providing audio output via audio module
+
+TANKSTM by Wargaming.net(R). Aspects described herein 408.
+
+may also be used with other video games and are not limited Various Software modules may operate with one or more
+
+to any one genre or implementation. Aspects described classes or objects defined and used in the video game 401.
+
+herein may be implemented in video game application 45 The classes and objects may be defined with reference to an
+
+Software stored on a computer readable medium, e.g., Stor object module 410, and may include portions of executable
+
+age 201, 203, 205, 206, 213, 215,309, 311, 312, and/or 313, Software code and/or one or more data structures, depending
+
+and executable by a data processing device.
+
+on the object. Each object may be rendered and simulated in
+
+Various aspects of the disclosure provide features and the virtual world in accordance with a physics engine 407.
+
+capabilities that enhance game play by providing options 50 Video game software 401 may include other software mod
+
+through which users can develop strategies to play the video ules 411 as needed. FIG. 4 illustrates one possible software
+
+game. According to various aspects described herein, a architecture. Others may be used. Each module depicted in
+
+Video game may provide a graphically stimulated virtual FIG. 4 may communicate directly or indirectly with each
+
+world or virtual environment, in which the game takes place, other module, e.g., by passing objects, data, parameters,
+
+referred to herein interchangeably as a virtual world and as 55 input, and output, etc.
+
+a simulated environment of the video game. The simulated A first class of in-game objects may define characters in
+
+environment may have features similar to actual geographic the video game. Characters may be defined by various
+
+locations or may have fictional, Science fiction or fantasy attributes associated with the character, e.g., name, physical
+
+themed environments.
+
+appearance, skills, etc. Skills may be defined based on a
+
+According to various aspects, the game may involve 60 characters genre or task, e.g., gunners, tank commanders,
+
+multi-player combat-based tournaments combined with an and drivers in the present example. A gunner may have skills
+
+experience-based reward system. As users accomplish pre Such as aiming accuracy and aiming speed, a tank com
+
+defined tasks or achievements within the game, the player mander may have skills that regulate the overall efficiency of
+
+may be given one or more types of reward points or the tank crew, a driver may have skills that determine the
+
+experience points. Reward points may Subsequently be 65 vehicle speed or precision of direction. Additional character
+
+exchanged for in-game items, goods, features, etc., or oth attributes may include one or more other skills that can
+
+erwise used in accordance with one or more aspects improve performance of the character or vehicle so as to
+
+US 9,610,504 B2
+
+7
+
+8
+
+enhance the strategic gaming experience Such as firefighting character may eventually be associated with multiple com
+
+skills, the ability to repair vehicles, the ability to camouflage petence attributes--one per vehicle the character has been
+
+vehicles, and the like.
+
+associated with.
+
+A second class of in-game objects may define vehicles in FIG. 5B illustrates a block diagram of an instance 551 of
+
+the video game. A vehicle may be defined as any simulated a vehicle object. Object instance 551 has an object class 555
+
+inanimate object directly or indirectly controllable by or (Vehicle). Instance 551 may acquire one or more attributes
+
+dependent on an in-game character or user/player. Illustra 557 from the object class. Attributes 557, when examined,
+
+tive vehicles may include tanks, airplanes, ships (and/or define a state of the instance. In this example, object instance
+
+submarines), and the like. Vehicles may have various attri butes and functions that provide advantageous qualities to
+the vehicle during combat. For example, some vehicles might be fast with minimal firepower, whereas other vehicles may be slower but extremely powerful. Infinite
+variations of strength, speed, defense, and any other attribute are possible.
+
+10 15
+
+551 is a Liechttraktor Tank and has attributes associated with
+tank properties. Exemplary attributes include Name 561, Hit Points 563, Weight/Load limit564, Engine Power (h.p.) 565, Speed Limit 566, Hull Armor 567, Turret Armor 568, Standard Shell Damage 569, Standard Shell Penetration 570, Rate of Fire 571, Turret Traverse Speed 572, View Range 573, and Signal Range 574. These attribute contribute to the vehicle's effectiveness in combat. Attribute types may also
+
+Object module 410 may provide an array of vehicles, have an attribute value, which determines the effectiveness
+
+vehicle components, characters and other equipment. of the attribute function. For example, the Speed Limit
+
+Vehicles, vehicle components, characters and other equip attribute 566 has a value of 46 km/h, which indicates how
+
+ment may be defined by one or more objects and instantiated fast the vehicle can travel. One or more of the attributes,
+
+during the game. Each object may have various attributes alone or in combination, may be used to assign the vehicle
+
+and functions and provide advantages and disadvantages to a subclass. In this example, vehicle 551 may be in a
+
+based thereon. A vehicle component may refer to an subclass of tanks referred to as "Light Tanks' based on hit
+
+upgradeable component of a vehicle, e.g., armor plating, points, speed, armor, etc. Other classes of tanks may include
+
+engine, guns, etc.
+
+25 medium tanks and heavy tanks, among others. Subclass may
+
+FIG. 5A illustrates a block diagram of an instance 501 of be used to quickly identify to a user a general approximation
+
+a character object. Object instance 501 has an object class of attributes associated with a vehicle without requiring the
+
+505 (Character). Instance 501 may acquire one or more user to review each attribute in detail.
+
+attributes from the object class. Attributes 507, when exam Aspects of the disclosure involve altering object attributes
+
+ined, define a state of the instance. In this example, the 30 in response to experience obtained within the game. Altering
+
+Character has the following attributes: Name 511, Qualifi attributes provides for enhancing the skills of the character
+
+cation 512, Training Level 513, and Competence 514. A and enhancing properties of vehicle and vehicle compo
+
+character may also have additional skill types 509. Addi nents. Altered attributes provides the game player with
+
+tional skill types may include Repair Skills 515, Firefighting vehicle and characters able to compete more effectively
+
+skills 516, and Camouflage skills 517. Other skill types, 35 against other players.
+
+attributes, etc., may also or alternatively be used.
+
+Using Modules to Upgrade Vehicle Attributes
+
+Each attribute may have a particular value. The attribute Vehicle attributes may be altered by adding or upgrading
+
+may have a default value inherited from the Qualification modules associated with a vehicle. A vehicle contains mod
+
+type 512. For some attributes, a player may increase attri ules classes 559. Each module class may contain one of a
+
+bute value by allocating experience points, gained during 40 variety of module types appropriate to the module class. In
+
+gameplay, to the character. Increased attribute value one example, module classes may include Gun 575, Turret
+
+enhances gameplay by improving performance of the 576, Engine 577, Suspension 578, and Radio 579. Addi
+
+vehicle containing the characters. For example, by allocating tional 580 modules may be added to provide additional
+
+experience points to the gunner of a tank, the Training Level functions or otherwise modify vehicle attributes 557. Within
+
+513 may be increased resulting in more accurate gun point 45 each class, a vehicle may be outfitted with one module type
+
+ing by a vehicle containing that character, leading to that falls within the class. For example, five increasingly
+
+improved vehicle performance during battle. Similarly, the powerful gun types may be available within the gun class.
+
+effectiveness of the additional skill types is increased in Similarly, there may be multiple radio types within the radio
+
+accordance with the value of the skill. Thus, for example, a class. Adding or changing a module type alters vehicle
+
+Firefighting skill 516 value of 100% is proportionally more 50 attributes 557 based on the effectiveness of the newly
+
+effective than a value of 50%. Increased firefighting effec installed module type. Thus, for example, if the Radio
+
+tiveness results in reduced damage to the vehicle in the event module 579 type SCR 209 is replaced by a more advanced
+
+of a fire. By staffing a vehicle with characters having module the Signal Range 574 attribute value may increase
+
+improved attributes and skills, vehicle performance is maxi based on a signal range value associated with the more
+
+mized allowing for a more effective performance during 55 advanced module. An increased Signal Range value, in turn,
+
+game play.
+
+may allow the vehicle to detect enemies at greater distances
+
+In some embodiments, attributes might not be able to be during game play, making the player more competitive
+
+changed. Qualification 512 may not be changed; for against opponents and resulting in an enhanced gameplay
+
+example, a driver may not be retrained as a gunner. A experience for that player.
+
+character's Competence attribute 514 refers to their ability 60 Experience Points and Research
+
+to operate a specific vehicle type; for example a specific type During game play (e.g., between game sessions), new
+
+of tank such as the M3 Stuart tank. Competence 514 may be vehicles and new modules for vehicles may be unlocked by
+
+changed by retraining the character to operate the same a player in exchange for experience points. In some embodi
+
+Qualification 512 on a different vehicle. Changing Compe ments, a user might gain points for a single experience class.
+
+tence 514 may result in a decreased Training Level 513 in 65 In other embodiments, points may be earned for two or more
+
+the new vehicle. Additional experience points may be used different experience classes. Different experience classes
+
+to raise the Training Level 513 in the new vehicle. A may be used to gain access to different features in the game.
+
+US 9,610,504 B2
+
+10
+
+For example, points earned in a first experience class may be tanks than others, resulting in a weak tank being targeted by
+
+used to allow a user access to a first set of game objects (e.g. a very strong and powerful tank, while other plays may have
+
+vehicles and/or vehicle modules) but not a second, different more advances characters than others, resulting in perhaps
+
+set of game objects. Points earned in the second experience more accuracy or speed in a particular tank than another
+
+class may be used to allow a user access to a different set of 5 player using the same tank with less experienced characters
+
+game objects than the first experience class. The first and acting as the crew for that tank. Based on the near infinite
+
+second sets may share some objects in common, or may combination of character attributes as used with various
+
+instead be completely distinct.
+
+types and strengths of vehicles, it becomes difficult to match
+
+In one example, where the first experience class is battle players for a gaming session so that each player is chal
+
+experience, battle experience may be used to unlock any 10 lenged without becoming bored or frustrated.
+
+object in the same tech tree as the vehicle in which the battle According to an aspect, there may be five primary types
+
+experience was earned, but may not be used to unlock of tank vehicles: Self Propelled Guns (SPG, or artillery),
+
+objects not in the same tech tree as the vehicle in which the Light Tanks, Medium Tanks, Heavy Tanks, and Tank
+
+experience was earned. In this example, where the second Destroyers. Each vehicle may also be assigned a tier rating.
+
+experience is free experience, the free experience may be 15 The higher the tier, the more powerful the vehicle is con
+
+used to unlock any object in any tech tree, regardless of the sidered to be. Vehicles of tier 1 may be entry level or novice
+
+vehicle in which the free experience was earned.
+
+vehicles, whereas vehicles of tier 10 (or higher) may rep
+
+Collectively, the experience classes may be referred to resent well armored vehicles, very fast vehicles, vehicles
+
+herein as the "Primary Currency" of the game. Primary with powerful ammunition, etc. If a player using a tier 1
+
+Currency is the main route for players to acquire upgraded vehicle were to compete against a player using a tier 10
+
+vehicles, modules, and personnel. A second type of currency, vehicle, the player using the tier 1 vehicle has virtually no
+
+defined herein as "Alternative Currency may be provided to chance of winning the game session. However, a player
+
+a player in exchange for alternative compensation, e.g., by using a tier 4 or above vehicle may be able to compete
+
+completing secondary in-game tasks, completing objectives, against Some tier 10 vehicles. Thus, it is important to match
+
+or in exchange for the payment of money. In some embodi 25 players against other players using characters and/or
+
+ments, the software may allow some or all of a first vehicles of comparable quality, while still providing a chal
+
+experience class to be converted into one or more of the lenging game experience without being overly difficult. This
+
+different experience classes. In some aspects, such conver is a very fine line to walk.
+
+sion may only be permitted when a predetermined condition FIG. 8 illustrates a matchmaking table 801 that may be
+
+is met. Various predetermined conditions may be imposed. 30 used according to one or more illustrative aspects described
+
+For example, the Software may prevent conversion until a herein. A game session may be referred to as a battle session.
+
+vehicle has been upgraded to a particular status. For A game session/battle session refers to any discrete round of
+
+example, all objects in the same tech tree as a vehicle might a game, e.g., a round of eliminate all enemies, capture the
+
+be required to be unlocked before conversion from the first flag, hold the ball, and/or any other multiplayer variant of a
+
+experience class to the second experience class is permitted. 35 game. In the WORLD OF TANKS brand of multiplayer
+
+Such a vehicle is said to be an "elite" vehicle or having game, a game session/battle session refers to two teams of
+
+acquired elite status. A cost may be imposed on the user for 15 tanks fighting until 1) only one team has any tanks
+
+conversion (e.g., Alternative Currency).
+
+remaining, or 2) one team captures the other team's base.
+
+In other aspects, players may have the option to convert Each battle session is assigned a battle level. Each battle
+
+Battle experience to Free experience under different condi 40 level is used to limit participating vehicles to predefined tiers
+
+tions. For example, "Premium vehicles may be available to that are included in that battle session, thereby providing a
+
+a player in exchange for Alternative Currency. A Premium unique method of creating a balanced battle session in an
+
+vehicle may refer to a vehicle similar to an elite vehicle in MMO game. As players progress and advance in experience,
+
+that the vehicle includes all possible module upgrades and the player (or vehicle) will gradually be moved into higher
+
+vehicles within the same tech tree family, however, the 45 battle levels based on the experience, attributes, and capa
+
+Premium vehicle may be purchased for the alternative bilities of each player's characters and/or vehicles.
+
+currency whereas the elite vehicle was unlocked using one Use of battle levels is based on the premise of gradual
+
+or more classes of experience through gameplay. Players advancement through the tech tree starting with a first tier
+
+who purchase Premium vehicles may be permitted to con vehicle and unlocking more powerful vehicles by means of
+
+vert Battle experience to Free experience without first 50 gaining battle experience or purchasing a premium vehicle.
+
+achieving any predetermined condition in the Premium The game engine (e.g., as performed by matchmaking
+
+Vehicle. In other aspects, predetermined conditions imposed server) uses battle levels to manage the difficulty of each
+
+on Premium vehicles might be different from those imposed battle session. According to one aspect, the level of difficulty
+
+on non-Premium vehicles.
+
+of a battle level is not identified or revealed in the game, and
+
+FIG. 6A shows a screenshot of an example tech tree (also 55 players might not be offered any option to choose a difficulty
+
+known as a game progress tech tree) for a Medium Tank level within a battle session. However, as a matter of
+
+object KV-13. All modules and available tanks (e.g. T-43) practice, players will typically want to obtain further
+
+present in the tech tree have been unlocked and are available upgrades by being constantly challenged, while not over
+
+for player use. FIG. 6B shows a screenshot of a tank tech tree loaded, in sequential game sessions.
+
+that may be researched for a T1 Cunningham tank object. 60 Referring again to FIG. 8, there may be five (5) classes of
+
+FIG. 7 is an example of a main screen of an illustrative vehicles in the game: Light Tank, Medium Tank, Heavy
+
+game.
+
+Tank, SPG and Tank Destroyer. Each class of vehicle
+
+Dynamic Matchmaking
+
+possesses specific characteristics and a tier number. Gener
+
+Based on the ability of players to increase the attributes of ally, the higher the tier number is the more powerful the
+
+their respective characters and/or objects (in this example, 65 vehicles. Premium vehicles additionally have one or more of
+
+tanks), players will each have different capabilities to use in their own advantages. Each vehicle may be assigned a range
+
+game sessions. Some players may have more advanced of accessible battle levels. Vehicles of the same tier belong
+
+US 9,610,504 B2
+
+11
+
+12
+
+ing to different classes may differ in their accessible battle FIG. 9 illustrates a method of performing matchmaking
+
+levels ranges (e.g., Tier 4: Light vehicle has an access range according to an aspect described herein. Initially in step 901,
+
+to battle levels from 4 to 10; Medium--from 4 to 8: a battle level table such as table 801. Table 801 may be
+
+Heavy--from 4 to 5; SPG from 6 to 10; Tank Destroy stored in a database, an array, a lookup table, or any other
+
+ers--from 5 to 8: Premium USSR vehicle Valentine--from data structure usable for querying the data stored therein.
+
+4 to 5). When forming a line-up for a battle session of a Step 901 may be performed only once, and then table 801
+
+certain level, appropriate vehicles with matching accessible
+battle levels are chosen.
+
+may be reused as needed, or until table 801 is modified or replaced, e.g., to adjust difficulty of battle levels, add or
+
+The battle of a specified level (e.g., a level 6 battle
+session) may combine only those players whose vehicles permit access to this battle level within their range (Tier 3: all classes, Tier 4: Light, Medium, SPG and Tank Destroy ers, Tier 5: Medium, Heavy, Tank Destroyers, and specified premium vehicles).
+
+10 15
+
+remove specific vehicles, etc. In step 903 matchmaking server 106 receives a battle
+session request from each of a plurality of clients, and queues the requests for allocation to a future battle session.
+When enough battle session requests have been received, e.g., based on a predefined minimum number of vehicles per
+battle session, then in step 905 matchmaking server 106
+
+In addition to providing balanced battle sessions, the use creates a battle session having a determined battle level. The
+
+of tier-limited battle levels provides the ability to control battle level can be determined based on the vehicles in the
+
+difficulty levels of the battle so that players of all skill levels queue (e.g., a battle level into which a majority of the queue
+
+remain challenged and wanting to play more. Players with is eligible), based on a sequential process of creating battle
+
+higher tier vehicles have no access to lower battle levels, sessions of incrementing (or decrementing) battle levels, or
+
+likewise lower tier vehicles are not allowed into higher based on any other desired criteria. The method of selecting
+
+battle levels. However, with one and the same vehicle the battle level is secondary to the assignment of a battle
+
+players can happen to get into battle sessions of different level to a particular battle session.
+
+levels within their accessibility range. By putting players Once the battle level is selected, then in step 907 match
+
+into battles of varying level, the players experience a variety 25 making server 106 identifies a particular vehicle in the queue
+
+of game play while experiencing both wins and losses. that is eligible to participate in the battle session having the
+
+According to one aspect, a player may be placed randomly determined battle level, based on the information stored in
+
+or sequentially in any suitable battle level. However, accord battle level table 801. Step 907 may also include confirming
+
+ing to another aspect, players who have just acquired a new a vehicle's eligibility based on additional criteria other than
+
+higher tier vehicle are encouraged by being placed into 30 battle level. In one embodiment, matchmaking server 106
+
+battle sessions near the lower boundary of that vehicle's selects tanks so that a total weight of vehicles from two
+
+accessibility range, which allows the player feel more com teams within the battle session are equal or near equal. In
+
+fortable in the game. With time, the balancing system starts another embodiment matchmaking server 106 selects tanks
+
+putting them into higher levels battle sessions, which creates so that a total weight of each type of vehicle on two teams
+
+a challenge of playing with more upgraded opponent 35 is equal or near equal. In another embodiment, where each
+
+vehicles. Details regarding how this aspect is performed are vehicle is associated with a number of player or NPC
+
+provided below, based on the use of the variable N in table personnel required to operate the vehicle, the matchmaking
+
+801.
+
+server 106 may select vehicles so that the number of
+
+Premium vehicles typically have advanced capabilities personnel on each of two teams is equal or near equal. In yet
+
+compared to other vehicles of similar tiers, and may be 40 another embodiment, matchmaking server 106 may confirm
+
+allowed only into a lower range of battle levels than standard that, when sorting each of two team's vehicles by weight in
+
+vehicles of a similar tier level, thereby encouraging users to decreasing order, the weight of the first member of each
+
+obtain premium vehicles. For example, in one embodiment, team is equal or near equal.
+
+Tier 8 standard Heavy vehicles are allowed in battle levels In step 909 matchmaking server 106 adds the identified
+
+from 9 to 12, while Tier8 Heavy premium vehicles get into 45 vehicle to the particular battle session, e.g., by updating a
+
+levels 9-10 and 9-11, thereby avoiding battle level 12. As a data structure or database associated with storing battle
+
+result, players are more likely to feel Superior, and have a session information. In step 911, matchmaking server 106
+
+better chance of Success in game using premium vehicles determines whether there is room remaining in the battle
+
+because they will never play against as difficult opponents as session for additional vehicles. If so, matchmaking server
+
+standard vehicles may face.
+
+50 106 returns to step 907. If not, matchmaking server starts the
+
+According to an aspect, the average level of difficulty in battle session, e.g., by assigning the battle session to a
+
+each battle can be adjusted by changing the bounds of access particular game server 105, and instructing each client
+
+ranges for specified vehicles types (e.g., battle level 9 machine associated with a vehicle in the battle session to
+
+implies a certain difficulty level, which can be made easier contact the assigned game server 105. Other ways of starting
+
+by increasing the values ofthe bounds for vehicles including 55 the game session are also possible, and are not limited by the
+
+Tier 3 SPG, Tier 4 Medium and Tank Destroyers, or increas example provided herein.
+
+ing the value for the lower bound of Tier 6 Light vehicles. The method described with respect to FIG. 9 is illustrative
+
+Likewise each level 9 battle session may be increased in only, and various modifications may be made. For example,
+
+difficulty by decreasing the ranges for Tier 6 SPG, Tier 7 matchmaking server 106 may also limit the number of a
+
+Light, Tier 9 Heavy and Tank Destroyers, and decrease the 60 specific type of vehicle that is permitted in each battle
+
+values of the bounds for Tier 5 Medium and Tank Destroyers session. Thus, even if there is room left in the battle session,
+
+vehicles.
+
+and there are only vehicles of type Heavy Tank in the queue,
+
+Using battle levels as described herein, matchmaking matchmaking server might instead wait for a different
+
+servers can assign players to sessions to provide players with vehicle type to be placed in the queue when the number of
+
+varied gaming experiences without frustrating or boring the 65 heavy tanks already in the battle session meets a predefined
+
+player. Battle sessions are balanced while the difficulty threshold or limit. As another example, the weight compari
+
+levels of the battle session for each player are controlled. sons described above may be performed iteratively through
+
+US 9,610,504 B2
+
+13
+
+14
+
+out the method as vehicles are added, and not necessarily remain constant. Similarly, if the battle level is already at the
+
+performed at a single point in time. That is, matchmaking lower end of the range and the player loses the battle, the
+
+server 106 may select multiple vehicles at a time to add to battle level may remain constant.
+
+a battle session, e.g., selecting vehicles in pairs where one According to yet another aspect, with reference back to
+
+vehicle of the pair is allotted to each of two teams in a battle FIG. 8, a variable may be defined (here, referred to as range
+
+session. Matchmaking server 106 may confirm one or more variable N) that defines a number of battle sessions that a
+
+equal weights, pairs, personnel, vehicle, etc., at any time vehicle must participate in before the vehicle may be
+
+prior to starting the battle session.
+
+assigned to the highest possible battle level within its
+
+In another example, even if there is room remaining in the allowable range of battle levels. Range variable N is used to
+
+battle session, matchmaking server 106 might proceed to 10 define a Sub-range within the otherwise permissible range of
+
+start the battle session in step 913 when there are no vehicles battle levels for a given vehicle. In one variant, a vehicle
+
+in the queue, or no eligible vehicles in the queue, provided may be placed in any battle level except the highest allow
+
+there are at least a predefined minimum number of vehicles able battle level, based on any placement algorithm
+
+assigned to the battle session. In yet another example, steps described herein or otherwise, until the player plays at least
+
+may be performed concurrently or in differing orders. Such 15 N battle sessions with a particular vehicle. For example, in
+
+as steps 903 and 905, which may occur concurrently. Indeed, the example shown in FIG. 8, Tier 4 SPG's are permissible
+
+step 903 may be performed continuously while all other in battle levels 6-10, where N=8. For the first 8 battle
+
+steps are being performed. In addition, multiple instances of sessions that a player uses a particular tier 4 SPG vehicle, the
+
+the method shown in FIG.9 may be performed concurrently vehicle is only eligible to be placed in battle levels 6-9 (e.g.,
+
+to assign vehicles to different battle sessions, e.g., when matchmaking server 106 may randomly select a battle
+
+there is a large backlog in the queue.
+
+within battle levels 6-9 for that vehicle). After 8 battle
+
+As indicated above, vehicles may be placed in a battle sessions, for each battle session, matchmaking server 106
+
+session having a particular battle level using a variety of may randomly select a battle within battle levels 6-10).
+
+techniques. In one aspect, a vehicle may be placed randomly In another variant, range variable N is used to define an
+
+into any battle level acceptable based on the battle level table 25 incremental step by which the Sub-range is gradually
+
+801. In another aspect, a vehicle may be placed sequentially increased until the Sub-range encompasses the full range
+
+in increasing battle levels based on table 801. For example, defined in FIG. 8. In this variant, L represents the lowest
+
+when a use acquires a new tier 4 light tank, the first time the battle level in the range defined in FIG. 8 for a given vehicle
+
+user plays a game with that tier 4 light tank the matchmaking type/tier combination, M represents the maximum battle
+
+server might force the vehicle to be assigned to a battle 30 level defined in FIG. 8 for a given vehicle type?tier combi
+
+session of battle level 4. When the player plays a second nation, B represents the number of battles previously played
+
+game session using the same tier 4 light tank, the match using a particular vehicle, and C represents a current maxi
+
+making server might force the vehicle to be assigned to a mum battle level calculated as a function of L, M, B, and N
+
+battle session of battle level 5. The third game session, battle using equation 1, rounding to a nearest integer value (vari
+
+level 6, the fourth game session, battle level 7, and so forth 35 able names are arbitrary and may be changed without
+
+until the seventh battle session where the vehicle is in battle changing the result).
+
+level 10. After that, the matchmaking server might start over at battle level 4. Alternatively the sequence might proceed in
+
+For B {N:C=L+(B-1) ((M-L-1)/N)
+
+(equation 1)
+
+decreasing battle level order, and/or might start in the middle
+
+For BeNC=M
+
+of the applicable range of battle levels. According to another aspect, the matchmaking server may
+store a win/loss percentage for each user (or vehicle) at a given battle level. As the player's win/loss ratio decreases, the player becomes more likely to be placed in battles having
+battle levels at the lower end of the allowable range, whereas as the players win/loss ration increases, the player becomes more likely to be placed in battles having battle levels at the upper end of the allowable range. Thus, when a player has been repeatedly put into too many difficult battles, the balancing is done in favor of easier battle sessions, thereby
+
+40 45 50
+
+Thus, in a first battle with a particular vehicle, a player might only be placed in the lowest battle level of the allowed range. Each Successive battle session with that vehicle, the sub-range of available battle levels may increase by (number of battle levels in full range-1)/N, until the full range defined in FIG. 8 is encompassed. For example, again using
+tier 4 SPG vehicles as an example, Table 1 illustrates, for each battle session that a player uses a particular tier 4 SPG,
+the available range of battle levels into which that vehicle may be placed.
+
+encouraging the player by providing an easier game envi ronment. Similarly, when the player has been repeatedly put
+
+TABLE 1.
+
+into too many easy battles, the balancing is done in favor of harder battle sessions, thereby keeping the player challenged
+
+Sample Battle Level Increments for Tier 4 SPG
+
+instead of letting the player become bored with easy games. 55 Battle Min. Battle Current. Max. Calc. Max. Battle
+
+A first possible algorithm is to divide the permissible battle No. (B) Lvl. (L) Battle Lvl. (C) Lvl. (before rounding)
+
+levels evenly across a range from Zero (0) to two (2), and
+
+1
+
+6
+
+6
+
+6
+
+place the vehicle into the battle level corresponding to the
+
+2
+
+6
+
+7
+
+6.5
+
+win/loss ratio, where any ratio greater than two (2) auto
+
+3
+
+6
+
+7
+
+7
+
+matically results in the vehicle being placed in the highest 60 possible battle level. Another possible algorithm is to
+
+4 5 6
+
+6 6 6
+
+8 8 9
+
+7.5 8 8.5
+
+increase the battle level by one (within the permissible
+
+7
+
+6
+
+9
+
+9
+
+range) for a vehicle each time a player wins a battle with that
+
+8 (N)
+
+6
+
+10
+
+9.5
+
+vehicle, and decrease the battle level by one (within the
+
+>N
+
+6
+
+10
+
+10
+
+permissible range) each time a player loses a battle with that 65
+
+vehicle. If the battle level is already at the upper end of the Matchmaking server 106 may determine (e.g., in step 907
+
+range and the player wins the battle, the battle level may of FIG. 9), for each battle session in which a player uses a
+
+US 9,610,504 B2
+
+15
+
+16
+
+particular vehicle, the allowable sub-range based on N as 6. The computer readable media of claim 1, wherein each
+
+explained above. The number of battle sessions in which a vehicle is one of a standard vehicle and a premium vehicle,
+
+player has used a particular vehicle may be stored in a data and wherein a first premium vehicle is associated with a
+
+structure or object associated with the vehicle, e.g., as an lower range of levels than a first standard vehicle of a same
+
+attribute in instance 551 (FIG. 5B). Once the sub-range is 5 tier as the first premium vehicle.
+
+calculated, matchmaking server 106 randomly (or other 7. The computer readable media of claim 1, wherein each
+
+wise) selects a battle level within the sub-range for that vehicle type is associated with a predefined maximum
+
+player/vehicle, and may add the player/vehicle to the battle number of vehicles permissible within a same multiuser
+
+session in step 909 (FIG. 9).
+
+session having that vehicle type.
+
+The information presented in FIG. 8 is illustrative only, 10 8. The computer readable media of claim 1, wherein
+
+and may change from time to time. Battle level tables may assigning comprises calculating the permissible range of
+
+be changed to maintain dynamic and intriguing game play. levels as a function of a number of multiuser sessions
+
+Battle level tables may vary or be changed based on the previously played using the vehicle, wherein the matchmak
+
+strengths and weaknesses of vehicle types at different tier ing is performed by a plurality of servers communicatively
+
+levels. Battle level tables may be changed based on an 15 connected to each other via the Internet, and wherein when
+
+analysis of vehicle performance and battle session results. at least one of the plurality of servers is currently overloaded
+
+For example, if certain tier vehicles are identified as winning with tasks to be performed, at least one task not yet
+
+or losing a disproportionate number of battle sessions at a performed by the at least one server is distributed to another
+
+given battle level, that battle level may be adjusted as one of the plurality of servers that is not currently over
+
+described above to make that battle level more fair. New loaded.
+
+battle level tables 801 may be published with game updates 9. The computer readable media of claim 8, wherein the
+
+to clients, or may be adjusted at the matchmaking server table defines a range variable N for each vehicle type and
+
+without requiring a game update on the client side. Different vehicle tier combination, and wherein calculating com
+
+battle level tables may be used for games using vehicles prises:
+
+other than tanks, e.g., helicopters, planes, drones, warplanes, 25 determining a current maximum permissible level C
+
+spacecraft, boats, ships, and/or battleships, among others.
+
+based on the following formula:
+
+The present aspects have been described in terms of
+
+preferred and illustrative embodiments. Numerous other
+
+embodiments, modifications and variations within the scope and spirit of the appended claims will occur to persons of 30
+
+For BeNC=M
+
+ordinary skill in the art from a review of this disclosure.
+
+wherein L represents a lowest level defined by the table
+
+The invention claimed is:
+
+for the vehicle type and vehicle tier of the vehicle, M
+
+1. One or more non-transitory computer readable media
+
+represents the maximum level defined by the table for
+
+storing computer executable instructions that, when
+
+the vehicle type and vehicle tier of the vehicle, B
+
+executed, cause a system to perform:
+
+35 represents the number of multiuser sessions previously
+
+receiving a multiuser session request from each of a first
+
+played using the vehicle, rounding to a nearest integer
+
+plurality of client devices, wherein each multiuser
+
+value.
+
+session request identifies a vehicle to be used in a 10. The computer readable media of claim 1, wherein the
+
+graphically simulated multiplayer environment, said plurality of different vehicle tiers comprise at least 5 sequen
+
+vehicle having a vehicle type and vehicle tier, wherein 40 tial tiers representing increasing vehicle capabilities.
+
+said graphically simulated multiplayer environment 11. The computer readable media of claim 1, wherein the
+
+includes a plurality of different vehicle types, and a matchmaking the second plurality ofclient devices is further
+
+plurality of different hierarchical vehicle tiers; and performed based on a Success rate of performance in pre
+
+matchmaking a second plurality of client devices by vious multiuser sessions associated with each of the first
+
+assigning eligible vehicles associated with the first 45 plurality of client devices.
+
+plurality of client devices to a multiuser session based 12. A system comprising:
+
+on a table defining a permissible range of levels for a processor; and
+
+each vehicle based on vehicle type and vehicle tier.
+
+memory storing computer executable instructions that,
+
+2. The computer readable media of claim 1, wherein said
+
+when executed by the processor, cause the system to
+
+instructions, when executed, further cause the system to 50 perform:
+
+perform:
+
+receiving a multiuser session request from each of a first
+
+dividing the second plurality of client devices into a
+
+plurality of client devices, wherein each multiuser
+
+plurality of team of vehicles within the multiuser
+
+session request identifies a vehicle to be used in a
+
+session, wherein a total weight of vehicles on each of
+
+graphically simulated multiplayer environment, said
+
+the plurality of teams is substantially equal.
+
+55 vehicle having a vehicle type and vehicle tier, wherein
+
+3. The computer readable media of claim 1, wherein said
+
+said graphically simulated multiplayer environment
+
+plurality of teams consists of two teams.
+
+includes a plurality of different vehicle types, and a
+
+4. The computer readable media of claim 1, wherein the
+
+plurality of different hierarchical vehicle tiers; and
+
+plurality of different vehicle types comprise one or more of matchmaking a second plurality of client devices by
+
+tanks, airplanes, and ships.
+
+60 assigning eligible vehicles associated with the first
+
+5. The computer readable media of claim 1, wherein a first
+
+plurality of client devices to a multiuser session based
+
+vehicle type of a first tier is associated with a first range of
+
+on a table defining a permissible range of levels for
+
+a plurality of levels, and a second vehicle type of the first tier
+
+each vehicle based on vehicle type and vehicle tier.
+
+is associated with a second range of a plurality of levels 13. The system of claim 12, wherein said instructions,
+
+different from the first range of levels, wherein said first 65 when executed, further cause the system to perform:
+
+range and said second range overlap to include at least one dividing the second plurality of client devices into a
+
+same level.
+
+plurality of team of vehicles within the multiuser
+
+US 9,610,504 B2
+
+17
+
+18
+
+session, wherein a total weight of vehicles on each of matchmaking a second plurality of client devices by
+
+the plurality of teams is substantially equal.
+
+assigning eligible vehicles associated with the first
+
+14. The system of claim 12, wherein said plurality of
+
+plurality of client devices to a multiuser session based
+
+teams consists of two teams.
+
+on a table defining a permissible range of levels for
+
+15. The system of claim 12, wherein the plurality of 5 each vehicle based on vehicle type and vehicle tier.
+
+different vehicle types comprise one or more of tanks, 24. The method of claim 23, further comprising:
+
+airplanes, and ships.
+
+dividing the second plurality of client devices into a
+
+16. The system of claim 12, wherein a first vehicle type
+
+plurality of team of vehicles within the multiuser
+
+of a first tier is associated with a first range of a plurality of
+
+session, wherein a total weight of vehicles on each of
+
+levels, and a second vehicle type of the first tier is associated 10 the plurality of teams is substantially equal.
+
+with a second range of a plurality of levels different from the 25. The method of claim 23, wherein said plurality of
+
+first range of levels, wherein said first range and said second teams consists of two teams.
+
+range overlap to include at least one same level.
+
+26. The method of claim 23, wherein the plurality of
+
+17. The system of claim 12, wherein each vehicle is one different vehicle types comprise one or more of tanks,
+
+of a standard vehicle and a premium vehicle, and wherein a 15 airplanes, and ships.
+
+first premium vehicle is associated with a lower range of 27. The method of claim 23, further comprising generat
+
+levels than a first standard vehicle of a same tier as the first ing the table by associating a first vehicle type of a first tier
+
+premium vehicle.
+
+with a first range of a plurality of levels, and associating a
+
+18. The system of claim 12, wherein each vehicle type is second vehicle type of the first tier with a second range of
+
+associated with a predefined maximum number of vehicles a plurality of levels different from the first range of levels,
+
+permissible within a same multiuser session having that wherein said first range and said second range overlap to
+
+vehicle type.
+
+include at least one same level.
+
+19. The system of claim 12, further comprising a plurality 28. The method of claim 23, wherein each vehicle is one
+
+of servers communicatively connected to each other via the of a standard vehicle and a premium vehicle, and said
+
+Internet, wherein assigning comprises calculating the per 25 method further comprising associating a first premium
+
+missible range of levels as a function of a number of vehicle with a lower range of levels than a first standard
+
+multiuser sessions previously played using the vehicle, vehicle of a same tier as the first premium vehicle.
+
+wherein the matchmaking is collectively performed by the 29. The method of claim 23, wherein each vehicle type is
+
+plurality of servers, and wherein when at least one of the associated with a predefined maximum number of vehicles
+
+plurality of servers is currently overloaded with tasks to be 30 permissible within a same multiuser session having that
+
+performed, at least one task not yet performed by the at least vehicle type.
+
+one server is distributed to another one of the plurality of 30. The method of claim 23, wherein assigning comprises
+
+servers that is not currently overloaded.
+
+calculating the permissible range of levels as a function of
+
+20. The system of claim 19, wherein the table defines a a number of multiuser sessions previously played using the
+
+range variable N for each vehicle type and vehicle tier 35 vehicle, wherein the matchmaking is performed by a plu
+
+combination, and wherein calculating comprises:
+
+rality of servers communicatively connected to each other
+
+determining a current maximum permissible level C via the Internet, and wherein when at least one of the
+
+based on the following formula:
+
+plurality of servers is currently overloaded with tasks to be
+
+performed, at least one task not yet performed by the at least
+
+one server is distributed to another one of the plurality of
+
+For BeNC=M
+
+servers that is not currently overloaded.
+
+31. The method of claim 30, wherein the table defines a
+
+wherein L represents a lowest level defined by the table range variable N for each vehicle type and vehicle tier
+
+for the vehicle type and vehicle tier of the vehicle, M combination, and wherein calculating comprises:
+
+represents the maximum level defined by the table for 45 determining a current maximum permissible level C
+
+the vehicle type and vehicle tier of the vehicle, B
+
+based on the following formula:
+
+represents the number of multiuser sessions previously
+
+played using the vehicle, rounding to a nearest integer
+
+value.
+
+For BeNC=M
+
+21. The system of claim 12, wherein the plurality of 50 different vehicle tiers comprise at least 5 sequential tiers representing increasing vehicle capabilities.
+
+wherein L represents a lowest level defined by the table for the vehicle type and vehicle tier of the vehicle, M
+
+22. The system of claim 12, wherein the matchmaking the second plurality of client devices is further performed based on a success rate of performance in previous multiuser 55
+sessions associated with each of the first plurality of client
+devices.
+
+represents the maximum level defined by the table for the vehicle type and vehicle tier of the vehicle, B represents the number of multiuser sessions previously played using the vehicle, rounding to a nearest integer
+value.
+
+23. A method, comprising:
+receiving a multiuser session request from each of a first plurality of client devices, wherein each multiuser session request identifies a vehicle to be used in a graphically simulated multiplayer environment, said vehicle having a vehicle type and vehicle tier, wherein said graphically simulated multiplayer environment includes a plurality of different vehicle types, and a
+
+60
+
+32. The method of claim 23, wherein the plurality of different vehicle tiers comprise at least 5 sequential tiers representing increasing vehicle capabilities.
+33. The method of claim 23, wherein the matchmaking the second plurality of client devices is further performed based on a success rate of performance in previous multiuser sessions associated with each of the first plurality of client
+devices.
+
+plurality of different hierarchical vehicle tiers; and
+
+

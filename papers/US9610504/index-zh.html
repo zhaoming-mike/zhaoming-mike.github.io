@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>多人在线动态战斗会话匹配系统 — US 9,610,504 B2</title>
+<style>
+:root {
+  --bg: #0f1117;
+  --bg-card: #1a1d27;
+  --bg-card-hover: #22263b;
+  --text: #e1e4ed;
+  --text-dim: #8b8fa3;
+  --accent: #6366f1;
+  --accent-glow: rgba(99,102,241,.15);
+  --red: #f87171;
+  --amber: #fbbf24;
+  --green: #34d399;
+  --blue: #60a5fa;
+  --border: #2a2d3a;
+  --radius: 12px;
+  --radius-sm: 8px;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans SC", sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px 24px 60px;
+}
+.hero { text-align: center; padding: 40px 0 24px; }
+.hero h1 {
+  font-size: 2rem; font-weight: 800; letter-spacing: -0.02em; line-height: 1.3;
+  background: linear-gradient(135deg, #6366f1, #a78bfa, #f472b6);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 8px;
+}
+.hero .section-tag {
+  display: inline-block; background: var(--accent-glow); color: var(--accent);
+  padding: 3px 12px; border-radius: 20px; font-size: 0.78rem; font-weight: 600; margin-bottom: 12px;
+}
+.hero .meta { font-size: 0.9rem; color: var(--text-dim); }
+.hero .subtitle { font-size: 1.05rem; color: var(--text-dim); margin-bottom: 4px; }
+.stats { display: flex; justify-content: center; flex-wrap: wrap; gap: 16px; margin: 24px 0 32px; }
+.stat { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 10px 18px; text-align: center; min-width: 80px; }
+.stat .num { font-size: 1.4rem; font-weight: 700; color: var(--accent); }
+.stat .label { font-size: 0.75rem; color: var(--text-dim); }
+.back-link { display: inline-flex; align-items: center; gap: 6px; color: var(--text-dim); text-decoration: none; font-size: 0.85rem; margin-bottom: 24px; transition: color .2s; }
+.back-link:hover { color: var(--accent); }
+.content-section { margin-bottom: 32px; }
+.section-header { font-size: 1.1rem; font-weight: 700; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+.section-header .count { font-size: 0.75rem; font-weight: 400; color: var(--text-dim); background: var(--bg-card); padding: 2px 10px; border-radius: 12px; border: 1px solid var(--border); }
+.card-list { display: flex; flex-direction: column; gap: 10px; }
+.content-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; cursor: pointer; transition: all .25s; }
+.content-card:hover { background: var(--bg-card-hover); border-color: var(--accent); box-shadow: 0 4px 24px rgba(0,0,0,.3); }
+.card-header { padding: 16px 18px; display: flex; align-items: flex-start; gap: 12px; }
+.card-num { width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; background: var(--accent); color: #fff; border-radius: 50%; font-size: 0.78rem; font-weight: 700; flex-shrink: 0; opacity: 0.7; }
+.card-body { flex: 1; min-width: 0; }
+.card-title { font-size: 0.95rem; font-weight: 600; line-height: 1.4; margin-bottom: 4px; }
+.card-summary { font-size: 0.88rem; color: var(--text-dim); line-height: 1.7; }
+.card-detail { max-height: 0; overflow: hidden; transition: max-height .35s ease, padding .35s ease; }
+.card-detail-inner { padding: 0 18px 14px; font-size: 0.88rem; color: var(--text-dim); line-height: 1.8; }
+.content-card.open .card-detail { max-height: 2000px; }
+.content-card.open .card-header { border-bottom: 1px solid var(--border); }
+.highlight-box { background: var(--accent-glow); border: 1px solid rgba(99,102,241,.25); border-radius: var(--radius-sm); padding: 14px 18px; margin: 12px 0; font-size: 0.88rem; line-height: 1.7; }
+.highlight-box strong { color: var(--accent); }
+.card-figure { margin: 16px 0 8px; text-align: center; }
+.card-figure img { max-width: 100%; height: auto; border-radius: var(--radius-sm); border: 1px solid var(--border); background: #fff; }
+.fig-caption { font-size: 0.78rem; color: var(--text-dim); margin-top: 6px; }
+.footer { text-align: center; padding: 40px 0 20px; margin-top: 40px; border-top: 1px solid var(--border); color: var(--text-dim); font-size: .8rem; }
+
+/* Root page card grid */
+.card-grid { display: flex; flex-direction: column; gap: 10px; }
+.entry-card { display: flex; align-items: center; gap: 14px; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px 18px; text-decoration: none; color: var(--text); transition: all .25s; animation: fadeUp .4s ease backwards; }
+.entry-card:hover { background: var(--bg-card-hover); border-color: var(--accent); box-shadow: 0 4px 24px rgba(0,0,0,.3); transform: translateX(4px); }
+.entry-card .card-index { width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; background: var(--accent); color: #fff; border-radius: 50%; font-size: 0.85rem; font-weight: 700; flex-shrink: 0; opacity: 0.75; }
+.entry-card .card-info { flex: 1; min-width: 0; }
+.entry-card .card-title { font-size: 0.95rem; font-weight: 600; margin-bottom: 2px; }
+.entry-card .card-desc { font-size: 0.82rem; color: var(--text-dim); line-height: 1.5; }
+.entry-card .card-arrow { font-size: 1.1rem; color: var(--text-dim); flex-shrink: 0; transition: color .2s; }
+.entry-card:hover .card-arrow { color: var(--accent); }
+.entry-card:nth-child(1){animation-delay:0s}.entry-card:nth-child(2){animation-delay:.04s}.entry-card:nth-child(3){animation-delay:.08s}.entry-card:nth-child(4){animation-delay:.12s}.entry-card:nth-child(5){animation-delay:.16s}.entry-card:nth-child(6){animation-delay:.20s}.entry-card:nth-child(7){animation-delay:.24s}.entry-card:nth-child(8){animation-delay:.28s}.entry-card:nth-child(9){animation-delay:.32s}.entry-card:nth-child(10){animation-delay:.36s}
+
+/* Toolbar */
+.toolbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; padding: 4px 0; }
+.theme-swatches { display: flex; align-items: center; gap: 5px; }
+.theme-label { font-size: 0.7rem; color: var(--text-dim); margin-right: 2px; }
+.theme-swatch { width: 16px; height: 16px; border-radius: 50%; cursor: pointer; border: 2px solid var(--border); transition: all .2s; display: inline-block; flex-shrink: 0; }
+.theme-swatch:hover { transform: scale(1.25); }
+.theme-swatch.active { border-color: #fff; box-shadow: 0 0 7px var(--accent-glow); }
+.lang-link { color: var(--text-dim); text-decoration: none; font-size: 0.78rem; padding: 3px 10px; border: 1px solid var(--border); border-radius: var(--radius-sm); transition: all .2s; white-space: nowrap; }
+.lang-link:hover { color: var(--accent); border-color: var(--accent); }
+
+/* Nav */
+.nav-row { display: flex; justify-content: space-between; align-items: center; margin: 40px 0 20px; padding-top: 20px; border-top: 1px solid var(--border); }
+.nav-link { display: inline-flex; align-items: center; gap: 4px; color: var(--accent); text-decoration: none; font-size: 0.85rem; padding: 6px 14px; border: 1px solid var(--accent); border-radius: var(--radius-sm); transition: all .2s; }
+.nav-link:hover { background: var(--accent); color: #fff; }
+
+@keyframes fadeUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+.content-card { animation: fadeUp .4s ease backwards; }
+.content-card:nth-child(1){animation-delay:0s}.content-card:nth-child(2){animation-delay:.04s}.content-card:nth-child(3){animation-delay:.08s}.content-card:nth-child(4){animation-delay:.12s}.content-card:nth-child(5){animation-delay:.16s}
+
+@media (max-width: 600px) {
+  .hero h1 { font-size: 1.5rem; } .stats { gap: 8px; } .card-header { padding: 12px 14px; } .entry-card { padding: 12px 14px; }
+}
+</style>
+</head>
+<body>
+
+<div class="toolbar">
+  <div class="theme-swatches">
+    <span class="theme-label">主题:</span>
+    <span class="theme-swatch default active" data-theme="indigo" style="background:#6366f1" title="默认"></span>
+    <span class="theme-swatch" data-theme="forest" style="background:#34d399" title="森林"></span>
+    <span class="theme-swatch" data-theme="ocean" style="background:#60a5fa" title="海洋"></span>
+    <span class="theme-swatch" data-theme="sunset" style="background:#fbbf24" title="日落"></span>
+    <span class="theme-swatch" data-theme="rose" style="background:#f472b6" title="玫瑰"></span>
+    <span class="theme-swatch" data-theme="midnight" style="background:#818cf8" title="午夜"></span>
+  </div>
+  <a href="index.html" class="lang-link">English</a>
+</div>
+
+<section class="hero">
+  <h1>多人在线动态战斗会话匹配系统</h1>
+  
+  <div class="meta">
+    US 9,610,504 B2<br>
+    发明人：Victor Kislyi, Ivan Mikhnevich &middot; 专利权人：Wargaming.net Limited<br>
+    2017年4月4日
+  </div>
+</section>
+
+<div class="stats">
+  <div class="stat"><div class="num">10</div><div class="label">章节</div></div>
+  <div class="stat"><div class="num">33</div><div class="label">权利要求</div></div>
+  <div class="stat"><div class="num">9</div><div class="label">附图</div></div>
+</div>
+
+<div class="card-grid">
+  <a href="overview/index-zh.html" class="entry-card">
+    <div class="card-index">1</div>
+    <div class="card-info">
+      <div class="card-title">摘要与发明领域</div>
+      <div class="card-desc">US 9,610,504 B2 号专利，于 2017 年 4 月 4 日授予 Wargaming.net Limited。发明人 Victor Kislyi 和 Ivan Mikhnevich 描述了</div>
+    </div>
+    <span class="card-arrow">&rarr;</span>
+  </a>
+
+  <a href="background/index-zh.html" class="entry-card">
+    <div class="card-index">2</div>
+    <div class="card-info">
+      <div class="card-title">背景与现有技术</div>
+      <div class="card-desc">视频游戏，特别是在线多人游戏，因玩家能与多位真人玩家竞争而日益流行。FPS 和第三人称射击游戏占据主导地位，玩家以第一或第三人称视角控制角色或载具。</div>
+    </div>
+    <span class="card-arrow">&rarr;</span>
+  </a>
+
+  <a href="architecture/index-zh.html" class="entry-card">
+    <div class="card-index">3</div>
+    <div class="card-info">
+      <div class="card-title">系统架构</div>
+      <div class="card-desc">客户端 101（PC、笔记本、移动设备、平板）通过网络 100（互联网、蜂窝、有线、无线）连接到包含多个链接服务器 105a-c 的虚拟世界服务器系统 103，实现分布式负载处理。</div>
+    </div>
+    <span class="card-arrow">&rarr;</span>
+  </a>
+
+  <a href="matchmaking/index-zh.html" class="entry-card">
+    <div class="card-index">4</div>
+    <div class="card-info">
+      <div class="card-title">匹配算法</div>
+      <div class="card-desc">战斗等级表定义了每个战斗等级中每种载具类型的允许等级范围。五类载具（轻型坦克、中型坦克、重型坦克、自行火炮、坦克歼击车）各有不同的可进入战斗等级范围。</div>
+    </div>
+    <span class="card-arrow">&rarr;</span>
+  </a>
+
+  <a href="vehicles/index-zh.html" class="entry-card">
+    <div class="card-index">5</div>
+    <div class="card-info">
+      <div class="card-title">载具类型与等级</div>
+      <div class="card-desc">游戏包含五类载具：轻型坦克、中型坦克、重型坦克、自行火炮和坦克歼击车。每类载具有其特定特性和等级编号；等级越高，载具越强大。</div>
+    </div>
+    <span class="card-arrow">&rarr;</span>
+  </a>
+
+  <a href="balancing/index-zh.html" class="entry-card">
+    <div class="card-index">6</div>
+    <div class="card-info">
+      <div class="card-title">队伍平衡</div>
+      <div class="card-desc">载具分配到战斗会话后，系统将其分为两队。每队载具的总权重必须基本相等，以确保公平竞争。</div>
+    </div>
+    <span class="card-arrow">&rarr;</span>
+  </a>
+
+  <a href="progression/index-zh.html" class="entry-card">
+    <div class="card-index">7</div>
+    <div class="card-info">
+      <div class="card-title">高级载具与进度系统</div>
+      <div class="card-desc">载具通过等级层级进行（至少 5 个顺序等级，代表逐渐增强的能力）。更高等级提供更强大的载具，但限制进入低战斗等级，形成自然的难度曲线。</div>
+    </div>
+    <span class="card-arrow">&rarr;</span>
+  </a>
+
+  <a href="implementation/index-zh.html" class="entry-card">
+    <div class="card-index">8</div>
+    <div class="card-info">
+      <div class="card-title">软件实现</div>
+      <div class="card-desc">软件 401 包含：游戏管理器 402（整体运行）、网络模块 403（多人会话）、输入模块 404、UI 模块 405、音频模块 408、内存管理器 409、物理引擎 411 和图形引擎 413。</div>
+    </div>
+    <span class="card-arrow">&rarr;</span>
+  </a>
+
+  <a href="claims/index-zh.html" class="entry-card">
+    <div class="card-index">9</div>
+    <div class="card-info">
+      <div class="card-title">权利要求分析</div>
+      <div class="card-desc">涵盖存储指令的非暂时性计算机可读介质，用于：接收标识载具类型和等级的多人会话请求；基于定义每种载具类型和等级允许等级范围的表，通过分配符合条件的载具进行匹配。</div>
+    </div>
+    <span class="card-arrow">&rarr;</span>
+  </a>
+
+  <a href="discussion/index-zh.html" class="entry-card">
+    <div class="card-index">10</div>
+    <div class="card-info">
+      <div class="card-title">影响与行业背景</div>
+      <div class="card-desc">Wargaming.net 的《坦克世界》在专利中被明确列为示例实现。巅峰时期全球吸引超过 1 亿注册玩家，使其匹配系统成为世界上使用最广泛的游戏匹配器之一。</div>
+    </div>
+    <span class="card-arrow">&rarr;</span>
+  </a>
+</div>
+
+<footer class="footer">基于美国专利 US 9,610,504 B2 &middot; 33 项权利要求 &middot; 9 张附图</footer>
+<script>
+var THEME_PRESETS = {
+ indigo: { bg: "#0f1117", bgCard: "#1a1d27", bgCardHover: "#22263b", text: "#e1e4ed", textDim: "#8b8fa3", accent: "#6366f1", accentGlow: "rgba(99,102,241,.15)", border: "#2a2d3a", heroGradient: "linear-gradient(135deg, #6366f1, #a78bfa, #f472b6)" },
+ forest: { bg: "#0d1612", bgCard: "#171f1a", bgCardHover: "#1e2d24", text: "#d4e8dc", textDim: "#7a9e8a", accent: "#34d399", accentGlow: "rgba(52,211,153,.15)", border: "#243a2e", heroGradient: "linear-gradient(135deg, #34d399, #6ee7b7, #a78bfa)" },
+ ocean: { bg: "#0e141f", bgCard: "#161c2a", bgCardHover: "#1d2940", text: "#d4e0f0", textDim: "#7a8fb8", accent: "#60a5fa", accentGlow: "rgba(96,165,250,.15)", border: "#25304a", heroGradient: "linear-gradient(135deg, #60a5fa, #818cf8, #c084fc)" },
+ sunset: { bg: "#1a1510", bgCard: "#241e16", bgCardHover: "#32291c", text: "#f0e6d4", textDim: "#a89470", accent: "#fbbf24", accentGlow: "rgba(251,191,36,.15)", border: "#3d3020", heroGradient: "linear-gradient(135deg, #fbbf24, #f59e0b, #f472b6)" },
+ rose: { bg: "#1a1018", bgCard: "#241720", bgCardHover: "#33202d", text: "#f0d4e8", textDim: "#b87d9e", accent: "#f472b6", accentGlow: "rgba(244,114,182,.15)", border: "#3d2535", heroGradient: "linear-gradient(135deg, #f472b6, #c084fc, #818cf8)" },
+ midnight: { bg: "#0a0c14", bgCard: "#131620", bgCardHover: "#1c1f2d", text: "#e8e8ed", textDim: "#888899", accent: "#818cf8", accentGlow: "rgba(129,140,248,.15)", border: "#252836", heroGradient: "linear-gradient(135deg, #818cf8, #a78bfa, #6366f1)" }
+};
+(function(){
+  var saved = localStorage.getItem("page-theme");
+  if (saved && THEME_PRESETS[saved]) {
+    applyTheme(THEME_PRESETS[saved]);
+    var active = document.querySelector('.theme-swatch[data-theme="' + saved + '"]');
+    if (active) { document.querySelectorAll('.theme-swatch').forEach(function(x){x.classList.remove('active')}); active.classList.add('active'); }
+  }
+  function applyTheme(t) {
+    var root = document.documentElement;
+    root.style.setProperty('--bg', t.bg);
+    root.style.setProperty('--bg-card', t.bgCard);
+    root.style.setProperty('--bg-card-hover', t.bgCardHover);
+    root.style.setProperty('--text', t.text);
+    root.style.setProperty('--text-dim', t.textDim);
+    root.style.setProperty('--accent', t.accent);
+    root.style.setProperty('--accent-glow', t.accentGlow);
+    root.style.setProperty('--border', t.border);
+    var h1s = document.querySelectorAll('.hero h1');
+    for (var i = 0; i < h1s.length; i++) {
+      h1s[i].style.background = t.heroGradient;
+      h1s[i].style.webkitBackgroundClip = 'text';
+      h1s[i].style.webkitTextFillColor = 'transparent';
+    }
+  }
+  document.querySelectorAll('.theme-swatch').forEach(function(s) {
+    s.addEventListener('click', function() {
+      var key = this.dataset.theme;
+      if (!THEME_PRESETS[key]) return;
+      applyTheme(THEME_PRESETS[key]);
+      localStorage.setItem('page-theme', key);
+      document.querySelectorAll('.theme-swatch').forEach(function(x) { x.classList.remove('active'); });
+      this.classList.add('active');
+    });
+  });
+})();
+
+
+</script>
+</body>
+</html>

@@ -1,5 +1,5 @@
 {
-  "collected_at": "2026-05-25T00:06:42.636Z",
+  "collected_at": "2026-05-25T01:06:52.153Z",
   "source": "Wargaming Public API",
   "region": "asia",
   "base_url": "https://api.worldoftanks.asia",
@@ -1151,30 +1151,30 @@
       "role_i18n": "ทหารเกณฑ์",
       "joined_at": 1778664125,
       "created_at": 1361148497,
-      "last_battle_time": 1779602358,
-      "global_rating": 5239,
+      "last_battle_time": 1779670271,
+      "global_rating": 5240,
       "statistics": {
-        "battles": 17912,
-        "wins": 8465,
-        "losses": 9179,
+        "battles": 17932,
+        "wins": 8475,
+        "losses": 9189,
         "draws": 268,
         "winrate": "47.26",
-        "survived_battles": 2945,
-        "frags": 10693,
-        "damage_dealt": 18933645,
-        "damage_received": 26777168,
-        "xp": 10472204,
+        "survived_battles": 2947,
+        "frags": 10706,
+        "damage_dealt": 18959326,
+        "damage_received": 26812752,
+        "xp": 10487602,
         "max_xp": 2628,
         "max_damage": 8489,
         "max_frags": 8,
         "battle_avg_xp": 585,
-        "spotted": 29457,
+        "spotted": 29486,
         "capture_points": 13962,
         "dropped_capture_points": 6433,
         "tanking_factor": 0.37
       },
       "tanks_summary": {
-        "total_tanks_played": 138,
+        "total_tanks_played": 145,
         "top_tanks": [
           {
             "tank_id": 10785,
@@ -4443,8 +4443,8 @@
     {
       "account_id": 2045926150,
       "account_name": "Ykll",
-      "role": "recruit",
-      "role_i18n": "ทหารเกณฑ์",
+      "role": "junior_officer",
+      "role_i18n": "นายทหารชั้นผู้น้อย",
       "joined_at": 1779463225,
       "created_at": 1684554537,
       "last_battle_time": 1779626597,
@@ -8808,5 +8808,5 @@
       }
     }
   ],
-  "_generated_at": "2026-05-25T00:06:42.636Z"
+  "_generated_at": "2026-05-25T01:06:52.153Z"
 }

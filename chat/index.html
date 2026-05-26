@@ -108,6 +108,18 @@ body {
   transform: scale(0.96);
 }
 
+.emoji-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.emoji-img {
+  width: 18px;
+  height: 18px;
+  vertical-align: middle;
+}
+
 .toast {
   position: fixed;
   top: 16px;
@@ -166,6 +178,11 @@ body {
     min-height: 42px;
   }
 
+  .emoji-img {
+    width: 22px;
+    height: 22px;
+  }
+
   .card {
     padding: 12px;
   }
@@ -180,16 +197,22 @@ body {
 <div class="toast" id="toast">✓ 已复制</div>
 <script>
 let CATEGORIES = [];
+let EMOTICONS = [];
 
 async function loadContent() {
+  const grid = document.getElementById('grid');
   try {
-    const res = await fetch('content.json');
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    CATEGORIES = await res.json();
+    const [res1, res2] = await Promise.all([
+      fetch('content.json'),
+      fetch('emoticons.json')
+    ]);
+    if (!res1.ok || !res2.ok) throw new Error('Load failed');
+    CATEGORIES = await res1.json();
+    EMOTICONS = await res2.json();
     render();
   } catch {
-    document.getElementById('grid').innerHTML =
-      '<p style="text-align:center;color:var(--gold);padding:40px;">文案加载失败，请刷新重试</p>';
+    grid.innerHTML =
+      '<p style="text-align:center;color:var(--gold);padding:40px;">加载失败，请刷新重试</p>';
   }
 }
 
@@ -247,6 +270,23 @@ function render() {
 
     grid.appendChild(card);
   });
+
+  const emojiCard = document.createElement('div');
+  emojiCard.className = 'card';
+  emojiCard.innerHTML = `
+    <div class="card-header">
+      <span class="card-icon">💬</span>
+      <span class="card-title">表情符号</span>
+    </div>
+    <div class="card-buttons">
+      ${EMOTICONS.map((em, i) => `
+        <button class="copy-btn emoji-btn" data-emoticon="${i}">
+          <img src="${em.image}" alt="${em.name}" class="emoji-img">${em.name}
+        </button>
+      `).join('')}
+    </div>
+  `;
+  grid.appendChild(emojiCard);
 }
 
 loadContent();
@@ -269,10 +309,16 @@ document.getElementById('grid').addEventListener('click', async (e) => {
   const btn = e.target.closest('.copy-btn');
   if (!btn) return;
 
-  const catId = btn.dataset.category;
-  const idx = parseInt(btn.dataset.index);
-  const cat = CATEGORIES.find(c => c.id === catId);
-  const text = cat.items[idx].text;
+  let text;
+  if (btn.dataset.emoticon !== undefined) {
+    const idx = parseInt(btn.dataset.emoticon);
+    text = EMOTICONS[idx].codes[0];
+  } else {
+    const catId = btn.dataset.category;
+    const idx = parseInt(btn.dataset.index);
+    const cat = CATEGORIES.find(c => c.id === catId);
+    text = cat.items[idx].text;
+  }
 
   const ok = await copyText(text);
   if (ok) {

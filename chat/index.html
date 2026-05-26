@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WOT-聊天助手</title>
+<style>
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --bg: #1a1a2e;
+  --card-bg: #16213e;
+  --gold: #c9a84c;
+  --gold-dim: rgba(201, 168, 76, 0.3);
+  --text: #e0e0e0;
+  --text-dim: #8899aa;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans SC", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+
+.header {
+  text-align: center;
+  padding: 24px 16px 16px;
+}
+
+.header h1 {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--gold);
+  letter-spacing: 2px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  padding: 0 16px 24px;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.card {
+  background: var(--card-bg);
+  border: 1px solid var(--gold-dim);
+  border-radius: 8px;
+  padding: 14px;
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--gold-dim);
+}
+
+.card-icon {
+  font-size: 18px;
+}
+
+.card-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--gold);
+  letter-spacing: 1px;
+}
+
+.card-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.copy-btn {
+  background: var(--gold);
+  color: var(--bg);
+  border: none;
+  border-radius: 4px;
+  padding: 6px 14px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: transform 0.1s, opacity 0.15s;
+  position: relative;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+.copy-btn:hover {
+  opacity: 0.9;
+}
+
+.copy-btn:active {
+  transform: scale(0.96);
+}
+
+.toast {
+  position: fixed;
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%) translateY(-120px);
+  background: var(--gold);
+  color: var(--bg);
+  padding: 10px 24px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  z-index: 1000;
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  pointer-events: none;
+  max-width: min(90vw, 480px);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.toast.show {
+  transform: translateX(-50%) translateY(0);
+}
+
+.ripple {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.4);
+  transform: scale(0);
+  animation: ripple-anim 0.5s ease-out;
+  pointer-events: none;
+}
+
+@keyframes ripple-anim {
+  to {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+@media (max-width: 767px) {
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+    padding: 0 12px 20px;
+  }
+
+  .header h1 {
+    font-size: 20px;
+  }
+
+  .copy-btn {
+    padding: 10px 16px;
+    font-size: 15px;
+    min-height: 42px;
+  }
+
+  .card {
+    padding: 12px;
+  }
+}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>WOT-聊天助手</h1>
+</div>
+<div class="grid" id="grid"></div>
+<div class="toast" id="toast">✓ 已复制</div>
+<script>
+let CATEGORIES = [];
+
+async function loadContent() {
+  try {
+    const res = await fetch('content.json');
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    CATEGORIES = await res.json();
+    render();
+  } catch {
+    document.getElementById('grid').innerHTML =
+      '<p style="text-align:center;color:var(--gold);padding:40px;">文案加载失败，请刷新重试</p>';
+  }
+}
+
+async function copyText(text) {
+  try {
+    await navigator.clipboard.writeText(text);
+    return true;
+  } catch {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.left = '-9999px';
+    document.body.appendChild(ta);
+    ta.select();
+    const ok = document.execCommand('copy');
+    document.body.removeChild(ta);
+    return ok;
+  }
+}
+
+let toastTimer;
+
+function showToast(text) {
+  const toast = document.getElementById('toast');
+  toast.textContent = `✓ 已复制：${text}`;
+  toast.classList.add('show');
+
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => {
+    toast.classList.remove('show');
+  }, 1500);
+}
+
+function render() {
+  const grid = document.getElementById('grid');
+  grid.innerHTML = '';
+
+  CATEGORIES.forEach(cat => {
+    const card = document.createElement('div');
+    card.className = 'card';
+
+    card.innerHTML = `
+      <div class="card-header">
+        <span class="card-icon">${cat.icon}</span>
+        <span class="card-title">${cat.name}</span>
+      </div>
+      <div class="card-buttons">
+        ${cat.items.map((item, i) => `
+          <button class="copy-btn" data-category="${cat.id}" data-index="${i}">
+            ${item.text}
+          </button>
+        `).join('')}
+      </div>
+    `;
+
+    grid.appendChild(card);
+  });
+}
+
+loadContent();
+
+function createRipple(e, btn) {
+  const ripple = document.createElement('span');
+  ripple.className = 'ripple';
+
+  const rect = btn.getBoundingClientRect();
+  const size = Math.max(rect.width, rect.height);
+  ripple.style.width = ripple.style.height = `${size}px`;
+  ripple.style.left = `${e.clientX - rect.left - size / 2}px`;
+  ripple.style.top = `${e.clientY - rect.top - size / 2}px`;
+
+  btn.appendChild(ripple);
+  ripple.addEventListener('animationend', () => ripple.remove());
+}
+
+document.getElementById('grid').addEventListener('click', async (e) => {
+  const btn = e.target.closest('.copy-btn');
+  if (!btn) return;
+
+  const catId = btn.dataset.category;
+  const idx = parseInt(btn.dataset.index);
+  const cat = CATEGORIES.find(c => c.id === catId);
+  const text = cat.items[idx].text;
+
+  const ok = await copyText(text);
+  if (ok) {
+    const isMobile = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+    if (isMobile) {
+      createRipple(e, btn);
+    } else {
+      showToast(text);
+    }
+  } else {
+    const toast = document.getElementById('toast');
+    toast.textContent = '复制失败，请重试';
+    toast.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toast.classList.remove('show'), 2000);
+  }
+});
+</script>
+</body>
+</html>

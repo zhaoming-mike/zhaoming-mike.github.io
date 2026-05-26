@@ -22,133 +22,295 @@
 
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans SC", sans-serif;
-  background: var(--bg);
+  background: linear-gradient(180deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
   color: var(--text);
   min-height: 100vh;
   -webkit-tap-highlight-color: transparent;
   user-select: none;
 }
 
+/* Header */
 .header {
   text-align: center;
-  padding: 24px 16px 16px;
+  padding: 32px 16px 20px;
 }
 
 .header h1 {
-  font-size: 22px;
+  display: inline-block;
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--gold);
+  letter-spacing: 3px;
+  text-shadow: 0 0 20px rgba(201, 168, 76, 0.3);
+  position: relative;
+}
+
+.header h1::after {
+  content: '';
+  display: block;
+  width: 60%;
+  height: 2px;
+  margin: 8px auto 0;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+
+/* Grid */
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  padding: 0 16px 32px;
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+/* Cards */
+.card {
+  background: linear-gradient(135deg, rgba(22, 33, 62, 0.9) 0%, rgba(26, 26, 46, 0.95) 100%);
+  border: 1px solid rgba(201, 168, 76, 0.2);
+  border-radius: 10px;
+  padding: 16px;
+  backdrop-filter: blur(4px);
+  transition: border-color 0.3s;
+}
+
+.card:hover {
+  border-color: var(--gold-dim);
+}
+
+.card-header {
+  position: relative;
+  padding: 0 0 12px 12px;
+  margin-bottom: 12px;
+  border-bottom: 1px solid rgba(201, 168, 76, 0.15);
+}
+
+.card-header::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 2px;
+  bottom: 14px;
+  width: 3px;
+  background: var(--gold);
+  border-radius: 2px;
+}
+
+.card-title {
+  font-size: 15px;
   font-weight: 700;
   color: var(--gold);
   letter-spacing: 2px;
 }
 
-.grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-  padding: 0 16px 24px;
-  max-width: 720px;
-  margin: 0 auto;
-}
-
-.card {
-  background: var(--card-bg);
-  border: 1px solid var(--gold-dim);
-  border-radius: 8px;
-  padding: 14px;
-}
-
-.card-header {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 12px;
-  padding-bottom: 10px;
-  border-bottom: 1px solid var(--gold-dim);
-}
-
-.card-icon {
-  font-size: 18px;
-}
-
-.card-title {
-  font-size: 15px;
-  font-weight: 600;
-  color: var(--gold);
-  letter-spacing: 1px;
-}
-
 .card-buttons {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   gap: 8px;
 }
 
+/* Buttons */
 .copy-btn {
-  background: var(--gold);
-  color: var(--bg);
+  background: linear-gradient(135deg, #c9a84c 0%, #a0883a 100%);
+  color: #1a1a2e;
   border: none;
-  border-radius: 4px;
-  padding: 6px 14px;
-  font-size: 14px;
-  font-weight: 500;
+  border-radius: 5px;
+  padding: 7px 15px;
+  font-size: 13px;
+  font-weight: 600;
   cursor: pointer;
-  transition: transform 0.1s, opacity 0.15s;
+  transition: transform 0.15s, box-shadow 0.15s;
   position: relative;
   overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
   max-width: 100%;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  white-space: normal;
+  word-break: break-all;
+  line-height: 1.4;
+  max-height: calc(2.8em + 14px);
 }
 
 .copy-btn:hover {
-  opacity: 0.9;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(201, 168, 76, 0.35);
+}
+
+.copy-btn img {
+  width: 20px;
+  height: 20px;
+  vertical-align: middle;
+  margin: 0 1px;
+  pointer-events: none;
 }
 
 .copy-btn:active {
   transform: scale(0.96);
 }
 
-.emoji-btn {
-  display: inline-flex;
-  align-items: center;
+/* Emoticon pick buttons (10 in a row, image only) */
+.emoji-row {
+  display: flex;
   gap: 4px;
+  margin-bottom: 12px;
 }
 
-.emoji-img {
-  width: 18px;
-  height: 18px;
+.emoji-pick-btn {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 2px;
+  background: linear-gradient(135deg, rgba(22, 33, 62, 1) 0%, rgba(26, 26, 46, 1) 100%);
+  border: 1px solid var(--gold-dim);
+  border-radius: 5px;
+  cursor: pointer;
+  transition: border-color 0.2s, box-shadow 0.2s, transform 0.15s;
+}
+
+.emoji-pick-btn:hover {
+  border-color: var(--gold);
+  box-shadow: 0 0 10px rgba(201, 168, 76, 0.3);
+  transform: translateY(-1px);
+}
+
+.emoji-pick-btn img {
+  width: 26px;
+  height: 26px;
+  pointer-events: none;
+}
+
+/* Composer (multiline text box showing chosen emoticons) */
+.composer {
+  width: 100%;
+  min-height: 52px;
+  max-height: 120px;
+  overflow-y: auto;
+  padding: 10px 12px;
+  margin-bottom: 10px;
+  background: rgba(10, 10, 30, 0.6);
+  border: 1px solid var(--gold-dim);
+  border-radius: 6px;
+  color: var(--text);
+  font-size: 14px;
+  line-height: 1.6;
+  outline: none;
+  word-break: break-all;
+  white-space: pre-wrap;
+}
+
+.composer:focus {
+  border-color: var(--gold);
+}
+
+.composer img {
+  width: 22px;
+  height: 22px;
   vertical-align: middle;
+  margin: 0 1px;
+  pointer-events: none;
 }
 
+.composer:empty::before {
+  content: '点击上方表情添加到此处，也可直接输入文字';
+  color: var(--text-dim);
+  pointer-events: none;
+}
+
+/* Copy composer button */
+.composer-copy-btn {
+  display: block;
+  width: 100%;
+  padding: 8px;
+  background: linear-gradient(135deg, #c9a84c 0%, #a0883a 100%);
+  color: #1a1a2e;
+  border: none;
+  border-radius: 5px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.15s, box-shadow 0.15s;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  letter-spacing: 2px;
+}
+
+.composer-copy-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(201, 168, 76, 0.35);
+}
+
+.composer-copy-btn:active {
+  transform: scale(0.97);
+}
+
+.composer-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.composer-clear-btn {
+  flex: 0 0 auto;
+  padding: 8px 16px;
+  background: rgba(22, 33, 62, 0.8);
+  color: var(--text-dim);
+  border: 1px solid var(--gold-dim);
+  border-radius: 5px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.15s, border-color 0.15s, color 0.15s;
+  letter-spacing: 1px;
+}
+
+.composer-clear-btn:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+  transform: translateY(-1px);
+}
+
+.composer-clear-btn:active {
+  transform: scale(0.97);
+}
+
+.emoji-card {
+  grid-column: 1 / -1;
+}
+
+/* Toast */
 .toast {
   position: fixed;
-  top: 16px;
+  top: 20px;
   left: 50%;
   transform: translateX(-50%) translateY(-120px);
   background: var(--gold);
   color: var(--bg);
-  padding: 10px 24px;
-  border-radius: 6px;
+  padding: 10px 28px;
+  border-radius: 8px;
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: 1px;
   z-index: 1000;
-  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transition: transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   pointer-events: none;
   max-width: min(90vw, 480px);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  box-shadow: 0 6px 24px rgba(0,0,0,0.5);
 }
 
 .toast.show {
   transform: translateX(-50%) translateY(0);
 }
 
+/* Ripple */
 .ripple {
   position: absolute;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.4);
+  background: rgba(255, 255, 255, 0.3);
   transform: scale(0);
   animation: ripple-anim 0.5s ease-out;
   pointer-events: none;
@@ -165,26 +327,36 @@ body {
   .grid {
     grid-template-columns: 1fr;
     gap: 10px;
-    padding: 0 12px 20px;
+    padding: 0 12px 24px;
+  }
+
+  .header {
+    padding: 24px 12px 16px;
   }
 
   .header h1 {
     font-size: 20px;
+    letter-spacing: 2px;
+  }
+
+  .card {
+    padding: 14px;
   }
 
   .copy-btn {
     padding: 10px 16px;
-    font-size: 15px;
-    min-height: 42px;
+    font-size: 14px;
+    max-height: calc(2.8em + 20px);
   }
 
-  .emoji-img {
+  .emoji-pick-btn img {
     width: 22px;
     height: 22px;
   }
 
-  .card {
-    padding: 12px;
+  .composer img {
+    width: 20px;
+    height: 20px;
   }
 }
 </style>
@@ -246,9 +418,59 @@ function showToast(text) {
   }, 1500);
 }
 
+function renderEmoticonText(text) {
+  const flat = [];
+  EMOTICONS.forEach(em => em.codes.forEach(c => flat.push({ code: c, image: em.image, name: em.name })));
+  flat.sort((a, b) => b.code.length - a.code.length);
+
+  let out = '';
+  let i = 0;
+  while (i < text.length) {
+    let matched = false;
+    for (const { code, image, name } of flat) {
+      if (text.startsWith(code, i)) {
+        out += `<img src="${image}" alt="${name}">`;
+        i += code.length;
+        matched = true;
+        break;
+      }
+    }
+    if (!matched) {
+      const ch = text[i];
+      if (ch === '<') out += '&lt;';
+      else if (ch === '>') out += '&gt;';
+      else if (ch === '&') out += '&amp;';
+      else out += ch;
+      i++;
+    }
+  }
+  return out;
+}
+
 function render() {
   const grid = document.getElementById('grid');
   grid.innerHTML = '';
+
+  const emojiCard = document.createElement('div');
+  emojiCard.className = 'card emoji-card';
+  emojiCard.innerHTML = `
+    <div class="card-header">
+      <span class="card-title">自定义内容</span>
+    </div>
+    <div class="emoji-row">
+      ${EMOTICONS.map((em, i) => `
+        <button class="emoji-pick-btn" data-emoticon="${i}" title="${em.name}">
+          <img src="${em.image}" alt="${em.name}">
+        </button>
+      `).join('')}
+    </div>
+    <div class="composer" id="composer" contenteditable="true"></div>
+    <div class="composer-actions">
+      <button class="composer-clear-btn" id="composerClearBtn">清空</button>
+      <button class="composer-copy-btn" id="composerCopyBtn" style="flex:1">复制到剪贴板</button>
+    </div>
+  `;
+  grid.appendChild(emojiCard);
 
   CATEGORIES.forEach(cat => {
     const card = document.createElement('div');
@@ -256,37 +478,17 @@ function render() {
 
     card.innerHTML = `
       <div class="card-header">
-        <span class="card-icon">${cat.icon}</span>
         <span class="card-title">${cat.name}</span>
       </div>
       <div class="card-buttons">
         ${cat.items.map((item, i) => `
-          <button class="copy-btn" data-category="${cat.id}" data-index="${i}">
-            ${item.text}
-          </button>
+          <button class="copy-btn" data-category="${cat.id}" data-index="${i}" title="${item.text.replace(/"/g, '&quot;')}">${renderEmoticonText(item.text)}</button>
         `).join('')}
       </div>
     `;
 
     grid.appendChild(card);
   });
-
-  const emojiCard = document.createElement('div');
-  emojiCard.className = 'card';
-  emojiCard.innerHTML = `
-    <div class="card-header">
-      <span class="card-icon">💬</span>
-      <span class="card-title">表情符号</span>
-    </div>
-    <div class="card-buttons">
-      ${EMOTICONS.map((em, i) => `
-        <button class="copy-btn emoji-btn" data-emoticon="${i}">
-          <img src="${em.image}" alt="${em.name}" class="emoji-img">${em.name}
-        </button>
-      `).join('')}
-    </div>
-  `;
-  grid.appendChild(emojiCard);
 }
 
 loadContent();
@@ -306,19 +508,71 @@ function createRipple(e, btn) {
 }
 
 document.getElementById('grid').addEventListener('click', async (e) => {
+  // Clear composer button
+  const clearBtn = e.target.closest('.composer-clear-btn');
+  if (clearBtn) {
+    const composer = document.getElementById('composer');
+    composer.innerHTML = '';
+    composer.focus();
+    return;
+  }
+
+  // Emoticon pick button → insert into composer
+  const pickBtn = e.target.closest('.emoji-pick-btn');
+  if (pickBtn) {
+    const idx = parseInt(pickBtn.dataset.emoticon);
+    const em = EMOTICONS[idx];
+    const composer = document.getElementById('composer');
+    const img = document.createElement('img');
+    img.src = em.image;
+    img.alt = em.name;
+    img.setAttribute('data-code', em.codes[0]);
+    composer.appendChild(img);
+
+    const range = document.createRange();
+    range.setStartAfter(img);
+    range.collapse(true);
+    const sel = window.getSelection();
+    sel.removeAllRanges();
+    sel.addRange(range);
+    composer.focus();
+    return;
+  }
+
+  // Composer copy button → extract and copy
+  const copyBtn = e.target.closest('.composer-copy-btn');
+  if (copyBtn) {
+    const composer = document.getElementById('composer');
+    let result = '';
+    composer.childNodes.forEach(node => {
+      if (node.nodeType === 3) {
+        result += node.textContent;
+      } else if (node.tagName === 'IMG') {
+        result += node.getAttribute('data-code') || '';
+      }
+    });
+    if (!result.trim()) return;
+    const ok = await copyText(result);
+    if (ok) {
+      showToast(result);
+    } else {
+      const toast = document.getElementById('toast');
+      toast.textContent = '复制失败，请重试';
+      toast.classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toast.classList.remove('show'), 2000);
+    }
+    return;
+  }
+
+  // Regular text copy button
   const btn = e.target.closest('.copy-btn');
   if (!btn) return;
 
-  let text;
-  if (btn.dataset.emoticon !== undefined) {
-    const idx = parseInt(btn.dataset.emoticon);
-    text = EMOTICONS[idx].codes[0];
-  } else {
-    const catId = btn.dataset.category;
-    const idx = parseInt(btn.dataset.index);
-    const cat = CATEGORIES.find(c => c.id === catId);
-    text = cat.items[idx].text;
-  }
+  const catId = btn.dataset.category;
+  const idx = parseInt(btn.dataset.index);
+  const cat = CATEGORIES.find(c => c.id === catId);
+  const text = cat.items[idx].text;
 
   const ok = await copyText(text);
   if (ok) {

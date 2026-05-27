@@ -280,6 +280,17 @@ body {
   grid-column: 1 / -1;
 }
 
+/* Giscus */
+.giscus-wrapper {
+  padding: 0 16px 32px;
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.giscus-wrapper .card {
+  padding: 20px;
+}
+
 /* Toast */
 .toast {
   position: fixed;
@@ -367,6 +378,14 @@ body {
   <h1>WOT-聊天助手</h1>
 </div>
 <div class="grid" id="grid"></div>
+<div class="giscus-wrapper">
+  <div class="card">
+    <div class="card-header">
+      <span class="card-title">评论</span>
+    </div>
+    <div class="giscus"></div>
+  </div>
+</div>
 <div class="toast" id="toast">✓ 已复制</div>
 <script>
 let CATEGORIES = [];
@@ -591,6 +610,22 @@ document.getElementById('grid').addEventListener('click', async (e) => {
     toastTimer = setTimeout(() => toast.classList.remove('show'), 2000);
   }
 });
+</script>
+<script src="https://giscus.app/client.js"
+        data-repo="zhaoming-mike/zhaoming-mike.github.io"
+        data-repo-id="MDEwOlJlcG9zaXRvcnk0Mzg3MDA2Mw=="
+        data-category="Announcements"
+        data-category-id="DIC_kwDOAp1nb84C96-V"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="zh-CN"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async>
 </script>
 </body>
 </html>

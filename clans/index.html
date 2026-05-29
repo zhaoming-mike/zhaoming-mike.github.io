@@ -35,14 +35,22 @@ body{
 .header-left{display:flex;align-items:center;gap:16px}
 .logo{display:flex;align-items:center;gap:8px;font-weight:700;font-size:1.15rem;color:var(--accent);white-space:nowrap}
 .controls{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
-select,.search-input{
+.sort-group{display:flex;align-items:center;gap:4px}
+select,.search-input,.dropdown-trigger{
+  height:34px;line-height:1.2;
   background:var(--bg3);color:var(--text);border:1px solid var(--border);
-  border-radius:6px;padding:6px 10px;font-size:.85rem;outline:none;transition:border-color .15s;
+  border-radius:6px;padding:0 10px;font-size:.85rem;outline:none;transition:border-color .15s;
 }
 select{cursor:pointer}
-select:focus,.search-input:focus{border-color:var(--accent)}
+select:focus,.search-input:focus,.dropdown-trigger:focus,.dropdown.open .dropdown-trigger{border-color:var(--accent)}
+.reset-btn{
+  height:34px;padding:0 10px;font-size:.8rem;cursor:pointer;
+  background:var(--bg3);color:var(--text2);border:1px solid var(--border);
+  border-radius:6px;outline:none;transition:border-color .15s,color .15s;
+}
+.reset-btn:hover{color:var(--text);border-color:var(--accent)}
 .search-wrap{position:relative}
-.search-input{padding:7px 28px 7px 34px;width:200px;cursor:text}
+.search-input{padding:0 28px 0 34px;width:200px;cursor:text}
 .search-input:focus{width:240px}
 .search-input::placeholder{color:var(--text3)}
 .search-icon{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--text3);pointer-events:none}
@@ -54,12 +62,9 @@ select:focus,.search-input:focus{border-color:var(--accent)}
 .search-clear:hover{color:var(--text)}
 .dropdown{position:relative;user-select:none}
 .dropdown-trigger{
-  background:var(--bg3);color:var(--text);border:1px solid var(--border);
-  border-radius:6px;padding:6px 28px 6px 10px;font-size:.85rem;cursor:pointer;
-  display:flex;align-items:center;gap:6px;outline:none;transition:border-color .15s;
-  position:relative;white-space:nowrap;
+  cursor:pointer;display:flex;align-items:center;gap:6px;outline:none;
+  position:relative;white-space:nowrap;padding-right:28px;
 }
-.dropdown-trigger:focus,.dropdown.open .dropdown-trigger{border-color:var(--accent)}
 .dropdown-arrow{position:absolute;right:8px;top:50%;transform:translateY(-50%);font-size:.65rem;color:var(--text3);pointer-events:none}
 .dropdown-menu{
   display:none;position:absolute;top:100%;left:0;margin-top:4px;
@@ -172,8 +177,8 @@ select:focus,.search-input:focus{border-color:var(--accent)}
 @media(max-width:768px){
   .header-inner{flex-direction:column;align-items:stretch}
   .header-left{flex-wrap:wrap;gap:8px}
-  .controls{justify-content:space-between;width:100%}
-  .search-input{width:140px}.search-input:focus{width:160px}
+  .controls{width:100%}
+  .search-input{width:120px}.search-input:focus{width:140px}
   .card-grid{grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:8px}
   .card{padding:10px 8px 8px}
   .card-emblem,.card-emblem-placeholder{width:40px;height:40px}
@@ -193,13 +198,7 @@ select:focus,.search-input:focus{border-color:var(--accent)}
       <div class="logo">坦克世界亚服 TOP500 军团榜</div>
     </div>
     <div class="controls">
-      <span>排序按</span>
-      <select id="sortSelect"></select>
-      <div class="search-wrap">
-        <svg class="search-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="10.5" cy="10.5" r="7"/><line x1="21" y1="21" x2="15.8" y2="15.8"/></svg>
-        <input class="search-input" id="searchInput" type="text" placeholder="搜索军团名/标签…" autocomplete="off">
-        <button class="search-clear" id="searchClear" style="display:none" title="清空">&times;</button>
-      </div>
+      <span class="sort-group"><span>排序按</span><select id="sortSelect"></select></span>
       <div class="dropdown" id="countryDropdown">
         <button class="dropdown-trigger" id="countryTrigger">
           <span class="dropdown-label">全部国家</span>
@@ -207,6 +206,20 @@ select:focus,.search-input:focus{border-color:var(--accent)}
         </button>
         <div class="dropdown-menu" id="countryMenu"></div>
       </div>
+      <div class="search-wrap">
+        <svg class="search-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="10.5" cy="10.5" r="7"/><line x1="21" y1="21" x2="15.8" y2="15.8"/></svg>
+        <input class="search-input" id="searchInput" type="text" placeholder="搜索军团名/标签…" autocomplete="off">
+        <button class="search-clear" id="searchClear" style="display:none" title="清空">&times;</button>
+      </div>
+      <select id="ageFilter">
+        <option value="">创建时间</option>
+        <option value="1">不到一年</option>
+        <option value="3">三年内</option>
+        <option value="5">五年内</option>
+        <option value="10">十年内</option>
+        <option value="10+">十年以上</option>
+      </select>
+      <button id="resetBtn" class="reset-btn" title="重置筛选">重置</button>
       <span class="updated" id="updatedBadge"></span>
     </div>
   </div>
@@ -234,6 +247,7 @@ const URL_BASE = 'https://asia.wargaming.net/clans/wot/';
 let rankField = 'efficiency';
 let search = '';
 let countryFilter = '';
+let ageFilter = '';
 let allClans = [];
 let filtered = [];
 let rankFields = [];
@@ -263,7 +277,9 @@ async function init(){
         for(const [cc, entry] of Object.entries(raw)){
           if(!entry || cc.startsWith('_')) continue;
           if(entry.name) countryNames[cc] = entry.name;
-          if(Array.isArray(entry.tags)){
+          if(typeof entry.tags === 'string'){
+            entry.tags.split(',').map(t => t.trim()).filter(Boolean).forEach(t => { tagCountryMap[t] = cc; });
+          } else if(Array.isArray(entry.tags)){
             entry.tags.forEach(t => { tagCountryMap[t] = cc; });
           }
         }
@@ -283,12 +299,33 @@ async function init(){
         countryOptions.push({ cc, name, count: ccCount[cc] || 0 });
       }
       countryOptions.sort((a,b) => b.count - a.count);
+
+      // count clans per age bracket
+      const now = Date.now() / 1000;
+      const spy = 365.25 * 24 * 60 * 60;
+      const ageCounts = { '1':0, '3':0, '5':0, '10':0, '10+':0 };
+      for(const c of allClans){
+        if(!c.created_at) continue;
+        const age = (now - c.created_at) / spy;
+        if(age < 1) ageCounts['1']++;
+        else if(age < 3) ageCounts['3']++;
+        else if(age < 5) ageCounts['5']++;
+        else if(age < 10) ageCounts['10']++;
+        else ageCounts['10+']++;
+      }
+      const as = $('#ageFilter');
+      as.innerHTML = '<option value="">创建时间</option>' +
+        ['1','3','5','10','10+'].map(v => {
+          const label = { '1':'不到一年', '3':'一至三年', '5':'三至五年', '10':'五至十年', '10+':'十年以上' }[v];
+          return `<option value="${v}">${label} (${ageCounts[v]})</option>`;
+        }).join('');
+
       const menu = $('#countryMenu');
       menu.innerHTML =
         `<div class="dropdown-option" data-value="">全部国家</div>` +
         countryOptions.map(o =>
           `<div class="dropdown-option" data-value="${o.cc}">
-            <img src="https://flagcdn.com/24x18/${o.cc}.png" alt="${o.cc}" width="24" height="18">
+            ${flagImg(o.cc, 24, 18)}
             <span>${esc(o.name)}</span>
             <span class="dropdown-count">(${o.count})</span>
           </div>`).join('') +
@@ -315,7 +352,7 @@ async function init(){
           } else {
             const name = countryNames[val] || val;
             const n = ccCount[val] || 0;
-            label.innerHTML = `<img src="https://flagcdn.com/24x18/${val}.png" width="24" height="18" style="vertical-align:middle;border-radius:1px"> ${esc(name)} <span class="dropdown-count">(${n})</span>`;
+            label.innerHTML = `${flagImg(val,24,18)} ${esc(name)} <span class="dropdown-count">(${n})</span>`;
           }
           // mark active
           menu.querySelectorAll('.dropdown-option').forEach(o => o.classList.remove('active'));
@@ -370,6 +407,14 @@ function apply(){
     }
   }
 
+  if(ageFilter){
+    const now = Date.now() / 1000;
+    const spy = 365.25 * 24 * 60 * 60;
+    const thresholds = { '1':[0,1], '3':[1,3], '5':[3,5], '10':[5,10], '10+':[10,Infinity] };
+    const [lo, hi] = thresholds[ageFilter];
+    list = list.filter(c => c.created_at && (now - c.created_at) / spy >= lo && (now - c.created_at) / spy < hi);
+  }
+
   filtered = list;
 
   filtered.sort((a,b) => {
@@ -385,6 +430,12 @@ function esc(s){
   const d = document.createElement('div');
   d.textContent = s ?? '';
   return d.innerHTML;
+}
+
+function flagImg(cc, w, h, cls){
+  const c = cls ? ` class="${cls}"` : '';
+  if(cc === 'xx') return `<span${c} style="display:inline-block;width:${w}px;height:${h}px;background:linear-gradient(135deg,#555 25%,#888 25%,#888 50%,#555 50%,#555 75%,#888 75%);border-radius:1px;flex-shrink:0;vertical-align:middle"></span>`;
+  return `<img${c} src="https://flagcdn.com/${w}x${h}/${cc}.png" alt="${cc}" width="${w}" height="${h}">`;
 }
 
 function fmtVal(v, fieldId){
@@ -409,7 +460,7 @@ function showPopover(card, clan){
   const cc = tagCountryMap[clan.tag] || '';
   const countryName = countryNames[cc] || '';
   const countryHTML = cc ? `<div class="popover-country">
-    <img class="popover-flag" src="https://flagcdn.com/24x18/${cc}.png" alt="${cc}" width="24" height="18">
+    ${flagImg(cc, 24, 18, 'popover-flag')}
     <span class="popover-country-name">${esc(countryName)}</span>
   </div>` : '';
 
@@ -421,6 +472,7 @@ function showPopover(card, clan){
     <div class="popover-info">
       ${clan.leader_name ? `<div class="popover-info-row"><span class="popover-info-label">团长</span><span>${esc(clan.leader_name)}</span></div>` : ''}
       ${clan.creator_name && clan.creator_name !== clan.leader_name ? `<div class="popover-info-row"><span class="popover-info-label">创建人</span><span>${esc(clan.creator_name)}</span></div>` : ''}
+      ${clan.created_at ? `<div class="popover-info-row"><span class="popover-info-label">创建于</span><span>${new Date(clan.created_at * 1000).toLocaleDateString('zh-CN')}</span></div>` : ''}
     </div>
     ${clan.motto ? `<div class="popover-motto">"${esc(clan.motto)}"</div>` : ''}
     ${clan.description ? `<div class="popover-desc">${esc(clan.description)}</div>` : ''}
@@ -460,7 +512,7 @@ function cardHTML(c){
   const membersHTML = c.members_count != null ? `👥 ${c.members_count}` : '';
   const infoHTML = cc
     ? `<div class="card-meta">
-        <img class="card-flag" src="https://flagcdn.com/24x18/${cc}.png" alt="${cc}" width="20" height="15">
+        ${flagImg(cc, 20, 15, 'card-flag')}
         <span class="card-country-name">${esc(countryName)}</span>
         <span class="card-meta-sep">·</span>
         <span class="card-members">${membersHTML}</span>
@@ -552,6 +604,26 @@ $('#searchClear').addEventListener('click', function(){
   this.style.display = 'none';
   apply();
   input.focus();
+});
+
+$('#ageFilter').addEventListener('change', function(){
+  ageFilter = this.value;
+  apply();
+});
+
+$('#resetBtn').addEventListener('click', function(){
+  search = '';
+  countryFilter = '';
+  ageFilter = '';
+  rankField = 'efficiency';
+  const input = $('#searchInput');
+  input.value = '';
+  $('#searchClear').style.display = 'none';
+  $('#countryDropdown').querySelector('.dropdown-label').innerHTML = '全部国家';
+  $('#countryDropdown').querySelectorAll('.dropdown-option').forEach(o => o.classList.remove('active'));
+  $('#sortSelect').value = 'efficiency';
+  $('#ageFilter').value = '';
+  apply();
 });
 
 $('#sortSelect').addEventListener('change', function(){

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>亚服TOP500 军团榜</title>
+<title>亚服 TOP500 军团榜</title>
 <style>
 :root {
   --bg: #0f0f0f;
@@ -52,6 +52,30 @@ select:focus,.search-input:focus{border-color:var(--accent)}
   font-size:1.1rem;line-height:1;padding:4px 6px;transition:color .15s;
 }
 .search-clear:hover{color:var(--text)}
+.dropdown{position:relative;user-select:none}
+.dropdown-trigger{
+  background:var(--bg3);color:var(--text);border:1px solid var(--border);
+  border-radius:6px;padding:6px 28px 6px 10px;font-size:.85rem;cursor:pointer;
+  display:flex;align-items:center;gap:6px;outline:none;transition:border-color .15s;
+  position:relative;white-space:nowrap;
+}
+.dropdown-trigger:focus,.dropdown.open .dropdown-trigger{border-color:var(--accent)}
+.dropdown-arrow{position:absolute;right:8px;top:50%;transform:translateY(-50%);font-size:.65rem;color:var(--text3);pointer-events:none}
+.dropdown-menu{
+  display:none;position:absolute;top:100%;left:0;margin-top:4px;
+  background:var(--bg2);border:1px solid var(--border);border-radius:6px;
+  min-width:100%;z-index:150;
+  box-shadow:0 8px 24px rgba(0,0,0,.5);
+}
+.dropdown.open .dropdown-menu{display:block}
+.dropdown-option{
+  display:flex;align-items:center;gap:6px;padding:6px 10px;cursor:pointer;
+  font-size:.82rem;color:var(--text);transition:background .1s;white-space:nowrap;
+}
+.dropdown-option:hover{background:var(--bg-hover)}
+.dropdown-option.active{color:var(--accent)}
+.dropdown-option img{width:24px;height:18px;border-radius:1px;flex-shrink:0;object-fit:cover}
+.dropdown-count{font-size:.72rem;color:var(--text3)}
 .updated{font-size:.7rem;color:var(--text3);white-space:nowrap}
 .main{max-width:1400px;margin:0 auto;padding:16px 20px 40px}
 
@@ -92,7 +116,11 @@ select:focus,.search-input:focus{border-color:var(--accent)}
   font-family:var(--mono);font-weight:700;font-size:.95rem;
   text-align:center;margin-bottom:2px;
 }
-.card-members{font-size:.65rem;color:var(--text3);margin-bottom:1px}
+.card-meta{display:flex;align-items:center;justify-content:center;gap:3px;margin-bottom:1px}
+.card-flag{width:20px;height:15px;border-radius:1px;flex-shrink:0;object-fit:cover}
+.card-country-name{font-size:.6rem;color:var(--text2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:72px}
+.card-meta-sep{font-size:.6rem;color:var(--text3)}
+.card-members{font-size:.6rem;color:var(--text3)}
 .card-name{
   font-size:.75rem;color:var(--text2);text-align:center;
   overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:100%;
@@ -116,6 +144,9 @@ select:focus,.search-input:focus{border-color:var(--accent)}
 .popover.show{opacity:1;transform:translateX(0)}
 .popover-name{font-weight:600;font-size:.88rem;margin-bottom:2px;color:var(--text);word-break:break-word}
 .popover-tag{font-family:var(--mono);font-weight:700;font-size:.85rem;margin-bottom:2px}
+.popover-country{display:flex;align-items:center;gap:6px;margin-bottom:6px}
+.popover-flag{width:24px;height:18px;border-radius:2px;flex-shrink:0;object-fit:cover}
+.popover-country-name{font-size:.75rem;color:var(--text2)}
 .popover-members{font-size:.7rem;color:var(--text3);margin-bottom:4px}
 .popover-motto{font-size:.7rem;color:var(--accent);font-style:italic;margin-bottom:2px}
 .popover-desc{font-size:.7rem;color:var(--text2);margin-bottom:8px;line-height:1.4;max-height:60px;overflow:hidden;word-break:break-word}
@@ -164,6 +195,13 @@ select:focus,.search-input:focus{border-color:var(--accent)}
         <input class="search-input" id="searchInput" type="text" placeholder="搜索军团名/标签…" autocomplete="off">
         <button class="search-clear" id="searchClear" style="display:none" title="清空">&times;</button>
       </div>
+      <div class="dropdown" id="countryDropdown">
+        <button class="dropdown-trigger" id="countryTrigger">
+          <span class="dropdown-label">全部国家</span>
+          <span class="dropdown-arrow">▾</span>
+        </button>
+        <div class="dropdown-menu" id="countryMenu"></div>
+      </div>
       <span class="updated" id="updatedBadge"></span>
     </div>
   </div>
@@ -190,10 +228,13 @@ const URL_BASE = 'https://asia.wargaming.net/clans/wot/';
 
 let rankField = 'efficiency';
 let search = '';
+let countryFilter = '';
 let allClans = [];
 let filtered = [];
 let rankFields = [];
 let clanMap = new Map();
+let tagCountryMap = {};
+let countryNames = {};
 let visibleCount = 0;
 const BATCH = 60;
 let sentinelEl = null;
@@ -202,10 +243,79 @@ let observer = null;
 
 async function init(){
   try{
-    const resp = await fetch('data/clans-asia.json');
+    const [resp, mappingResp] = await Promise.all([
+      fetch('data/clans-asia.json'),
+      fetch('data/tag-country-mapping.json')
+    ]);
     if(!resp.ok) throw new Error(`HTTP ${resp.status}`);
     const json = await resp.json();
     allClans = json.clans || [];
+
+    if(mappingResp.ok){
+      try {
+        const raw = await mappingResp.json();
+        // raw = { "jp": {"name":"日本","tags":["JPTER",...]}, ... }
+        for(const [cc, entry] of Object.entries(raw)){
+          if(!entry || cc.startsWith('_')) continue;
+          if(entry.name) countryNames[cc] = entry.name;
+          if(Array.isArray(entry.tags)){
+            entry.tags.forEach(t => { tagCountryMap[t] = cc; });
+          }
+        }
+      } catch(e){}
+      // build country filter dropdown — only countries with tags, with flag images and count
+      const ccSet = new Set(Object.values(tagCountryMap));
+      // count how many of the 500 clans match each country
+      const ccCount = {};
+      for(const t of allClans.map(c => c.tag)){
+        const cc = tagCountryMap[t];
+        if(cc) ccCount[cc] = (ccCount[cc] || 0) + 1;
+      }
+      const countryOptions = [];
+      for(const [cc, name] of Object.entries(countryNames)){
+        if(!ccSet.has(cc)) continue;
+        countryOptions.push({ cc, name, count: ccCount[cc] || 0 });
+      }
+      countryOptions.sort((a,b) => b.count - a.count);
+      const totalCount = Object.values(ccCount).reduce((s,n) => s + n, 0);
+      const menu = $('#countryMenu');
+      menu.innerHTML =
+        `<div class="dropdown-option" data-value="">全部国家</div>` +
+        countryOptions.map(o =>
+          `<div class="dropdown-option" data-value="${o.cc}">
+            <img src="https://flagcdn.com/24x18/${o.cc}.png" alt="${o.cc}" width="24" height="18">
+            <span>${esc(o.name)}</span>
+            <span class="dropdown-count">(${o.count})</span>
+          </div>`).join('');
+
+      // dropdown behavior
+      const dropdown = $('#countryDropdown');
+      const trigger = $('#countryTrigger');
+      const label = trigger.querySelector('.dropdown-label');
+
+      menu.querySelectorAll('.dropdown-option').forEach(opt => {
+        opt.addEventListener('click', () => {
+          const val = opt.dataset.value;
+          countryFilter = val;
+          // update label
+          if(val === ''){
+            label.innerHTML = '全部国家';
+          } else {
+            const name = countryNames[val] || val;
+            const n = ccCount[val] || 0;
+            label.innerHTML = `<img src="https://flagcdn.com/24x18/${val}.png" width="24" height="18" style="vertical-align:middle;border-radius:1px"> ${esc(name)} <span class="dropdown-count">(${n})</span>`;
+          }
+          // mark active
+          menu.querySelectorAll('.dropdown-option').forEach(o => o.classList.remove('active'));
+          opt.classList.add('active');
+          dropdown.classList.remove('open');
+          apply();
+        });
+      });
+
+      trigger.addEventListener('click', e => { e.stopPropagation(); dropdown.classList.toggle('open'); });
+      document.addEventListener('click', e => { if(!dropdown.contains(e.target)) dropdown.classList.remove('open'); });
+    }
     rankFields = json.rank_fields || [];
     clanMap = new Map(allClans.map(c => [c.clan_id, c]));
 
@@ -229,16 +339,22 @@ async function init(){
 }
 
 function apply(){
+  let list = allClans;
+
   const q = search.trim().toLowerCase();
   if(q){
-    filtered = allClans.filter(c => {
+    list = list.filter(c => {
       const n = (c.name||'').toLowerCase();
       const t = (c.tag||'').toLowerCase();
       return n.includes(q) || t.includes(q);
     });
-  }else{
-    filtered = allClans.slice();
   }
+
+  if(countryFilter){
+    list = list.filter(c => tagCountryMap[c.tag] === countryFilter);
+  }
+
+  filtered = list;
 
   filtered.sort((a,b) => {
     const ra = a.rankings?.[rankField]?.rank ?? Infinity;
@@ -274,9 +390,17 @@ function showPopover(card, clan){
     </div>`;
   }).join('');
 
+  const cc = tagCountryMap[clan.tag] || '';
+  const countryName = countryNames[cc] || '';
+  const countryHTML = cc ? `<div class="popover-country">
+    <img class="popover-flag" src="https://flagcdn.com/24x18/${cc}.png" alt="${cc}" width="24" height="18">
+    <span class="popover-country-name">${esc(countryName)}</span>
+  </div>` : '';
+
   popover.innerHTML = `
     <div class="popover-name">${esc(clan.name)}</div>
     <div class="popover-tag"${clan.color ? ` style="color:${esc(clan.color)}"` : ''}>${clan.tag ? esc(clan.tag) : '—'}</div>
+    ${countryHTML}
     <div class="popover-members">${clan.members_count != null ? clan.members_count + ' 名成员' : ''}</div>
     ${clan.motto ? `<div class="popover-motto">"${esc(clan.motto)}"</div>` : ''}
     ${clan.description ? `<div class="popover-desc">${esc(clan.description)}</div>` : ''}
@@ -311,13 +435,24 @@ function cardHTML(c){
   const r = d?.rank ?? null;
   const delta = d?.rank_delta;
   const deltaHTML = delta ? `<span class="card-delta${delta < 0 ? ' up' : ' down'}">${delta < 0 ? '▲' : '▼'}${Math.abs(delta)}</span>` : '';
+  const cc = tagCountryMap[c.tag] || '';
+  const countryName = countryNames[cc] || '';
+  const membersHTML = c.members_count != null ? `👥 ${c.members_count}` : '';
+  const infoHTML = cc
+    ? `<div class="card-meta">
+        <img class="card-flag" src="https://flagcdn.com/24x18/${cc}.png" alt="${cc}" width="20" height="15">
+        <span class="card-country-name">${esc(countryName)}</span>
+        <span class="card-meta-sep">·</span>
+        <span class="card-members">${membersHTML}</span>
+      </div>`
+    : (membersHTML ? `<div class="card-meta"><span class="card-members">${membersHTML}</span></div>` : '');
   return `<div class="card" data-clan-id="${c.clan_id}">
     <span class="card-rank-badge${r && r <= 3 ? ' top3' : ''}">${r ? '#'+r : '—'}</span>
     ${c.emblem
       ? `<img class="card-emblem" src="${esc(c.emblem)}" alt="" loading="lazy">`
       : '<div class="card-emblem-placeholder"></div>'}
     <div class="card-tag"${c.color ? ` style="color:${esc(c.color)}"` : ''}>${c.tag ? esc(c.tag) : '—'}</div>
-    <div class="card-members">${c.members_count != null ? '👥'+c.members_count : ''}</div>
+    ${infoHTML}
     <div class="card-name">${esc(c.name)}</div>
     ${deltaHTML}
   </div>`;

@@ -28,12 +28,13 @@ fetch('data/maps.json')
 function renderCards() {
   const grid = document.getElementById('cardGrid');
   grid.innerHTML = '';
-  state.maps.forEach(m => {
+  state.maps.forEach((m, idx) => {
     const card = document.createElement('div');
     card.className = 'card';
     card.dataset.env = m.environment;
     card.dataset.name = m.name_en.toLowerCase() + ' ' + m.name_zh.toLowerCase();
-    card.innerHTML = `<img src="${m.image}" alt="${m.name_zh}" class="card-img" loading="lazy"
+    card.innerHTML = `<span class="card-num">${idx + 1}</span>
+                          <img src="${m.image}" alt="${m.name_zh}" class="card-img" loading="lazy"
                           onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22200%22><rect fill=%22%23333%22 width=%22200%22 height=%22200%22/><text fill=%22%23666%22 x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 dy=%22.3em%22 font-size=%2214%22>无图片</text></svg>'">
                       <div class="card-name-en">${m.name_en}</div>
                       <div class="card-name">${m.name_zh}</div>`;

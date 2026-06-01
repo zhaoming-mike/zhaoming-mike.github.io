@@ -1,340 +1,52 @@
 {
   "maps": [
-    {
-      "id": "01_karelia",
-      "name_en": "Karelia",
-      "name_zh": "卡累利阿",
-      "image": "images/maps/01_karelia.webp",
-      "environment": "summer"
-    },
-    {
-      "id": "02_malinovka",
-      "name_en": "Malinovka",
-      "name_zh": "马利诺夫卡",
-      "image": "images/maps/02_malinovka.webp",
-      "environment": "summer"
-    },
-    {
-      "id": "03_campania_big",
-      "name_en": "Province",
-      "name_zh": "省界",
-      "image": "images/maps/03_campania_big.webp",
-      "environment": "summer"
-    },
-    {
-      "id": "04_himmelsdorf",
-      "name_en": "Himmelsdorf",
-      "name_zh": "锡默尔斯多夫",
-      "image": "images/maps/04_himmelsdorf.webp",
-      "environment": "urban"
-    },
-    {
-      "id": "05_prohorovka",
-      "name_en": "Prohorovka",
-      "name_zh": "普罗霍罗夫卡",
-      "image": "images/maps/05_prohorovka.webp",
-      "environment": "summer"
-    },
-    {
-      "id": "06_ensk",
-      "name_en": "Ensk",
-      "name_zh": "安斯克",
-      "image": "images/maps/06_ensk.webp",
-      "environment": "urban"
-    },
-    {
-      "id": "06_ensk_big",
-      "name_en": "Ensk Region",
-      "name_zh": "安斯克地区",
-      "image": "images/maps/06_ensk_big.webp",
-      "environment": "urban"
-    },
-    {
-      "id": "07_lakeville",
-      "name_en": "Lakeville",
-      "name_zh": "湖边的角逐",
-      "image": "images/maps/07_lakeville.webp",
-      "environment": "summer"
-    },
-    {
-      "id": "08_ruinberg",
-      "name_en": "Ruinberg",
-      "name_zh": "鲁别克",
-      "image": "images/maps/08_ruinberg.webp",
-      "environment": "urban"
-    },
-    {
-      "id": "10_hills",
-      "name_en": "Mines",
-      "name_zh": "矿山",
-      "image": "images/maps/10_hills.webp",
-      "environment": "summer"
-    },
-    {
-      "id": "11_murovanka",
-      "name_en": "Murovanka",
-      "name_zh": "穆罗万卡",
-      "image": "images/maps/11_murovanka.webp",
-      "environment": "summer"
-    },
-    {
-      "id": "13_erlenberg",
-      "name_en": "Erlenberg",
-      "name_zh": "埃勒斯堡",
-      "image": "images/maps/13_erlenberg.webp",
-      "environment": "summer"
-    },
-    {
-      "id": "14_siegfried_line",
-      "name_en": "Siegfried Line",
-      "name_zh": "齐格菲防线",
-      "image": "images/maps/14_siegfried_line.webp",
-      "environment": "summer"
-    },
-    {
-      "id": "17_munchen",
-      "name_en": "Widepark",
-      "name_zh": "宽广公园",
-      "image": "images/maps/17_munchen.webp",
-      "environment": "urban"
-    },
-    {
-      "id": "18_cliff",
-      "name_en": "Cliff",
-      "name_zh": "海岸线",
-      "image": "images/maps/18_cliff.webp",
-      "environment": "summer"
-    },
-    {
-      "id": "19_monastery",
-      "name_en": "Abbey",
-      "name_zh": "修道院",
-      "image": "images/maps/19_monastery.webp",
-      "environment": "summer"
-    },
-    {
-      "id": "23_westfeld",
-      "name_en": "Westfield",
-      "name_zh": "韦斯特菲尔德",
-      "image": "images/maps/23_westfeld.webp",
-      "environment": "summer"
-    },
-    {
-      "id": "28_desert",
-      "name_en": "Sand River",
-      "name_zh": "沙河",
-      "image": "images/maps/28_desert.webp",
-      "environment": "desert"
-    },
-    {
-      "id": "29_el_hallouf",
-      "name_en": "El Halluf",
-      "name_zh": "埃里哈罗夫",
-      "image": "images/maps/29_el_hallouf.webp",
-      "environment": "desert"
-    },
-    {
-      "id": "31_airfield",
-      "name_en": "Airfield",
-      "name_zh": "机场",
-      "image": "images/maps/31_airfield.webp",
-      "environment": "summer"
-    },
-    {
-      "id": "33_fjord",
-      "name_en": "Fjords",
-      "name_zh": "峡湾",
-      "image": "images/maps/33_fjord.webp",
-      "environment": "summer"
-    },
-    {
-      "id": "34_redshire",
-      "name_en": "Redshire",
-      "name_zh": "红郡",
-      "image": "images/maps/34_redshire.webp",
-      "environment": "summer"
-    },
-    {
-      "id": "35_steppes",
-      "name_en": "Steppes",
-      "name_zh": "草原",
-      "image": "images/maps/35_steppes.webp",
-      "environment": "summer"
-    },
-    {
-      "id": "36_fishing_bay",
-      "name_en": "Fisherman's Bay",
-      "name_zh": "渔人港",
-      "image": "images/maps/36_fishing_bay.webp",
-      "environment": "summer"
-    },
-    {
-      "id": "37_caucasus",
-      "name_en": "Mountain Pass",
-      "name_zh": "山隘",
-      "image": "images/maps/37_caucasus.webp",
-      "environment": "summer"
-    },
-    {
-      "id": "38_mannerheim_line",
-      "name_en": "Mannerheim Line",
-      "name_zh": "曼纳海姆防线",
-      "image": "images/maps/38_mannerheim_line.webp",
-      "environment": "summer"
-    },
-    {
-      "id": "44_north_america",
-      "name_en": "Live Oaks",
-      "name_zh": "活橡树",
-      "image": "images/maps/44_north_america.webp",
-      "environment": "summer"
-    },
-    {
-      "id": "45_north_america",
-      "name_en": "Highway",
-      "name_zh": "高速公路",
-      "image": "images/maps/45_north_america.webp",
-      "environment": "summer"
-    },
-    {
-      "id": "47_canada_a",
-      "name_en": "Serene Coast",
-      "name_zh": "静谧海岸",
-      "image": "images/maps/47_canada_a.webp",
-      "environment": "summer"
-    },
-    {
-      "id": "59_asia_great_wall",
-      "name_en": "Empire's Border",
-      "name_zh": "长城边界",
-      "image": "images/maps/59_asia_great_wall.webp",
-      "environment": "summer"
-    },
-    {
-      "id": "60_asia_miao",
-      "name_en": "Pearl River",
-      "name_zh": "珍珠河",
-      "image": "images/maps/60_asia_miao.webp",
-      "environment": "summer"
-    },
-    {
-      "id": "63_tundra",
-      "name_en": "Tundra",
-      "name_zh": "冻土",
-      "image": "images/maps/63_tundra.webp",
-      "environment": "winter"
-    },
-    {
-      "id": "83_kharkiv",
-      "name_en": "Kharkov",
-      "name_zh": "哈尔科夫",
-      "image": "images/maps/83_kharkiv.webp",
-      "environment": "urban"
-    },
-    {
-      "id": "90_minsk",
-      "name_en": "Minsk",
-      "name_zh": "明斯克",
-      "image": "images/maps/90_minsk.webp",
-      "environment": "urban"
-    },
-    {
-      "id": "95_lost_city_ctf",
-      "name_en": "Ghost Town",
-      "name_zh": "幽灵小镇",
-      "image": "images/maps/95_lost_city_ctf.webp",
-      "environment": "urban"
-    },
-    {
-      "id": "99_poland",
-      "name_en": "Studzianki",
-      "name_zh": "斯图德扬基",
-      "image": "images/maps/99_poland.webp",
-      "environment": "summer"
-    },
-    {
-      "id": "101_dday",
-      "name_en": "Overlord",
-      "name_zh": "霸王行动",
-      "image": "images/maps/101_dday.webp",
-      "environment": "summer"
-    },
-    {
-      "id": "105_germany",
-      "name_en": "Berlin",
-      "name_zh": "柏林",
-      "image": "images/maps/105_germany.webp",
-      "environment": "urban"
-    },
-    {
-      "id": "112_eiffel_tower_ctf",
-      "name_en": "Paris",
-      "name_zh": "巴黎",
-      "image": "images/maps/112_eiffel_tower_ctf.webp",
-      "environment": "urban"
-    },
-    {
-      "id": "114_czech",
-      "name_en": "Pilsen",
-      "name_zh": "比尔森",
-      "image": "images/maps/114_czech.webp",
-      "environment": "urban"
-    },
-    {
-      "id": "115_sweden",
-      "name_en": "Glacier",
-      "name_zh": "冰川",
-      "image": "images/maps/115_sweden.webp",
-      "environment": "winter"
-    },
-    {
-      "id": "120_graf_zeppelin",
-      "name_en": "Nordskar",
-      "name_zh": "诺斯卡",
-      "image": "images/maps/120_graf_zeppelin.webp",
-      "environment": "summer"
-    },
-    {
-      "id": "121_lost_paradise_v",
-      "name_en": "Oyster Bay",
-      "name_zh": "牡蛎湾",
-      "image": "images/maps/121_lost_paradise_v.webp",
-      "environment": "summer"
-    },
-    {
-      "id": "127_japort",
-      "name_en": "Safe Haven",
-      "name_zh": "安全港",
-      "image": "images/maps/127_japort.webp",
-      "environment": "summer"
-    },
-    {
-      "id": "128_last_frontier_v",
-      "name_en": "Outpost",
-      "name_zh": "前哨",
-      "image": "images/maps/128_last_frontier_v.webp",
-      "environment": "summer"
-    },
-    {
-      "id": "212_epic_random_valley",
-      "name_en": "Nebelburg",
-      "name_zh": "内贝尔堡",
-      "image": "images/maps/212_epic_random_valley.webp",
-      "environment": "summer"
-    },
-    {
-      "id": "217_er_alaska",
-      "name_en": "Klondike",
-      "name_zh": "克朗代克",
-      "image": "images/maps/217_er_alaska.webp",
-      "environment": "winter"
-    },
-    {
-      "id": "222_er_clime",
-      "name_en": "Hinterland",
-      "name_zh": "内陆",
-      "image": "images/maps/222_er_clime.webp",
-      "environment": "summer"
-    }
+    {"id": "01_karelia", "name_en": "Karelia", "name_zh": "卡累利阿", "image": "images/maps/01_karelia.webp", "environment": "summer"},
+    {"id": "02_malinovka", "name_en": "Malinovka", "name_zh": "马利诺夫卡", "image": "images/maps/02_malinovka.webp", "environment": "summer"},
+    {"id": "03_campania_big", "name_en": "Province", "name_zh": "行省", "image": "images/maps/03_campania_big.webp", "environment": "summer"},
+    {"id": "04_himmelsdorf", "name_en": "Himmelsdorf", "name_zh": "锡默尔斯多夫", "image": "images/maps/04_himmelsdorf.webp", "environment": "urban"},
+    {"id": "05_prohorovka", "name_en": "Prohorovka", "name_zh": "普罗霍罗夫卡", "image": "images/maps/05_prohorovka.webp", "environment": "summer"},
+    {"id": "06_ensk", "name_en": "Ensk", "name_zh": "安斯克", "image": "images/maps/06_ensk.webp", "environment": "urban"},
+    {"id": "06_ensk_big", "name_en": "Ensk Region", "name_zh": "安斯克地区", "image": "images/maps/06_ensk_big.webp", "environment": "urban"},
+    {"id": "07_lakeville", "name_en": "Lakeville", "name_zh": "拉斯威利", "image": "images/maps/07_lakeville.webp", "environment": "summer"},
+    {"id": "08_ruinberg", "name_en": "Ruinberg", "name_zh": "鲁别克", "image": "images/maps/08_ruinberg.webp", "environment": "urban"},
+    {"id": "10_hills", "name_en": "Mines", "name_zh": "湖边的角逐", "image": "images/maps/10_hills.webp", "environment": "summer"},
+    {"id": "11_murovanka", "name_en": "Murovanka", "name_zh": "穆罗万卡", "image": "images/maps/11_murovanka.webp", "environment": "summer"},
+    {"id": "13_erlenberg", "name_en": "Erlenberg", "name_zh": "埃勒斯堡", "image": "images/maps/13_erlenberg.webp", "environment": "summer"},
+    {"id": "14_siegfried_line", "name_en": "Siegfried Line", "name_zh": "齐格菲防线", "image": "images/maps/14_siegfried_line.webp", "environment": "summer"},
+    {"id": "17_munchen", "name_en": "Widepark", "name_zh": "宽广公园", "image": "images/maps/17_munchen.webp", "environment": "urban"},
+    {"id": "18_cliff", "name_en": "Cliff", "name_zh": "海岸争霸", "image": "images/maps/18_cliff.webp", "environment": "summer"},
+    {"id": "19_monastery", "name_en": "Abbey", "name_zh": "修道院", "image": "images/maps/19_monastery.webp", "environment": "summer"},
+    {"id": "23_westfeld", "name_en": "Westfield", "name_zh": "韦斯特菲尔德", "image": "images/maps/23_westfeld.webp", "environment": "summer"},
+    {"id": "28_desert", "name_en": "Sand River", "name_zh": "荒漠小镇", "image": "images/maps/28_desert.webp", "environment": "desert"},
+    {"id": "29_el_hallouf", "name_en": "El Halluf", "name_zh": "埃里哈罗夫", "image": "images/maps/29_el_hallouf.webp", "environment": "desert"},
+    {"id": "31_airfield", "name_en": "Airfield", "name_zh": "机场", "image": "images/maps/31_airfield.webp", "environment": "summer"},
+    {"id": "33_fjord", "name_en": "Fjords", "name_zh": "北欧峡湾", "image": "images/maps/33_fjord.webp", "environment": "summer"},
+    {"id": "34_redshire", "name_en": "Redshire", "name_zh": "斯特拉特福", "image": "images/maps/34_redshire.webp", "environment": "summer"},
+    {"id": "35_steppes", "name_en": "Steppes", "name_zh": "荒蛮之地", "image": "images/maps/35_steppes.webp", "environment": "summer"},
+    {"id": "36_fishing_bay", "name_en": "Fisherman's Bay", "name_zh": "费舍尔湾", "image": "images/maps/36_fishing_bay.webp", "environment": "summer"},
+    {"id": "37_caucasus", "name_en": "Mountain Pass", "name_zh": "胜利之门", "image": "images/maps/37_caucasus.webp", "environment": "summer"},
+    {"id": "38_mannerheim_line", "name_en": "Mannerheim Line", "name_zh": "曼纳海姆防线", "image": "images/maps/38_mannerheim_line.webp", "environment": "summer"},
+    {"id": "44_north_america", "name_en": "Live Oaks", "name_zh": "里夫奥克斯", "image": "images/maps/44_north_america.webp", "environment": "summer"},
+    {"id": "45_north_america", "name_en": "Highway", "name_zh": "公路", "image": "images/maps/45_north_america.webp", "environment": "summer"},
+    {"id": "47_canada_a", "name_en": "Serene Coast", "name_zh": "寂静海岸", "image": "images/maps/47_canada_a.webp", "environment": "summer"},
+    {"id": "59_asia_great_wall", "name_en": "Empire's Border", "name_zh": "帝国边境", "image": "images/maps/59_asia_great_wall.webp", "environment": "summer"},
+    {"id": "60_asia_miao", "name_en": "Pearl River", "name_zh": "海珠遗岛", "image": "images/maps/60_asia_miao.webp", "environment": "summer"},
+    {"id": "63_tundra", "name_en": "Tundra", "name_zh": "苔原", "image": "images/maps/63_tundra.webp", "environment": "winter"},
+    {"id": "83_kharkiv", "name_en": "Kharkov", "name_zh": "哈尔科夫", "image": "images/maps/83_kharkiv.webp", "environment": "urban"},
+    {"id": "90_minsk", "name_en": "Minsk", "name_zh": "明斯克", "image": "images/maps/90_minsk.webp", "environment": "urban"},
+    {"id": "95_lost_city_ctf", "name_en": "Ghost Town", "name_zh": "幽灵小镇", "image": "images/maps/95_lost_city_ctf.webp", "environment": "urban"},
+    {"id": "99_poland", "name_en": "Studzianki", "name_zh": "斯图吉安克", "image": "images/maps/99_poland.webp", "environment": "summer"},
+    {"id": "101_dday", "name_en": "Overlord", "name_zh": "领主", "image": "images/maps/101_dday.webp", "environment": "summer"},
+    {"id": "105_germany", "name_en": "Berlin", "name_zh": "柏林", "image": "images/maps/105_germany.webp", "environment": "urban"},
+    {"id": "112_eiffel_tower_ctf", "name_en": "Paris", "name_zh": "巴黎", "image": "images/maps/112_eiffel_tower_ctf.webp", "environment": "urban"},
+    {"id": "114_czech", "name_en": "Pilsen", "name_zh": "皮尔森", "image": "images/maps/114_czech.webp", "environment": "urban"},
+    {"id": "115_sweden", "name_en": "Glacier", "name_zh": "冰川", "image": "images/maps/115_sweden.webp", "environment": "winter"},
+    {"id": "120_graf_zeppelin", "name_en": "Nordskar", "name_zh": "努德斯卡尔", "image": "images/maps/120_graf_zeppelin.webp", "environment": "summer"},
+    {"id": "121_lost_paradise_v", "name_en": "Oyster Bay", "name_zh": "牡蛎湾", "image": "images/maps/121_lost_paradise_v.webp", "environment": "summer"},
+    {"id": "127_japort", "name_en": "Safe Haven", "name_zh": "避风港", "image": "images/maps/127_japort.webp", "environment": "summer"},
+    {"id": "128_last_frontier_v", "name_en": "Outpost", "name_zh": "前哨", "image": "images/maps/128_last_frontier_v.webp", "environment": "summer"},
+    {"id": "212_epic_random_valley", "name_en": "Nebelburg", "name_zh": "尼德堡", "image": "images/maps/212_epic_random_valley.webp", "environment": "summer"},
+    {"id": "217_er_alaska", "name_en": "Klondike", "name_zh": "克朗代克", "image": "images/maps/217_er_alaska.webp", "environment": "winter"},
+    {"id": "222_er_clime", "name_en": "Hinterland", "name_zh": "腹地", "image": "images/maps/222_er_clime.webp", "environment": "summer"}
   ]
 }

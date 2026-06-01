@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>坦克世界地图查看器</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="header">
+    <h1 class="header-title">坦克世界地图查看器</h1>
+    <div class="header-controls">
+      <input type="text" id="searchInput" class="search-input" placeholder="搜索地图名称（中/英文）...">
+      <div class="filter-tags" id="filterTags">
+        <button class="tag active" data-env="all">全部</button>
+        <button class="tag" data-env="summer">夏季</button>
+        <button class="tag" data-env="winter">冬季</button>
+        <button class="tag" data-env="desert">沙漠</button>
+        <button class="tag" data-env="urban">城市</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="card-grid" id="cardGrid"></main>
+
+  <div class="modal-overlay" id="modal">
+    <div class="modal-main">
+      <div class="modal-canvas-wrap" id="canvasWrap">
+        <img id="modalImage" class="modal-image" alt="地图大图">
+        <canvas id="drawCanvas" class="draw-canvas"></canvas>
+        <span class="modal-watermark">北冥有鱼战术板</span>
+      </div>
+      <div class="modal-toolbar" id="toolbar">
+        <button class="tool-btn" data-tool="arrow-red" title="红色箭头 (A)">🔴↗</button>
+        <button class="tool-btn" data-tool="arrow-green" title="绿色箭头 (G)">🟢↗</button>
+        <button class="tool-btn" data-tool="circle-red" title="红色圆圈 (C)">🔴○</button>
+        <button class="tool-btn" data-tool="circle-green" title="绿色圆圈 (V)">🟢○</button>
+        <button class="tool-btn" data-tool="text" title="文字标注 (T)">📝</button>
+        <button class="tool-btn" data-tool="eraser" title="擦除 (E)">🧹</button>
+        <button class="tool-btn btn-undo" data-tool="undo" title="撤销 (Ctrl+Z)">↩</button>
+        <button class="tool-btn btn-copy" id="btnCopy" title="复制到剪贴板">📋</button>
+        <button class="tool-btn btn-close" id="btnClose" title="关闭 (Esc)">✕</button>
+      </div>
+    </div>
+  </div>
+  <div class="toast" id="toast"></div>
+
+  <script src="js/app.js"></script>
+  <script src="js/draw.js"></script>
+  <script src="js/clipboard.js"></script>
+</body>
+</html>

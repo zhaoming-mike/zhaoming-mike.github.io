@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>北冥有鱼军团语音包</title>
+<style>
+/* ===== 基础重置与排版 ===== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  color: #e0e0e0;
+  background-color: #1a1a2e;
+  min-height: 100vh;
+}
+
+/* ===== 页面容器 ===== */
+.page {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 40px 20px 60px;
+}
+
+/* ===== Header ===== */
+.header {
+  text-align: center;
+  padding: 48px 0 40px;
+  border-bottom: 2px solid #c9a84c;
+  margin-bottom: 36px;
+}
+
+.header-icon {
+  width: 80px;
+  height: 80px;
+  margin-bottom: 12px;
+  border-radius: 12px;
+}
+
+.header h1 {
+  font-size: 28px;
+  font-weight: 700;
+  color: #c9a84c;
+  letter-spacing: 2px;
+}
+
+.header p {
+  font-size: 14px;
+  color: #8b8b8b;
+  margin-top: 8px;
+}
+
+/* ===== 卡片通用 ===== */
+.card {
+  background: #16213e;
+  border: 1px solid #2a3a5c;
+  border-radius: 8px;
+  margin-bottom: 24px;
+  overflow: hidden;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
+}
+
+/* ===== 卡片 1：安装说明（可折叠） ===== */
+.install-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px;
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.2s;
+}
+
+.install-header:hover {
+  background: rgba(201, 168, 76, 0.05);
+}
+
+.install-header-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.install-icon {
+  font-size: 24px;
+  line-height: 1;
+}
+
+.install-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #e0e0e0;
+}
+
+.install-summary {
+  font-size: 14px;
+  color: #8b8b8b;
+  margin-top: 2px;
+}
+
+.install-arrow {
+  font-size: 14px;
+  color: #c9a84c;
+  transition: transform 0.3s ease;
+  flex-shrink: 0;
+}
+
+.install-arrow.open {
+  transform: rotate(180deg);
+}
+
+.install-body {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+
+.install-body.open {
+  max-height: 600px;
+}
+
+.install-steps {
+  padding: 16px 24px 24px;
+  border-top: 1px solid #2a3a5c;
+  margin: 0 24px;
+}
+
+.install-screenshot {
+  margin: 8px 0 0;
+  max-width: 200px;
+  border-radius: 4px;
+  border: 1px solid #2a3a5c;
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+
+.install-screenshot:hover {
+  opacity: 0.8;
+}
+
+/* ===== 图片灯箱 ===== */
+.lightbox {
+  display: none;
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0, 0, 0, 0.85);
+  z-index: 999;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.lightbox.open {
+  display: flex;
+}
+
+.lightbox img {
+  max-width: 90vw;
+  max-height: 90vh;
+  border-radius: 6px;
+}
+
+.install-steps ol {
+  padding-left: 20px;
+  color: #e0e0e0;
+}
+
+.install-steps li {
+  margin-bottom: 12px;
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+.install-steps li:last-child {
+  margin-bottom: 0;
+}
+
+.install-steps code {
+  background: rgba(201, 168, 76, 0.12);
+  color: #c9a84c;
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-size: 13px;
+}
+
+/* ===== 卡片 2：下载列表 ===== */
+.download-header {
+  padding: 20px 24px 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #e0e0e0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.download-list {
+  padding: 16px 24px 8px;
+}
+
+.download-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 0;
+  border-bottom: 1px solid #2a3a5c;
+}
+
+.download-item:last-child {
+  border-bottom: none;
+  padding-bottom: 16px;
+}
+
+.download-item-icon {
+  font-size: 28px;
+  flex-shrink: 0;
+}
+
+.download-item-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.download-item-name {
+  font-size: 17px;
+  font-weight: 600;
+  color: #e0e0e0;
+  margin-bottom: 4px;
+}
+
+.download-item-desc {
+  font-size: 14px;
+  color: #8b8b8b;
+  margin-bottom: 4px;
+}
+
+.download-item-version {
+  display: inline-block;
+  font-size: 12px;
+  color: #1a1a2e;
+  background: #c9a84c;
+  padding: 2px 8px;
+  border-radius: 3px;
+  font-weight: 500;
+}
+
+.download-item-date {
+  font-size: 12px;
+  color: #6a6a7a;
+  margin-left: 6px;
+}
+
+.download-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+  padding: 10px 20px;
+  background: linear-gradient(135deg, #d4a843, #b8922e);
+  color: #1a1a2e;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 6px;
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.download-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 16px rgba(212, 168, 67, 0.35);
+}
+
+.download-btn:active {
+  transform: scale(0.97);
+}
+
+.download-btn-disabled {
+  background: #3a3a4a;
+  color: #6a6a7a;
+  cursor: not-allowed;
+}
+
+.download-btn-disabled:hover {
+  transform: none;
+  box-shadow: none;
+}
+
+/* ===== Footer ===== */
+.footer {
+  text-align: center;
+  padding: 32px 0 0;
+  font-size: 13px;
+  color: #5a5a7a;
+  border-top: 1px solid #2a3a5c;
+  margin-top: 32px;
+}
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- Header -->
+  <header class="header">
+    <img class="header-icon" src="https://zhaoming-mike.github.io/images/256x256.png" alt="WOT Logo">
+    <h1>北冥有鱼军团语音包</h1>
+    <p>北冥有鱼 · 为战斗增添灵魂</p>
+  </header>
+
+  <!-- 卡片 1：安装说明 -->
+  <div class="card" id="installCard">
+    <div class="install-header" id="installToggle">
+      <div class="install-header-left">
+        <div>
+          <div class="install-title">安装指南</div>
+          <div class="install-summary" id="installSummary">快速四步完成语音包安装，新手也能轻松上手</div>
+        </div>
+      </div>
+      <span class="install-arrow" id="installArrow">▼</span>
+    </div>
+    <div class="install-body" id="installBody">
+      <div class="install-steps">
+        <ol>
+          <li>将 <code>audioww</code> 文件夹复制到游戏根目录下的 <code>World_of_Tanks/res_mods/<b>{游戏当前版本号}</b></code>（例如：2.2.1.3）文件夹中。其中主要包含两个音频事件库文件 <code>GUI.bnk</code> 和 <code>voiceover.bnk</code> 。</li>
+          <li>将 <code>novoiceover_vmpwFoS.wotmod</code> 文件复制到游戏根目录下 <code>World_of_Tanks/mods/<b>{游戏当前版本号}</b></code>（例如：2.2.1.3）文件夹中。</li>
+          <li>在游戏里语音设置为 <code><b>标准</b></code> 参考截图<br>
+            <img class="install-screenshot" src="./downloads/游戏音频设置截图.png" alt="语音设置截图" id="screenshotImg">
+          </li>
+          <li>重启游戏客户端即可生效</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <!-- 卡片 2：下载列表 -->
+  <div class="card">
+    <div class="download-header">
+      语音包下载
+    </div>
+    <div class="download-list" id="downloadList">
+      <!-- JS 动态渲染 -->
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    © 2026 北冥有鱼军团 · 为坦克世界玩家社区提供服务
+  </footer>
+
+  <!-- 灯箱 -->
+  <div class="lightbox" id="lightbox">
+    <img src="" alt="截图放大" id="lightboxImg">
+  </div>
+
+</div>
+
+<script>
+/* ===== 语音包数据（在此数组中增删改语音包条目） ===== */
+var voicePacks = [
+  {
+    name: "北冥有鱼-志愿军语音包",
+    description: "音源主要采集自国产电影《志愿军》系列，部分换弹、团队语音来自《金刚川》以及团长，欢迎下载体验。（侵权必删）",
+    version: "1.0.0",
+    date: "2026-06-01",
+    url: "http://zhaoming-mike.github.io/voice/downloads/北冥有鱼-志愿军语音包-v1.0.0.zip"
+  },
+  {
+    name: "北冥有鱼-XXX语音包",
+    description: "敬请期待，制作中...",
+    version: "0.0.0",
+    date: "",
+    url: ""
+  }
+];
+
+/* ===== 渲染下载列表 ===== */
+function renderDownloadList() {
+  var list = document.getElementById('downloadList');
+  var html = '';
+  voicePacks.forEach(function(pack) {
+    var btnHtml;
+    if (pack.url) {
+      btnHtml = '<a class="download-btn" href="' + escapeHtml(pack.url) + '" download>下载</a>';
+    } else {
+      btnHtml = '<span class="download-btn download-btn-disabled">制作中</span>';
+    }
+    html += '<div class="download-item">'
+      + '<span class="download-item-icon">🎙️</span>'
+      + '<div class="download-item-info">'
+      + '<div class="download-item-name">' + escapeHtml(pack.name) + '</div>'
+      + '<div class="download-item-desc">' + escapeHtml(pack.description) + '</div>'
+      + '<span class="download-item-version">v' + escapeHtml(pack.version) + '</span>'
+      + (pack.date ? ' <span class="download-item-date">更新于 ' + escapeHtml(pack.date) + '</span>' : '')
+      + '</div>'
+      + btnHtml
+      + '</div>';
+  });
+  list.innerHTML = html;
+}
+
+function escapeHtml(str) {
+  var div = document.createElement('div');
+  div.appendChild(document.createTextNode(str));
+  return div.innerHTML;
+}
+
+/* ===== 折叠/展开交互 ===== */
+(function() {
+  var isOpen = false;
+  var toggle = document.getElementById('installToggle');
+  var body = document.getElementById('installBody');
+  var arrow = document.getElementById('installArrow');
+  var summary = document.getElementById('installSummary');
+
+  toggle.addEventListener('click', function() {
+    isOpen = !isOpen;
+    if (isOpen) {
+      body.classList.add('open');
+      arrow.classList.add('open');
+    } else {
+      body.classList.remove('open');
+      arrow.classList.remove('open');
+    }
+  });
+})();
+
+/* ===== 截图灯箱 ===== */
+(function() {
+  var lightbox = document.getElementById('lightbox');
+  var lightboxImg = document.getElementById('lightboxImg');
+  var screenshot = document.getElementById('screenshotImg');
+
+  screenshot.addEventListener('click', function() {
+    lightboxImg.src = screenshot.src;
+    lightbox.classList.add('open');
+  });
+
+  lightbox.addEventListener('click', function() {
+    lightbox.classList.remove('open');
+  });
+})();
+
+/* ===== 初始化 ===== */
+renderDownloadList();
+</script>
+
+</body>
+</html>

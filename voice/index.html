@@ -239,8 +239,8 @@ body {
 .download-item-version {
   display: inline-block;
   font-size: 12px;
-  color: #1a1a2e;
-  background: #c9a84c;
+  color: #fff;
+  background: #3b7ddd;
   padding: 2px 8px;
   border-radius: 3px;
   font-weight: 500;
@@ -250,6 +250,13 @@ body {
   font-size: 12px;
   color: #6a6a7a;
   margin-left: 6px;
+}
+
+.download-item-hash {
+  font-size: 11px;
+  color: #5a5a7a;
+  margin-left: 8px;
+  cursor: default;
 }
 
 .download-btn {
@@ -364,6 +371,7 @@ var voicePacks = [
     description: "音源主要采集自国产电影《志愿军》系列，部分换弹、团队语音来自《金刚川》以及团长，欢迎下载体验。（侵权必删）",
     version: "1.0.0",
     date: "2026-06-01",
+    hash: { alg: "SHA-256", value: "67c1808371589a99ad43cebcf03c6d54b2aeab7e02b8154f06d81dc2d37d7f8f" },
     url: "https://zhaoming-mike.github.io/voice/downloads/北冥有鱼-志愿军语音包-v1.0.0.zip"
   },
   {
@@ -371,6 +379,7 @@ var voicePacks = [
     description: "敬请期待，制作中...",
     version: "0.0.0",
     date: "",
+    hash: null,
     url: ""
   }
 ];
@@ -393,6 +402,7 @@ function renderDownloadList() {
       + '<div class="download-item-desc">' + escapeHtml(pack.description) + '</div>'
       + '<span class="download-item-version">v' + escapeHtml(pack.version) + '</span>'
       + (pack.date ? ' <span class="download-item-date">更新于 ' + escapeHtml(pack.date) + '</span>' : '')
+      + (pack.hash ? ' <span class="download-item-hash" title="' + escapeHtml(pack.hash.value) + '">' + escapeHtml(pack.hash.alg) + ': ' + escapeHtml(pack.hash.value.substring(0, 8)) + '...' + escapeHtml(pack.hash.value.slice(-8)) + '</span>' : '')
       + '</div>'
       + btnHtml
       + '</div>';

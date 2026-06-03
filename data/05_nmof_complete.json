@@ -1,5 +1,5 @@
 {
-  "collected_at": "2026-06-02T22:00:40.827Z",
+  "collected_at": "2026-06-03T04:00:29.715Z",
   "source": "Wargaming Public API",
   "region": "asia",
   "base_url": "https://api.worldoftanks.asia",
@@ -412,8 +412,8 @@
     {
       "account_id": 3014048007,
       "account_name": "Dortmund",
-      "role": "recruit",
-      "role_i18n": "ทหารเกณฑ์",
+      "role": "private",
+      "role_i18n": "พลทหาร",
       "joined_at": 1780209926,
       "created_at": 1779617714,
       "last_battle_time": 1780417391,
@@ -832,8 +832,8 @@
     {
       "account_id": 2002056763,
       "account_name": "jay803702",
-      "role": "recruit",
-      "role_i18n": "ทหารเกณฑ์",
+      "role": "private",
+      "role_i18n": "พลทหาร",
       "joined_at": 1778340846,
       "created_at": 1365213205,
       "last_battle_time": 1780411256,
@@ -1042,8 +1042,8 @@
     {
       "account_id": 3005134909,
       "account_name": "shenlan_2025",
-      "role": "private",
-      "role_i18n": "พลทหาร",
+      "role": "junior_officer",
+      "role_i18n": "นายทหารชั้นผู้น้อย",
       "joined_at": 1774869109,
       "created_at": 1745381752,
       "last_battle_time": 1780414790,
@@ -1252,8 +1252,8 @@
     {
       "account_id": 2001726018,
       "account_name": "Defenderx01",
-      "role": "recruit",
-      "role_i18n": "ทหารเกณฑ์",
+      "role": "private",
+      "role_i18n": "พลทหาร",
       "joined_at": 1778664125,
       "created_at": 1361148497,
       "last_battle_time": 1780402502,
@@ -3020,24 +3020,24 @@
       "role_i18n": "เจ้าหน้าที่ข่าวกรอง",
       "joined_at": 1772119127,
       "created_at": 1755671410,
-      "last_battle_time": 1780402811,
-      "global_rating": 2250,
+      "last_battle_time": 1780455682,
+      "global_rating": 2252,
       "statistics": {
-        "battles": 34615,
-        "wins": 13993,
-        "losses": 20035,
-        "draws": 587,
-        "winrate": "40.42",
-        "survived_battles": 639,
-        "frags": 1645,
-        "damage_dealt": 4868611,
-        "damage_received": 38664245,
-        "xp": 14161537,
+        "battles": 34911,
+        "wins": 14129,
+        "losses": 20190,
+        "draws": 592,
+        "winrate": "40.47",
+        "survived_battles": 640,
+        "frags": 1646,
+        "damage_dealt": 4882906,
+        "damage_received": 38965435,
+        "xp": 14291003,
         "max_xp": 2382,
         "max_damage": 6968,
         "max_frags": 7,
         "battle_avg_xp": 409,
-        "spotted": 118821,
+        "spotted": 119970,
         "capture_points": 1112,
         "dropped_capture_points": 182,
         "tanking_factor": 0.11
@@ -3047,8 +3047,8 @@
         "top_tanks": [
           {
             "tank_id": 61505,
-            "battles": 6593,
-            "winrate": "40.12",
+            "battles": 6675,
+            "winrate": "40.19",
             "avg_damage": 0,
             "mark_of_mastery": 2
           },
@@ -3061,15 +3061,15 @@
           },
           {
             "tank_id": 57889,
-            "battles": 4454,
-            "winrate": "41.85",
+            "battles": 4527,
+            "winrate": "41.97",
             "avg_damage": 0,
             "mark_of_mastery": 2
           },
           {
             "tank_id": 47377,
-            "battles": 3285,
-            "winrate": "41.19",
+            "battles": 3356,
+            "winrate": "41.27",
             "avg_damage": 0,
             "mark_of_mastery": 2
           },
@@ -3729,8 +3729,8 @@
     {
       "account_id": 2026838734,
       "account_name": "WhiteLeaf2020",
-      "role": "recruit",
-      "role_i18n": "ทหารเกณฑ์",
+      "role": "private",
+      "role_i18n": "พลทหาร",
       "joined_at": 1774269104,
       "created_at": 1588255149,
       "last_battle_time": 1780324524,
@@ -4023,8 +4023,8 @@
     {
       "account_id": 2048058597,
       "account_name": "autism_532",
-      "role": "recruit",
-      "role_i18n": "ทหารเกณฑ์",
+      "role": "private",
+      "role_i18n": "พลทหาร",
       "joined_at": 1774260729,
       "created_at": 1725103052,
       "last_battle_time": 1777542597,
@@ -9018,5 +9018,5 @@
       }
     }
   ],
-  "_generated_at": "2026-06-02T22:00:40.827Z"
+  "_generated_at": "2026-06-03T04:00:29.715Z"
 }

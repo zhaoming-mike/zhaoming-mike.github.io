@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>北冥有鱼资讯</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scrollbar-width: none; }
+  html::-webkit-scrollbar { display: none; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #0e0e0e; color: #e0e0e0; min-height: 100vh; }
+  a { color: inherit; text-decoration: none; }
+
+  header { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); border-bottom: 1px solid #333; position: sticky; top: 0; z-index: 10; }
+  .header-inner { max-width: 960px; margin: 0 auto; padding: 20px 16px; display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+  .logo { width: 72px; height: 72px; border-radius: 10px; margin-top: 2px; }
+  .header-text h1 { font-size: 22px; font-weight: 700; color: #f0c040; line-height: 1.3; }
+  .header-text .sub { font-size: 12px; color: #888; }
+  .fetched-at { font-size: 11px; color: #666; margin-top: 4px; }
+  .filters { display: flex; gap: 8px; flex-wrap: wrap; margin-left: auto; }
+  .filter-chip { padding: 6px 16px; border-radius: 20px; border: 1px solid #444; background: transparent; color: #aaa; cursor: pointer; font-size: 13px; transition: all .2s; }
+  .filter-chip:hover, .filter-chip.active { background: #f0c040; color: #111; border-color: #f0c040; }
+
+  .container { max-width: 960px; margin: 0 auto; padding: 24px 16px; }
+
+  .loading { text-align: center; padding: 60px 0; }
+  .spinner { width: 40px; height: 40px; border: 3px solid #333; border-top-color: #f0c040; border-radius: 50%; animation: spin .8s linear infinite; margin: 0 auto 16px; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .error { text-align: center; padding: 60px 16px; color: #ff6b6b; }
+  .error .icon { font-size: 48px; margin-bottom: 12px; }
+  .error button { margin-top: 16px; padding: 10px 24px; background: #f0c040; color: #111; border: none; border-radius: 6px; cursor: pointer; font-size: 14px; font-weight: 600; }
+
+  .empty { text-align: center; padding: 60px 16px; color: #888; }
+
+  .card { background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 10px; overflow: hidden; cursor: pointer; transition: border-color .2s, transform .2s; }
+  .card:hover { border-color: #f0c04040; transform: translateY(-2px); }
+  .card-img { width: 100%; height: 180px; object-fit: cover; background: #222; display: block; }
+  .card-img-placeholder { width: 100%; height: 180px; background: linear-gradient(135deg, #1a1a2e, #16213e); display: flex; align-items: center; justify-content: center; font-size: 40px; color: #444; }
+  .card-body { padding: 16px; }
+  .card-date { font-size: 12px; color: #888; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+  .card-category { font-size: 11px; background: #f0c04020; color: #f0c040; padding: 2px 8px; border-radius: 4px; }
+  .card-title { font-size: 16px; font-weight: 600; color: #f0f0f0; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; margin-bottom: 8px; }
+  .card-desc { font-size: 13px; color: #999; line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+
+  .btt { position: fixed; right: 24px; bottom: 32px; width: 44px; height: 44px; border-radius: 50%; background: #f0c040; color: #111; border: none; cursor: pointer; font-size: 20px; display: flex; align-items: center; justify-content: center; opacity: 0; visibility: hidden; transition: opacity .3s, visibility .3s; z-index: 100; box-shadow: 0 2px 12px rgba(0,0,0,.5); }
+  .btt.visible { opacity: 1; visibility: visible; }
+  .btt:hover { background: #f5d060; }
+
+  @media (max-width: 600px) {
+    .grid { grid-template-columns: 1fr; }
+    .filter-chip { font-size: 11px; padding: 4px 10px; }
+    .header-inner { justify-content: center; }
+    .filters { margin-left: 0; justify-content: center; width: 100%; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <img class="logo" src="https://zhaoming-mike.github.io/images/256x256.png" alt="logo">
+    <div class="header-text">
+      <h1>北冥有鱼军团（NMOF）</h1>
+      <div class="sub">坦克世界亚服新闻 World of Tanks Asia</div>
+    </div>
+    <div id="filters" class="filters"></div>
+  </div>
+</header>
+
+<div class="container">
+  <div id="loading" class="loading">
+    <div class="spinner"></div>
+    <div>加载中...</div>
+  </div>
+  <div id="error" class="error" style="display:none">
+    <div class="icon">!</div>
+    <div id="errorMsg">获取新闻失败</div>
+    <button onclick="fetchNews()">重试</button>
+  </div>
+  <div id="empty" class="empty" style="display:none">暂无新闻</div>
+  <div id="list" style="display:none">
+    <div id="grid" class="grid"></div>
+  </div>
+</div>
+
+<button id="btt" class="btt" onclick="scrollToTop()" title="返回顶部">↑</button>
+
+<script>
+let newsItems = [];
+let activeCategory = '';
+
+function $(id) { return document.getElementById(id); }
+
+function showLoading() { show('loading'); hide('error'); hide('empty'); hide('list'); }
+function showError(msg) { hide('loading'); $('errorMsg').textContent = msg; show('error'); hide('empty'); hide('list'); }
+function showEmpty() { hide('loading'); hide('error'); show('empty'); hide('list'); }
+function showList() { hide('loading'); hide('error'); hide('empty'); show('list'); }
+function show(id) { $(id).style.display = 'block'; }
+function hide(id) { $(id).style.display = 'none'; }
+
+async function fetchNews() {
+  showLoading();
+  try {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 10000);
+    const res = await fetch('https://zhaoming-mike.github.io/miniprogram-nmof/data/wot_news.json', { signal: controller.signal });
+    clearTimeout(timeout);
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const data = await res.json();
+    if (!data.items || data.items.length === 0) { showEmpty(); return; }
+
+    if (data.fetched_at) {
+      const d = new Date(data.fetched_at);
+      const ts = d.toLocaleString('zh-CN', { year:'numeric', month:'2-digit', day:'2-digit', hour:'2-digit', minute:'2-digit', timeZone:'Asia/Shanghai' });
+      document.querySelector('.header-text').insertAdjacentHTML('beforeend', `<div class="fetched-at">数据更新于 ${ts}</div>`);
+    }
+
+    newsItems = data.items.map(item => {
+      let displayDate = item.pubDate;
+      try {
+        const d = new Date(item.pubDate);
+        if (!isNaN(d)) displayDate = d.toLocaleString('zh-CN', { year:'numeric', month:'2-digit', day:'2-digit', hour:'2-digit', minute:'2-digit', timeZone:'Asia/Shanghai' });
+      } catch (e) {}
+
+      let desc = item.description?.replace(/\s*阅读更多\s*$/, '') || '';
+      return { ...item, displayDate, description: desc };
+    });
+
+    renderFilters();
+    renderList();
+    showList();
+  } catch (e) {
+    showError('无法获取新闻数据，请检查网络后重试');
+  }
+}
+
+function renderFilters() {
+  const cats = [...new Set(newsItems.map(i => i.category).filter(Boolean))];
+  $('filters').innerHTML = [
+    `<button class="filter-chip${activeCategory === '' ? ' active' : ''}" onclick="setFilter('')">全部</button>`,
+    ...cats.map(c => `<button class="filter-chip${activeCategory === c ? ' active' : ''}" onclick="setFilter('${c}')">${c}</button>`)
+  ].join('');
+}
+
+function setFilter(cat) {
+  activeCategory = cat;
+  renderFilters();
+  renderList();
+}
+
+function renderList() {
+  const items = activeCategory ? newsItems.filter(i => i.category === activeCategory) : newsItems;
+  $('grid').innerHTML = items.map((item, i) => `
+    <div class="card" onclick="window.open('${item.link.replace(/'/g, "\\'")}', '_blank')">
+      ${item.image
+        ? `<img class="card-img" src="${item.image}" alt="" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="card-img-placeholder" style="display:none">WoT</div>`
+        : `<div class="card-img-placeholder">WoT</div>`}
+      <div class="card-body">
+        <div class="card-date"><span>${item.displayDate}</span>${item.category ? `<span class="card-category">${item.category}</span>` : ''}</div>
+        <div class="card-title">${item.title}</div>
+        <div class="card-desc">${item.description}</div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
+window.addEventListener('scroll', () => { $('btt').classList.toggle('visible', window.scrollY > 400); });
+
+fetchNews();
+</script>
+</body>
+</html>

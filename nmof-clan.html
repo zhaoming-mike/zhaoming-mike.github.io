@@ -260,6 +260,18 @@ tbody tr:hover{background:var(--bg-hover)}
 /* Grid card height matching */
 .grid-2>.card,.grid-3>.card{display:flex;flex-direction:column}
 .rank-list{display:grid;grid-template-columns:1fr 1fr 1fr;gap:2px 12px;overflow:hidden;grid-auto-rows:44px}
+.honor-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+.honor-card{display:flex;align-items:flex-start;gap:8px;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:10px 12px}
+.honor-card-num{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;background:var(--bg-hover);color:var(--text-secondary);flex-shrink:0;margin-top:1px}
+.honor-card-num.medal{background:transparent;font-size:20px;width:28px;height:28px}
+.honor-card-body{flex:1;min-width:0}
+.honor-card-head{display:flex;align-items:center;justify-content:space-between;gap:6px}
+.honor-card-name{font-size:13px;font-weight:600;color:var(--text-primary);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.honor-card-value{font-size:14px;font-weight:700;flex-shrink:0}
+.honor-card-stat{font-size:11px;color:var(--text-secondary);line-height:1.6;display:flex;justify-content:space-between;align-items:center}
+.honor-card-stat .stat-label{color:var(--text-muted);min-width:32px}
+.stat-sub{font-size:10px;color:var(--text-muted);margin:0 2px}
+.stat-val{font-weight:500}
 #rank-list-rating,#rank-list-dmg{height:308px}
 
 /* ============================================================
@@ -496,6 +508,7 @@ tr.row-selected{background:rgba(233,202,93,0.06)!important}
   /* Cards */
   .card{padding:14px;margin-bottom:12px}
   .rank-list{grid-template-columns:1fr}
+  .honor-grid{grid-template-columns:1fr}
 
   /* Controls: stack vertically */
   .controls{gap:6px}
@@ -588,6 +601,9 @@ tr.row-selected{background:rgba(233,202,93,0.06)!important}
     </div>
     <div class="nav-item" data-page="teamup">
       <span class="icon">&#x1f91d;</span> 组队网络
+    </div>
+    <div class="nav-item" data-page="honor">
+      <span class="icon">&#x1f3c5;</span> 荣誉排行
     </div>
   </nav>
 
@@ -731,6 +747,26 @@ tr.row-selected{background:rgba(233,202,93,0.06)!important}
         </table>
         </div>
         <div class="empty" id="improvement-empty" style="display:none">没有备份数据或没有匹配的成员</div>
+      </div>
+    </div>
+
+    <!-- Honor Ranking Page -->
+    <div class="page" id="page-honor">
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">&#x1f396;&#xfe0f; 标兵榜</span>
+          <span style="font-size:12px;color:var(--text-muted)">最近60日DPG变化最大的10个人</span>
+        </div>
+        <div id="honor-model-list" class="honor-grid"></div>
+        <div class="empty" id="honor-model-empty" style="display:none">暂无数据（需要至少两个采集快照且存在DPG提升的成员）</div>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">&#x1f4aa; 劳模榜</span>
+          <span style="font-size:12px;color:var(--text-muted)">最近60日场次最多的10个人</span>
+        </div>
+        <div id="honor-worker-list" class="honor-grid"></div>
+        <div class="empty" id="honor-worker-empty" style="display:none">暂无60日数据</div>
       </div>
     </div>
 
@@ -923,6 +959,7 @@ function navigateTo(page){
 
   if(page==='detail'&&currentMemberId)renderMemberDetail(currentMemberId);
   if(page==='teamup')renderTeamUpGraph();
+  if(page==='honor')renderHonor();
 }
 
 let teamUpSim = null;
@@ -2096,6 +2133,88 @@ function renderImprovement(){
       '<td>' + d.battles_now.toLocaleString() + '</td></tr>';
     return row;
   }).join('');
+}
+
+function renderHonor(){
+  // 标兵榜：DPG进步前10（delta > 0）
+  var improveData = buildImprovementData().filter(function(d){ return d.delta > 0; });
+  improveData.sort(function(a,b){ return b.delta - a.delta; });
+  var top10 = improveData.slice(0, 10);
+  var modelList = document.getElementById('honor-model-list');
+  var modelEmpty = document.getElementById('honor-model-empty');
+  if (top10.length === 0) {
+    modelList.innerHTML = '';
+    modelEmpty.style.display = 'block';
+  } else {
+    modelEmpty.style.display = 'none';
+    modelList.innerHTML = top10.map(function(d, i){
+      var t = TOMATO.data?.[d.account_id];
+      var r60 = t?.recent_60d || {};
+      var ov = t?.overall || {};
+      function statRow(label, key, v60, vAll, scaleKey){
+        var c60 = v60 != null ? colorScale.get(v60, scaleKey).hex : 'var(--text-muted)';
+        var cAll = vAll != null ? colorScale.get(vAll, scaleKey).hex : 'var(--text-muted)';
+        var s60 = v60 != null ? v60.toLocaleString() : '-';
+        var sAll = vAll != null ? vAll.toLocaleString() : '-';
+        return '<div class="honor-card-stat"><span class="stat-label">' + key + '</span><span><span class="stat-sub">60d</span><span class="stat-val" style="color:' + c60 + '">' + s60 + '</span><span class="stat-sub">总</span><span class="stat-val" style="color:' + cAll + '">' + sAll + '</span></span></div>';
+      }
+      var ovDpg = ov.battles > 0 ? Math.round(ov.totalDamage / ov.battles) : null;
+      return '<div class="honor-card">' +
+        '<div class="honor-card-num' + (i < 3 ? ' medal">' + ['🥇','🥈','🥉'][i] : '">' + (i + 1)) + '</div>' +
+        '<div class="honor-card-body">' +
+          '<div class="honor-card-head"><span class="honor-card-name">' + d.nickname + '</span><span class="honor-card-value" style="color:var(--tier-above_average)">+' + d.delta.toLocaleString() + '</span></div>' +
+          '<div class="honor-card-stat">' + roleBadge(d.role) + '</div>' +
+          statRow('WN8', 'WN8', r60.wn8, ov.wn8, 'wn8') +
+          statRow('WNX', 'WNX', r60.wnx, ov.wnx, 'wn8') +
+          statRow('DPG', 'DPG', r60.dpg, ovDpg, 'dpg') +
+        '</div>' +
+      '</div>';
+    }).join('');
+  }
+
+  // 劳模榜：60日场次前10
+  var membersList = members();
+  var workerData = [];
+  for (var i = 0; i < membersList.length; i++) {
+    var m = membersList[i];
+    var t = TOMATO.data?.[m.account_id];
+    var recent60 = t?.recent_60d || {};
+    var battles60 = recent60.battles || 0;
+    var ov = t?.overall || {};
+    var ovDpg = ov.battles > 0 ? Math.round(ov.totalDamage / ov.battles) : null;
+    workerData.push({ account_id: m.account_id, nickname: m.account_name, role: m.role, battles60: battles60,
+      wn8_60: recent60.wn8 != null ? recent60.wn8 : null, wnx_60: recent60.wnx != null ? recent60.wnx : null, dpg_60: recent60.dpg != null ? recent60.dpg : null,
+      wn8_ov: ov.wn8 != null ? ov.wn8 : null, wnx_ov: ov.wnx != null ? ov.wnx : null, dpg_ov: ovDpg });
+  }
+  workerData.sort(function(a,b){ return b.battles60 - a.battles60; });
+  var topWorker = workerData.slice(0, 10);
+  var workerList = document.getElementById('honor-worker-list');
+  var workerEmpty = document.getElementById('honor-worker-empty');
+  if (topWorker.length === 0 || topWorker[0].battles60 === 0) {
+    workerList.innerHTML = '';
+    workerEmpty.style.display = 'block';
+  } else {
+    workerEmpty.style.display = 'none';
+    workerList.innerHTML = topWorker.map(function(d, i){
+      function statRow(key, v60, vAll, scaleKey){
+        var c60 = v60 != null ? colorScale.get(v60, scaleKey).hex : 'var(--text-muted)';
+        var cAll = vAll != null ? colorScale.get(vAll, scaleKey).hex : 'var(--text-muted)';
+        var s60 = v60 != null ? v60.toLocaleString() : '-';
+        var sAll = vAll != null ? vAll.toLocaleString() : '-';
+        return '<div class="honor-card-stat"><span class="stat-label">' + key + '</span><span><span class="stat-sub">60d</span><span class="stat-val" style="color:' + c60 + '">' + s60 + '</span><span class="stat-sub">总</span><span class="stat-val" style="color:' + cAll + '">' + sAll + '</span></span></div>';
+      }
+      return '<div class="honor-card">' +
+        '<div class="honor-card-num' + (i < 3 ? ' medal">' + ['🥇','🥈','🥉'][i] : '">' + (i + 1)) + '</div>' +
+        '<div class="honor-card-body">' +
+          '<div class="honor-card-head"><span class="honor-card-name">' + d.nickname + '</span><span class="honor-card-value">' + d.battles60.toLocaleString() + '场</span></div>' +
+          '<div class="honor-card-stat">' + roleBadge(d.role) + '</div>' +
+          statRow('WN8', d.wn8_60, d.wn8_ov, 'wn8') +
+          statRow('WNX', d.wnx_60, d.wnx_ov, 'wn8') +
+          statRow('DPG', d.dpg_60, d.dpg_ov, 'dpg') +
+        '</div>' +
+      '</div>';
+    }).join('');
+  }
 }
 
 // ============================================================

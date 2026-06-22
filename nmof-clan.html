@@ -260,16 +260,27 @@ tbody tr:hover{background:var(--bg-hover)}
 /* Grid card height matching */
 .grid-2>.card,.grid-3>.card{display:flex;flex-direction:column}
 .rank-list{display:grid;grid-template-columns:1fr 1fr 1fr;gap:2px 12px;overflow:hidden;grid-auto-rows:44px}
-.honor-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
-.honor-card{display:flex;align-items:flex-start;gap:8px;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:10px 12px}
-.honor-card-num{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;background:var(--bg-hover);color:var(--text-secondary);flex-shrink:0;margin-top:1px}
-.honor-card-num.medal{background:transparent;font-size:20px;width:28px;height:28px}
-.honor-card-body{flex:1;min-width:0}
-.honor-card-head{display:flex;align-items:center;justify-content:space-between;gap:6px}
-.honor-card-name{font-size:13px;font-weight:600;color:var(--text-primary);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.honor-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:8px}
+.honor-card{display:flex;flex-direction:column;gap:4px;background:#252830;border:1px solid var(--border);border-radius:var(--radius);padding:10px 12px;overflow:hidden}
+.honor-card-main{display:flex;align-items:center;gap:8px;flex:1}
+.honor-card-name-row{display:flex;justify-content:center;align-items:center;font-size:23px;font-weight:600;color:var(--text-primary);overflow-wrap:break-word;gap:8px}
+.honor-card-link{color:inherit;text-decoration:none;transition:color 0.15s}
+.honor-card-link:hover{color:var(--accent);text-decoration:underline}
+.honor-card-num{width:44px;height:44px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:700;background:var(--bg-hover);color:var(--text-secondary);flex-shrink:0}
+.honor-card-num.medal{background:transparent;font-size:32px;width:46px;height:46px;border-radius:0}
+.honor-card-body{flex:1;min-width:0;border-left:1px solid;border-image:linear-gradient(to bottom,transparent 0%,var(--border) 30%,var(--border) 70%,transparent 100%) 1;padding-left:10px}
+.honor-card-left{display:flex;flex-direction:column;align-items:center;gap:6px;flex-shrink:0;text-align:center;min-width:52px}
+.honor-card-left .role-badge{font-size:10px;padding:1px 4px}
+.honor-card-head{display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;min-width:0}
+.honor-card-name{font-size:13px;font-weight:600;color:var(--text-primary);overflow-wrap:break-word}
 .honor-card-value{font-size:14px;font-weight:700;flex-shrink:0}
 .honor-card-stat{font-size:11px;color:var(--text-secondary);line-height:1.6;display:flex;justify-content:space-between;align-items:center}
 .honor-card-stat .stat-label{color:var(--text-muted);min-width:32px}
+.honor-stats-table{width:100%;border-collapse:collapse;font-size:12px;line-height:1.6}
+.honor-stats-table th{font-weight:500;color:var(--text-muted);font-size:10px;text-align:center;padding-bottom:2px}
+.honor-stats-table td{white-space:nowrap;text-align:center}
+.honor-stats-table td:first-child{color:var(--text-muted)}
+.honor-stats-table td .stat-val{font-weight:500}
 .stat-sub{font-size:10px;color:var(--text-muted);margin:0 2px}
 .stat-val{font-weight:500}
 #rank-list-rating,#rank-list-dmg{height:308px}
@@ -320,12 +331,12 @@ tbody tr:hover{background:var(--bg-hover)}
 .btn-sm{padding:5px 10px;font-size:12px}
 .role-badge{
   display:inline-block;
-  padding:2px 8px;
+  padding:2px 6px;
   border-radius:4px;
   font-size:12px;
   font-weight:500;
-  background:rgba(154,160,168,0.15);
   color:var(--text-secondary);
+  white-space:nowrap;
 }
 .role-commander{background:rgba(233,202,93,0.2);color:var(--accent)}
 .role-executive_officer{background:rgba(79,195,247,0.15);color:var(--accent2)}
@@ -340,25 +351,25 @@ tbody tr:hover{background:var(--bg-hover)}
 .role-reservist{background:rgba(120,144,156,0.15);color:#78909c}
 .epaulette-icon{
   display:inline-block;
-  width:28px;height:28px;
+  width:24px;height:24px;
   background:url('images/epaulettes.png') no-repeat;
-  background-size:336px 28px;
+  background-size:576px 48px;
   vertical-align:middle;
-  margin-right:4px;
+  margin-right:0;
   border-radius:2px;
 }
-.epaulette-commander{background-position:0 0}
-.epaulette-executive_officer{background-position:-28px 0}
-.epaulette-personnel_officer{background-position:-56px 0}
-.epaulette-combat_officer{background-position:-84px 0}
-.epaulette-intelligence_officer{background-position:-112px 0}
-.epaulette-quartermaster{background-position:-140px 0}
-.epaulette-recruitment_officer{background-position:-168px 0}
-.epaulette-junior_officer{background-position:-196px 0}
-.epaulette-private{background-position:-224px 0}
-.epaulette-recruit{background-position:-252px 0}
-.epaulette-reservist{background-position:-280px 0}
-.epaulette-none{background-position:-308px 0}
+.epaulette-commander{background-position:-12px -12px}
+.epaulette-executive_officer{background-position:-60px -12px}
+.epaulette-personnel_officer{background-position:-108px -12px}
+.epaulette-combat_officer{background-position:-156px -12px}
+.epaulette-intelligence_officer{background-position:-204px -12px}
+.epaulette-quartermaster{background-position:-252px -12px}
+.epaulette-recruitment_officer{background-position:-300px -12px}
+.epaulette-junior_officer{background-position:-348px -12px}
+.epaulette-private{background-position:-396px -12px}
+.epaulette-recruit{background-position:-444px -12px}
+.epaulette-reservist{background-position:-492px -12px}
+.epaulette-none{background-position:-540px -12px}
 
 /* ============================================================
    Detail View
@@ -844,7 +855,7 @@ const ROLE_CLASS = {
 };
 
 function roleLabel(r){return ROLE_CLASS[r]||r||'士兵'}
-function roleBadge(r){return '<span class="role-badge role-'+r+'"><i class="epaulette-icon epaulette-'+r+'"></i>'+roleLabel(r)+'</span>'}
+function roleBadge(r){return '<span class="role-badge role-'+r+'"><span class="epaulette-wrap"><i class="epaulette-icon epaulette-'+r+'"></i></span>'+roleLabel(r)+'</span>'}
 
 // ============================================================
 // Data Loading
@@ -2151,22 +2162,32 @@ function renderHonor(){
       var t = TOMATO.data?.[d.account_id];
       var r60 = t?.recent_60d || {};
       var ov = t?.overall || {};
-      function statRow(label, key, v60, vAll, scaleKey){
-        var c60 = v60 != null ? colorScale.get(v60, scaleKey).hex : 'var(--text-muted)';
-        var cAll = vAll != null ? colorScale.get(vAll, scaleKey).hex : 'var(--text-muted)';
-        var s60 = v60 != null ? v60.toLocaleString() : '-';
-        var sAll = vAll != null ? vAll.toLocaleString() : '-';
-        return '<div class="honor-card-stat"><span class="stat-label">' + key + '</span><span><span class="stat-sub">60d</span><span class="stat-val" style="color:' + c60 + '">' + s60 + '</span><span class="stat-sub">总</span><span class="stat-val" style="color:' + cAll + '">' + sAll + '</span></span></div>';
-      }
       var ovDpg = ov.battles > 0 ? Math.round(ov.totalDamage / ov.battles) : null;
+      var stats = [
+        {label:'WN8',v60:r60.wn8,vAll:ov.wn8,scale:'wn8'},
+        {label:'WNX',v60:r60.wnx,vAll:ov.wnx,scale:'wn8'},
+        {label:'DPG',v60:r60.dpg,vAll:ovDpg,scale:'dpg'}
+      ];
+      function statBlock(){
+        var rows = stats.map(function(r){
+          var cAll = r.vAll != null ? colorScale.get(r.vAll, r.scale).hex : 'var(--text-muted)';
+          var c60 = r.v60 != null ? colorScale.get(r.v60, r.scale).hex : 'var(--text-muted)';
+          var sAll = r.vAll != null ? r.vAll.toLocaleString() : '-';
+          var s60 = r.v60 != null ? r.v60.toLocaleString() : '-';
+          return '<tr><td>'+r.label+'</td><td><span class="stat-val" style="color:'+cAll+'">'+sAll+'</span></td><td><span class="stat-val" style="color:'+c60+'">'+s60+'</span></td></tr>';
+        }).join('');
+        return '<table class="honor-stats-table"><thead><tr><th></th><th>总</th><th>60日</th></tr></thead><tbody>'+rows+'</tbody></table>';
+      }
       return '<div class="honor-card">' +
-        '<div class="honor-card-num' + (i < 3 ? ' medal">' + ['🥇','🥈','🥉'][i] : '">' + (i + 1)) + '</div>' +
-        '<div class="honor-card-body">' +
-          '<div class="honor-card-head"><span class="honor-card-name">' + d.nickname + '</span><span class="honor-card-value" style="color:var(--tier-above_average)">+' + d.delta.toLocaleString() + '</span></div>' +
-          '<div class="honor-card-stat">' + roleBadge(d.role) + '</div>' +
-          statRow('WN8', 'WN8', r60.wn8, ov.wn8, 'wn8') +
-          statRow('WNX', 'WNX', r60.wnx, ov.wnx, 'wn8') +
-          statRow('DPG', 'DPG', r60.dpg, ovDpg, 'dpg') +
+        '<div class="honor-card-name-row"><a href="https://tomato.gg/stats/' + d.nickname + '-' + d.account_id + '/ASIA" target="_blank" class="honor-card-link">' + d.nickname + '</a> <span class="honor-card-value" style="color:var(--tier-above_average)">+' + d.delta.toLocaleString() + '</span></div>' +
+        '<div class="honor-card-main">' +
+          '<div class="honor-card-left">' +
+            roleBadge(d.role) +
+            '<div class="honor-card-num' + (i < 3 ? ' medal">' + ['🥇','🥈','🥉'][i] : '">' + (i + 1)) + '</div>' +
+          '</div>' +
+          '<div class="honor-card-body">' +
+            statBlock() +
+          '</div>' +
         '</div>' +
       '</div>';
     }).join('');
@@ -2196,21 +2217,31 @@ function renderHonor(){
   } else {
     workerEmpty.style.display = 'none';
     workerList.innerHTML = topWorker.map(function(d, i){
-      function statRow(key, v60, vAll, scaleKey){
-        var c60 = v60 != null ? colorScale.get(v60, scaleKey).hex : 'var(--text-muted)';
-        var cAll = vAll != null ? colorScale.get(vAll, scaleKey).hex : 'var(--text-muted)';
-        var s60 = v60 != null ? v60.toLocaleString() : '-';
-        var sAll = vAll != null ? vAll.toLocaleString() : '-';
-        return '<div class="honor-card-stat"><span class="stat-label">' + key + '</span><span><span class="stat-sub">60d</span><span class="stat-val" style="color:' + c60 + '">' + s60 + '</span><span class="stat-sub">总</span><span class="stat-val" style="color:' + cAll + '">' + sAll + '</span></span></div>';
+      var stats = [
+        {label:'WN8',v60:d.wn8_60,vAll:d.wn8_ov,scale:'wn8'},
+        {label:'WNX',v60:d.wnx_60,vAll:d.wnx_ov,scale:'wn8'},
+        {label:'DPG',v60:d.dpg_60,vAll:d.dpg_ov,scale:'dpg'}
+      ];
+      function statBlock(){
+        var rows = stats.map(function(r){
+          var cAll = r.vAll != null ? colorScale.get(r.vAll, r.scale).hex : 'var(--text-muted)';
+          var c60 = r.v60 != null ? colorScale.get(r.v60, r.scale).hex : 'var(--text-muted)';
+          var sAll = r.vAll != null ? r.vAll.toLocaleString() : '-';
+          var s60 = r.v60 != null ? r.v60.toLocaleString() : '-';
+          return '<tr><td>'+r.label+'</td><td><span class="stat-val" style="color:'+cAll+'">'+sAll+'</span></td><td><span class="stat-val" style="color:'+c60+'">'+s60+'</span></td></tr>';
+        }).join('');
+        return '<table class="honor-stats-table"><thead><tr><th></th><th>总</th><th>60日</th></tr></thead><tbody>'+rows+'</tbody></table>';
       }
       return '<div class="honor-card">' +
-        '<div class="honor-card-num' + (i < 3 ? ' medal">' + ['🥇','🥈','🥉'][i] : '">' + (i + 1)) + '</div>' +
-        '<div class="honor-card-body">' +
-          '<div class="honor-card-head"><span class="honor-card-name">' + d.nickname + '</span><span class="honor-card-value">' + d.battles60.toLocaleString() + '场</span></div>' +
-          '<div class="honor-card-stat">' + roleBadge(d.role) + '</div>' +
-          statRow('WN8', d.wn8_60, d.wn8_ov, 'wn8') +
-          statRow('WNX', d.wnx_60, d.wnx_ov, 'wn8') +
-          statRow('DPG', d.dpg_60, d.dpg_ov, 'dpg') +
+        '<div class="honor-card-name-row"><a href="https://tomato.gg/stats/' + d.nickname + '-' + d.account_id + '/ASIA" target="_blank" class="honor-card-link">' + d.nickname + '</a> <span class="honor-card-value" style="color:' + colorScale.get(d.battles60, 'battles60').hex + '">' + d.battles60.toLocaleString() + '场</span></div>' +
+        '<div class="honor-card-main">' +
+          '<div class="honor-card-left">' +
+            roleBadge(d.role) +
+            '<div class="honor-card-num' + (i < 3 ? ' medal">' + ['🥇','🥈','🥉'][i] : '">' + (i + 1)) + '</div>' +
+          '</div>' +
+          '<div class="honor-card-body">' +
+            statBlock() +
+          '</div>' +
         '</div>' +
       '</div>';
     }).join('');

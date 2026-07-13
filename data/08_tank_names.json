@@ -3793,6 +3793,13 @@
     "nation": "germany",
     "type": "lightTank"
   },
+  "25681": {
+    "name": "Headshaker",
+    "short_name": "Headshaker",
+    "tier": 9,
+    "nation": "uk",
+    "type": "AT-SPG"
+  },
   "25873": {
     "name": "KPz 3 Projekt 07 HK",
     "short_name": "KPz 3 Pr.07HK",
@@ -3820,6 +3827,13 @@
     "tier": 8,
     "nation": "uk",
     "type": "AT-SPG"
+  },
+  "26449": {
+    "name": "Pike",
+    "short_name": "Pike",
+    "tier": 9,
+    "nation": "uk",
+    "type": "heavyTank"
   },
   "26641": {
     "name": "Kpz. Erich Konzept I",
@@ -5361,6 +5375,13 @@
     "nation": "sweden",
     "type": "heavyTank"
   },
+  "54161": {
+    "name": "Krazownik",
+    "short_name": "Krazownik",
+    "tier": 8,
+    "nation": "poland",
+    "type": "heavyTank"
+  },
   "54177": {
     "name": "Predatore",
     "short_name": "Predatore",
@@ -6859,6 +6880,13 @@
     "nation": "ussr",
     "type": "AT-SPG"
   },
+  "66609": {
+    "name": "PGZ-70",
+    "short_name": "PGZ-70",
+    "tier": 9,
+    "nation": "china",
+    "type": "mediumTank"
+  },
   "66625": {
     "name": "VCS 6x6 TS 90",
     "short_name": "VCS 6x6",
@@ -6915,12 +6943,26 @@
     "nation": "ussr",
     "type": "heavyTank"
   },
+  "67617": {
+    "name": "M-VII-Y",
+    "short_name": "M-VII-Y",
+    "tier": 9,
+    "nation": "usa",
+    "type": "heavyTank"
+  },
   "67649": {
     "name": "Renault R35/FCM 36",
     "short_name": "R35/FCM 36",
     "tier": 2,
     "nation": "france",
     "type": "lightTank"
+  },
+  "67857": {
+    "name": "Chi-Go",
+    "short_name": "Chi-Go",
+    "tier": 7,
+    "nation": "germany",
+    "type": "mediumTank"
   },
   "67873": {
     "name": "SPHT",
@@ -6978,6 +7020,13 @@
     "nation": "france",
     "type": "mediumTank"
   },
+  "68929": {
+    "name": "Durendal",
+    "short_name": "Durendal",
+    "tier": 10,
+    "nation": "france",
+    "type": "mediumTank"
+  },
   "69121": {
     "name": "KB-52",
     "short_name": "KB-52",
@@ -7012,5 +7061,19 @@
     "tier": 6,
     "nation": "usa",
     "type": "mediumTank"
+  },
+  "69921": {
+    "name": "Ares MTB",
+    "short_name": "Ares MTB",
+    "tier": 9,
+    "nation": "usa",
+    "type": "mediumTank"
+  },
+  "70145": {
+    "name": "T-13",
+    "short_name": "T-13",
+    "tier": 10,
+    "nation": "ussr",
+    "type": "heavyTank"
   }
 }

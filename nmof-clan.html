@@ -774,10 +774,10 @@ tr.row-selected{background:rgba(233,202,93,0.06)!important}
       <div class="card">
         <div class="card-header">
           <span class="card-title">&#x1f4aa; 劳模榜</span>
-          <span style="font-size:12px;color:var(--text-muted)">最近60日场次最多的10个人</span>
+          <span style="font-size:12px;color:var(--text-muted)">最近60日场次最多的10个人（仅含60日DPG ≥ 1,000）</span>
         </div>
         <div id="honor-worker-list" class="honor-grid"></div>
-        <div class="empty" id="honor-worker-empty" style="display:none">暂无60日数据</div>
+        <div class="empty" id="honor-worker-empty" style="display:none">暂无符合条件的数据（需要60日DPG ≥ 1,000 且有场次的成员）</div>
       </div>
     </div>
 
@@ -2193,7 +2193,7 @@ function renderHonor(){
     }).join('');
   }
 
-  // 劳模榜：60日场次前10
+  // 劳模榜：60日场次前10（过滤DPG<1000）
   var membersList = members();
   var workerData = [];
   for (var i = 0; i < membersList.length; i++) {
@@ -2201,10 +2201,12 @@ function renderHonor(){
     var t = TOMATO.data?.[m.account_id];
     var recent60 = t?.recent_60d || {};
     var battles60 = recent60.battles || 0;
+    var dpg60 = recent60.dpg != null ? recent60.dpg : 0;
+    if (dpg60 < 1000) continue;
     var ov = t?.overall || {};
     var ovDpg = ov.battles > 0 ? Math.round(ov.totalDamage / ov.battles) : null;
     workerData.push({ account_id: m.account_id, nickname: m.account_name, role: m.role, battles60: battles60,
-      wn8_60: recent60.wn8 != null ? recent60.wn8 : null, wnx_60: recent60.wnx != null ? recent60.wnx : null, dpg_60: recent60.dpg != null ? recent60.dpg : null,
+      wn8_60: recent60.wn8 != null ? recent60.wn8 : null, wnx_60: recent60.wnx != null ? recent60.wnx : null, dpg_60: dpg60,
       wn8_ov: ov.wn8 != null ? ov.wn8 : null, wnx_ov: ov.wnx != null ? ov.wnx : null, dpg_ov: ovDpg });
   }
   workerData.sort(function(a,b){ return b.battles60 - a.battles60; });

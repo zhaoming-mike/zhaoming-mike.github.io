@@ -1,5 +1,12 @@
 # Changelog
 
+## 2026-07-27
+
+- **修复 tomato.gg 数据采集失败问题**：tomato.gg 从 Next.js SSR 架构迁移至 TanStack Start（客户端 React），原有 `__NEXT_DATA__` 提取方式失效，导致全部 99 名成员番茄数据采集失败（`success:0, failed:99`）
+- 适配新数据格式：从 `$tsr-stream-barrier` 脚本中解析 TSR 序列化脱水状态，提取 `recentStats` 和 `overallStats`
+- 采用 JS 禁用模式加载页面（`setJavaScriptEnabled(false)`），防止 TSR 脚本在浏览器水合后被自毁
+- 在 Node.js `vm` 沙箱中安全执行 TSR 反序列化脚本，映射新旧字段名（`overallWN8`→`wn8`、`tier`→`avgTier`、`survival`→`survivalRate` 等）
+
 ## 2026-06-12
 
 - 新增荣誉排行页面：标兵榜（最近60日DPG变化最大的前10人）、劳模榜（最近60日场次最多的前10人）

@@ -1,5 +1,5 @@
 {
-  "collected_at": "2026-07-26T22:00:44.567Z",
+  "collected_at": "2026-07-27T00:09:01.104Z",
   "source": "Wargaming Public API",
   "region": "asia",
   "base_url": "https://api.worldoftanks.asia",
@@ -2817,24 +2817,24 @@
       "role_i18n": "นายทหารชั้นผู้น้อย",
       "joined_at": 1782833336,
       "created_at": 1713609324,
-      "last_battle_time": 1785081946,
-      "global_rating": 4918,
+      "last_battle_time": 1785103403,
+      "global_rating": 4927,
       "statistics": {
-        "battles": 2254,
-        "wins": 1077,
-        "losses": 1136,
+        "battles": 2258,
+        "wins": 1080,
+        "losses": 1137,
         "draws": 41,
-        "winrate": "47.78",
-        "survived_battles": 440,
-        "frags": 1233,
-        "damage_dealt": 2677282,
-        "damage_received": 3769529,
-        "xp": 1517001,
+        "winrate": "47.83",
+        "survived_battles": 442,
+        "frags": 1237,
+        "damage_dealt": 2683427,
+        "damage_received": 3776905,
+        "xp": 1520742,
         "max_xp": 1916,
         "max_damage": 6612,
         "max_frags": 7,
         "battle_avg_xp": 673,
-        "spotted": 1943,
+        "spotted": 1948,
         "capture_points": 166,
         "dropped_capture_points": 330,
         "tanking_factor": 0.39
@@ -2844,8 +2844,8 @@
         "top_tanks": [
           {
             "tank_id": 66097,
-            "battles": 175,
-            "winrate": "44.57",
+            "battles": 176,
+            "winrate": "44.89",
             "avg_damage": 0,
             "mark_of_mastery": 3
           },
@@ -9970,5 +9970,5 @@
       }
     }
   ],
-  "_generated_at": "2026-07-26T22:00:44.567Z"
+  "_generated_at": "2026-07-27T00:09:01.104Z"
 }

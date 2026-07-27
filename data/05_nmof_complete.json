@@ -1,5 +1,5 @@
 {
-  "collected_at": "2026-07-27T00:09:01.104Z",
+  "collected_at": "2026-07-27T04:00:32.873Z",
   "source": "Wargaming Public API",
   "region": "asia",
   "base_url": "https://api.worldoftanks.asia",
@@ -1977,24 +1977,24 @@
       "role_i18n": "เจ้าหน้าที่การรบ",
       "joined_at": 1772103737,
       "created_at": 1722820416,
-      "last_battle_time": 1785067899,
-      "global_rating": 5592,
+      "last_battle_time": 1785122088,
+      "global_rating": 5593,
       "statistics": {
-        "battles": 31924,
-        "wins": 15202,
-        "losses": 16187,
+        "battles": 31930,
+        "wins": 15206,
+        "losses": 16189,
         "draws": 535,
         "winrate": "47.62",
-        "survived_battles": 7262,
-        "frags": 22072,
-        "damage_dealt": 39077119,
-        "damage_received": 40939848,
-        "xp": 22068837,
+        "survived_battles": 7263,
+        "frags": 22077,
+        "damage_dealt": 39087968,
+        "damage_received": 40948803,
+        "xp": 22075522,
         "max_xp": 2390,
         "max_damage": 9396,
         "max_frags": 7,
         "battle_avg_xp": 691,
-        "spotted": 29178,
+        "spotted": 29197,
         "capture_points": 15314,
         "dropped_capture_points": 10082,
         "tanking_factor": 0.42
@@ -9522,30 +9522,30 @@
       "role_i18n": "ทหารเกณฑ์",
       "joined_at": 1783832562,
       "created_at": 1783409167,
-      "last_battle_time": 1785018440,
-      "global_rating": 4189,
+      "last_battle_time": 1785114281,
+      "global_rating": 4203,
       "statistics": {
-        "battles": 1339,
-        "wins": 628,
-        "losses": 672,
+        "battles": 1360,
+        "wins": 638,
+        "losses": 683,
         "draws": 39,
-        "winrate": "46.90",
-        "survived_battles": 344,
-        "frags": 734,
-        "damage_dealt": 1044925,
-        "damage_received": 1473830,
-        "xp": 816236,
+        "winrate": "46.91",
+        "survived_battles": 348,
+        "frags": 748,
+        "damage_dealt": 1067697,
+        "damage_received": 1497826,
+        "xp": 831330,
         "max_xp": 2447,
         "max_damage": 4780,
         "max_frags": 6,
-        "battle_avg_xp": 610,
-        "spotted": 1320,
+        "battle_avg_xp": 611,
+        "spotted": 1340,
         "capture_points": 1076,
-        "dropped_capture_points": 261,
+        "dropped_capture_points": 268,
         "tanking_factor": 0.26
       },
       "tanks_summary": {
-        "total_tanks_played": 39,
+        "total_tanks_played": 40,
         "top_tanks": [
           {
             "tank_id": 5713,
@@ -9556,8 +9556,8 @@
           },
           {
             "tank_id": 68673,
-            "battles": 108,
-            "winrate": "46.30",
+            "battles": 109,
+            "winrate": "46.79",
             "avg_damage": 0,
             "mark_of_mastery": 2
           },
@@ -9584,8 +9584,8 @@
           },
           {
             "tank_id": 63809,
-            "battles": 73,
-            "winrate": "53.42",
+            "battles": 74,
+            "winrate": "52.70",
             "avg_damage": 0,
             "mark_of_mastery": 4
           },
@@ -9970,5 +9970,5 @@
       }
     }
   ],
-  "_generated_at": "2026-07-27T00:09:01.104Z"
+  "_generated_at": "2026-07-27T04:00:32.873Z"
 }

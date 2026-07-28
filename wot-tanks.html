@@ -38,6 +38,9 @@ header h1 { color:#f90; font-size:1.3em; white-space:nowrap; }
 .badge-premium { background:#c90; color:#000; }
 .badge-gift { background:#6a5; color:#000; }
 .badge-wheeled { background:#68c; color:#000; }
+.badge-newest { color:#000; animation: badge-pulse 2s ease-in-out infinite; }
+@keyframes badge-pulse { 0%,100% { box-shadow: 0 0 4px rgba(255,255,255,0.2); } 50% { box-shadow: 0 0 10px rgba(255,255,255,0.5); } }
+#grid .card.newest { border-left-width: 3px; border-left-style: solid; }
 .nation-bg-ussr { border-left:3px solid #e22; }
 .nation-bg-germany { border-left:3px solid #888; }
 .nation-bg-usa { border-left:3px solid #48f; }
@@ -107,6 +110,7 @@ header h1 { color:#f90; font-size:1.3em; white-space:nowrap; }
   <div id="tier-select"></div>
   <label><input type="checkbox" id="premium-only"> 仅金币车</label>
   <label><input type="checkbox" id="wheeled-only"> 仅轮式</label>
+  <span id="newest-filter" style="display:inline-flex;align-items:center;gap:4px"></span>
   <select id="sort-by">
     <option value="tier">按等级</option>
     <option value="nation">按系别</option>
@@ -119,6 +123,7 @@ header h1 { color:#f90; font-size:1.3em; white-space:nowrap; }
     <span>符合条件: <b id="stat-shown" style="color:#f90">0</b></span>
     <span style="margin-left:10px">金币车: <b id="stat-premium" style="color:#fff">0</b></span>
     <span style="margin-left:10px">总计: <b id="stat-total" style="color:#fff">0</b></span>
+    <span style="margin-left:10px">新车: <b id="stat-newest" style="color:#0cf">0</b></span>
   </span>
 </div>
 <div id="grid"></div>
@@ -127,6 +132,7 @@ header h1 { color:#f90; font-size:1.3em; white-space:nowrap; }
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 <script src="tank-data/vehicles_data.js"></script>
 <script src="tank-data/tank_nicknames.js"></script>
+<script src="tank-data/tank_newest.js"></script>
 <script>
 function toRoman(n) { return ['','I','II','III','IV','V','VI','VII','VIII','IX','X','XI'][n]||n; }
 
@@ -155,7 +161,7 @@ const TYPE_ICON = { heavyTank:'HT.svg', mediumTank:'MT.svg', lightTank:'LT.svg',
 
 let vehicles = [];
 let filtered = [];
-let filters = { nations:new Set(), types:new Set(), tiers:new Set(), premium:false, wheeled:false, search:'' };
+let filters = { nations:new Set(), types:new Set(), tiers:new Set(), premium:false, wheeled:false, newestBatches:new Set(), search:'' };
 let sortBy = 'tier';
 
 function init() {
@@ -211,6 +217,31 @@ function initUI(data) {
     };
     tc2.appendChild(b);
   });
+  // 批次过滤按钮
+  if (typeof NEWEST_TANK_BATCHES !== 'undefined') {
+    var nc3 = document.getElementById('newest-filter');
+    NEWEST_TANK_BATCHES.forEach(function(batch) {
+      var b = document.createElement('span');
+      var c = batch.color || '#0cf';
+      b.style.cssText = 'display:inline-flex;align-items:center;padding:3px 8px;border:1px solid #555;border-radius:4px;cursor:pointer;font-size:0.78em;user-select:none;background:#333;color:'+c+';font-weight:bold;letter-spacing:0.03em';
+      b.title = batch.label;
+      b.dataset.batchDate = batch.date;
+      b.textContent = batch.short;
+      b.onclick = function() {
+        if (filters.newestBatches.has(batch.date)) {
+          filters.newestBatches.delete(batch.date);
+          b.style.borderColor = '#555';
+          b.style.background = '#333';
+        } else {
+          filters.newestBatches.add(batch.date);
+          b.style.borderColor = c;
+          b.style.background = c + '22';
+        }
+        applyFilters();
+      };
+      nc3.appendChild(b);
+    });
+  }
   function toRoman(n) { return ['','I','II','III','IV','V','VI','VII','VIII','IX','X','XI'][n]||n; }
   const tiers = [...new Set(data.map(v=>v.tier))].sort((a,b)=>a-b);
   const tc = document.getElementById('tier-select');
@@ -222,6 +253,7 @@ function initUI(data) {
   });
   document.getElementById('stat-total').textContent = data.length;
   document.getElementById('stat-premium').textContent = data.filter(v=>v.is_premium).length;
+  document.getElementById('stat-newest').textContent = data.filter(v=>NEWEST_TANK_IDS.has(v.tank_id)).length;
 }
 
 function updateTierFilter() {
@@ -233,6 +265,7 @@ function updateTierFilter() {
 function applyFilters() {
   filters.premium = document.getElementById('premium-only').checked;
   filters.wheeled = document.getElementById('wheeled-only').checked;
+  // newestBatches 已通过在批次按钮 onclick 中修改 Set 来维护，此处无需从 DOM 读取
   filters.search = document.getElementById('search').value.toLowerCase().trim();
   sortBy = document.getElementById('sort-by').value;
   filtered = vehicles.filter(v => {
@@ -241,6 +274,19 @@ function applyFilters() {
     if (filters.tiers.size > 0 && !filters.tiers.has(v.tier)) return false;
     if (filters.premium && !v.is_premium) return false;
     if (filters.wheeled && !v.is_wheeled) return false;
+    if (filters.newestBatches.size > 0) {
+      var batchInfos = NEWEST_BATCH_MAP[v.tank_id];
+      if (!batchInfos) return false;
+      var ok = false;
+      for (var i = 0; i < NEWEST_TANK_BATCHES.length; i++) {
+        if (!filters.newestBatches.has(NEWEST_TANK_BATCHES[i].date)) continue;
+        for (var j = 0; j < batchInfos.length; j++) {
+          if (batchInfos[j].short === NEWEST_TANK_BATCHES[i].short) { ok = true; break; }
+        }
+        if (ok) break;
+      }
+      if (!ok) return false;
+    }
     if (filters.search && !v.name.toLowerCase().includes(filters.search) && !(v.short_name||'').toLowerCase().includes(filters.search) && !(TANK_NICKNAMES[v.tank_id]||'').toLowerCase().includes(filters.search)) return false;
     return true;
   });
@@ -266,10 +312,21 @@ function renderGrid() {
   }
   grid.innerHTML = filtered.map(v => {
     var badges = [];
+    var batchInfos = NEWEST_BATCH_MAP[v.tank_id];
+    var cardGlow = '';
+    if (batchInfos) {
+      for (var bi = 0; bi < batchInfos.length; bi++) {
+        var biColor = batchInfos[bi].color;
+        badges.push('<span class="badge badge-newest" style="background:'+biColor+'">' + batchInfos[bi].short + '</span>');
+      }
+      // 卡片发光色取第一个（最新）批次的颜色
+      var glowColor = batchInfos[0].color;
+      cardGlow = ' style="border-left-color:'+glowColor+';box-shadow:0 0 8px '+glowColor+'44"';
+    }
     if (v.is_gift) badges.push('<span class="badge badge-gift">礼包</span>');
     if (v.is_wheeled) badges.push('<span class="badge badge-wheeled">轮式</span>');
     const img = v.images && (v.images.big_icon || v.images.contour_icon || v.images.small_icon) ? localImg(v.images.big_icon || v.images.contour_icon || v.images.small_icon) : '';
-    return '<div class="card nation-bg-'+v.nation+(v.is_premium?' premium':'')+'" onclick="showDetail('+v.tank_id+')">'+
+    return '<div class="card nation-bg-'+v.nation+(v.is_premium?' premium':'')+(batchInfos?' newest':'')+'"'+cardGlow+' onclick="showDetail('+v.tank_id+')">'+
       '<span style="position:absolute;top:4px;left:5px;font-size:0.62em;color:#666">#'+v.tank_id+'</span>'+
       '<span style="position:absolute;top:4px;right:5px;font-size:0.68em;color:#f90;font-weight:bold">'+toRoman(v.tier)+'</span>'+
       (v.is_premium?'<span style="position:absolute;bottom:4px;left:6px;font-size:0.58em;color:#c90;font-weight:bold">金币</span>':'')+
@@ -405,6 +462,7 @@ function saveFilters() {
     search: document.getElementById('search').value,
     premium: document.getElementById('premium-only').checked,
     wheeled: document.getElementById('wheeled-only').checked,
+    newestBatches: Array.from(filters.newestBatches),
     sortBy: document.getElementById('sort-by').value,
     nations: Array.from(filters.nations),
     types: Array.from(filters.types),
@@ -423,6 +481,7 @@ function restoreFilters() {
     document.getElementById('premium-only').checked = state.premium || false;
     document.getElementById('wheeled-only').checked = state.wheeled || false;
     document.getElementById('sort-by').value = state.sortBy || 'tier';
+    filters.newestBatches = new Set(state.newestBatches || []);
     filters.nations = new Set(state.nations || []);
     filters.types = new Set(state.types || []);
     filters.tiers = new Set(state.tiers || []);
@@ -438,6 +497,13 @@ function restoreFilters() {
     });
     document.querySelectorAll('#tier-select button').forEach(function(b) {
       if (filters.tiers.has(Number(b.dataset.tier))) b.classList.add('active');
+    });
+    document.querySelectorAll('#newest-filter > span').forEach(function(b) {
+      if (filters.newestBatches.has(b.dataset.batchDate)) {
+        var bc = b.style.color; // 按钮的文字色就是批次色
+        b.style.borderColor = bc;
+        b.style.background = bc + '22';
+      }
     });
     applyFilters();
   } catch(e) {}
@@ -456,6 +522,7 @@ function restoreFilters() {
       return m ? m[1].length : 0;
     }},
     {url:'tank-data/tank_nicknames.js', key:'wot-fp-nick', extract:function(t){ return t.length; }},
+    {url:'tank-data/tank_newest.js', key:'wot-fp-newest', extract:function(t){ return t.length; }},
     {url:'index.html', key:'wot-fp-html', extract:function(t){ return t.length; }}
   ];
 
@@ -486,6 +553,7 @@ document.getElementById('reset-filters').addEventListener('click', function() {
   document.getElementById('premium-only').checked = false;
   document.getElementById('wheeled-only').checked = false;
   document.getElementById('sort-by').value = 'tier';
+  filters.newestBatches.clear();
   filters.nations.clear();
   filters.types.clear();
   filters.tiers.clear();
@@ -500,6 +568,10 @@ document.getElementById('reset-filters').addEventListener('click', function() {
   });
   document.querySelectorAll('#tier-select button.active').forEach(function(b) {
     b.classList.remove('active');
+  });
+  document.querySelectorAll('#newest-filter > span').forEach(function(b) {
+    b.style.borderColor = '#555';
+    b.style.background = '#333';
   });
   applyFilters();
 });

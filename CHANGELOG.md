@@ -1,11 +1,14 @@
 # Changelog
 
+## 2026-08-04
+
+- 修复进步榜快照日期错位：UTC 时间戳与本地备份日期混用，导致最新列显示旧数据
+- 修复无 60 日数据被当作 0，产生假进步/假退步
+- 备份改为最近 6 天隔日保存（如 8/2、8/4、8/6），拉大进步对比间隔
+
 ## 2026-07-27
 
-- **修复 tomato.gg 数据采集失败问题**：tomato.gg 从 Next.js SSR 架构迁移至 TanStack Start（客户端 React），原有 `__NEXT_DATA__` 提取方式失效，导致全部 99 名成员番茄数据采集失败（`success:0, failed:99`）
-- 适配新数据格式：从 `$tsr-stream-barrier` 脚本中解析 TSR 序列化脱水状态，提取 `recentStats` 和 `overallStats`
-- 采用 JS 禁用模式加载页面（`setJavaScriptEnabled(false)`），防止 TSR 脚本在浏览器水合后被自毁
-- 在 Node.js `vm` 沙箱中安全执行 TSR 反序列化脚本，映射新旧字段名（`overallWN8`→`wn8`、`tier`→`avgTier`、`survival`→`survivalRate` 等）
+- 适配 tomato.gg 迁移 TanStack Start：改为从 `$tsr-stream-barrier` 脚本解析 TSR 脱水数据，修复全部成员采集失败
 
 ## 2026-06-12
 

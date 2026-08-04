@@ -1986,11 +1986,20 @@ var improvementSortField = 'dpg0';
 var improvementSortDir = 'desc';
 
 async function loadBackupData(){
-  var currentDate = DATA._generated_at || '';
+  // _generated_at 是 UTC 时间，转成浏览器本地日期，与备份目录名（采集机本地日期）对齐
+  var currentDate = '';
+  if (DATA._generated_at) {
+    var sd = new Date(DATA._generated_at);
+    if (!isNaN(sd.getTime())) {
+      currentDate = sd.getFullYear() + '-' +
+        String(sd.getMonth() + 1).padStart(2, '0') + '-' +
+        String(sd.getDate()).padStart(2, '0');
+    }
+  }
 
   // 当前数据优先（最新采集结果）
   var snapshots = [];
-  snapshots.push({ dir: '', date: (currentDate || '当前').slice(0,10), tomato: TOMATO });
+  snapshots.push({ dir: '', date: (currentDate || '当前'), tomato: TOMATO });
 
   // 从清单文件动态发现所有备份
   try {
@@ -2066,15 +2075,16 @@ function buildImprovementData(){
     for (var s = 0; s < snaps.length; s++) {
       var t = snaps[s].tomato.data?.[m.account_id];
       var r60 = t?.recent_60d || {};
-      var dpg = r60.dpg != null ? r60.dpg : 0;
+      var dpg = r60.dpg != null ? r60.dpg : null; // 无 60d 数据存 null，不参与 delta 计算
       row['dpg' + s] = dpg;
       if (r60.battles > 0) hasAny = true;
       if (s === snaps.length - 1) row.battles_now = r60.battles || 0;
     }
     if (!hasAny) return null;
     var first = row['dpg0'], last = row['dpg' + (snaps.length - 1)];
-    row.delta = last - first;
-    row.pct = first > 0 ? ((last - first) / first * 100) : 0;
+    // 首尾快照都有数据才算进步/退步，避免"从无到有/从有到无"的假值
+    row.delta = (first != null && last != null) ? (last - first) : null;
+    row.pct = (first != null && last != null && first > 0) ? ((last - first) / first * 100) : 0;
     return row;
   }).filter(function(d){return d != null;});
 }
@@ -2127,7 +2137,7 @@ function renderImprovement(){
   if (th) th.querySelector('.sort-arrow').textContent = improvementSortDir === 'asc' ? ' ▲' : ' ▼';
 
   tbody.innerHTML = list.map(function(d, i){
-    var deltaSign = d.delta >= 0 ? '+' : '';
+    var deltaSign = d.delta != null && d.delta >= 0 ? '+' : '';
     var deltaColor = d.delta > 0 ? 'var(--tier-above_average)' : (d.delta < 0 ? 'var(--tier-very_bad)' : 'var(--text-muted)');
     var pctColor = d.pct > 0 ? 'var(--tier-above_average)' : (d.pct < 0 ? 'var(--tier-very_bad)' : 'var(--text-muted)');
     var row = '<tr onclick="showMemberDetail(' + d.account_id + ')">' +
@@ -2140,7 +2150,7 @@ function renderImprovement(){
       var isLast = s === snaps.length - 1;
       row += '<td style="color:' + tier.hex + (isLast ? ';font-weight:600' : '') + '">' + (v > 0 ? v.toLocaleString() : '-') + '</td>';
     }
-    row += '<td style="color:' + deltaColor + ';font-weight:600">' + deltaSign + d.delta.toLocaleString() + '</td>' +
+    row += '<td style="color:' + deltaColor + ';font-weight:600">' + (d.delta != null ? deltaSign + d.delta.toLocaleString() : '-') + '</td>' +
       '<td>' + d.battles_now.toLocaleString() + '</td></tr>';
     return row;
   }).join('');

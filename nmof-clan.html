@@ -472,6 +472,15 @@ tbody tr:hover{background:var(--bg-hover)}
 .btn-compare:hover{filter:brightness(110%)}
 tr.row-selected{background:rgba(233,202,93,0.06)!important}
 .compare-modal{max-width:850px}
+.chart-zoom-modal{max-width:1100px;margin:auto} /* margin:auto 在 flex overlay 中水平+垂直居中 */
+.chart-zoom-modal .chart-container{height:75vh;max-height:720px}
+.chart-zoom-btn{
+  background:none;border:none;color:var(--text-muted);
+  font-size:14px;line-height:1;cursor:pointer;padding:2px 6px;border-radius:4px;
+  display:inline-flex;align-items:center;justify-content:center;
+  transition:background 0.2s,color 0.2s;
+}
+.chart-zoom-btn:hover{color:var(--text-primary);background:rgba(255,255,255,0.06)}
 .compare-table{width:100%;border-collapse:collapse;font-size:13px}
 .compare-table td{padding:8px 12px;border-bottom:1px solid rgba(42,45,53,0.5);vertical-align:middle}
 .compare-table .cmp-label{color:var(--text-secondary);font-weight:500;white-space:nowrap}
@@ -630,8 +639,8 @@ tr.row-selected{background:rgba(233,202,93,0.06)!important}
       </div>
       <div class="stat-grid" id="summary-stats"></div>
       <div class="grid-2">
-        <div class="card"><div class="card-header"><span class="card-title">胜率分布</span></div><div class="chart-container"><canvas id="chart-winrate-dist"></canvas></div></div>
-        <div class="card"><div class="card-header"><span class="card-title">场次 vs 均伤</span></div><div class="chart-container"><canvas id="chart-battles-dmg"></canvas></div></div>
+        <div class="card"><div class="card-header"><span class="card-title">胜率分布</span><button class="chart-zoom-btn" onclick="openChartZoom('chart-winrate-dist')" title="放大图表">⛶</button></div><div class="chart-container"><canvas id="chart-winrate-dist"></canvas></div></div>
+        <div class="card"><div class="card-header"><span class="card-title">场次 vs 均伤</span><button class="chart-zoom-btn" onclick="openChartZoom('chart-battles-dmg')" title="放大图表">⛶</button></div><div class="chart-container"><canvas id="chart-battles-dmg"></canvas></div></div>
       </div>
       <div class="grid-2">
         <div class="card"><div class="card-header"><span class="card-title">个等排行 <small>(Personal Rating)</small></span><button class="btn btn-sm btn-secondary" onclick="showFullRanking('rating')">更多 ▸</button></div><div id="rank-list-rating" class="rank-list"></div></div>
@@ -777,21 +786,21 @@ tr.row-selected{background:rgba(233,202,93,0.06)!important}
           <span style="font-size:12px;color:var(--text-muted)" id="honor-worker-subtitle">最近60日场次最多的10个人（仅含60日DPG ≥ 1,000）</span>
         </div>
         <div id="honor-worker-list" class="honor-grid"></div>
-        <div class="empty" id="honor-worker-empty" style="display:none">暂无符合条件的数据（需要60日DPG ≥ 1,000 且有场次的成员）</div>
+        <div class="empty" id="honor-worker-empty" style="display:none">暂无符合条件的数据（需要近60日DPG ≥ 1,000 且有场次的成员）</div>
       </div>
     </div>
 
     <!-- Analysis Page -->
     <div class="page" id="page-analysis">
       <div class="grid-2">
-        <div class="card"><div class="card-header"><span class="card-title">场次分布</span></div><div class="chart-container"><canvas id="chart-battles-dist"></canvas></div></div>
-        <div class="card"><div class="card-header"><span class="card-title">胜率分布</span></div><div class="chart-container"><canvas id="chart-winrate-dist2"></canvas></div></div>
+        <div class="card"><div class="card-header"><span class="card-title">场次分布</span><button class="chart-zoom-btn" onclick="openChartZoom('chart-battles-dist')" title="放大图表">⛶</button></div><div class="chart-container"><canvas id="chart-battles-dist"></canvas></div></div>
+        <div class="card"><div class="card-header"><span class="card-title">胜率分布</span><button class="chart-zoom-btn" onclick="openChartZoom('chart-winrate-dist2')" title="放大图表">⛶</button></div><div class="chart-container"><canvas id="chart-winrate-dist2"></canvas></div></div>
       </div>
       <div class="grid-2">
-        <div class="card"><div class="card-header"><span class="card-title">场次 vs 胜率</span></div><div class="chart-container"><canvas id="chart-battles-wr"></canvas></div></div>
-        <div class="card"><div class="card-header"><span class="card-title">角色分布</span></div><div class="chart-container"><canvas id="chart-roles"></canvas></div></div>
+        <div class="card"><div class="card-header"><span class="card-title">场次 vs 胜率</span><button class="chart-zoom-btn" onclick="openChartZoom('chart-battles-wr')" title="放大图表">⛶</button></div><div class="chart-container"><canvas id="chart-battles-wr"></canvas></div></div>
+        <div class="card"><div class="card-header"><span class="card-title">角色分布</span><button class="chart-zoom-btn" onclick="openChartZoom('chart-roles')" title="放大图表">⛶</button></div><div class="chart-container"><canvas id="chart-roles"></canvas></div></div>
       </div>
-      <div class="card"><div class="card-header"><span class="card-title">场均伤害 vs 场均击杀</span></div><div class="chart-container"><canvas id="chart-dmg-frags"></canvas></div></div>
+      <div class="card"><div class="card-header"><span class="card-title">场均伤害 vs 场均击杀</span><button class="chart-zoom-btn" onclick="openChartZoom('chart-dmg-frags')" title="放大图表">⛶</button></div><div class="chart-container tall"><canvas id="chart-dmg-frags"></canvas></div></div>
     </div>
     <div class="page" id="page-teamup">
       <div class="card" style="height:calc(100vh - 120px);margin-bottom:0;display:flex;flex-direction:column">
@@ -1362,6 +1371,7 @@ function onNodeSizeChange() {
 // Charts Helper
 // ============================================================
 const chartInstances={};
+const chartConfigs={}; // 保存图表配置，供点击放大弹框复用
 function destroyChart(id){
   if(chartInstances[id]){chartInstances[id].destroy();delete chartInstances[id]}
 }
@@ -1369,9 +1379,44 @@ function createChart(id,config){
   destroyChart(id);
   const ctx=document.getElementById(id);
   if(!ctx)return null;
+  chartConfigs[id]=config;
   chartInstances[id]=new Chart(ctx,config);
   return chartInstances[id];
 }
+
+// 散点图点大小：场次越多点越大（平方根缩放，半径 3~20px）
+function scatterRadius(ctx){
+  var b=(ctx&&ctx.raw&&ctx.raw.battles)||0;
+  return 3+Math.sqrt(b/40000)*17;
+}
+
+// 图表点击放大：深拷贝配置（保留 backgroundColor/tooltip 等函数），避免与原图表共享 data 内部状态
+function cloneChartConfig(cfg){
+  var c=Object.assign({},cfg,{data:{datasets:[]}});
+  if(cfg.data.labels)c.data.labels=cfg.data.labels.slice();
+  c.data.datasets=(cfg.data.datasets||[]).map(function(ds){
+    var d=Object.assign({},ds);
+    d.data=(ds.data||[]).map(function(p){return (p&&typeof p==='object')?Object.assign({},p):p;});
+    return d;
+  });
+  return c;
+}
+let chartZoomChart=null;
+function openChartZoom(id){
+  var cfg=chartConfigs[id];
+  if(!cfg)return;
+  var canvasEl=document.getElementById(id);
+  var titleEl=canvasEl&&canvasEl.closest('.card')?canvasEl.closest('.card').querySelector('.card-title'):null;
+  document.getElementById('chart-zoom-title').textContent=(titleEl&&titleEl.textContent)||id;
+  if(chartZoomChart){chartZoomChart.destroy();chartZoomChart=null;}
+  chartZoomChart=new Chart(document.getElementById('chart-zoom'),cloneChartConfig(cfg));
+  document.getElementById('chart-zoom-modal').classList.add('active');
+}
+function closeChartZoom(){
+  document.getElementById('chart-zoom-modal').classList.remove('active');
+  if(chartZoomChart){chartZoomChart.destroy();chartZoomChart=null;}
+}
+// 放大入口：每个图表右上角的 .chart-zoom-btn 按钮（onclick 调 openChartZoom）
 
 var _tiers = colorScale.allTiers();
 function _hexToRgba(hex, alpha) {
@@ -1392,6 +1437,7 @@ const chartColors={
 Chart.defaults.color='#9aa0a8';
 Chart.defaults.borderColor='rgba(42,45,53,0.5)';
 Chart.defaults.font.family='Inter,-apple-system,sans-serif';
+Chart.defaults.animation=false; // 禁用图表初始展开动画
 
 // ============================================================
 // Overview Page
@@ -1487,14 +1533,15 @@ function renderOverview(){
 
   // Battles vs Avg Damage scatter
   const scatterData=ms.filter(m=>mBattles(m)>0&&mBattles(m)<=40000).map(function(m){
+    var battles=mBattles(m);
     var dpg=mAvgDmg(m);
-    return {x:mBattles(m),y:dpg,nickname:m.account_name,dpg:dpg};
+    return {x:battles,y:dpg,nickname:m.account_name,dpg:dpg,battles:battles};
   });
   createChart('chart-battles-dmg',{
     type:'scatter',
     data:{datasets:[{label:'成员',data:scatterData,
       backgroundColor:function(ctx){var d=ctx.raw;return colorScale.get(d.dpg,'dpg').hex;},
-      pointRadius:5,pointHoverRadius:7}]},
+      pointRadius:scatterRadius,pointHoverRadius:function(ctx){return scatterRadius(ctx)+2;}}]},
     options:{responsive:true,maintainAspectRatio:false,
       scales:{x:{title:{display:true,text:'场次'}},y:{title:{display:true,text:'均伤'}}},
       plugins:{tooltip:{callbacks:{label:function(ctx){return ctx.raw.nickname+': '+ctx.raw.y.toLocaleString()+' / '+ctx.raw.x+'场';}}}}}
@@ -1801,8 +1848,8 @@ function renderMemberDetail(id){
     '</div>'+
     // Charts
     '<div class="grid-2">'+
-      '<div class="card"><div class="card-title" style="margin-bottom:12px">个人 vs 军团平均</div><div class="chart-container half"><canvas id="detail-radar"></canvas></div></div>'+
-      '<div class="card"><div class="card-title" style="margin-bottom:12px">常用坦克 Top 10</div><div class="chart-container half"><canvas id="detail-tanks"></canvas></div></div>'+
+      '<div class="card"><div class="card-header"><span class="card-title">个人 vs 军团平均</span><button class="chart-zoom-btn" onclick="openChartZoom(\'detail-radar\')" title="放大图表">⛶</button></div><div class="chart-container half"><canvas id="detail-radar"></canvas></div></div>'+
+      '<div class="card"><div class="card-header"><span class="card-title">常用坦克 Top 10</span><button class="chart-zoom-btn" onclick="openChartZoom(\'detail-tanks\')" title="放大图表">⛶</button></div><div class="chart-container half"><canvas id="detail-tanks"></canvas></div></div>'+
     '</div>'+
     '</div>';
 
@@ -2163,6 +2210,8 @@ function renderHonor(){
   if (modelSub) modelSub.textContent = '最近' + windowDays + '日DPG变化最大的10个人';
   var workerSub = document.getElementById('honor-worker-subtitle');
   if (workerSub) workerSub.textContent = '最近' + windowDays + '日场次最多的10个人（仅含' + windowDays + '日DPG ≥ 1,000）';
+  var workerEmptyEl = document.getElementById('honor-worker-empty');
+  if (workerEmptyEl) workerEmptyEl.textContent = '暂无符合条件的数据（需要近' + windowDays + '日DPG ≥ 1,000 且有场次的成员）';
   // 标兵榜：DPG进步前10（delta > 0）
   var improveData = buildImprovementData().filter(function(d){ return d.delta > 0; });
   improveData.sort(function(a,b){ return b.delta - a.delta; });
@@ -2190,7 +2239,8 @@ function renderHonor(){
           var c60 = r.v60 != null ? colorScale.get(r.v60, r.scale).hex : 'var(--text-muted)';
           var sAll = r.vAll != null ? r.vAll.toLocaleString() : '-';
           var s60 = r.v60 != null ? r.v60.toLocaleString() : '-';
-          return '<tr><td>'+r.label+'</td><td><span class="stat-val" style="color:'+cAll+'">'+sAll+'</span></td><td><span class="stat-val" style="color:'+c60+'">'+s60+'</span></td></tr>';
+          var win = (r.label === 'DPG') ? ' <span style="font-size:11px;color:var(--text-muted)">(近' + windowDays + '日)</span>' : '';
+          return '<tr><td>'+r.label+'</td><td><span class="stat-val" style="color:'+cAll+'">'+sAll+'</span></td><td><span class="stat-val" style="color:'+c60+'">'+s60+win+'</span></td></tr>';
         }).join('');
         return '<table class="honor-stats-table"><thead><tr><th></th><th>总</th><th>60日</th></tr></thead><tbody>'+rows+'</tbody></table>';
       }
@@ -2246,7 +2296,8 @@ function renderHonor(){
           var c60 = r.v60 != null ? colorScale.get(r.v60, r.scale).hex : 'var(--text-muted)';
           var sAll = r.vAll != null ? r.vAll.toLocaleString() : '-';
           var s60 = r.v60 != null ? r.v60.toLocaleString() : '-';
-          return '<tr><td>'+r.label+'</td><td><span class="stat-val" style="color:'+cAll+'">'+sAll+'</span></td><td><span class="stat-val" style="color:'+c60+'">'+s60+'</span></td></tr>';
+          var win = (r.label === 'DPG') ? ' <span style="font-size:11px;color:var(--text-muted)">(近' + windowDays + '日)</span>' : '';
+          return '<tr><td>'+r.label+'</td><td><span class="stat-val" style="color:'+cAll+'">'+sAll+'</span></td><td><span class="stat-val" style="color:'+c60+'">'+s60+win+'</span></td></tr>';
         }).join('');
         return '<table class="honor-stats-table"><thead><tr><th></th><th>总</th><th>60日</th></tr></thead><tbody>'+rows+'</tbody></table>';
       }
@@ -2303,11 +2354,12 @@ function renderAnalysis(){
   createChart('chart-battles-wr',{
     type:'scatter',
     data:{datasets:[{label:'成员',data:ms.filter(m=>mBattles(m)<=40000).map(function(m){
+      var battles=mBattles(m);
       var wr=mWinrate(m);
-      return {x:mBattles(m),y:wr,nickname:m.account_name,wr:wr};
+      return {x:battles,y:wr,nickname:m.account_name,wr:wr,battles:battles};
     }),
       backgroundColor:function(ctx){var d=ctx.raw;return colorScale.get(d.wr,'winrate').hex;},
-      pointRadius:5}]},
+      pointRadius:scatterRadius,pointHoverRadius:function(ctx){return scatterRadius(ctx)+2;}}]},
     options:{responsive:true,maintainAspectRatio:false,
       scales:{x:{title:{display:true,text:'场次'}},y:{title:{display:true,text:'胜率 %'},min:30,max:70}},
       plugins:{tooltip:{callbacks:{label:function(ctx){return ctx.raw.nickname+': '+ctx.raw.y.toFixed(1)+'% / '+ctx.raw.x+'场';}}}}}
@@ -2329,13 +2381,14 @@ function renderAnalysis(){
     type:'scatter',
     data:{datasets:[{label:'成员',data:ms.filter(m=>mBattles(m)>0&&mBattles(m)<=40000).map(function(m){
       var dpg=mAvgDmg(m);
-      return {x:dpg,y:parseFloat(mAvgFrags(m)),nickname:m.account_name,dpg:dpg};
+      var battles=mBattles(m);
+      return {x:dpg,y:parseFloat(mAvgFrags(m)),nickname:m.account_name,dpg:dpg,battles:battles};
     }),
       backgroundColor:function(ctx){var d=ctx.raw;return colorScale.get(d.dpg,'dpg').hex;},
-      pointRadius:5}]},
+      pointRadius:scatterRadius,pointHoverRadius:function(ctx){return scatterRadius(ctx)+2;}}]},
     options:{responsive:true,maintainAspectRatio:false,
       scales:{x:{title:{display:true,text:'场均伤害'}},y:{title:{display:true,text:'场均击杀'}}},
-      plugins:{tooltip:{callbacks:{label:function(ctx){return ctx.raw.nickname+': '+ctx.raw.x.toLocaleString()+' / '+ctx.raw.y.toFixed(2);}}}}}
+      plugins:{tooltip:{callbacks:{label:function(ctx){return ctx.raw.nickname+': '+ctx.raw.x.toLocaleString()+' / '+ctx.raw.y.toFixed(2)+' / '+ctx.raw.battles+'场';}}}}}
   });
 }
 
@@ -2568,6 +2621,17 @@ loadData();
       <button class="modal-close" onclick="closeFullRanking()">✕</button>
     </div>
     <div class="modal-body" id="full-ranking-body"></div>
+  </div>
+</div>
+<div class="modal-overlay" id="chart-zoom-modal" onclick="if(event.target===this)closeChartZoom()">
+  <div class="modal-box chart-zoom-modal">
+    <div class="modal-header">
+      <span class="modal-title" id="chart-zoom-title"></span>
+      <button class="modal-close" onclick="closeChartZoom()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="chart-container"><canvas id="chart-zoom"></canvas></div>
+    </div>
   </div>
 </div>
 </body>

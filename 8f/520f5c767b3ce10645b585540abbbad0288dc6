@@ -1,0 +1,25 @@
+CHANGELOG.md
+  s_0fd85dc819fc65::t_cd00689e572751 5-9,13-18,22-24,28,32-33,37-40,44,48-53,57-62
+color-scale.js
+  s_0fd85dc819fc65::t_f5ab61c1688cfe 61-62
+data/10_daily.json
+  s_0fd85dc819fc65::t_af841a51315626 1-24268
+nmof-clan.html
+  s_0fd85dc819fc65::t_7ef81d0a723a9a 11,272-274,277-291,295,796-797,799-800,804-805,807-808,871,911,916,921,2229-2319,2321,2324,2326,2332,2363,2367,2369-2370,2373-2375,2393,2398,2424-2425,2429,2431-2432,2435-2437
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.21",
+  "base_commit_sha": "8f520f5c767b3ce10645b585540abbbad0288dc6",
+  "prompts": {},
+  "sessions": {
+    "s_0fd85dc819fc65": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "81407aa5-f138-4577-a331-1eddd27e9377",
+        "model": "deepseek-v4-flash"
+      },
+      "human_author": "zhaoming-mike <37763390@qq.com>"
+    }
+  }
+}

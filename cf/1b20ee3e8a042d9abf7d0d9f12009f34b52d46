@@ -1,0 +1,23 @@
+data/03_accounts_info.json
+  s_0fd85dc819fc65::t_7953b3021ed3d7 356,360,2552
+data/05_nmof_complete.json
+  s_0fd85dc819fc65::t_7ff36b401344eb 2,10184
+data/07_tomato_60day.json
+  s_0fd85dc819fc65::t_d96a9f24a0d87c 2
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.21",
+  "base_commit_sha": "cf1b20ee3e8a042d9abf7d0d9f12009f34b52d46",
+  "prompts": {},
+  "sessions": {
+    "s_0fd85dc819fc65": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "81407aa5-f138-4577-a331-1eddd27e9377",
+        "model": "deepseek-v4-flash"
+      },
+      "human_author": "zhaoming-mike <37763390@qq.com>"
+    }
+  }
+}

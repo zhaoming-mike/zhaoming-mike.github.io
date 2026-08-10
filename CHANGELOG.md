@@ -1,5 +1,10 @@
 # Changelog
 
+## 2026-08-10
+
+- 修复进步榜差分场均场次虚高：wg_history 早期（08-01~08-05）回填自 backup 的 tomato `overall` 数据，而 tomato overall 对部分成员不可靠（100 人中 10 人=0、49 人偏低），导致差分基准虚低、进步排行场次虚高（如 moment1987 被算成 356 场，实际仅 48 场/4 天）
+- 回填改为仅使用 backup 的 05_nmof_complete.json（WG 官方累计），不再使用 tomato overall；删除不可靠的 wg_history 08-01~08-05，从 08-06 起重建基准
+
 ## 2026-08-06
 
 - 荣誉排行卡片战绩表按窗口拆分标注：DPG 行近期值标注「(近N日)」，与 WN8/WNX 的 60日 数据区分；劳模榜空状态文案同步为「近N日DPG」

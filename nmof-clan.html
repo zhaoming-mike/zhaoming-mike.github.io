@@ -8,6 +8,7 @@
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 <script src="https://d3js.org/d3.v7.min.js"></script>
 <script src="color-scale.js"></script>
+<script src="nicknames.js"></script>
 <style>
 /* ============================================================
    CSS Reset & Variables
@@ -268,12 +269,30 @@ tbody tr:hover{background:var(--bg-hover)}
 .honor-card-link:hover{color:var(--accent);text-decoration:underline}
 .honor-card-num{width:44px;height:44px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:700;background:var(--bg-hover);color:var(--text-secondary);flex-shrink:0}
 .honor-card-num.medal{background:transparent;font-size:32px;width:46px;height:46px;border-radius:0}
-.honor-card-body{flex:1;min-width:0;border-left:1px solid;border-image:linear-gradient(to bottom,transparent 0%,var(--border) 30%,var(--border) 70%,transparent 100%) 1;padding-left:10px}
+.honor-card-row{display:flex;align-items:center;gap:10px;min-width:0}
+.honor-card-top{flex:1;min-width:0;display:flex;flex-direction:column;align-items:center;gap:4px}
+.honor-card-body{width:100%;margin-top:4px;padding-top:6px;border-top:1px solid var(--border);min-width:0}
 .honor-card-left{display:flex;flex-direction:column;align-items:center;gap:6px;flex-shrink:0;text-align:center;min-width:52px}
 .honor-card-left .role-badge{font-size:10px;padding:1px 4px}
+.honor-card-display{font-size:11px;color:var(--text-secondary);max-width:52px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.honor-heat-wrap{display:flex;gap:6px;align-items:flex-start;justify-content:center;padding:2px 0}
+.honor-week-labels{display:grid;grid-template-rows:repeat(7,12px);gap:2px;font-size:9px;color:var(--text-muted);text-align:right}
+.honor-week-labels div{height:12px;line-height:12px}
+.honor-heatmap{display:grid;grid-auto-flow:column;grid-template-rows:repeat(7,12px);gap:2px;justify-content:center;padding:2px 0}
+.honor-heatmap-cell{width:12px;height:12px;border-radius:3px;display:flex;align-items:center;justify-content:center;font-size:8px;line-height:1;color:#fff;flex-shrink:0;cursor:pointer;transition:transform .15s ease, box-shadow .15s ease}
+.honor-heatmap-cell:hover{transform:scale(1.7);box-shadow:0 0 5px rgba(255,255,255,.45);position:relative;z-index:2}
+.honor-heatmap-cell.weekend{box-shadow:inset 0 0 0 1px rgba(255,255,255,.32)}
+.honor-tooltip{position:fixed;z-index:1000;display:none;pointer-events:none;background:rgba(24,27,34,.96);border:1px solid rgba(255,255,255,.12);border-radius:10px;padding:12px 16px;box-shadow:0 6px 20px rgba(0,0,0,.55);font-size:12px;color:#eee;line-height:1.6;min-width:160px}
+.honor-tooltip .t-date{font-weight:600;font-size:13px;color:#fff;margin-bottom:6px}
+.honor-tooltip .t-sep{height:1px;background:rgba(255,255,255,.12);margin:8px 0}
+.honor-tooltip .t-row{display:flex;justify-content:space-between;align-items:center;gap:24px;font-size:12px;line-height:1.6;margin-bottom:6px}
+.honor-tooltip .t-row:last-child{margin-bottom:0}
+.honor-tooltip .t-label{color:var(--text-muted)}
+.honor-tooltip .t-val{color:#fff;font-weight:600;padding:2px 9px;border-radius:5px;display:inline-block;min-width:24px;text-align:center}
 .honor-card-head{display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;min-width:0}
 .honor-card-name{font-size:13px;font-weight:600;color:var(--text-primary);overflow-wrap:break-word}
 .honor-card-value{font-size:14px;font-weight:700;flex-shrink:0}
+.honor-badge{display:inline-block;padding:2px 9px;border-radius:6px;color:#fff;font-size:13px;font-weight:700;line-height:1.4;white-space:nowrap}
 .honor-card-stat{font-size:11px;color:var(--text-secondary);line-height:1.6;display:flex;justify-content:space-between;align-items:center}
 .honor-card-stat .stat-label{color:var(--text-muted);min-width:32px}
 .honor-stats-table{width:100%;border-collapse:collapse;font-size:12px;line-height:1.6}
@@ -774,19 +793,19 @@ tr.row-selected{background:rgba(233,202,93,0.06)!important}
     <div class="page" id="page-honor">
       <div class="card">
         <div class="card-header">
-          <span class="card-title">&#x1f396;&#xfe0f; 标兵榜</span>
-          <span style="font-size:12px;color:var(--text-muted)" id="honor-model-subtitle">最近60日DPG变化最大的10个人</span>
-        </div>
-        <div id="honor-model-list" class="honor-grid"></div>
-        <div class="empty" id="honor-model-empty" style="display:none">暂无数据（需要至少两个采集快照且存在DPG提升的成员）</div>
-      </div>
-      <div class="card">
-        <div class="card-header">
           <span class="card-title">&#x1f4aa; 劳模榜</span>
-          <span style="font-size:12px;color:var(--text-muted)" id="honor-worker-subtitle">最近60日场次最多的10个人（仅含60日DPG ≥ 1,000）</span>
+          <span style="font-size:12px;color:var(--text-muted)" id="honor-worker-subtitle">最近60日场次最多的14个人（仅含60日DPG ≥ 1,000）</span>
         </div>
         <div id="honor-worker-list" class="honor-grid"></div>
         <div class="empty" id="honor-worker-empty" style="display:none">暂无符合条件的数据（需要近60日DPG ≥ 1,000 且有场次的成员）</div>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">&#x1f396;&#xfe0f; 标兵榜</span>
+          <span style="font-size:12px;color:var(--text-muted)" id="honor-model-subtitle">最近60日DPG变化最大的14个人</span>
+        </div>
+        <div id="honor-model-list" class="honor-grid"></div>
+        <div class="empty" id="honor-model-empty" style="display:none">暂无数据（需要至少两个采集快照且存在DPG提升的成员）</div>
       </div>
     </div>
 
@@ -849,6 +868,7 @@ tr.row-selected{background:rgba(233,202,93,0.06)!important}
 // ============================================================
 let DATA = null;
 let TOMATO = {};
+let DAILY = {};
 let TANK_NAMES = {};
 let currentPage = 'overview';
 let currentMemberId = null;
@@ -888,15 +908,17 @@ function formatDescription(text){
 let CHANGELOG = '';
 async function loadData(){
   try{
-    const [dataResp,tankResp,tomatoResp,clResp]=await Promise.all([
+    const [dataResp,tankResp,tomatoResp,clResp,dailyResp]=await Promise.all([
       fetch('data/05_nmof_complete.json'),
       fetch('data/08_tank_names.json'),
       fetch('data/07_tomato_60day.json'),
       fetch('CHANGELOG.md'),
+      fetch('data/10_daily.json'),
     ]);
     DATA=await dataResp.json();
     TANK_NAMES=await tankResp.json();
     TOMATO=await tomatoResp.json();
+    DAILY=await dailyResp.json();
     CHANGELOG = clResp.ok ? await clResp.text() : '';
     initApp();
   }catch(e){
@@ -2204,18 +2226,110 @@ function renderImprovement(){
   }).join('');
 }
 
+function textColorFor(bg){
+  var r = parseInt(bg.slice(1,3),16), g = parseInt(bg.slice(3,5),16), b = parseInt(bg.slice(5,7),16);
+  var yiq = (r*299 + g*587 + b*114) / 1000;
+  return yiq >= 150 ? '#111' : '#fff';
+}
+
+function honorHeatmap(account_id){
+  var daily = DAILY?.data?.[account_id];
+  if (!daily || !DAILY.dates || DAILY.dates.length === 0) return '';
+  function parse(s){ var p = s.split('-'); return new Date(+p[0], +p[1] - 1, +p[2]); }
+  function fmt(d){ return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0'); }
+  function mondayOf(d){ var day = d.getDay(); d.setDate(d.getDate() + (day === 0 ? -6 : 1 - day)); return d; }
+  var byDate = {};
+  DAILY.dates.forEach(function(d, i){ byDate[d] = daily[i]; });
+  // 列 = 周（周一~周日），行 = 星期，从最老周到最新周
+  var first = mondayOf(parse(DAILY.dates[0]));
+  var last  = mondayOf(parse(DAILY.dates[DAILY.dates.length - 1]));
+  var cols = [];
+  for (var c = new Date(first); c <= last; c.setDate(c.getDate() + 7)) cols.push(new Date(c));
+  var html = '';
+  cols.forEach(function(mon){
+    for (var r = 0; r < 7; r++) {
+      var d = new Date(mon); d.setDate(mon.getDate() + r);
+      var dateStr = fmt(d);
+      var v = byDate[dateStr] || { b: 0, d: 0 };
+      var isWeekend = r >= 5; // 第 6、7 行 = 周六、周日
+      var color = v.b > 0 ? colorScale.get(v.b, 'battles60').hex : 'rgba(255,255,255,0.06)';
+      var fsize = v.b >= 100 ? '6px' : (v.b >= 10 ? '8px' : '9px');
+      var txt = (v.b > 0 && color.charAt(0) === '#') ? textColorFor(color) : '#fff';
+      html += '<div class="honor-heatmap-cell' + (isWeekend ? ' weekend' : '') + '" data-date="' + dateStr + '" data-b="' + v.b + '" data-d="' + v.d + '" style="background:' + color + ';color:' + txt + ';font-size:' + fsize + '">' + (v.b > 0 ? v.b : '') + '</div>';
+    }
+  });
+  var wk = ['一','二','三','四','五','六','日'].map(function(w){ return '<div>周' + w + '</div>'; }).join('');
+  return '<div class="honor-heat-wrap"><div class="honor-week-labels">' + wk + '</div><div class="honor-heatmap">' + html + '</div></div>';
+}
+
+// ── 荣誉日历自定义 tooltip（设计样式，非原生 title）──
+var _honorTipInit = false;
+function initHonorTooltip(){
+  if (_honorTipInit) return;
+  _honorTipInit = true;
+  var t = document.createElement('div');
+  t.className = 'honor-tooltip';
+  t.id = 'honorTooltip';
+  document.body.appendChild(t);
+  document.addEventListener('mouseover', function(e){
+    var cell = e.target.closest('.honor-heatmap-cell');
+    if (cell) showHonorTip(cell, e);
+  });
+  document.addEventListener('mousemove', function(e){
+    var tip = document.getElementById('honorTooltip');
+    if (tip && tip.style.display !== 'none') moveHonorTip(e);
+  });
+  document.addEventListener('mouseout', function(e){
+    if (e.target.closest('.honor-heatmap-cell')) hideHonorTip();
+  });
+}
+function showHonorTip(cell, e){
+  var tip = document.getElementById('honorTooltip');
+  if (!tip) return;
+  var date = cell.getAttribute('data-date');
+  var b = parseInt(cell.getAttribute('data-b')) || 0;
+  var d = parseInt(cell.getAttribute('data-d')) || 0;
+  var wd = ['周日','周一','周二','周三','周四','周五','周六'][new Date(date + 'T00:00:00').getDay()];
+  var avg = b > 0 ? Math.round(d / b) : 0;
+  var cb = colorScale.get(b, 'battles60').hex;
+  var ca = colorScale.get(avg, 'dpg').hex;
+  var tcb = textColorFor(cb), tca = textColorFor(ca);
+  tip.innerHTML = '<div class="t-date">' + date + ' · ' + wd + '</div>' +
+    '<div class="t-sep"></div>' +
+    '<div class="t-row"><span class="t-label">场次</span><span class="t-val" style="background:' + cb + ';color:' + tcb + '">' + b + ' 场</span></div>' +
+    (b > 0 ? '<div class="t-row"><span class="t-label">场均</span><span class="t-val" style="background:' + ca + ';color:' + tca + '">' + avg + '</span></div>' : '') +
+    (d > 0 ? '<div class="t-row"><span class="t-label">伤害</span><span class="t-val">+' + d.toLocaleString() + '</span></div>' : '');
+  tip.style.display = 'block';
+  moveHonorTip(e);
+}
+function moveHonorTip(e){
+  var tip = document.getElementById('honorTooltip');
+  if (!tip) return;
+  var x = e.clientX + 14, y = e.clientY + 14;
+  var r = tip.getBoundingClientRect();
+  if (x + r.width > window.innerWidth - 8) x = e.clientX - r.width - 10;
+  if (y + r.height > window.innerHeight - 8) y = e.clientY - r.height - 10;
+  tip.style.left = Math.max(4, x) + 'px';
+  tip.style.top = Math.max(4, y) + 'px';
+}
+function hideHonorTip(){
+  var tip = document.getElementById('honorTooltip');
+  if (tip) tip.style.display = 'none';
+}
+
 function renderHonor(){
+  initHonorTooltip();
   var windowDays = TOMATO.recent_window_days || 60;
   var modelSub = document.getElementById('honor-model-subtitle');
-  if (modelSub) modelSub.textContent = '最近' + windowDays + '日DPG变化最大的10个人';
+  if (modelSub) modelSub.textContent = '最近' + windowDays + '日DPG变化最大的14个人';
   var workerSub = document.getElementById('honor-worker-subtitle');
-  if (workerSub) workerSub.textContent = '最近' + windowDays + '日场次最多的10个人（仅含' + windowDays + '日DPG ≥ 1,000）';
+  if (workerSub) workerSub.textContent = '最近' + windowDays + '日场次最多的14个人（仅含' + windowDays + '日DPG ≥ 1,000）';
   var workerEmptyEl = document.getElementById('honor-worker-empty');
   if (workerEmptyEl) workerEmptyEl.textContent = '暂无符合条件的数据（需要近' + windowDays + '日DPG ≥ 1,000 且有场次的成员）';
   // 标兵榜：DPG进步前10（delta > 0）
   var improveData = buildImprovementData().filter(function(d){ return d.delta > 0; });
   improveData.sort(function(a,b){ return b.delta - a.delta; });
-  var top10 = improveData.slice(0, 10);
+  var top10 = improveData.slice(0, 14);
   var modelList = document.getElementById('honor-model-list');
   var modelEmpty = document.getElementById('honor-model-empty');
   if (top10.length === 0) {
@@ -2246,14 +2360,18 @@ function renderHonor(){
       }
       return '<div class="honor-card">' +
         '<div class="honor-card-name-row"><a href="https://tomato.gg/stats/' + d.nickname + '-' + d.account_id + '/ASIA" target="_blank" class="honor-card-link">' + d.nickname + '</a> <span class="honor-card-value" style="color:var(--tier-above_average)">+' + d.delta.toLocaleString() + '</span></div>' +
-        '<div class="honor-card-main">' +
+        '<div class="honor-card-row">' +
           '<div class="honor-card-left">' +
             roleBadge(d.role) +
             '<div class="honor-card-num' + (i < 3 ? ' medal">' + ['🥇','🥈','🥉'][i] : '">' + (i + 1)) + '</div>' +
+            (nicknames.get(d.account_id) ? '<div class="honor-card-display">' + nicknames.get(d.account_id) + '</div>' : '') +
           '</div>' +
-          '<div class="honor-card-body">' +
-            statBlock() +
+          '<div class="honor-card-top">' +
+            honorHeatmap(d.account_id) +
           '</div>' +
+        '</div>' +
+        '<div class="honor-card-body">' +
+          statBlock() +
         '</div>' +
       '</div>';
     }).join('');
@@ -2272,11 +2390,12 @@ function renderHonor(){
     var ov = t?.overall || {};
     var ovDpg = ov.battles > 0 ? Math.round(ov.totalDamage / ov.battles) : null;
     workerData.push({ account_id: m.account_id, nickname: m.account_name, role: m.role, battles60: battles60,
+      dailyBattles: windowDays > 0 ? battles60 / windowDays : 0,
       wn8_60: recent60.wn8 != null ? recent60.wn8 : null, wnx_60: recent60.wnx != null ? recent60.wnx : null, dpg_60: dpg60,
       wn8_ov: ov.wn8 != null ? ov.wn8 : null, wnx_ov: ov.wnx != null ? ov.wnx : null, dpg_ov: ovDpg });
   }
   workerData.sort(function(a,b){ return b.battles60 - a.battles60; });
-  var topWorker = workerData.slice(0, 10);
+  var topWorker = workerData.slice(0, 14);
   var workerList = document.getElementById('honor-worker-list');
   var workerEmpty = document.getElementById('honor-worker-empty');
   if (topWorker.length === 0 || topWorker[0].battles60 === 0) {
@@ -2302,15 +2421,19 @@ function renderHonor(){
         return '<table class="honor-stats-table"><thead><tr><th></th><th>总</th><th>60日</th></tr></thead><tbody>'+rows+'</tbody></table>';
       }
       return '<div class="honor-card">' +
-        '<div class="honor-card-name-row"><a href="https://tomato.gg/stats/' + d.nickname + '-' + d.account_id + '/ASIA" target="_blank" class="honor-card-link">' + d.nickname + '</a> <span class="honor-card-value" style="color:' + colorScale.get(d.battles60, 'battles60').hex + '">' + d.battles60.toLocaleString() + '场</span></div>' +
-        '<div class="honor-card-main">' +
+        '<div class="honor-card-name-row"><a href="https://tomato.gg/stats/' + d.nickname + '-' + d.account_id + '/ASIA" target="_blank" class="honor-card-link">' + d.nickname + '</a> <span class="honor-badge" style="background:' + colorScale.get(d.dailyBattles, 'battles60').hex + '">' + d.battles60.toLocaleString() + '场</span></div>' +
+        '<div class="honor-card-row">' +
           '<div class="honor-card-left">' +
             roleBadge(d.role) +
             '<div class="honor-card-num' + (i < 3 ? ' medal">' + ['🥇','🥈','🥉'][i] : '">' + (i + 1)) + '</div>' +
+            (nicknames.get(d.account_id) ? '<div class="honor-card-display">' + nicknames.get(d.account_id) + '</div>' : '') +
           '</div>' +
-          '<div class="honor-card-body">' +
-            statBlock() +
+          '<div class="honor-card-top">' +
+            honorHeatmap(d.account_id) +
           '</div>' +
+        '</div>' +
+        '<div class="honor-card-body">' +
+          statBlock() +
         '</div>' +
       '</div>';
     }).join('');

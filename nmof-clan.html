@@ -135,7 +135,7 @@ body{
   flex:1;
   overflow-y:auto;
   overflow-x:hidden;
-  padding:24px 28px;
+  padding:24px 20px;
 }
 .page{display:none}
 .page.active{display:block}
@@ -261,18 +261,17 @@ tbody tr:hover{background:var(--bg-hover)}
 /* Grid card height matching */
 .grid-2>.card,.grid-3>.card{display:flex;flex-direction:column}
 .rank-list{display:grid;grid-template-columns:1fr 1fr 1fr;gap:2px 12px;overflow:hidden;grid-auto-rows:44px}
-.honor-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:8px}
+.honor-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(370px,1fr));gap:8px}
 .honor-card{display:flex;flex-direction:column;gap:4px;background:#252830;border:1px solid var(--border);border-radius:var(--radius);padding:10px 12px;overflow:hidden}
 .honor-card-main{display:flex;align-items:center;gap:8px;flex:1}
-.honor-card-name-row{display:flex;justify-content:center;align-items:center;font-size:23px;font-weight:600;color:var(--text-primary);overflow-wrap:break-word;gap:8px}
+.honor-card-name-row{display:flex;justify-content:center;align-items:center;font-size:23px;font-weight:600;color:var(--text-primary);overflow-wrap:break-word;gap:8px;margin:10px 0 8px}
 .honor-card-link{color:inherit;text-decoration:none;transition:color 0.15s}
-.honor-card-link:hover{color:var(--accent);text-decoration:underline}
+.honor-card-link:hover{color:var(--accent)}
 .honor-card-num{width:44px;height:44px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:700;background:var(--bg-hover);color:var(--text-secondary);flex-shrink:0}
 .honor-card-num.medal{background:transparent;font-size:32px;width:46px;height:46px;border-radius:0}
-.honor-card-row{display:flex;align-items:center;gap:10px;min-width:0}
-.honor-card-top{flex:1;min-width:0;display:flex;flex-direction:column;align-items:center;gap:4px}
-.honor-card-body{width:100%;margin-top:4px;padding-top:6px;border-top:1px solid var(--border);min-width:0}
-.honor-card-left{display:flex;flex-direction:column;align-items:center;gap:6px;flex-shrink:0;text-align:center;min-width:52px}
+.honor-card-grid{display:grid;grid-template-columns:auto auto;grid-template-rows:auto auto;gap:8px 14px;justify-content:center;align-items:start;margin-top:4px;padding-top:6px}
+.honor-card-top{min-width:0;display:flex;flex-direction:column;align-items:center;gap:4px}
+.honor-card-left{display:flex;flex-direction:column;align-items:center;gap:6px;flex-shrink:0;text-align:center;min-width:52px;cursor:pointer}
 .honor-card-left .role-badge{font-size:10px;padding:1px 4px}
 .honor-card-display{font-size:11px;color:var(--text-secondary);max-width:52px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .honor-heat-wrap{display:flex;gap:6px;align-items:flex-start;justify-content:center;padding:2px 0}
@@ -794,7 +793,7 @@ tr.row-selected{background:rgba(233,202,93,0.06)!important}
       <div class="card">
         <div class="card-header">
           <span class="card-title">&#x1f4aa; 劳模榜</span>
-          <span style="font-size:12px;color:var(--text-muted)" id="honor-worker-subtitle">最近60日场次最多的14个人（仅含60日DPG ≥ 1,000）</span>
+          <span style="font-size:12px;color:var(--text-muted)" id="honor-worker-subtitle">最近60日场次最多的15个人（仅含60日DPG ≥ 1,000）</span>
         </div>
         <div id="honor-worker-list" class="honor-grid"></div>
         <div class="empty" id="honor-worker-empty" style="display:none">暂无符合条件的数据（需要近60日DPG ≥ 1,000 且有场次的成员）</div>
@@ -802,7 +801,7 @@ tr.row-selected{background:rgba(233,202,93,0.06)!important}
       <div class="card">
         <div class="card-header">
           <span class="card-title">&#x1f396;&#xfe0f; 标兵榜</span>
-          <span style="font-size:12px;color:var(--text-muted)" id="honor-model-subtitle">最近60日DPG变化最大的14个人</span>
+          <span style="font-size:12px;color:var(--text-muted)" id="honor-model-subtitle">最近60日DPG变化最大的15个人</span>
         </div>
         <div id="honor-model-list" class="honor-grid"></div>
         <div class="empty" id="honor-model-empty" style="display:none">暂无数据（需要至少两个采集快照且存在DPG提升的成员）</div>
@@ -2107,6 +2106,8 @@ async function loadBackupData(){
     document.getElementById('improvement-subtitle').textContent = '无可用备份数据';
   }
   renderImprovement();
+  // 快照是异步加载的：若首次进入荣誉页时快照未就绪，标兵榜会空；加载完成后补渲染
+  if (currentPage === 'honor') renderHonor();
 }
 
 function initImprovementFilters(){
@@ -2318,18 +2319,27 @@ function hideHonorTip(){
 }
 
 function renderHonor(){
+  // 周常用：最近7天玩的坦克表格（场次最多3辆，名字+场次），未出战返回空串
+  function tanks7dTable(accountId) {
+    var ts = TOMATO.data?.[accountId]?.tanks_7d || [];
+    if (!ts.length) return '';
+    var rows = ts.slice(0, 3).map(function (t) {
+      return '<tr><td>' + t.name + '</td><td class="stat-val">' + t.battles + '</td></tr>';
+    }).join('');
+    return '<table class="honor-stats-table"><thead><tr><th>周常用（TOP3）</th><th>场次</th></tr></thead><tbody>' + rows + '</tbody></table>';
+  }
   initHonorTooltip();
   var windowDays = TOMATO.recent_window_days || 60;
   var modelSub = document.getElementById('honor-model-subtitle');
-  if (modelSub) modelSub.textContent = '最近' + windowDays + '日DPG变化最大的14个人';
+  if (modelSub) modelSub.textContent = '最近' + windowDays + '日DPG变化最大的15个人';
   var workerSub = document.getElementById('honor-worker-subtitle');
-  if (workerSub) workerSub.textContent = '最近' + windowDays + '日场次最多的14个人（仅含' + windowDays + '日DPG ≥ 1,000）';
+  if (workerSub) workerSub.textContent = '最近' + windowDays + '日场次最多的15个人（仅含' + windowDays + '日DPG ≥ 1,000）';
   var workerEmptyEl = document.getElementById('honor-worker-empty');
   if (workerEmptyEl) workerEmptyEl.textContent = '暂无符合条件的数据（需要近' + windowDays + '日DPG ≥ 1,000 且有场次的成员）';
   // 标兵榜：DPG进步前10（delta > 0）
   var improveData = buildImprovementData().filter(function(d){ return d.delta > 0; });
   improveData.sort(function(a,b){ return b.delta - a.delta; });
-  var top10 = improveData.slice(0, 14);
+  var top10 = improveData.slice(0, 15);
   var modelList = document.getElementById('honor-model-list');
   var modelEmpty = document.getElementById('honor-model-empty');
   if (top10.length === 0) {
@@ -2356,11 +2366,11 @@ function renderHonor(){
           var win = (r.label === 'DPG') ? ' <span style="font-size:11px;color:var(--text-muted)">(近' + windowDays + '日)</span>' : '';
           return '<tr><td>'+r.label+'</td><td><span class="stat-val" style="color:'+cAll+'">'+sAll+'</span></td><td><span class="stat-val" style="color:'+c60+'">'+s60+win+'</span></td></tr>';
         }).join('');
-        return '<table class="honor-stats-table"><thead><tr><th></th><th>总</th><th>60日</th></tr></thead><tbody>'+rows+'</tbody></table>';
+        return '<table class="honor-stats-table"><thead><tr><th>指标</th><th>生涯</th><th>60日</th></tr></thead><tbody>'+rows+'</tbody></table>';
       }
       return '<div class="honor-card">' +
         '<div class="honor-card-name-row"><a href="https://tomato.gg/stats/' + d.nickname + '-' + d.account_id + '/ASIA" target="_blank" class="honor-card-link">' + d.nickname + '</a> <span class="honor-card-value" style="color:var(--tier-above_average)">+' + d.delta.toLocaleString() + '</span></div>' +
-        '<div class="honor-card-row">' +
+        '<div class="honor-card-grid">' +
           '<div class="honor-card-left">' +
             roleBadge(d.role) +
             '<div class="honor-card-num' + (i < 3 ? ' medal">' + ['🥇','🥈','🥉'][i] : '">' + (i + 1)) + '</div>' +
@@ -2369,9 +2379,10 @@ function renderHonor(){
           '<div class="honor-card-top">' +
             honorHeatmap(d.account_id) +
           '</div>' +
-        '</div>' +
-        '<div class="honor-card-body">' +
-          statBlock() +
+          (tanks7dTable(d.account_id) ?
+            '<div style="grid-row:2;grid-column:1">' + tanks7dTable(d.account_id) + '</div>' +
+            '<div style="grid-row:2;grid-column:2">' + statBlock() + '</div>' :
+            '<div style="grid-row:2;grid-column:1/3">' + statBlock() + '</div>') +
         '</div>' +
       '</div>';
     }).join('');
@@ -2395,7 +2406,7 @@ function renderHonor(){
       wn8_ov: ov.wn8 != null ? ov.wn8 : null, wnx_ov: ov.wnx != null ? ov.wnx : null, dpg_ov: ovDpg });
   }
   workerData.sort(function(a,b){ return b.battles60 - a.battles60; });
-  var topWorker = workerData.slice(0, 14);
+  var topWorker = workerData.slice(0, 15);
   var workerList = document.getElementById('honor-worker-list');
   var workerEmpty = document.getElementById('honor-worker-empty');
   if (topWorker.length === 0 || topWorker[0].battles60 === 0) {
@@ -2418,11 +2429,11 @@ function renderHonor(){
           var win = (r.label === 'DPG') ? ' <span style="font-size:11px;color:var(--text-muted)">(近' + windowDays + '日)</span>' : '';
           return '<tr><td>'+r.label+'</td><td><span class="stat-val" style="color:'+cAll+'">'+sAll+'</span></td><td><span class="stat-val" style="color:'+c60+'">'+s60+win+'</span></td></tr>';
         }).join('');
-        return '<table class="honor-stats-table"><thead><tr><th></th><th>总</th><th>60日</th></tr></thead><tbody>'+rows+'</tbody></table>';
+        return '<table class="honor-stats-table"><thead><tr><th>指标</th><th>生涯</th><th>60日</th></tr></thead><tbody>'+rows+'</tbody></table>';
       }
       return '<div class="honor-card">' +
         '<div class="honor-card-name-row"><a href="https://tomato.gg/stats/' + d.nickname + '-' + d.account_id + '/ASIA" target="_blank" class="honor-card-link">' + d.nickname + '</a> <span class="honor-badge" style="background:' + colorScale.get(d.dailyBattles, 'battles60').hex + '">' + d.battles60.toLocaleString() + '场</span></div>' +
-        '<div class="honor-card-row">' +
+        '<div class="honor-card-grid">' +
           '<div class="honor-card-left">' +
             roleBadge(d.role) +
             '<div class="honor-card-num' + (i < 3 ? ' medal">' + ['🥇','🥈','🥉'][i] : '">' + (i + 1)) + '</div>' +
@@ -2431,9 +2442,10 @@ function renderHonor(){
           '<div class="honor-card-top">' +
             honorHeatmap(d.account_id) +
           '</div>' +
-        '</div>' +
-        '<div class="honor-card-body">' +
-          statBlock() +
+          (tanks7dTable(d.account_id) ?
+            '<div style="grid-row:2;grid-column:1">' + tanks7dTable(d.account_id) + '</div>' +
+            '<div style="grid-row:2;grid-column:2">' + statBlock() + '</div>' :
+            '<div style="grid-row:2;grid-column:1/3">' + statBlock() + '</div>') +
         '</div>' +
       '</div>';
     }).join('');

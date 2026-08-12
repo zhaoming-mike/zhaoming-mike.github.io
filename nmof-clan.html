@@ -273,7 +273,7 @@ tbody tr:hover{background:var(--bg-hover)}
 .honor-card-top{min-width:0;display:flex;flex-direction:column;align-items:center;gap:4px}
 .honor-card-left{display:flex;flex-direction:column;align-items:center;gap:6px;flex-shrink:0;text-align:center;min-width:52px;cursor:pointer}
 .honor-card-left .role-badge{font-size:10px;padding:1px 4px}
-.honor-card-display{font-size:11px;color:var(--text-secondary);max-width:52px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.honor-card-display{font-size:11px;color:var(--text-secondary);max-width:66px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .honor-heat-wrap{display:flex;gap:6px;align-items:flex-start;justify-content:center;padding:2px 0}
 .honor-week-labels{display:grid;grid-template-rows:repeat(7,12px);gap:2px;font-size:9px;color:var(--text-muted);text-align:right}
 .honor-week-labels div{height:12px;line-height:12px}
@@ -299,6 +299,8 @@ tbody tr:hover{background:var(--bg-hover)}
 .honor-stats-table td{white-space:nowrap;text-align:center}
 .honor-stats-table td:first-child{color:var(--text-muted)}
 .honor-stats-table td .stat-val{font-weight:500}
+.honor-card-stats{position:relative;padding-left:14px}
+.honor-card-stats::before{content:'';position:absolute;left:0;top:28px;bottom:0;width:1px;background:linear-gradient(to bottom, transparent, var(--text-muted) 12%, var(--text-muted) 88%, transparent)}
 .stat-sub{font-size:10px;color:var(--text-muted);margin:0 2px}
 .stat-val{font-weight:500}
 #rank-list-rating,#rank-list-dmg{height:308px}
@@ -2321,12 +2323,26 @@ function hideHonorTip(){
 function renderHonor(){
   // 周常用：最近7天玩的坦克表格（场次最多3辆，名字+场次），未出战返回空串
   function tanks7dTable(accountId) {
-    var ts = TOMATO.data?.[accountId]?.tanks_7d || [];
-    if (!ts.length) return '';
-    var rows = ts.slice(0, 3).map(function (t) {
-      return '<tr><td>' + t.name + '</td><td class="stat-val">' + t.battles + '</td></tr>';
-    }).join('');
-    return '<table class="honor-stats-table"><thead><tr><th>周常用（TOP3）</th><th>场次</th></tr></thead><tbody>' + rows + '</tbody></table>';
+    var recent = TOMATO.data?.[accountId]?.tanks_recent || [];
+    var windowDays = TOMATO.tanks_window_days || 0;
+    var rows, header;
+    if (recent.length && windowDays >= 1) {
+      // 近N日周常用（WG 差分）
+      rows = recent.slice(0, 3).map(function (t) {
+        return '<tr><td>' + tankName(t.tank_id) + '</td><td class="stat-val">' + t.battles + '</td></tr>';
+      }).join('');
+      header = '周常用·近' + windowDays + '日（TOP3）';
+    } else {
+      // 回退：生涯常用（WG 官方 top_tanks），近N日数据积累中/未出车时展示
+      var mem = members().find(function (m) { return m.account_id === accountId; });
+      var lt = (mem && mem.tanks_summary && mem.tanks_summary.top_tanks) || [];
+      if (!lt.length) return '';
+      rows = lt.slice(0, 3).map(function (t) {
+        return '<tr><td>' + tankName(t.tank_id) + '</td><td class="stat-val">' + t.battles + '</td></tr>';
+      }).join('');
+      header = '生涯常用（TOP3）';
+    }
+    return '<table class="honor-stats-table"><thead><tr><th>' + header + '</th><th>场次</th></tr></thead><tbody>' + rows + '</tbody></table>';
   }
   initHonorTooltip();
   var windowDays = TOMATO.recent_window_days || 60;
@@ -2381,7 +2397,7 @@ function renderHonor(){
           '</div>' +
           (tanks7dTable(d.account_id) ?
             '<div style="grid-row:2;grid-column:1">' + tanks7dTable(d.account_id) + '</div>' +
-            '<div style="grid-row:2;grid-column:2">' + statBlock() + '</div>' :
+            '<div class="honor-card-stats" style="grid-row:2;grid-column:2">' + statBlock() + '</div>' :
             '<div style="grid-row:2;grid-column:1/3">' + statBlock() + '</div>') +
         '</div>' +
       '</div>';
@@ -2443,9 +2459,9 @@ function renderHonor(){
             honorHeatmap(d.account_id) +
           '</div>' +
           (tanks7dTable(d.account_id) ?
-            '<div style="grid-row:2;grid-column:1">' + tanks7dTable(d.account_id) + '</div>' +
-            '<div style="grid-row:2;grid-column:2">' + statBlock() + '</div>' :
-            '<div style="grid-row:2;grid-column:1/3">' + statBlock() + '</div>') +
+            '<div style="grid-row:2;grid-column:1">' + tanks7dTable(d.account_id) + '</div>' :
+            '<div style="grid-row:2;grid-column:1;align-self:stretch;display:flex;align-items:center;justify-content:center;color:var(--text-muted);font-size:11px">暂无周常用数据</div>') +
+          '<div class="honor-card-stats" style="grid-row:2;grid-column:2">' + statBlock() + '</div>' +
         '</div>' +
       '</div>';
     }).join('');

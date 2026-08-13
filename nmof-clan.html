@@ -159,6 +159,33 @@ body{
   font-weight:600;
   color:var(--text-primary);
 }
+.honor-worker-head{
+  display:flex;align-items:center;gap:6px 10px;flex-wrap:wrap;
+}
+.seg{
+  display:flex;background:var(--bg-hover);border:1px solid var(--border);border-radius:6px;padding:2px;
+}
+.seg-btn{
+  border:none;background:transparent;color:var(--text-muted);font-size:12px;padding:3px 10px;border-radius:4px;cursor:pointer;white-space:nowrap;
+}
+.seg-btn:hover{color:var(--text-primary)}
+.seg-btn.seg-active{background:var(--accent);color:#000;font-weight:600}
+.honor-countdown{
+  grid-column:1/-1;
+  display:flex;flex-direction:column;align-items:center;gap:4px;
+  background:linear-gradient(135deg,rgba(233,202,93,.14),rgba(233,202,93,.04));
+  border:1px solid rgba(233,202,93,.35);
+  border-radius:10px;padding:14px 16px;
+}
+.honor-countdown-title{color:var(--text-primary);font-weight:600;font-size:15px}
+.honor-countdown-deadline{color:var(--text-muted);font-size:12px;font-family:monospace}
+.honor-countdown-val{font-family:monospace;font-weight:700;color:var(--accent);font-size:20px;letter-spacing:1px}
+.honor-prize-box{
+  border:1px dashed rgba(233,202,93,.55);
+  border-radius:6px;padding:5px 8px;margin-top:2px;
+  text-align:center;font-size:12px;color:var(--accent);
+}
+.honor-prize-box.over{border-style:solid}
 .card-subtitle{
   font-size:12px;
   color:var(--text-muted);
@@ -777,7 +804,7 @@ tr.row-selected{background:rgba(233,202,93,0.06)!important}
           <select class="filter-select" id="improvement-filter-role" onchange="renderImprovement()">
             <option value="">全部角色</option>
           </select>
-          <input class="filter-input" id="improvement-battles-min" placeholder="当前60日场次≥" type="number" min="0" onchange="renderImprovement()">
+          <input class="filter-input" id="improvement-battles-min" placeholder="当前60日场次≥" type="number" min="0" oninput="renderImprovement()" style="width:140px">
           <button class="btn btn-sm btn-secondary" onclick="resetImprovementFilters()">重置</button>
         </div>
         <div style="overflow-x:auto">
@@ -794,7 +821,13 @@ tr.row-selected{background:rgba(233,202,93,0.06)!important}
     <div class="page" id="page-honor">
       <div class="card">
         <div class="card-header">
-          <span class="card-title">&#x1f4aa; 劳模榜</span>
+          <div class="honor-worker-head">
+            <span class="card-title">&#x1f4aa; 劳模榜</span>
+            <div class="seg" id="honor-worker-mode">
+              <button type="button" class="seg-btn seg-active" data-mode="all" onclick="setHonorWorkerMode('all')">全员</button>
+              <button type="button" class="seg-btn" data-mode="event" onclick="setHonorWorkerMode('event')">嘉年华已报名</button>
+            </div>
+          </div>
           <span style="font-size:12px;color:var(--text-muted)" id="honor-worker-subtitle">最近60日场次最多的15个人（仅含60日DPG ≥ 1,000）</span>
         </div>
         <div id="honor-worker-list" class="honor-grid"></div>
@@ -870,6 +903,13 @@ tr.row-selected{background:rgba(233,202,93,0.06)!important}
 let DATA = null;
 let TOMATO = {};
 let DAILY = {};
+let honorWorkerMode = 'all';   // 劳模榜模式：'all' 全员 | 'event' 嘉年华已报名
+let eventSignupIds = null;     // 嘉年华已报名 account_id 集合（加载后缓存）
+let eventSignupState = 'idle'; // 'idle' | 'loading' | 'ready' | 'error'
+let eventEndTime = null;       // 嘉年华活动结束时间（毫秒时间戳）
+let eventTitle = null;         // 嘉年华活动标题
+let eventPrizes = [];          // 嘉年华奖品（按 id 排序，下标=名次-1）
+let eventCountdownTimer = null; // 嘉年华倒计时定时器句柄
 let TANK_NAMES = {};
 let currentPage = 'overview';
 let currentMemberId = null;
@@ -2320,6 +2360,84 @@ function hideHonorTip(){
   if (tip) tip.style.display = 'none';
 }
 
+// 嘉年华已报名名单：从 nmof.top 事件接口拉取并缓存已报名 account_id 集合
+function loadEventSignups(){
+  if (eventSignupState === 'loading' || eventSignupState === 'ready') return;
+  eventSignupState = 'loading';
+  renderHonor();
+  fetch('https://nmof.top/api/events/5')
+    .then(function(r){ if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+    .then(function(j){
+      if (j.code !== 0 || !j.data) throw new Error('接口返回异常');
+      var ids = new Set();
+      (j.data.participants || []).forEach(function(p){
+        if (p.status === 'signed' && p.account_id) ids.add(p.account_id);
+      });
+      eventEndTime = j.data.end_time ? Date.parse(j.data.end_time) : null;
+      if (eventEndTime && isNaN(eventEndTime)) eventEndTime = null;
+      eventTitle = j.data.title || null;
+      eventPrizes = ((j.data.prizes || []).slice()).sort(function(a,b){ return (a.id || 0) - (b.id || 0); });
+      eventSignupIds = ids;
+      eventSignupState = 'ready';
+    })
+    .catch(function(){
+      eventSignupState = 'error';
+    })
+    .then(function(){ renderHonor(); });
+}
+// 嘉年华活动倒计时：截止时间精确到秒，剩余时间精确到毫秒（千分位）
+function fmtDateTime(ms){
+  var d = new Date(ms);
+  function p(n){ return (n < 10 ? '0' : '') + n; }
+  return d.getFullYear() + '-' + p(d.getMonth() + 1) + '-' + p(d.getDate()) + ' ' +
+         p(d.getHours()) + ':' + p(d.getMinutes()) + ':' + p(d.getSeconds());
+}
+function updateHonorCountdown(){
+  var el = document.getElementById('honor-countdown-val');
+  if (!el || eventEndTime == null) return;
+  var remain = eventEndTime - Date.now();
+  if (remain <= 0) {
+    el.textContent = '活动结束！';
+    var boxes = document.querySelectorAll('.honor-prize-box');
+    for (var i = 0; i < boxes.length; i++) boxes[i].classList.add('over');
+    return;
+  }
+  var d = Math.floor(remain / 86400000);
+  var h = Math.floor(remain / 3600000) % 24;
+  var m = Math.floor(remain / 60000) % 60;
+  var s = Math.floor(remain / 1000) % 60;
+  el.textContent = '剩余 ' + d + '天 ' + h + '小时 ' + m + '分 ' + s + '.' + ('00' + (remain % 1000)).slice(-3) + '秒';
+}
+function startHonorCountdown(){
+  updateHonorCountdown();
+  if (eventCountdownTimer) return;
+  eventCountdownTimer = setInterval(updateHonorCountdown, 100);
+}
+function stopHonorCountdown(){
+  if (eventCountdownTimer) { clearInterval(eventCountdownTimer); eventCountdownTimer = null; }
+}
+// 按名次返回对应奖品条（嘉年华模式）；活动结束后由 updateHonorCountdown 加 .over 变实线
+function honorPrizeBox(i){
+  var p = eventPrizes[i];
+  if (!p) return '';
+  var unit = p.type === 'game_currency' ? '金币' : '';
+  var amount = p.description != null ? ' · ' + p.description + unit : '';
+  return '<div class="honor-prize-box">' + (p.name || '奖品') + amount + '</div>';
+}
+function setHonorWorkerMode(mode){
+  honorWorkerMode = mode;
+  var btns = document.querySelectorAll('#honor-worker-mode .seg-btn');
+  for (var i = 0; i < btns.length; i++) {
+    btns[i].classList.toggle('seg-active', btns[i].getAttribute('data-mode') === mode);
+  }
+  if (mode === 'all') stopHonorCountdown();
+  if (mode === 'event' && eventSignupState !== 'ready') {
+    loadEventSignups();
+  } else {
+    renderHonor();
+  }
+}
+
 function renderHonor(){
   // 周常用：最近7天玩的坦克表格（场次最多3辆，名字+场次），未出战返回空串
   function tanks7dTable(accountId) {
@@ -2349,9 +2467,16 @@ function renderHonor(){
   var modelSub = document.getElementById('honor-model-subtitle');
   if (modelSub) modelSub.textContent = '最近' + windowDays + '日DPG变化最大的15个人';
   var workerSub = document.getElementById('honor-worker-subtitle');
-  if (workerSub) workerSub.textContent = '最近' + windowDays + '日场次最多的15个人（仅含' + windowDays + '日DPG ≥ 1,000）';
   var workerEmptyEl = document.getElementById('honor-worker-empty');
-  if (workerEmptyEl) workerEmptyEl.textContent = '暂无符合条件的数据（需要近' + windowDays + '日DPG ≥ 1,000 且有场次的成员）';
+  var workerTopN = 15;
+  if (honorWorkerMode === 'event') {
+    workerTopN = 10;
+    if (workerSub) workerSub.textContent = '最近' + windowDays + '日场次最多的10位嘉年华已报名成员（仅含' + windowDays + '日DPG ≥ 1,000）';
+    if (workerEmptyEl) workerEmptyEl.textContent = '暂无符合条件的数据（需要近' + windowDays + '日DPG ≥ 1,000、已报名嘉年华且有场次的成员）';
+  } else {
+    if (workerSub) workerSub.textContent = '最近' + windowDays + '日场次最多的15个人（仅含' + windowDays + '日DPG ≥ 1,000）';
+    if (workerEmptyEl) workerEmptyEl.textContent = '暂无符合条件的数据（需要近' + windowDays + '日DPG ≥ 1,000 且有场次的成员）';
+  }
   // 标兵榜：DPG进步前10（delta > 0）
   var improveData = buildImprovementData().filter(function(d){ return d.delta > 0; });
   improveData.sort(function(a,b){ return b.delta - a.delta; });
@@ -2404,11 +2529,27 @@ function renderHonor(){
     }).join('');
   }
 
-  // 劳模榜：60日场次前10（过滤DPG<1000）
+  // 劳模榜：60日场次（过滤DPG<1000）；嘉年华模式仅统计已报名成员、取前10
+  var workerList = document.getElementById('honor-worker-list');
+  var workerEmpty = document.getElementById('honor-worker-empty');
+  if (honorWorkerMode === 'event' && eventSignupState === 'idle') loadEventSignups();
+  if (honorWorkerMode === 'event' && eventSignupState === 'loading') {
+    workerList.innerHTML = '';
+    workerEmpty.style.display = 'block';
+    workerEmpty.textContent = '正在加载活动报名表…';
+    return;
+  }
+  if (honorWorkerMode === 'event' && eventSignupState === 'error') {
+    workerList.innerHTML = '';
+    workerEmpty.style.display = 'block';
+    workerEmpty.innerHTML = '活动报名表暂时不可用。<br><br><button type="button" class="btn btn-sm btn-secondary" onclick="loadEventSignups()">重试</button>';
+    return;
+  }
   var membersList = members();
   var workerData = [];
   for (var i = 0; i < membersList.length; i++) {
     var m = membersList[i];
+    if (honorWorkerMode === 'event' && !eventSignupIds.has(m.account_id)) continue;
     var t = TOMATO.data?.[m.account_id];
     var recent60 = t?.recent_60d || {};
     var battles60 = recent60.diff_battles || 0;
@@ -2422,15 +2563,21 @@ function renderHonor(){
       wn8_ov: ov.wn8 != null ? ov.wn8 : null, wnx_ov: ov.wnx != null ? ov.wnx : null, dpg_ov: ovDpg });
   }
   workerData.sort(function(a,b){ return b.battles60 - a.battles60; });
-  var topWorker = workerData.slice(0, 15);
-  var workerList = document.getElementById('honor-worker-list');
-  var workerEmpty = document.getElementById('honor-worker-empty');
+  var topWorker = workerData.slice(0, workerTopN);
   if (topWorker.length === 0 || topWorker[0].battles60 === 0) {
     workerList.innerHTML = '';
     workerEmpty.style.display = 'block';
   } else {
     workerEmpty.style.display = 'none';
-    workerList.innerHTML = topWorker.map(function(d, i){
+    var workerHtml = '';
+    if (honorWorkerMode === 'event') {
+      workerHtml += '<div class="honor-countdown" id="honor-worker-countdown">' +
+        '<span class="honor-countdown-title">' + (eventTitle || '北冥有鱼首届嘉年华活动') + '</span>' +
+        (eventEndTime ? '<span class="honor-countdown-deadline">截止：' + fmtDateTime(eventEndTime) + '</span>' : '') +
+        '<span class="honor-countdown-val" id="honor-countdown-val">--</span>' +
+      '</div>';
+    }
+    workerList.innerHTML = workerHtml + topWorker.map(function(d, i){
       var stats = [
         {label:'WN8',v60:d.wn8_60,vAll:d.wn8_ov,scale:'wn8'},
         {label:'WNX',v60:d.wnx_60,vAll:d.wnx_ov,scale:'wn8'},
@@ -2463,8 +2610,10 @@ function renderHonor(){
             '<div style="grid-row:2;grid-column:1;align-self:stretch;display:flex;align-items:center;justify-content:center;color:var(--text-muted);font-size:11px">暂无周常用数据</div>') +
           '<div class="honor-card-stats" style="grid-row:2;grid-column:2">' + statBlock() + '</div>' +
         '</div>' +
+        (honorWorkerMode === 'event' ? honorPrizeBox(i) : '') +
       '</div>';
     }).join('');
+    if (honorWorkerMode === 'event') startHonorCountdown();
   }
 }
 

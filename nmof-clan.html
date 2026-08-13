@@ -2155,8 +2155,8 @@ function buildImprovementData(){
     }
     if (!hasAny) return null;
     var first = row['dpg0'], last = row['dpg' + (snaps.length - 1)];
-    // 首尾快照都有数据才算进步/退步，避免"从无到有/从有到无"的假值
-    row.delta = (first != null && last != null) ? (last - first) : null;
+    // 首尾快照都有有效数据（>0，表格中渲染为数字而非"-"）才算进步/退步，避免"从无到有/从有到无"的假值
+    row.delta = (first > 0 && last > 0) ? (last - first) : null;
     row.pct = (first != null && last != null && first > 0) ? ((last - first) / first * 100) : 0;
     return row;
   }).filter(function(d){return d != null;});

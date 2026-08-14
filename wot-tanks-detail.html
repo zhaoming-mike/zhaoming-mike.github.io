@@ -31,7 +31,7 @@
   // 否则 body 会占满 iframe 视口，文档可滚动高度比内容多出 margin，导致滚动条
   if (window.self !== window.top) {
     var embStyle = document.createElement('style');
-    embStyle.textContent = 'body{min-height:0!important} #detail{margin:0 auto!important}';
+    embStyle.textContent = 'body{min-height:0!important} #detail{width:100%!important;max-width:none!important;margin:0 auto!important}';
     document.head.appendChild(embStyle);
   }
   // 向父窗口上报内容高度（父窗口跨源嵌入时用 postMessage 自适应 iframe 高度，避免滚动条）

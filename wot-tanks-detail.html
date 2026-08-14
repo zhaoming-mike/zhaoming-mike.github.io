@@ -27,11 +27,16 @@
     document.title = (TANK_NICKNAMES[v.tank_id] ? TANK_NICKNAMES[v.tank_id] + ' ' : '') + (v.short_name || v.name) + ' — WoT 坦克百科';
     page.innerHTML = '<div id="detail" style="margin:24px auto">' + renderDetailHTML(v) + '</div>';
   }
+  // 内嵌在 iframe 时：去掉 body 的 min-height:100vh 与 #detail 顶部 margin，
+  // 否则 body 会占满 iframe 视口，文档可滚动高度比内容多出 margin，导致滚动条
+  if (window.self !== window.top) {
+    var embStyle = document.createElement('style');
+    embStyle.textContent = 'body{min-height:0!important} #detail{margin:0 auto!important}';
+    document.head.appendChild(embStyle);
+  }
   // 向父窗口上报内容高度（父窗口跨源嵌入时用 postMessage 自适应 iframe 高度，避免滚动条）
   function reportHeight(){
-    var detail = document.getElementById('detail');
-    // 详情高度取 #detail 的位置+尺寸（offsetTop 含 24px 顶部 margin），+2 缓冲避免亚像素滚动条
-    var h = detail ? (detail.offsetTop + detail.offsetHeight + 2) : document.body.scrollHeight;
+    var h = Math.max(document.body.scrollHeight, document.documentElement.scrollHeight);
     parent.postMessage({ source:'wot-tank-detail', height: h, tankId: id }, '*');
   }
   window.addEventListener('load', reportHeight);

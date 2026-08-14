@@ -9,6 +9,7 @@
 <script src="https://d3js.org/d3.v7.min.js"></script>
 <script src="color-scale.js"></script>
 <script src="nicknames.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/jetbrains-mono@5.1.1/800.css">
 <style>
 /* ============================================================
    CSS Reset & Variables
@@ -177,15 +178,23 @@ body{
   border:1px solid rgba(233,202,93,.35);
   border-radius:10px;padding:14px 16px;
 }
+.honor-countdown-head{display:flex;align-items:baseline;gap:0;flex-wrap:wrap;justify-content:center}
 .honor-countdown-title{color:var(--text-primary);font-weight:600;font-size:15px}
 .honor-countdown-deadline{color:var(--text-muted);font-size:12px;font-family:monospace}
-.honor-countdown-val{font-family:monospace;font-weight:700;color:var(--accent);font-size:20px;letter-spacing:1px}
+.honor-countdown-val{font-family:'JetBrains Mono',monospace;font-weight:800;font-variant-numeric:tabular-nums;white-space:nowrap;color:var(--accent);font-size:20px;letter-spacing:1px}
+.honor-countdown-end-deadline{color:var(--text-primary);font-weight:700;font-size:15px;font-family:'JetBrains Mono',monospace}
 .honor-prize-box{
   border:1px dashed rgba(233,202,93,.55);
   border-radius:6px;padding:5px 8px;margin-top:2px;
   text-align:center;font-size:12px;color:var(--accent);
+  cursor:pointer;
 }
-.honor-prize-box.over{border-style:solid}
+.honor-prize-box.over{
+  border-style:solid;
+  border-color:#8a6d1f;
+  background:var(--accent);
+  color:#0d0f12;
+}
 .card-subtitle{
   font-size:12px;
   color:var(--text-muted);
@@ -326,6 +335,8 @@ tbody tr:hover{background:var(--bg-hover)}
 .honor-stats-table td{white-space:nowrap;text-align:center}
 .honor-stats-table td:first-child{color:var(--text-muted)}
 .honor-stats-table td .stat-val{font-weight:500}
+.honor-stats-table td .honor-tank-link{color:var(--accent2);cursor:pointer;text-decoration:none;transition:filter .15s}
+.honor-stats-table td .honor-tank-link:hover{filter:brightness(1.25)}
 .honor-card-stats{position:relative;padding-left:14px}
 .honor-card-stats::before{content:'';position:absolute;left:0;top:28px;bottom:0;width:1px;background:linear-gradient(to bottom, transparent, var(--text-muted) 12%, var(--text-muted) 88%, transparent)}
 .stat-sub{font-size:10px;color:var(--text-muted);margin:0 2px}
@@ -521,6 +532,14 @@ tr.row-selected{background:rgba(233,202,93,0.06)!important}
 .compare-modal{max-width:850px}
 .chart-zoom-modal{max-width:1100px;margin:auto} /* margin:auto 在 flex overlay 中水平+垂直居中 */
 .chart-zoom-modal .chart-container{height:75vh;max-height:720px}
+#tank-detail-modal{padding:32px 16px}
+#tank-detail-frame{width:min(1200px, calc(100vw - 32px));border:0;display:block;margin:auto;visibility:hidden}
+#tank-detail-frame[data-fit]{visibility:visible}
+#tank-detail-frame[data-fit] ~ #tank-detail-loading{display:none}
+#tank-detail-loading{position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;color:var(--text-primary);font-size:15px;letter-spacing:.5px;pointer-events:none;z-index:1}
+#tank-detail-loading::before{content:'';width:34px;height:34px;border:3px solid rgba(233,202,93,.25);border-top-color:var(--accent);border-radius:50%;animation:tdl-spin .8s linear infinite}
+@keyframes tdl-spin{to{transform:rotate(360deg)}}
+#tank-detail-loading .tank-load-nick{color:#0d0f12;background:var(--accent);font-weight:600;border-radius:4px;padding:1px 8px;margin:0 4px}
 .chart-zoom-btn{
   background:none;border:none;color:var(--text-muted);
   font-size:14px;line-height:1;cursor:pointer;padding:2px 6px;border-radius:4px;
@@ -824,8 +843,8 @@ tr.row-selected{background:rgba(233,202,93,0.06)!important}
           <div class="honor-worker-head">
             <span class="card-title">&#x1f4aa; 劳模榜</span>
             <div class="seg" id="honor-worker-mode">
-              <button type="button" class="seg-btn seg-active" data-mode="all" onclick="setHonorWorkerMode('all')">全员</button>
-              <button type="button" class="seg-btn" data-mode="event" onclick="setHonorWorkerMode('event')">嘉年华已报名</button>
+              <button type="button" class="seg-btn" data-mode="all" onclick="setHonorWorkerMode('all')">全员</button>
+              <button type="button" class="seg-btn seg-active" data-mode="event" onclick="setHonorWorkerMode('event')">嘉年华已报名</button>
             </div>
           </div>
           <span style="font-size:12px;color:var(--text-muted)" id="honor-worker-subtitle">最近60日场次最多的15个人（仅含60日DPG ≥ 1,000）</span>
@@ -903,10 +922,11 @@ tr.row-selected{background:rgba(233,202,93,0.06)!important}
 let DATA = null;
 let TOMATO = {};
 let DAILY = {};
-let honorWorkerMode = 'all';   // 劳模榜模式：'all' 全员 | 'event' 嘉年华已报名
+let honorWorkerMode = 'event';   // 劳模榜模式：'all' 全员 | 'event' 嘉年华已报名
 let eventSignupIds = null;     // 嘉年华已报名 account_id 集合（加载后缓存）
 let eventSignupState = 'idle'; // 'idle' | 'loading' | 'ready' | 'error'
 let eventEndTime = null;       // 嘉年华活动结束时间（毫秒时间戳）
+let eventEndTimeStr = null;    // 嘉年华活动结束时间（元信息原始字符串）
 let eventTitle = null;         // 嘉年华活动标题
 let eventPrizes = [];          // 嘉年华奖品（按 id 排序，下标=名次-1）
 let eventCountdownTimer = null; // 嘉年华倒计时定时器句柄
@@ -1479,6 +1499,93 @@ function closeChartZoom(){
   document.getElementById('chart-zoom-modal').classList.remove('active');
   if(chartZoomChart){chartZoomChart.destroy();chartZoomChart=null;}
 }
+// 坦克详情弹层：荣誉排行常用坦克点击后，内嵌详情页；详情页 postMessage 上报内容高度自适应，避免滚动条
+var TANK_DETAIL_BASE = 'https://zhaoming-mike.github.io/wot-tanks-detail.html?id=';
+var TANK_DETAIL_ORIGIN = new URL(TANK_DETAIL_BASE).origin; // 与详情页同源校验，跨域/同源均适用
+var _tankDetailSeq = 0;
+var TANK_LOADING_TAILS = [
+  '这么好玩吗？',
+  '肯定是本命车。',
+  '你仓库里还留着它吗？',
+  '场均及格线到了吗？',
+  '打这么久手不酸吗？',
+  '下一辆准备练什么？',
+  '是情怀还是战力？',
+  '这个版本它还好用吗？',
+];
+// 动态 loading 文案：被点成员昵称（高亮）+ 坦克 + 场次 + 随机俏皮结尾
+function escHtml(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function buildTankLoadingMsg(tankId, accountId, battles){
+  // 只用军团昵称；查不到昵称时显示"这位车长"，不显示 account_name（那是 ID）
+  var nick = accountId ? (nicknames.get(accountId) || '') : '';
+  var nickHtml = nick ? '<span class="tank-load-nick">' + escHtml(nick) + '</span>' : '这位车长';
+  var parts = ['正在读取' + nickHtml + '的常用车 ' + tankName(tankId)];
+  if (battles != null && !isNaN(battles)) parts.push('打了 ' + Number(battles).toLocaleString() + ' 场');
+  parts.push(TANK_LOADING_TAILS[Math.floor(Math.random() * TANK_LOADING_TAILS.length)]);
+  return parts.join('，');
+}
+function openTankDetail(tankId, accountId, battles){
+  var seq = ++_tankDetailSeq;
+  var frame = document.getElementById('tank-detail-frame');
+  var ld = document.getElementById('tank-detail-loading');
+  if (ld) ld.innerHTML = buildTankLoadingMsg(tankId, accountId, battles);
+  frame.removeAttribute('data-fit');
+  frame.style.height = '400px'; // 初始占位，待详情页上报后精确适配
+  frame.onload = function(){ tankDetailLoaded(seq, frame); };
+  frame.src = TANK_DETAIL_BASE + tankId;
+  document.getElementById('tank-detail-modal').classList.add('active');
+  // 安全兜底：若 iframe 长时间未能加载（网络异常），给一个合理高度呈现
+  setTimeout(function(){
+    if (seq === _tankDetailSeq && frame.getAttribute('data-fit') !== '1') {
+      frame.setAttribute('data-fit', '1');
+      frame.style.height = Math.min(window.innerHeight * 0.85, 850) + 'px';
+    }
+  }, 8000);
+}
+// iframe 加载完成后的兜底：延时让同一次加载触发的 postMessage 优先到达，避免先显示占位高度再跳动
+function tankDetailLoaded(seq, frame){
+  setTimeout(function(){
+    if (seq === _tankDetailSeq && frame.getAttribute('data-fit') !== '1') {
+      frame.setAttribute('data-fit', '1');
+      frame.style.height = Math.min(window.innerHeight * 0.85, 850) + 'px';
+    }
+  }, 250);
+}
+// 首次进入荣誉页预取详情页静态资源，减少首次弹窗加载卡顿
+var _tankDetailPreloaded = false;
+function preloadTankDetailAssets(){
+  if (_tankDetailPreloaded) return;
+  _tankDetailPreloaded = true;
+  ['wot-tanks-style.css', 'tank-data/vehicles_data.js', 'tank-data/tank_nicknames.js', 'wot-tanks-detail.js'].forEach(function(p){
+    var l = document.createElement('link');
+    l.rel = 'preload';
+    l.as = (p.indexOf('.css') !== -1) ? 'style' : 'script';
+    l.href = TANK_DETAIL_ORIGIN + '/' + p;
+    document.head.appendChild(l);
+  });
+}
+// 详情页通过 postMessage 上报内容高度，据此设置 iframe 高度（跨域下也能自适应，无滚动条）
+window.addEventListener('message', function(e){
+  if (e.origin !== TANK_DETAIL_ORIGIN) return;
+  var d = e.data;
+  if (!d || d.source !== 'wot-tank-detail' || typeof d.height !== 'number') return;
+  var frame = document.getElementById('tank-detail-frame');
+  if (frame && frame.src.indexOf('wot-tanks-detail.html') !== -1) {
+    frame.setAttribute('data-fit', '1');
+    frame.style.height = d.height + 'px';
+  }
+});
+function closeTankDetail(){
+  document.getElementById('tank-detail-modal').classList.remove('active');
+  var frame = document.getElementById('tank-detail-frame');
+  frame.onload = null;
+  frame.removeAttribute('data-fit');
+  frame.src = 'about:blank';
+}
+// 无关闭按钮，按 Esc 关闭坦克详情弹层
+document.addEventListener('keydown', function(e){
+  if (e.key === 'Escape') closeTankDetail();
+});
 // 放大入口：每个图表右上角的 .chart-zoom-btn 按钮（onclick 调 openChartZoom）
 
 var _tiers = colorScale.allTiers();
@@ -2374,6 +2481,7 @@ function loadEventSignups(){
         if (p.status === 'signed' && p.account_id) ids.add(p.account_id);
       });
       eventEndTime = j.data.end_time ? Date.parse(j.data.end_time) : null;
+      eventEndTimeStr = j.data.end_time || null;
       if (eventEndTime && isNaN(eventEndTime)) eventEndTime = null;
       eventTitle = j.data.title || null;
       eventPrizes = ((j.data.prizes || []).slice()).sort(function(a,b){ return (a.id || 0) - (b.id || 0); });
@@ -2392,21 +2500,44 @@ function fmtDateTime(ms){
   return d.getFullYear() + '-' + p(d.getMonth() + 1) + '-' + p(d.getDate()) + ' ' +
          p(d.getHours()) + ':' + p(d.getMinutes()) + ':' + p(d.getSeconds());
 }
+function fmtBeijing(ms){
+  var d = new Date(ms + 8 * 3600000);
+  function p(n){ return (n < 10 ? '0' : '') + n; }
+  return d.getUTCFullYear() + '-' + p(d.getUTCMonth() + 1) + '-' + p(d.getUTCDate()) + ' ' +
+         p(d.getUTCHours()) + ':' + p(d.getUTCMinutes()) + ':' + p(d.getUTCSeconds());
+}
+function fmtEventDeadline(){
+  if (eventEndTimeStr) {
+    var ms = Date.parse(eventEndTimeStr);
+    if (!isNaN(ms)) return fmtBeijing(ms);
+  }
+  return fmtBeijing(eventEndTime);
+}
 function updateHonorCountdown(){
   var el = document.getElementById('honor-countdown-val');
   if (!el || eventEndTime == null) return;
   var remain = eventEndTime - Date.now();
   if (remain <= 0) {
-    el.textContent = '活动结束！';
+    el.textContent = '活动结束，恭喜大家！（奖品由军团军需官审批后统一发放）';
+    var headDl = document.querySelector('.honor-countdown-deadline');
+    if (headDl) headDl.style.display = 'none';
     var boxes = document.querySelectorAll('.honor-prize-box');
     for (var i = 0; i < boxes.length; i++) boxes[i].classList.add('over');
+    if (!document.getElementById('honor-countdown-end-deadline')) {
+      var endDl = document.createElement('div');
+      endDl.id = 'honor-countdown-end-deadline';
+      endDl.className = 'honor-countdown-end-deadline';
+      endDl.textContent = fmtEventDeadline();
+      el.parentNode.insertBefore(endDl, el.nextSibling);
+    }
     return;
   }
   var d = Math.floor(remain / 86400000);
   var h = Math.floor(remain / 3600000) % 24;
   var m = Math.floor(remain / 60000) % 60;
   var s = Math.floor(remain / 1000) % 60;
-  el.textContent = '剩余 ' + d + '天 ' + h + '小时 ' + m + '分 ' + s + '.' + ('00' + (remain % 1000)).slice(-3) + '秒';
+  function p2(n){ return (n < 10 ? '0' : '') + n; }
+  el.textContent = p2(d) + ' 天 ' + p2(h) + '：' + p2(m) + '：' + p2(s) + '.' + ('00' + (remain % 1000)).slice(-3);
 }
 function startHonorCountdown(){
   updateHonorCountdown();
@@ -2439,6 +2570,7 @@ function setHonorWorkerMode(mode){
 }
 
 function renderHonor(){
+  preloadTankDetailAssets(); // 首次进荣誉页预取详情页资源，减少首次弹窗卡顿
   // 周常用：最近7天玩的坦克表格（场次最多3辆，名字+场次），未出战返回空串
   function tanks7dTable(accountId) {
     var recent = TOMATO.data?.[accountId]?.tanks_recent || [];
@@ -2447,7 +2579,7 @@ function renderHonor(){
     if (recent.length && windowDays >= 1) {
       // 近N日周常用（WG 差分）
       rows = recent.slice(0, 3).map(function (t) {
-        return '<tr><td>' + tankName(t.tank_id) + '</td><td class="stat-val">' + t.battles + '</td></tr>';
+        return '<tr><td><a class="honor-tank-link" onclick="openTankDetail(' + t.tank_id + ',' + accountId + ',' + t.battles + ')">' + tankName(t.tank_id) + '</a></td><td class="stat-val">' + t.battles + '</td></tr>';
       }).join('');
       header = '周常用·近' + windowDays + '日（TOP3）';
     } else {
@@ -2456,7 +2588,7 @@ function renderHonor(){
       var lt = (mem && mem.tanks_summary && mem.tanks_summary.top_tanks) || [];
       if (!lt.length) return '';
       rows = lt.slice(0, 3).map(function (t) {
-        return '<tr><td>' + tankName(t.tank_id) + '</td><td class="stat-val">' + t.battles + '</td></tr>';
+        return '<tr><td><a class="honor-tank-link" onclick="openTankDetail(' + t.tank_id + ',' + accountId + ',' + t.battles + ')">' + tankName(t.tank_id) + '</a></td><td class="stat-val">' + t.battles + '</td></tr>';
       }).join('');
       header = '生涯常用（TOP3）';
     }
@@ -2572,8 +2704,10 @@ function renderHonor(){
     var workerHtml = '';
     if (honorWorkerMode === 'event') {
       workerHtml += '<div class="honor-countdown" id="honor-worker-countdown">' +
-        '<span class="honor-countdown-title">' + (eventTitle || '北冥有鱼首届嘉年华活动') + '</span>' +
-        (eventEndTime ? '<span class="honor-countdown-deadline">截止：' + fmtDateTime(eventEndTime) + '</span>' : '') +
+        '<div class="honor-countdown-head">' +
+          '<span class="honor-countdown-title">' + (eventTitle || '北冥有鱼首届嘉年华活动') + '</span>' +
+          (eventEndTime ? '<span class="honor-countdown-deadline">（截止：' + fmtEventDeadline() + '）</span>' : '') +
+        '</div>' +
         '<span class="honor-countdown-val" id="honor-countdown-val">--</span>' +
       '</div>';
     }
@@ -2594,8 +2728,9 @@ function renderHonor(){
         }).join('');
         return '<table class="honor-stats-table"><thead><tr><th>指标</th><th>生涯</th><th>60日</th></tr></thead><tbody>'+rows+'</tbody></table>';
       }
+      var badgeColor = colorScale.get(d.dailyBattles, 'battles60').hex;
       return '<div class="honor-card">' +
-        '<div class="honor-card-name-row"><a href="https://tomato.gg/stats/' + d.nickname + '-' + d.account_id + '/ASIA" target="_blank" class="honor-card-link">' + d.nickname + '</a> <span class="honor-badge" style="background:' + colorScale.get(d.dailyBattles, 'battles60').hex + '">' + d.battles60.toLocaleString() + '场</span></div>' +
+        '<div class="honor-card-name-row"><a href="https://tomato.gg/stats/' + d.nickname + '-' + d.account_id + '/ASIA" target="_blank" class="honor-card-link">' + d.nickname + '</a> <span class="honor-badge" style="background:' + badgeColor + ';color:' + textColorFor(badgeColor) + '">' + d.battles60.toLocaleString() + '场</span></div>' +
         '<div class="honor-card-grid">' +
           '<div class="honor-card-left">' +
             roleBadge(d.role) +
@@ -2933,6 +3068,10 @@ loadData();
       <div class="chart-container"><canvas id="chart-zoom"></canvas></div>
     </div>
   </div>
+</div>
+<div class="modal-overlay" id="tank-detail-modal" onclick="if(event.target===this)closeTankDetail()">
+  <iframe id="tank-detail-frame" title="坦克详情"></iframe>
+  <div id="tank-detail-loading">加载中…</div>
 </div>
 </body>
 </html>

@@ -36,7 +36,9 @@
   }
   // 向父窗口上报内容高度（父窗口跨源嵌入时用 postMessage 自适应 iframe 高度，避免滚动条）
   function reportHeight(){
-    var h = Math.max(document.body.scrollHeight, document.documentElement.scrollHeight);
+    // 用 body 内容高度；documentElement.scrollHeight 会被 iframe 视口高度钳制（至少=视口），
+    // 当 iframe 高于内容时会多报，造成弹框底部留白
+    var h = document.body.scrollHeight + 2;
     parent.postMessage({ source:'wot-tank-detail', height: h, tankId: id }, '*');
   }
   window.addEventListener('load', reportHeight);

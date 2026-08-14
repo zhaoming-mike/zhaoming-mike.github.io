@@ -5,96 +5,7 @@
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><rect x='1' y='5' width='14' height='7' rx='1' fill='%23f90'/><rect x='3' y='2' width='3' height='3' rx='1' fill='%23f90'/><rect x='5' y='3' width='2' height='8' fill='%23f90'/></svg>">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>WoT 坦克百科 — ASIA 服 (2026-06-27)</title>
-<style>
-* { margin:0; padding:0; box-sizing:border-box; }
-body { font-family: 'Segoe UI', system-ui, sans-serif; background:#1a1a1a; color:#ccc; min-height:100vh; }
-a { color:#f90; }
-header { background:#222; border-bottom:2px solid #f90; padding:12px 24px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:8px; }
-header h1 { color:#f90; font-size:1.3em; white-space:nowrap; }
-#toolbar { background:#252525; padding:10px 24px; display:flex; flex-wrap:wrap; gap:8px; align-items:center; border-bottom:1px solid #333; position:sticky; top:0; z-index:100; }
-#toolbar input[type=text] { background:#333; border:1px solid #555; color:#fff; padding:6px 12px; border-radius:4px; width:200px; font-size:0.9em; height:30px; box-sizing:border-box; }
-#toolbar input[type=text]:focus { outline:none; border-color:#f90; }
-#toolbar select { background:#333; border:1px solid #555; color:#fff; padding:4px 8px; border-radius:4px; font-size:0.85em; cursor:pointer; height:30px; box-sizing:border-box; }
-#toolbar select:focus { outline:none; border-color:#f90; }
-#toolbar label { font-size:0.82em; color:#aaa; display:flex; align-items:center; gap:4px; cursor:pointer; user-select:none; }
-#toolbar label input { accent-color:#f90; }
-#toolbar .btn { background:#f90; color:#000; border:none; padding:6px 14px; border-radius:4px; cursor:pointer; font-weight:bold; font-size:0.85em; height:30px; box-sizing:border-box; }
-#toolbar .btn:hover { background:#fb0; }
-#tier-select { display:flex; gap:2px; }
-#tier-select button { width:30px; height:30px; border:1px solid #555; background:#333; color:#aaa; border-radius:3px; cursor:pointer; font-size:0.75em; font-weight:bold; box-sizing:border-box; }
-#tier-select button.active { background:#f90; color:#000; border-color:#f90; }
-#nation-filter > span { height:30px; box-sizing:border-box; }
-#tier-select button:hover:not(.active) { border-color:#999; color:#fff; }
-#grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(200px,1fr)); gap:10px; padding:16px 24px; contain:layout style; }
-#grid .card { background:#252525; border:1px solid #333; border-radius:6px; padding:10px; cursor:pointer; transition:.15s; display:flex; flex-direction:column; align-items:center; text-align:center; user-select:none; position:relative; content-visibility:auto; contain-intrinsic-size:auto 160px; }
-#grid .card:hover { border-color:#f90; background:#2a2a2a; transform:translateY(-1px); }
-#grid .card.premium { background:#3a2e00; border-color:#a60; }
-#grid .card.premium:hover { background:#4a3a00; }
-#grid .card img { width:120px; height:50px; object-fit:contain; margin-bottom:6px; image-rendering:pixelated; }
-#grid .card .name { font-size:0.9em; font-weight:bold; color:#fff; margin-bottom:2px; }
-#grid .card .badges { display:flex; gap:4px; margin-top:4px; flex-wrap:wrap; justify-content:center; }
-#grid .card .badge { font-size:0.65em; padding:1px 6px; border-radius:3px; font-weight:bold; }
-.badge-tier { background:#f90; color:#000; }
-.badge-premium { background:#c90; color:#000; }
-.badge-gift { background:#6a5; color:#000; }
-.badge-wheeled { background:#68c; color:#000; }
-.badge-newest { color:#000; animation: badge-pulse 2s ease-in-out infinite; }
-@keyframes badge-pulse { 0%,100% { box-shadow: 0 0 4px rgba(255,255,255,0.2); } 50% { box-shadow: 0 0 10px rgba(255,255,255,0.5); } }
-#grid .card.newest { border-left-width: 3px; border-left-style: solid; }
-.nation-bg-ussr { border-left:3px solid #e22; }
-.nation-bg-germany { border-left:3px solid #888; }
-.nation-bg-usa { border-left:3px solid #48f; }
-.nation-bg-france { border-left:3px solid #47e; }
-.nation-bg-uk { border-left:3px solid #c44; }
-.nation-bg-china { border-left:3px solid #e44; }
-.nation-bg-japan { border-left:3px solid #d4d; }
-.nation-bg-czech { border-left:3px solid #fa0; }
-.nation-bg-sweden { border-left:3px solid #48d; }
-.nation-bg-poland { border-left:3px solid #e88; }
-.nation-bg-italy { border-left:3px solid #4a4; }
-#overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.7); z-index:200; justify-content:center; align-items:center; padding:20px; overflow-y:auto; }
-#detail { background:#222; border:1px solid #444; border-radius:10px; width:min(1200px, 80vw); padding:28px 32px; position:relative; }
-#detail h2 { color:#f90; font-size:1.5em; margin-bottom:2px; }
-#detail .subtitle { color:#888; font-size:0.95em; margin-bottom:8px; }
-#detail .close { position:absolute; top:12px; right:16px; background:none; border:none; color:#aaa; font-size:1.6em; cursor:pointer; }
-#detail .close:hover { color:#fff; }
-#detail .copy-btn { position:absolute; top:14px; right:52px; background:none; border:1px solid #555; color:#aaa; padding:3px 10px; border-radius:4px; cursor:pointer; font-size:0.8em; }
-#detail .copy-btn:hover { color:#fff; border-color:#999; }
-#detail .copy-btn.copied { color:#5d5; border-color:#5d5; }
-#detail table { width:100%; border-collapse:collapse; margin:4px 0; font-size:0.92em; }
-#detail table th { text-align:left; color:#999; font-weight:normal; padding:2px 6px; width:40%; white-space:nowrap; }
-#detail table td { padding:2px 6px; color:#ddd; white-space:nowrap; }
-#detail table tr:hover { background:#2a2a2a; }
-#detail .section { margin-top:12px; border-top:1px solid #333; padding-top:8px; }
-#detail .section h3 { color:#f90; font-size:1.05em; margin-bottom:4px; }
-.detail-header { display:flex; gap:16px; align-items:center; margin-bottom:10px; }
-.detail-header img { width:440px; height:auto; max-height:360px; object-fit:contain; flex-shrink:0; }
-.detail-header .header-text { flex:1; min-width:0; }
-@media (max-width:600px) { .detail-header { flex-direction:column; align-items:center; } }
-.detail-desc { color:#bbb; font-size:0.95em; line-height:1.8; background:#2a2a2a; padding:8px 12px; border-radius:6px; border-left:3px solid #f90; }
-#detail .ammo-lo { color: var(--ammo-lo, #f55); }
-#detail .ammo-md { color: var(--ammo-md, #fff); }
-#detail .ammo-hi { color: var(--ammo-hi, #5d5); }
-.ammo-table { border-collapse:collapse; width:100%; }
-#detail .ammo-table th, #detail .ammo-table td { text-align:right; font-size:0.88em; padding:2px 6px; white-space:nowrap; }
-#detail .ammo-table th.ammo-label, #detail .ammo-table th.ammo-arrow, #detail .ammo-table th[rowspan], #detail .ammo-table th[colspan] { text-align:center; }
-.ammo-table td, .ammo-table th { background:#2a2a2a; border:1px solid #444; }
-#detail .ammo-top th, #detail .ammo-top td { background:#5a4200; }
-#detail .ammo-top:hover th, #detail .ammo-top:hover td { background:#6b5200; }
-#detail .ammo-top th.ammo-label { color:#f90; }
-.ammo-table tr:hover td, .ammo-table tr:hover th { background:#333; }
-.ammo-table td { white-space:nowrap; }
-#detail .crew-list { display:flex; flex-wrap:wrap; gap:4px; justify-content:center; align-items:center; align-content:center; }
-#detail .crew-list span { background:#333; padding:2px 8px; border-radius:3px; font-size:0.88em; }
-.three-col { display:flex; gap:16px; }
-.three-col + .three-col { margin-top:12px; }
-#detail .three-col .section { flex:1; min-width:0; margin-top:12px; border-top:1px solid #333; padding-top:8px; }
-@media (max-width:700px) { .three-col { flex-direction:column; } }
-.no-results { grid-column:1/-1; text-align:center; padding:60px; color:#666; font-size:1.1em; }
-#back-to-top { position:fixed; bottom:20px; right:20px; width:36px; height:36px; background:#333; border:1px solid #555; border-radius:50%; color:#aaa; font-size:1.2em; cursor:pointer; display:none; z-index:300; align-items:center; justify-content:center; transition:.2s; line-height:0; }
-#back-to-top:hover { background:#f90; border-color:#f90; }
-#back-to-top:hover span { border-bottom-color:#000; }
-</style>
+<link rel="stylesheet" href="wot-tanks-style.css">
 </head>
 <body>
 <header>
@@ -133,31 +44,10 @@ header h1 { color:#f90; font-size:1.3em; white-space:nowrap; }
 <script src="tank-data/vehicles_data.js"></script>
 <script src="tank-data/tank_nicknames.js"></script>
 <script src="tank-data/tank_newest.js"></script>
+<script src="wot-tanks-detail.js"></script>
 <script>
-function toRoman(n) { return ['','I','II','III','IV','V','VI','VII','VIII','IX','X','XI'][n]||n; }
-
-function localImg(url) {
-  if (!url) return '';
-  var parts = url.split('/');
-  var fname = parts[parts.length-1];
-  if (url.indexOf('/small/') !== -1) return 'images/small_icon/'+fname;
-  if (url.indexOf('/contour/') !== -1) return 'images/contour_icon/'+fname;
-  return 'images/big_icon/'+fname;
-}
-const NATION_NAMES = {
-  ussr:'苏联', germany:'德国', usa:'美国', france:'法国', uk:'英国',
-  china:'中国', japan:'日本', czech:'捷克', sweden:'瑞典', poland:'波兰', italy:'意大利'
-};
-const NATION_FLAG = {
-  ussr:'ru.png', germany:'de.png', usa:'us.png', france:'fr.png', uk:'gb.png',
-  china:'cn.png', japan:'jp.png', czech:'cz.png', sweden:'se.png', poland:'pl.png', italy:'it.png'
-};
-const TYPE_NAMES = {
-  heavyTank:'重型坦克', mediumTank:'中型坦克', lightTank:'轻型坦克', 'AT-SPG':'自行反坦克炮', SPG:'自行火炮'
-};
 const NATION_ORDER = ['ussr','germany','usa','france','uk','china','japan','czech','sweden','poland','italy'];
 const TYPE_ORDER = ['heavyTank','mediumTank','lightTank','AT-SPG','SPG'];
-const TYPE_ICON = { heavyTank:'HT.svg', mediumTank:'MT.svg', lightTank:'LT.svg', 'AT-SPG':'TD.svg', SPG:'SPG.svg' };
 
 let vehicles = [];
 let filtered = [];
@@ -341,85 +231,27 @@ function renderGrid() {
 function showDetail(tankId) {
   var v = vehicles.find(function(t){return t.tank_id===tankId});
   if (!v) return;
-  var p = v.default_profile || {};
-  var overlay = document.getElementById('overlay');
-  var content = document.getElementById('detail-content');
-  var html = '<div class="detail-header">';
-  if (v.images && v.images.big_icon) html += '<img src="'+localImg(v.images.big_icon)+'" onerror="this.style.display=\'none\'">';
-  html += '<div class="header-text">';
-  html += '<h2>'+(TANK_NICKNAMES[v.tank_id]?'<span style="color:#f90;">'+TANK_NICKNAMES[v.tank_id]+'</span> ':'')+(v.short_name||v.name);
-html += (v.short_name&&v.short_name!==v.name?' <span style="color:#888;font-weight:normal">|</span> <span style="color:#fff;font-weight:normal">'+v.name+'</span>':'');
-html += ' <span style="color:#666;font-size:0.55em;font-weight:normal">#'+v.tank_id+'</span></h2>';
-  html += '<div class="subtitle"><span style="display:inline-flex;align-items:center;gap:3px"><span style="display:inline-block;width:1.1em;height:0.75em;background:url(images/flags/'+(NATION_FLAG[v.nation]||'')+')center/contain no-repeat"></span>'+(NATION_NAMES[v.nation]||v.nation)+'</span> · '+toRoman(v.tier)+' · <span style="display:inline-flex;align-items:center;gap:2px"><img src="images/class-icons/'+(TYPE_ICON[v.type]||'')+'" style="height:0.9em;width:auto;opacity:0.6" alt="">'+(TYPE_NAMES[v.type]||v.type)+'</span> · ID: '+v.tank_id;
-  html += (v.is_premium?' · 金币车':'')+(v.is_gift?' · 礼包车':'')+(v.is_wheeled?' · 轮式':'');
-  html += ' · 价格: '+(v.price_credit?v.price_credit.toLocaleString()+' 银币':'无');
-  html += (v.price_gold?' / '+v.price_gold+' 金币':'')+'</div>';
-  if (v.description) html += '<p class="detail-desc">'+v.description+'</p>';
-  html += '</div></div>';
-  html += '<div class="three-col"><div class="section"><h3>基本性能</h3><table>';
-  html += '<tr><th>生命值 (HP)</th><td>'+(p.hp||'无')+'</td><th>重量 (吨)</th><td>'+((p.weight||0)/1000).toFixed(1)+'</td></tr>';
-  html += '<tr><th>极速 (km/h)</th><td>'+(p.speed_forward||'无')+' / '+(p.speed_backward||'无')+'</td><th>视野 (m)</th><td>'+(p.turret?p.turret.view_range||'无':'无')+'</td></tr>';
-  html += '<tr><th>车体转向 (°/s)</th><td>'+(p.suspension?p.suspension.traverse_speed||'无':'无')+'</td><th>炮塔转向 (°/s)</th><td>'+(p.turret?p.turret.traverse_speed||'无':'无')+'</td></tr>';
-  html += '<tr><th>电台 (m)</th><td>'+(p.radio?p.radio.signal_range||'无':'无')+'</td><th>备弹 (发)</th><td>'+(p.max_ammo||'无')+'</td></tr>';
-  html += '</table></div>';
-  if (p.armor) {
-    var a = p.armor;
-    html += '<div class="section"><h3>装甲 (mm)</h3><table><tr><th></th><th>车体</th><th>炮塔</th></tr>';
-    html += '<tr><td>正面</td><td style="color:#f90;font-weight:bold">'+(a.hull&&a.hull.front!=null?a.hull.front:'无')+'</td><td style="color:#f90;font-weight:bold">'+(a.turret&&a.turret.front!=null?a.turret.front:'无')+'</td></tr>';
-    html += '<tr><td>侧面</td><td>'+(a.hull&&a.hull.sides!=null?a.hull.sides:'无')+'</td><td>'+(a.turret&&a.turret.sides!=null?a.turret.sides:'无')+'</td></tr>';
-    html += '<tr><td>后部</td><td>'+(a.hull&&a.hull.rear!=null?a.hull.rear:'无')+'</td><td>'+(a.turret&&a.turret.rear!=null?a.turret.rear:'无')+'</td></tr>';
-    html += '</table></div>';
-  }
-  if (p.gun) {
-    html += '<div class="section"><h3>主炮: '+(p.gun.name||'')+'</h3><table>';
-    html += '<tr><th>口径 (mm)</th><td>'+(p.gun.caliber||'无')+'</td><th>射速 (发/分钟)</th><td>'+(p.gun.fire_rate?p.gun.fire_rate.toFixed(1):'无')+'</td></tr>';
-    html += '<tr><th>装填 (s)</th><td>'+(p.gun.reload_time?p.gun.reload_time.toFixed(1):'无')+'</td><th>瞄准 (s)</th><td>'+(p.gun.aim_time?p.gun.aim_time.toFixed(1):'无')+'</td></tr>';
-    html += '<tr><th>百米精度</th><td>'+(p.gun.dispersion?(p.gun.dispersion*100).toFixed(2):'无')+'</td><th>俯角 / 仰角</th><td>'+(p.gun.move_down_arc!=null?p.gun.move_down_arc+'°':'无')+' / '+(p.gun.move_up_arc!=null?p.gun.move_up_arc+'°':'无')+'</td></tr>';
-    html += '</table></div>';
-  }
-  html += '</div>';
-  html += '<div class="three-col">';
-  if (p.ammo && p.ammo.length > 0) {
-    var ammoLabels = {ARMOR_PIERCING:'AP', ARMOR_PIERCING_CR:'APCR', HOLLOW_CHARGE:'HEAT', HIGH_EXPLOSIVE:'HE'};
-    var cls = ['ammo-lo','ammo-md','ammo-hi'];
-    var tip = ['远距离 (75%)','标准 (100%)','近距离 (125%)'];
-    html += '<div class="section"><h3>弹药</h3><table class="ammo-table">';
-    html += '<tr><th class="ammo-label">弹药</th><th colspan="3">穿透 (mm) <span class="ammo-lo">−</span>/<span class="ammo-hi">+</span>25%</th><th colspan="3">伤害 (HP) <span class="ammo-lo">−</span>/<span class="ammo-hi">+</span>25%</th></tr>';
-    var maxPen = 0;
-    p.ammo.forEach(function(a){ var pn = (a.penetration||[])[1]||0; if (pn>maxPen) maxPen=pn; });
-    p.ammo.forEach(function(a){
-      var pen = a.penetration || [];
-      var dmg = a.damage || [];
-      var isTop = maxPen > 0 && pen[1] === maxPen;
-      html += '<tr'+(isTop?' class="ammo-top"':'')+'><th class="ammo-label">'+(ammoLabels[a.type]||a.type)+'</th>';
-      for (var i = 0; i < 3; i++) html += '<td class="'+cls[i]+'" title="'+tip[i]+'">'+(pen[i]||'无')+'</td>';
-      for (var i = 0; i < 3; i++) html += '<td class="'+cls[i]+'" title="'+tip[i]+'">'+(dmg[i]||'无')+'</td>';
-      html += '</tr>';
-    });
-    html += '</table></div>';
-  }
-  if (p.engine) {
-    html += '<div class="section"><h3>发动机</h3><table>';
-    html += '<tr><th>名称</th><td>'+(p.engine.name||'无')+'</td><th>功率 (匹)</th><td>'+(p.engine.power||'无')+'</td></tr>';
-    html += '<tr><th>重量 (kg)</th><td>'+(p.engine.weight||'无')+'</td><th>着火率 (%)</th><td>'+(p.engine.fire_chance!=null?(p.engine.fire_chance*100).toFixed(0):'无')+'</td></tr>';
-    html += '</table></div>';
-  }
-  if (v.crew && v.crew.length > 0) {
-    html += '<div class="section"><h3>车组</h3><div class="crew-list">';
-    v.crew.forEach(function(c){
-      html += '<span>'+(c.roles.commander||c.roles.gunner||c.roles.driver||c.roles.loader||c.roles.radioman||c.member_id)+'</span>';
-    });
-    html += '</div></div>';
-  }
-  html += '</div>';
-  content.innerHTML = html;
-  overlay.style.display = 'flex';
+  document.getElementById('detail-content').innerHTML = renderDetailHTML(v);
+  document.getElementById('overlay').style.display = 'flex';
+  updateUrlId(tankId);
+}
+
+function updateUrlId(id) {
+  var url = new URL(window.location.href);
+  if (id == null) url.searchParams.delete('id');
+  else url.searchParams.set('id', id);
+  history.replaceState(null, '', url.toString());
+}
+
+function closeDetail() {
+  document.getElementById('overlay').style.display = 'none';
+  updateUrlId(null);
 }
 
 document.getElementById('overlay').onclick = function(e) {
-  if (e.target === this) { this.style.display = 'none'; }
+  if (e.target === this) { closeDetail(); }
 };
-document.querySelector('#detail .close').onclick = function(){ document.getElementById('overlay').style.display = 'none'; };
+document.querySelector('#detail .close').onclick = function(){ closeDetail(); };
 document.getElementById('copyBtn').onclick = function(){
   var btn = this;
   btn.textContent = '截图中...';
@@ -455,7 +287,7 @@ searchClear.addEventListener('click', function() {
 document.getElementById('premium-only').addEventListener('change', applyFilters);
 document.getElementById('wheeled-only').addEventListener('change', applyFilters);
 document.getElementById('sort-by').addEventListener('change', applyFilters);
-document.addEventListener('keydown', function(e){ if (e.key==='Escape') document.getElementById('overlay').style.display='none'; });
+document.addEventListener('keydown', function(e){ if (e.key==='Escape') closeDetail(); });
 window.addEventListener('beforeunload', function() { saveFilters(); });
 function saveFilters() {
   var state = {
@@ -523,7 +355,7 @@ function restoreFilters() {
     }},
     {url:'tank-data/tank_nicknames.js', key:'wot-fp-nick', extract:function(t){ return t.length; }},
     {url:'tank-data/tank_newest.js', key:'wot-fp-newest', extract:function(t){ return t.length; }},
-    {url:'index.html', key:'wot-fp-html', extract:function(t){ return t.length; }}
+    {url:'wot-tanks.html', key:'wot-fp-html', extract:function(t){ return t.length; }}
   ];
 
   function poll() {
@@ -588,6 +420,14 @@ window.addEventListener('scroll', function() {
 });
 init();
 restoreFilters();
+
+// 按坦克 ID 深链接：打开 ?id=<tank_id> 直达对应坦克详情
+(function() {
+  var id = Number(new URLSearchParams(window.location.search).get('id'));
+  if (id && vehicles.some(function(v){ return v.tank_id === id; })) {
+    showDetail(id);
+  }
+})();
 </script>
 </body>
 </html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><rect x='1' y='5' width='14' height='7' rx='1' fill='%23f90'/><rect x='3' y='2' width='3' height='3' rx='1' fill='%23f90'/><rect x='5' y='3' width='2' height='8' fill='%23f90'/></svg>">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WoT 坦克百科 — ASIA 服</title>
+<link rel="stylesheet" href="wot-tanks-style.css">
+</head>
+<body>
+<main id="page"></main>
+<script src="tank-data/vehicles_data.js"></script>
+<script src="tank-data/tank_nicknames.js"></script>
+<script src="wot-tanks-detail.js"></script>
+<script>
+// 独立详情页：?id=<tank_id> 渲染单辆坦克的详情，不含工具栏/列表。
+(function() {
+  var id = Number(new URLSearchParams(window.location.search).get('id'));
+  var vehicles = Object.values(VEHICLES_JSON.data);
+  var v = id && vehicles.find(function(t){ return t.tank_id === id; });
+  var page = document.getElementById('page');
+  if (!v) {
+    document.title = '未找到坦克 — WoT 坦克百科';
+    page.innerHTML = '<div style="text-align:center;padding:80px 24px;color:#888">' +
+      '<p style="font-size:1.3em">未找到坦克' + (id ? ' (ID: ' + id + ')' : '') + '</p></div>';
+    return;
+  }
+  document.title = (TANK_NICKNAMES[v.tank_id] ? TANK_NICKNAMES[v.tank_id] + ' ' : '') + (v.short_name || v.name) + ' — WoT 坦克百科';
+  page.innerHTML = '<div id="detail" style="margin:24px auto">' + renderDetailHTML(v) + '</div>';
+})();
+</script>
+</body>
+</html>

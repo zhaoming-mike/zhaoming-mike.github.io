@@ -14,6 +14,7 @@
  *   colorScale.get(值, 'survival')  → 同上
  *   colorScale.get(值, 'kd')        → 同上
  *   colorScale.get(值, 'rating')    → 同上 (Rating 使用 wn8 色阶)
+ *   colorScale.get(值, 'progress')  → 同上 (标兵榜进步分色阶，绿色渐变 浅→深)
  */
 
 var colorScale = (function () {
@@ -63,6 +64,15 @@ var colorScale = (function () {
 
     // Global Rating — 使用和 WN8 相同的阈值
     rating:     [300, 450, 650, 900, 1200, 1600, 2000, 2450, 2900],
+
+    // 标兵榜进步分（ΔDPG × DPG区间难度 × 场次置信 × 坦克等级难度）
+    progress:   [50, 100, 150, 200, 280, 380, 520, 700, 900],
+  };
+
+  // ── 色阶专用颜色覆盖（默认用 TIERS 全局色；progress 只用绿色渐变，低→高为浅绿→深绿）──
+  var SCALE_COLORS = {
+    // 全部档位在卡片底色 #252830 上对比度 ≥4.5:1；深色端已提亮（顶部几档视觉接近是必然代价）
+    progress: ['#E6F4BB', '#CDE89B', '#B4DB7D', '#9CCE60', '#84C144', '#6DB42F', '#5AA720', '#58A51E', '#56A31C', '#54A01B'],
   };
 
   // ── 冻结配置数据 (防止运行时篡改) ──────────────────────────
@@ -73,6 +83,9 @@ var colorScale = (function () {
   // 冻结每个 scale 的阈值数组 + 冻结顶层 SCALES
   Object.keys(SCALES).forEach(function (k) { Object.freeze(SCALES[k]); });
   Object.freeze(SCALES);
+  // 冻结色阶专用颜色覆盖
+  Object.keys(SCALE_COLORS).forEach(function (k) { Object.freeze(SCALE_COLORS[k]); });
+  Object.freeze(SCALE_COLORS);
 
   // ── 查找函数 ──────────────────────────────────────────────
   function getTier(value, thresholds) {
@@ -93,11 +106,13 @@ var colorScale = (function () {
   function get(value, scaleType) {
     var thresholds = SCALES[scaleType] || SCALES.wn8;
     var tier = getTier(value, thresholds);
+    var colors = SCALE_COLORS[scaleType];
+    var hex = colors ? colors[tier.tier] : tier.hex;
     return {
       tier:   tier.tier,
       name:   tier.name,
       label:  tier.label,
-      hex:    tier.hex,
+      hex:    hex,
       cssClass: 'tier-' + tier.name,
     };
   }

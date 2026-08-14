@@ -858,7 +858,7 @@ tr.row-selected{background:rgba(233,202,93,0.06)!important}
           <span style="font-size:12px;color:var(--text-muted)" id="honor-model-subtitle">最近60日DPG变化最大的15个人</span>
         </div>
         <div id="honor-model-list" class="honor-grid"></div>
-        <div class="empty" id="honor-model-empty" style="display:none">暂无数据（需要至少两个采集快照且存在DPG提升的成员）</div>
+        <div class="empty" id="honor-model-empty" style="display:none">暂无数据（需要至少两个采集快照、存在DPG提升且窗口日均场次≥10的成员）</div>
       </div>
     </div>
 
@@ -2284,6 +2284,28 @@ function resetImprovementFilters(){
   renderImprovement();
 }
 
+// 标兵榜进步分系数：DPG 区间难度（水平越高越难，权重越大）
+function improvementBandCoef(d){
+  if (d < 1000) return 0.5;
+  if (d < 1500) return 1.0;
+  if (d < 2000) return 1.5;
+  if (d < 2500) return 2.0;
+  return 3.0;
+}
+// 标兵榜进步分系数：窗口场次置信（不足 30 场按比例降权，30 场以上满权）
+function improvementBattlesCoef(b){
+  return Math.min((b || 0) / 30, 1);
+}
+// 标兵榜进步分系数：坦克等级难度（avgTier 缺失按中性 1.0）
+function improvementTierCoef(t){
+  if (t == null) return 1.0;
+  if (t < 7) return 0.7;
+  if (t < 8) return 1.0;
+  if (t < 9) return 1.2;
+  if (t < 10) return 1.5;
+  return 1.8;
+}
+
 function buildImprovementData(){
   var ms = members();
   var snaps = BACKUP_SNAPSHOTS;
@@ -2298,13 +2320,17 @@ function buildImprovementData(){
       var dpg = r60.diff_dpg != null ? r60.diff_dpg : null; // 无差分场均存 null，不参与 delta 计算
       row['dpg' + s] = dpg;
       if (r60.diff_battles > 0) hasAny = true;
-      if (s === snaps.length - 1) row.battles_now = r60.diff_battles || 0;
+      if (s === snaps.length - 1) { row.battles_now = r60.diff_battles || 0; row.tier_now = r60.avgTier; }
     }
     if (!hasAny) return null;
     var first = row['dpg0'], last = row['dpg' + (snaps.length - 1)];
     // 首尾快照都有有效数据（>0，表格中渲染为数字而非"-"）才算进步/退步，避免"从无到有/从有到无"的假值
     row.delta = (first > 0 && last > 0) ? (last - first) : null;
     row.pct = (first != null && last != null && first > 0) ? ((last - first) / first * 100) : 0;
+    // 进步分：ΔDPG × DPG区间难度 × 场次置信 × 坦克等级难度；仅对首尾均有效的进步者计算
+    row.progressScore = (row.delta > 0)
+      ? row.delta * improvementBandCoef(last) * improvementBattlesCoef(row.battles_now) * improvementTierCoef(row.tier_now)
+      : null;
     return row;
   }).filter(function(d){return d != null;});
 }
@@ -2424,13 +2450,15 @@ function initHonorTooltip(){
   document.addEventListener('mouseover', function(e){
     var cell = e.target.closest('.honor-heatmap-cell');
     if (cell) showHonorTip(cell, e);
+    var sc = e.target.closest('.honor-score-cell');
+    if (sc) showProgressTip(sc, e);
   });
   document.addEventListener('mousemove', function(e){
     var tip = document.getElementById('honorTooltip');
     if (tip && tip.style.display !== 'none') moveHonorTip(e);
   });
   document.addEventListener('mouseout', function(e){
-    if (e.target.closest('.honor-heatmap-cell')) hideHonorTip();
+    if (e.target.closest('.honor-heatmap-cell') || e.target.closest('.honor-score-cell')) hideHonorTip();
   });
 }
 function showHonorTip(cell, e){
@@ -2465,6 +2493,34 @@ function moveHonorTip(e){
 function hideHonorTip(){
   var tip = document.getElementById('honorTooltip');
   if (tip) tip.style.display = 'none';
+}
+function showProgressTip(span, e){
+  var tip = document.getElementById('honorTooltip');
+  if (!tip) return;
+  var delta = parseInt(span.getAttribute('data-delta')) || 0;
+  var first = parseInt(span.getAttribute('data-first')) || 0;
+  var last = parseInt(span.getAttribute('data-last')) || 0;
+  var battles = parseInt(span.getAttribute('data-battles')) || 0;
+  var tierRaw = span.getAttribute('data-tier');
+  var tier = tierRaw == null || tierRaw === '' ? null : parseFloat(tierRaw);
+  var band = improvementBandCoef(last);
+  var bt = improvementBattlesCoef(battles);
+  var tc = improvementTierCoef(tier);
+  var score = Math.round(delta * band * bt * tc);
+  var scHex = colorScale.get(score, 'progress').hex;
+  var scText = textColorFor(scHex);
+  tip.innerHTML =
+    '<div class="t-date">进步分</div>' +
+    '<div class="t-sep"></div>' +
+    '<div style="font-size:11px;color:var(--text-muted);margin-bottom:6px">进步分 = ΔDPG × 区间系数 × 场次系数 × 等级系数</div>' +
+    '<div class="t-row"><span class="t-label">ΔDPG（' + first + ' → ' + last + '）</span><span class="t-val">+' + delta + '</span></div>' +
+    '<div class="t-row"><span class="t-label">DPG区间系数</span><span class="t-val">' + band + '</span></div>' +
+    '<div class="t-row"><span class="t-label">场次系数（' + battles + '场）</span><span class="t-val">' + (Math.round(bt * 100) / 100) + '</span></div>' +
+    '<div class="t-row"><span class="t-label">等级系数</span><span class="t-val">' + (tier != null ? tc : '1.0（无数据）') + '</span></div>' +
+    '<div class="t-sep"></div>' +
+    '<div class="t-row"><span class="t-label">进步分</span><span class="t-val" style="background:' + scHex + ';color:' + scText + '">+' + score.toLocaleString() + '</span></div>';
+  tip.style.display = 'block';
+  moveHonorTip(e);
 }
 
 // 嘉年华已报名名单：从 nmof.top 事件接口拉取并缓存已报名 account_id 集合
@@ -2597,7 +2653,7 @@ function renderHonor(){
   initHonorTooltip();
   var windowDays = TOMATO.recent_window_days || 60;
   var modelSub = document.getElementById('honor-model-subtitle');
-  if (modelSub) modelSub.textContent = '最近' + windowDays + '日DPG变化最大的15个人';
+  if (modelSub) modelSub.textContent = '近' + windowDays + '日进步最大的15人（难度加权：DPG区间×场次×坦克等级 · 每天≥10场）';
   var workerSub = document.getElementById('honor-worker-subtitle');
   var workerEmptyEl = document.getElementById('honor-worker-empty');
   var workerTopN = 15;
@@ -2609,9 +2665,9 @@ function renderHonor(){
     if (workerSub) workerSub.textContent = '最近' + windowDays + '日场次最多的15个人（仅含' + windowDays + '日DPG ≥ 1,000）';
     if (workerEmptyEl) workerEmptyEl.textContent = '暂无符合条件的数据（需要近' + windowDays + '日DPG ≥ 1,000 且有场次的成员）';
   }
-  // 标兵榜：DPG进步前10（delta > 0）
-  var improveData = buildImprovementData().filter(function(d){ return d.delta > 0; });
-  improveData.sort(function(a,b){ return b.delta - a.delta; });
+  // 标兵榜：进步分前15（delta > 0，窗口日均场次 ≥ 10）
+  var improveData = buildImprovementData().filter(function(d){ return d.delta > 0 && d.battles_now / windowDays >= 10; });
+  improveData.sort(function(a,b){ return b.progressScore - a.progressScore; });
   var top10 = improveData.slice(0, 15);
   var modelList = document.getElementById('honor-model-list');
   var modelEmpty = document.getElementById('honor-model-empty');
@@ -2641,8 +2697,10 @@ function renderHonor(){
         }).join('');
         return '<table class="honor-stats-table"><thead><tr><th>指标</th><th>生涯</th><th>60日</th></tr></thead><tbody>'+rows+'</tbody></table>';
       }
+      var lastDpg = d['dpg' + (BACKUP_SNAPSHOTS.length - 1)];
+      var scoreColor = colorScale.get(d.progressScore, 'progress').hex;
       return '<div class="honor-card">' +
-        '<div class="honor-card-name-row"><a href="https://tomato.gg/stats/' + d.nickname + '-' + d.account_id + '/ASIA" target="_blank" class="honor-card-link">' + d.nickname + '</a> <span class="honor-card-value" style="color:var(--tier-above_average)">+' + d.delta.toLocaleString() + '</span></div>' +
+        '<div class="honor-card-name-row"><a href="https://tomato.gg/stats/' + d.nickname + '-' + d.account_id + '/ASIA" target="_blank" class="honor-card-link">' + d.nickname + '</a> <span class="honor-card-value honor-score-cell" data-delta="' + d.delta + '" data-first="' + d.dpg0 + '" data-last="' + lastDpg + '" data-battles="' + d.battles_now + '" data-tier="' + (d.tier_now != null ? d.tier_now : '') + '" style="color:' + scoreColor + '">+' + Math.round(d.progressScore).toLocaleString() + '</span></div>' +
         '<div class="honor-card-grid">' +
           '<div class="honor-card-left">' +
             roleBadge(d.role) +

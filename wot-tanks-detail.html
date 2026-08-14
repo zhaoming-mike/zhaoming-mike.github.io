@@ -23,10 +23,19 @@
     document.title = '未找到坦克 — WoT 坦克百科';
     page.innerHTML = '<div style="text-align:center;padding:80px 24px;color:#888">' +
       '<p style="font-size:1.3em">未找到坦克' + (id ? ' (ID: ' + id + ')' : '') + '</p></div>';
-    return;
+  } else {
+    document.title = (TANK_NICKNAMES[v.tank_id] ? TANK_NICKNAMES[v.tank_id] + ' ' : '') + (v.short_name || v.name) + ' — WoT 坦克百科';
+    page.innerHTML = '<div id="detail" style="margin:24px auto">' + renderDetailHTML(v) + '</div>';
   }
-  document.title = (TANK_NICKNAMES[v.tank_id] ? TANK_NICKNAMES[v.tank_id] + ' ' : '') + (v.short_name || v.name) + ' — WoT 坦克百科';
-  page.innerHTML = '<div id="detail" style="margin:24px auto">' + renderDetailHTML(v) + '</div>';
+  // 向父窗口上报内容高度（父窗口跨源嵌入时用 postMessage 自适应 iframe 高度，避免滚动条）
+  function reportHeight(){
+    var detail = document.getElementById('detail');
+    // 详情高度取 #detail 的位置+尺寸（offsetTop 含 24px 顶部 margin），+2 缓冲避免亚像素滚动条
+    var h = detail ? (detail.offsetTop + detail.offsetHeight + 2) : document.body.scrollHeight;
+    parent.postMessage({ source:'wot-tank-detail', height: h, tankId: id }, '*');
+  }
+  window.addEventListener('load', reportHeight);
+  setTimeout(reportHeight, 120);
 })();
 </script>
 </body>

@@ -1,5 +1,5 @@
 {
-  "collected_at": "2026-08-11T10:04:14.362Z",
+  "collected_at": "2026-08-14T10:04:14.286Z",
   "source": "tomato.gg (Puppeteer, TSR barrier extraction, JS disabled)",
   "clan": {
     "clan_id": 2000020638,
@@ -50,7 +50,7 @@
         "totalSpotted": 13677,
         "totalAssist": 6457228
       },
-      "tanks_7d": []
+      "tanks_recent": []
     },
     "2001627700": {
       "player_id": 2001627700,
@@ -92,7 +92,7 @@
         "totalSpotted": 20033,
         "totalAssist": 6024456
       },
-      "tanks_7d": []
+      "tanks_recent": []
     },
     "2001643486": {
       "player_id": 2001643486,
@@ -117,8 +117,8 @@
         "spots": 1.05,
         "assist": null,
         "kd": 0.7,
-        "diff_battles": 69,
-        "diff_dpg": 958
+        "diff_battles": 110,
+        "diff_dpg": 1028
       },
       "overall": {
         "battles": 30359,
@@ -134,85 +134,45 @@
         "totalSpotted": 29494,
         "totalAssist": 6742498
       },
-      "tanks_7d": [
+      "tanks_recent": [
         {
-          "name": "BZ-75",
-          "battles": 11
+          "tank_id": 9009,
+          "battles": 8
         },
         {
-          "name": "T110E5",
-          "battles": 9
+          "tank_id": 23073,
+          "battles": 7
         },
         {
-          "name": "Foch",
-          "battles": 9
-        },
-        {
-          "name": "GSOR 1006/7",
-          "battles": 9
-        },
-        {
-          "name": "Ares 75",
-          "battles": 9
-        },
-        {
-          "name": "BZ-68",
-          "battles": 5
-        },
-        {
-          "name": "ELC EVEN 90",
+          "tank_id": 19537,
           "battles": 4
         },
         {
-          "name": "AMX 50 B",
+          "tank_id": 11073,
           "battles": 3
         },
         {
-          "name": "FV304",
+          "tank_id": 45057,
           "battles": 3
         },
         {
-          "name": "T-50-2",
-          "battles": 3
-        },
-        {
-          "name": "T-34S",
-          "battles": 3
-        },
-        {
-          "name": "Canopener",
+          "tank_id": 10785,
           "battles": 2
         },
         {
-          "name": "Nergal",
+          "tank_id": 19217,
           "battles": 2
         },
         {
-          "name": "Tesák",
+          "tank_id": 13089,
           "battles": 1
         },
         {
-          "name": "FV4005",
+          "tank_id": 54785,
           "battles": 1
         },
         {
-          "name": "M60",
-          "battles": 1
-        },
-        {
-          "name": "T-100 LT",
-          "battles": 1
-        },
-        {
-          "name": "Super Chaffee",
-          "battles": 1
-        },
-        {
-          "name": "UDES 03 3",
-          "battles": 1
-        },
-        {
-          "name": "AE Phase I",
+          "tank_id": 59937,
           "battles": 1
         }
       ]
@@ -240,8 +200,8 @@
         "spots": 1.83,
         "assist": null,
         "kd": 0.5,
-        "diff_battles": 99,
-        "diff_dpg": 1289
+        "diff_battles": 165,
+        "diff_dpg": 1265
       },
       "overall": {
         "battles": 19071,
@@ -257,61 +217,37 @@
         "totalSpotted": 31538,
         "totalAssist": 7812495
       },
-      "tanks_7d": [
+      "tanks_recent": [
         {
-          "name": "KR-1",
-          "battles": 66
+          "tank_id": 4993,
+          "battles": 11
         },
         {
-          "name": "T110E5",
-          "battles": 19
+          "tank_id": 67585,
+          "battles": 11
         },
         {
-          "name": "BZ-79",
-          "battles": 12
-        },
-        {
-          "name": "AVR FS",
-          "battles": 8
-        },
-        {
-          "name": "AMX 13 105",
-          "battles": 6
-        },
-        {
-          "name": "B-C 25 t",
+          "tank_id": 36609,
           "battles": 3
         },
         {
-          "name": "FV215b 183",
+          "tank_id": 58961,
+          "battles": 3
+        },
+        {
+          "tank_id": 10801,
           "battles": 2
         },
         {
-          "name": "Obj. 432U",
-          "battles": 2
-        },
-        {
-          "name": "Char Futur 4",
-          "battles": 2
-        },
-        {
-          "name": "T-100 LT",
+          "tank_id": 6289,
           "battles": 1
         },
         {
-          "name": "Grille 15",
+          "tank_id": 14609,
           "battles": 1
         },
         {
-          "name": "TIII Jäger",
-          "battles": 1
-        },
-        {
-          "name": "Serpente",
-          "battles": 1
-        },
-        {
-          "name": "Terrifiant",
+          "tank_id": 19217,
           "battles": 1
         }
       ]
@@ -339,8 +275,8 @@
         "spots": 1.08,
         "assist": null,
         "kd": 0.81,
-        "diff_battles": 109,
-        "diff_dpg": 1322
+        "diff_battles": 201,
+        "diff_dpg": 1301
       },
       "overall": {
         "battles": 19780,
@@ -356,109 +292,93 @@
         "totalSpotted": 24291,
         "totalAssist": 6516554
       },
-      "tanks_7d": [
+      "tanks_recent": [
         {
-          "name": "Yong Bing",
-          "battles": 11
+          "tank_id": 8545,
+          "battles": 9
         },
         {
-          "name": "ISU-152",
-          "battles": 8
+          "tank_id": 16961,
+          "battles": 7
         },
         {
-          "name": "Kpz EK I",
+          "tank_id": 10785,
           "battles": 6
         },
         {
-          "name": "Alby",
+          "tank_id": 5265,
           "battles": 5
         },
         {
-          "name": "Sentinelle",
-          "battles": 4
-        },
-        {
-          "name": "Löwe",
+          "tank_id": 2417,
           "battles": 3
         },
         {
-          "name": "IS-7",
+          "tank_id": 7425,
+          "battles": 3
+        },
+        {
+          "tank_id": 14609,
+          "battles": 3
+        },
+        {
+          "tank_id": 3649,
           "battles": 2
         },
         {
-          "name": "WZ-120G FT",
+          "tank_id": 5937,
           "battles": 2
         },
         {
-          "name": "SFAC 105",
+          "tank_id": 7249,
           "battles": 2
         },
         {
-          "name": "CS-63",
+          "tank_id": 19969,
+          "battles": 2
+        },
+        {
+          "tank_id": 37889,
+          "battles": 2
+        },
+        {
+          "tank_id": 63025,
+          "battles": 2
+        },
+        {
+          "tank_id": 2721,
           "battles": 1
         },
         {
-          "name": "BZ-75",
+          "tank_id": 3681,
           "battles": 1
         },
         {
-          "name": "T110E5",
+          "tank_id": 7169,
           "battles": 1
         },
         {
-          "name": "T26E4",
+          "tank_id": 10801,
           "battles": 1
         },
         {
-          "name": "Tiger-Maus",
+          "tank_id": 11057,
           "battles": 1
         },
         {
-          "name": "Ares 75",
+          "tank_id": 12305,
           "battles": 1
         },
         {
-          "name": "VK 28.01 105",
+          "tank_id": 25169,
           "battles": 1
         },
         {
-          "name": "T-116",
+          "tank_id": 26641,
           "battles": 1
         },
         {
-          "name": "Type 63",
-          "battles": 1
-        },
-        {
-          "name": "Centurion 5/1",
-          "battles": 1
-        },
-        {
-          "name": "Panther 8,8",
-          "battles": 1
-        },
-        {
-          "name": "Char Futur 4",
-          "battles": 1
-        },
-        {
-          "name": "GSOR 1010",
-          "battles": 1
-        },
-        {
-          "name": "Skorpion",
-          "battles": 1
-        },
-        {
-          "name": "Nomad",
-          "battles": 1
-        },
-        {
-          "name": "Pz. 58 Mutz",
-          "battles": 1
-        },
-        {
-          "name": "Terrifiant",
+          "tank_id": 62545,
           "battles": 1
         }
       ]
@@ -486,8 +406,8 @@
         "spots": 0.6,
         "assist": null,
         "kd": 0.76,
-        "diff_battles": 0,
-        "diff_dpg": null
+        "diff_battles": 10,
+        "diff_dpg": 1148
       },
       "overall": {
         "battles": 11382,
@@ -503,37 +423,29 @@
         "totalSpotted": 9384,
         "totalAssist": 2674457
       },
-      "tanks_7d": [
+      "tanks_recent": [
         {
-          "name": "Type 68",
-          "battles": 6
+          "tank_id": 5537,
+          "battles": 4
         },
         {
-          "name": "Contender",
-          "battles": 5
-        },
-        {
-          "name": "CC-1 Mk. 2",
-          "battles": 3
-        },
-        {
-          "name": "FV215b 183",
-          "battles": 3
-        },
-        {
-          "name": "Löwe",
+          "tank_id": 8801,
           "battles": 2
         },
         {
-          "name": "T71 DA",
+          "tank_id": 10785,
           "battles": 1
         },
         {
-          "name": "TOG II*",
+          "tank_id": 14865,
           "battles": 1
         },
         {
-          "name": "AT 15A",
+          "tank_id": 30481,
+          "battles": 1
+        },
+        {
+          "tank_id": 49169,
           "battles": 1
         }
       ]
@@ -578,7 +490,7 @@
         "totalSpotted": 20084,
         "totalAssist": 4094310
       },
-      "tanks_7d": []
+      "tanks_recent": []
     },
     "2003037660": {
       "player_id": 2003037660,
@@ -620,7 +532,7 @@
         "totalSpotted": 13060,
         "totalAssist": 3425947
       },
-      "tanks_7d": []
+      "tanks_recent": []
     },
     "2003222171": {
       "player_id": 2003222171,
@@ -662,7 +574,7 @@
         "totalSpotted": 5819,
         "totalAssist": 2801240
       },
-      "tanks_7d": []
+      "tanks_recent": []
     },
     "2005334503": {
       "player_id": 2005334503,
@@ -687,8 +599,8 @@
         "spots": 1.22,
         "assist": null,
         "kd": 1.4,
-        "diff_battles": 75,
-        "diff_dpg": 1179
+        "diff_battles": 145,
+        "diff_dpg": 1188
       },
       "overall": {
         "battles": 12033,
@@ -704,169 +616,125 @@
         "totalSpotted": 16686,
         "totalAssist": 3310873
       },
-      "tanks_7d": [
+      "tanks_recent": [
         {
-          "name": "14TP",
-          "battles": 8
-        },
-        {
-          "name": "Škoda T 15A",
-          "battles": 7
-        },
-        {
-          "name": "T6",
-          "battles": 7
-        },
-        {
-          "name": "P26/40",
-          "battles": 6
-        },
-        {
-          "name": "Cruiser IV",
-          "battles": 6
-        },
-        {
-          "name": "M8A1",
-          "battles": 6
-        },
-        {
-          "name": "Sav m/43",
-          "battles": 5
-        },
-        {
-          "name": "Yong Bing",
-          "battles": 5
-        },
-        {
-          "name": "T-28",
-          "battles": 4
-        },
-        {
-          "name": "Type T-34",
-          "battles": 4
-        },
-        {
-          "name": "Churchill III",
-          "battles": 4
-        },
-        {
-          "name": "Medvěd",
-          "battles": 4
-        },
-        {
-          "name": "BT-7",
-          "battles": 3
-        },
-        {
-          "name": "Matilda",
-          "battles": 3
-        },
-        {
-          "name": "StuG III B",
-          "battles": 3
-        },
-        {
-          "name": "Kpz EK I",
-          "battles": 3
-        },
-        {
-          "name": "TS-6",
-          "battles": 3
-        },
-        {
-          "name": "Predatore",
-          "battles": 3
-        },
-        {
-          "name": "T-115",
-          "battles": 3
-        },
-        {
-          "name": "Lago",
+          "tank_id": 2625,
           "battles": 2
         },
         {
-          "name": "B1",
+          "tank_id": 6417,
           "battles": 2
         },
         {
-          "name": "AMX 40",
+          "tank_id": 7473,
           "battles": 2
         },
         {
-          "name": "Valentine II",
+          "tank_id": 8465,
           "battles": 2
         },
         {
-          "name": "KV-2 (R)",
+          "tank_id": 21329,
           "battles": 2
         },
         {
-          "name": "ST vz. 39",
+          "tank_id": 66097,
+          "battles": 2
+        },
+        {
+          "tank_id": 1,
           "battles": 1
         },
         {
-          "name": "leFH18B2",
+          "tank_id": 1393,
           "battles": 1
         },
         {
-          "name": "T1",
+          "tank_id": 2577,
           "battles": 1
         },
         {
-          "name": "M5 Stuart",
+          "tank_id": 3361,
           "battles": 1
         },
         {
-          "name": "IS-4",
+          "tank_id": 4369,
           "battles": 1
         },
         {
-          "name": "Luchs",
+          "tank_id": 4689,
           "battles": 1
         },
         {
-          "name": "SU-76M",
+          "tank_id": 5137,
           "battles": 1
         },
         {
-          "name": "Pz. III/IV",
+          "tank_id": 6401,
           "battles": 1
         },
         {
-          "name": "BZT-70",
+          "tank_id": 7569,
           "battles": 1
         },
         {
-          "name": "G. Destroyer",
+          "tank_id": 9249,
           "battles": 1
         },
         {
-          "name": "Triumphant",
+          "tank_id": 9505,
           "battles": 1
         },
         {
-          "name": "Pz. IV F2",
+          "tank_id": 15137,
           "battles": 1
         },
         {
-          "name": "Pz. IV H Ankou",
+          "tank_id": 18241,
           "battles": 1
         },
         {
-          "name": "Matilda LVT",
+          "tank_id": 21073,
           "battles": 1
         },
         {
-          "name": "UDES 03 3",
+          "tank_id": 26641,
           "battles": 1
         },
         {
-          "name": "Cromwell B",
+          "tank_id": 42017,
           "battles": 1
         },
         {
-          "name": "ELC EVEN 90",
+          "tank_id": 49953,
+          "battles": 1
+        },
+        {
+          "tank_id": 53105,
+          "battles": 1
+        },
+        {
+          "tank_id": 53377,
+          "battles": 1
+        },
+        {
+          "tank_id": 54177,
+          "battles": 1
+        },
+        {
+          "tank_id": 59937,
+          "battles": 1
+        },
+        {
+          "tank_id": 64769,
+          "battles": 1
+        },
+        {
+          "tank_id": 65329,
+          "battles": 1
+        },
+        {
+          "tank_id": 66049,
           "battles": 1
         }
       ]
@@ -911,7 +779,7 @@
         "totalSpotted": 13502,
         "totalAssist": 4402151
       },
-      "tanks_7d": []
+      "tanks_recent": []
     },
     "2006448494": {
       "player_id": 2006448494,
@@ -953,7 +821,7 @@
         "totalSpotted": 0,
         "totalAssist": 0
       },
-      "tanks_7d": []
+      "tanks_recent": []
     },
     "2007207912": {
       "player_id": 2007207912,
@@ -995,7 +863,7 @@
         "totalSpotted": 9069,
         "totalAssist": 4013124
       },
-      "tanks_7d": []
+      "tanks_recent": []
     },
     "2008252355": {
       "player_id": 2008252355,
@@ -1037,7 +905,7 @@
         "totalSpotted": 25800,
         "totalAssist": 11030413
       },
-      "tanks_7d": []
+      "tanks_recent": []
     },
     "2011072346": {
       "player_id": 2011072346,
@@ -1062,8 +930,8 @@
         "spots": null,
         "assist": null,
         "kd": null,
-        "diff_battles": 64,
-        "diff_dpg": 1861
+        "diff_battles": 96,
+        "diff_dpg": 1636
       },
       "overall": {
         "battles": 0,
@@ -1079,7 +947,64 @@
         "totalSpotted": 0,
         "totalAssist": 0
       },
-      "tanks_7d": []
+      "tanks_recent": [
+        {
+          "tank_id": 18449,
+          "battles": 12
+        },
+        {
+          "tank_id": 16657,
+          "battles": 4
+        },
+        {
+          "tank_id": 63041,
+          "battles": 3
+        },
+        {
+          "tank_id": 44289,
+          "battles": 2
+        },
+        {
+          "tank_id": 57889,
+          "battles": 2
+        },
+        {
+          "tank_id": 8449,
+          "battles": 1
+        },
+        {
+          "tank_id": 8465,
+          "battles": 1
+        },
+        {
+          "tank_id": 9985,
+          "battles": 1
+        },
+        {
+          "tank_id": 14401,
+          "battles": 1
+        },
+        {
+          "tank_id": 36609,
+          "battles": 1
+        },
+        {
+          "tank_id": 45569,
+          "battles": 1
+        },
+        {
+          "tank_id": 45841,
+          "battles": 1
+        },
+        {
+          "tank_id": 50961,
+          "battles": 1
+        },
+        {
+          "tank_id": 51105,
+          "battles": 1
+        }
+      ]
     },
     "2014034336": {
       "player_id": 2014034336,
@@ -1104,8 +1029,8 @@
         "spots": 0.97,
         "assist": null,
         "kd": 0.82,
-        "diff_battles": 172,
-        "diff_dpg": 1106
+        "diff_battles": 309,
+        "diff_dpg": 1157
       },
       "overall": {
         "battles": 9892,
@@ -1121,7 +1046,44 @@
         "totalSpotted": 12653,
         "totalAssist": 4116620
       },
-      "tanks_7d": []
+      "tanks_recent": [
+        {
+          "tank_id": 7169,
+          "battles": 23
+        },
+        {
+          "tank_id": 54177,
+          "battles": 20
+        },
+        {
+          "tank_id": 67585,
+          "battles": 10
+        },
+        {
+          "tank_id": 68673,
+          "battles": 9
+        },
+        {
+          "tank_id": 19217,
+          "battles": 5
+        },
+        {
+          "tank_id": 41745,
+          "battles": 5
+        },
+        {
+          "tank_id": 61505,
+          "battles": 3
+        },
+        {
+          "tank_id": 9297,
+          "battles": 2
+        },
+        {
+          "tank_id": 43329,
+          "battles": 1
+        }
+      ]
     },
     "2017528709": {
       "player_id": 2017528709,
@@ -1163,7 +1125,7 @@
         "totalSpotted": 4460,
         "totalAssist": 1687796
       },
-      "tanks_7d": []
+      "tanks_recent": []
     },
     "2018088735": {
       "player_id": 2018088735,
@@ -1205,7 +1167,7 @@
         "totalSpotted": 0,
         "totalAssist": 0
       },
-      "tanks_7d": []
+      "tanks_recent": []
     },
     "2019954923": {
       "player_id": 2019954923,
@@ -1230,8 +1192,8 @@
         "spots": 1.49,
         "assist": null,
         "kd": 0.66,
-        "diff_battles": 75,
-        "diff_dpg": 700
+        "diff_battles": 131,
+        "diff_dpg": 823
       },
       "overall": {
         "battles": 6826,
@@ -1247,53 +1209,37 @@
         "totalSpotted": 8824,
         "totalAssist": 2472204
       },
-      "tanks_7d": [
+      "tanks_recent": [
         {
-          "name": "Šelma",
-          "battles": 6
+          "tank_id": 6257,
+          "battles": 7
         },
         {
-          "name": "Maus",
+          "tank_id": 23121,
           "battles": 3
         },
         {
-          "name": "T28 Prototype",
+          "tank_id": 36129,
           "battles": 3
         },
         {
-          "name": "Conceiver",
-          "battles": 2
-        },
-        {
-          "name": "O-I",
+          "tank_id": 3233,
           "battles": 1
         },
         {
-          "name": "T92 HMC",
+          "tank_id": 16385,
           "battles": 1
         },
         {
-          "name": "FV215b 183",
+          "tank_id": 17473,
           "battles": 1
         },
         {
-          "name": "FV4005",
+          "tank_id": 18497,
           "battles": 1
         },
         {
-          "name": "Foch B",
-          "battles": 1
-        },
-        {
-          "name": "Centurion 5/1",
-          "battles": 1
-        },
-        {
-          "name": "ELC EVEN 90",
-          "battles": 1
-        },
-        {
-          "name": "Skorpion",
+          "tank_id": 30993,
           "battles": 1
         }
       ]
@@ -1338,16 +1284,7 @@
         "totalSpotted": 5773,
         "totalAssist": 2705843
       },
-      "tanks_7d": [
-        {
-          "name": "Foch",
-          "battles": 11
-        },
-        {
-          "name": "Charioteer",
-          "battles": 10
-        }
-      ]
+      "tanks_recent": []
     },
     "2021376729": {
       "player_id": 2021376729,
@@ -1372,8 +1309,8 @@
         "spots": 1.1,
         "assist": null,
         "kd": 1,
-        "diff_battles": 0,
-        "diff_dpg": null
+        "diff_battles": 2,
+        "diff_dpg": 1107
       },
       "overall": {
         "battles": 12314,
@@ -1389,41 +1326,13 @@
         "totalSpotted": 10269,
         "totalAssist": 3508650
       },
-      "tanks_7d": [
+      "tanks_recent": [
         {
-          "name": "BZ-79",
+          "tank_id": 23057,
           "battles": 1
         },
         {
-          "name": "G.W. Tiger P",
-          "battles": 1
-        },
-        {
-          "name": "Rhm.-B. WT",
-          "battles": 1
-        },
-        {
-          "name": "Grille 15",
-          "battles": 1
-        },
-        {
-          "name": "Char Mle. 75",
-          "battles": 1
-        },
-        {
-          "name": "SU-130PM",
-          "battles": 1
-        },
-        {
-          "name": "Kpz 07 RH",
-          "battles": 1
-        },
-        {
-          "name": "Turtle I",
-          "battles": 1
-        },
-        {
-          "name": "KR-1",
+          "tank_id": 59985,
           "battles": 1
         }
       ]
@@ -1468,7 +1377,7 @@
         "totalSpotted": 1557,
         "totalAssist": 604970
       },
-      "tanks_7d": []
+      "tanks_recent": []
     },
     "2022098841": {
       "player_id": 2022098841,
@@ -1493,8 +1402,8 @@
         "spots": 0.74,
         "assist": null,
         "kd": 1.13,
-        "diff_battles": 89,
-        "diff_dpg": 859
+        "diff_battles": 137,
+        "diff_dpg": 1081
       },
       "overall": {
         "battles": 35556,
@@ -1510,13 +1419,53 @@
         "totalSpotted": 37033,
         "totalAssist": 14926179
       },
-      "tanks_7d": [
+      "tanks_recent": [
         {
-          "name": "B-C 155 58",
-          "battles": 7
+          "tank_id": 6145,
+          "battles": 9
         },
         {
-          "name": "Ares 75",
+          "tank_id": 13905,
+          "battles": 8
+        },
+        {
+          "tank_id": 11841,
+          "battles": 3
+        },
+        {
+          "tank_id": 13089,
+          "battles": 3
+        },
+        {
+          "tank_id": 22049,
+          "battles": 2
+        },
+        {
+          "tank_id": 2977,
+          "battles": 1
+        },
+        {
+          "tank_id": 8481,
+          "battles": 1
+        },
+        {
+          "tank_id": 9489,
+          "battles": 1
+        },
+        {
+          "tank_id": 12369,
+          "battles": 1
+        },
+        {
+          "tank_id": 15953,
+          "battles": 1
+        },
+        {
+          "tank_id": 19473,
+          "battles": 1
+        },
+        {
+          "tank_id": 23073,
           "battles": 1
         }
       ]
@@ -1561,7 +1510,7 @@
         "totalSpotted": 1699,
         "totalAssist": 659384
       },
-      "tanks_7d": []
+      "tanks_recent": []
     },
     "2025124839": {
       "player_id": 2025124839,
@@ -1586,8 +1535,8 @@
         "spots": 1.47,
         "assist": null,
         "kd": 2.4,
-        "diff_battles": 135,
-        "diff_dpg": 3094
+        "diff_battles": 177,
+        "diff_dpg": 3215
       },
       "overall": {
         "battles": 22322,
@@ -1603,28 +1552,7 @@
         "totalSpotted": 31021,
         "totalAssist": 16975521
       },
-      "tanks_7d": [
-        {
-          "name": "Executor",
-          "battles": 4
-        },
-        {
-          "name": "Black Rock",
-          "battles": 3
-        },
-        {
-          "name": "Badger",
-          "battles": 2
-        },
-        {
-          "name": "Imbattable",
-          "battles": 2
-        },
-        {
-          "name": "BZ-79",
-          "battles": 1
-        }
-      ]
+      "tanks_recent": []
     },
     "2025595139": {
       "player_id": 2025595139,
@@ -1649,8 +1577,8 @@
         "spots": null,
         "assist": null,
         "kd": null,
-        "diff_battles": 0,
-        "diff_dpg": null
+        "diff_battles": 14,
+        "diff_dpg": 1197
       },
       "overall": {
         "battles": 0,
@@ -1666,11 +1594,44 @@
         "totalSpotted": 0,
         "totalAssist": 0
       },
-      "tanks_7d": []
+      "tanks_recent": [
+        {
+          "tank_id": 529,
+          "battles": 3
+        },
+        {
+          "tank_id": 3585,
+          "battles": 2
+        },
+        {
+          "tank_id": 6145,
+          "battles": 2
+        },
+        {
+          "tank_id": 8705,
+          "battles": 2
+        },
+        {
+          "tank_id": 19969,
+          "battles": 2
+        },
+        {
+          "tank_id": 6513,
+          "battles": 1
+        },
+        {
+          "tank_id": 51361,
+          "battles": 1
+        },
+        {
+          "tank_id": 65329,
+          "battles": 1
+        }
+      ]
     },
     "2026085642": {
       "player_id": 2026085642,
-      "username": "Defender_1121",
+      "username": "MeatGrinder_leggie",
       "server": "asia",
       "recent_60d": {
         "battles": 0,
@@ -1691,8 +1652,8 @@
         "spots": null,
         "assist": null,
         "kd": null,
-        "diff_battles": 0,
-        "diff_dpg": null
+        "diff_battles": 51,
+        "diff_dpg": 1448
       },
       "overall": {
         "battles": 0,
@@ -1708,7 +1669,56 @@
         "totalSpotted": 0,
         "totalAssist": 0
       },
-      "tanks_7d": []
+      "tanks_recent": [
+        {
+          "tank_id": 45057,
+          "battles": 5
+        },
+        {
+          "tank_id": 7025,
+          "battles": 4
+        },
+        {
+          "tank_id": 13905,
+          "battles": 3
+        },
+        {
+          "tank_id": 2929,
+          "battles": 2
+        },
+        {
+          "tank_id": 2977,
+          "battles": 2
+        },
+        {
+          "tank_id": 46865,
+          "battles": 2
+        },
+        {
+          "tank_id": 57409,
+          "battles": 2
+        },
+        {
+          "tank_id": 529,
+          "battles": 1
+        },
+        {
+          "tank_id": 8289,
+          "battles": 1
+        },
+        {
+          "tank_id": 10785,
+          "battles": 1
+        },
+        {
+          "tank_id": 35105,
+          "battles": 1
+        },
+        {
+          "tank_id": 51105,
+          "battles": 1
+        }
+      ]
     },
     "2026218486": {
       "player_id": 2026218486,
@@ -1750,20 +1760,7 @@
         "totalSpotted": 1443,
         "totalAssist": 473463
       },
-      "tanks_7d": [
-        {
-          "name": "FV4005",
-          "battles": 1
-        },
-        {
-          "name": "Lynx 6x6",
-          "battles": 1
-        },
-        {
-          "name": "Grille 15",
-          "battles": 1
-        }
-      ]
+      "tanks_recent": []
     },
     "2026811656": {
       "player_id": 2026811656,
@@ -1805,7 +1802,7 @@
         "totalSpotted": 412,
         "totalAssist": 119066
       },
-      "tanks_7d": []
+      "tanks_recent": []
     },
     "2026838734": {
       "player_id": 2026838734,
@@ -1847,20 +1844,7 @@
         "totalSpotted": 258,
         "totalAssist": 27451
       },
-      "tanks_7d": [
-        {
-          "name": "M3 Stuart",
-          "battles": 2
-        },
-        {
-          "name": "T-60",
-          "battles": 2
-        },
-        {
-          "name": "BT-2",
-          "battles": 1
-        }
-      ]
+      "tanks_recent": []
     },
     "2028826765": {
       "player_id": 2028826765,
@@ -1902,7 +1886,7 @@
         "totalSpotted": 26356,
         "totalAssist": 11262229
       },
-      "tanks_7d": []
+      "tanks_recent": []
     },
     "2029597753": {
       "player_id": 2029597753,
@@ -1944,7 +1928,7 @@
         "totalSpotted": 1083,
         "totalAssist": 483693
       },
-      "tanks_7d": []
+      "tanks_recent": []
     },
     "2029987903": {
       "player_id": 2029987903,
@@ -1986,7 +1970,7 @@
         "totalSpotted": 5775,
         "totalAssist": 2331308
       },
-      "tanks_7d": []
+      "tanks_recent": []
     },
     "2030508428": {
       "player_id": 2030508428,
@@ -2011,8 +1995,8 @@
         "spots": 0.95,
         "assist": null,
         "kd": 1.14,
-        "diff_battles": 111,
-        "diff_dpg": 1480
+        "diff_battles": 191,
+        "diff_dpg": 1472
       },
       "overall": {
         "battles": 5538,
@@ -2028,33 +2012,65 @@
         "totalSpotted": 4980,
         "totalAssist": 1666462
       },
-      "tanks_7d": [
+      "tanks_recent": [
         {
-          "name": "WT auf Pz. IV",
+          "tank_id": 4353,
+          "battles": 15
+        },
+        {
+          "tank_id": 19729,
+          "battles": 6
+        },
+        {
+          "tank_id": 23377,
+          "battles": 6
+        },
+        {
+          "tank_id": 4721,
+          "battles": 5
+        },
+        {
+          "tank_id": 15393,
+          "battles": 4
+        },
+        {
+          "tank_id": 65601,
+          "battles": 4
+        },
+        {
+          "tank_id": 2161,
           "battles": 3
         },
         {
-          "name": "Škoda T 50",
+          "tank_id": 5921,
+          "battles": 3
+        },
+        {
+          "tank_id": 16401,
           "battles": 2
         },
         {
-          "name": "T-44",
+          "tank_id": 51057,
+          "battles": 2
+        },
+        {
+          "tank_id": 53409,
+          "battles": 2
+        },
+        {
+          "tank_id": 14865,
           "battles": 1
         },
         {
-          "name": "Ogar",
+          "tank_id": 51089,
           "battles": 1
         },
         {
-          "name": "BZ-68",
+          "tank_id": 61505,
           "battles": 1
         },
         {
-          "name": "T54E1",
-          "battles": 1
-        },
-        {
-          "name": "Contender",
+          "tank_id": 67137,
           "battles": 1
         }
       ]
@@ -2082,8 +2098,8 @@
         "spots": 0.87,
         "assist": null,
         "kd": 0.83,
-        "diff_battles": 229,
-        "diff_dpg": 1127
+        "diff_battles": 331,
+        "diff_dpg": 1043
       },
       "overall": {
         "battles": 1679,
@@ -2099,50 +2115,46 @@
         "totalSpotted": 1496,
         "totalAssist": 525115
       },
-      "tanks_7d": [
+      "tanks_recent": [
         {
-          "name": "Ikv 90 B",
-          "battles": 80
+          "tank_id": 4913,
+          "battles": 26
         },
         {
-          "name": "Ikv 65 II",
-          "battles": 50
+          "tank_id": 9265,
+          "battles": 15
         },
         {
-          "name": "BZ-68",
-          "battles": 44
+          "tank_id": 4225,
+          "battles": 8
         },
         {
-          "name": "AMX 50 100",
-          "battles": 28
-        },
-        {
-          "name": "PTZ-78",
-          "battles": 28
-        },
-        {
-          "name": "Ikv 103",
-          "battles": 24
-        },
-        {
-          "name": "AMX 13 57",
-          "battles": 9
-        },
-        {
-          "name": "59-16",
+          "tank_id": 3137,
           "battles": 7
         },
         {
-          "name": "Somua SM",
-          "battles": 6
-        },
-        {
-          "name": "AE Phase I",
+          "tank_id": 1313,
           "battles": 3
         },
         {
-          "name": "T71 CMCD",
+          "tank_id": 6945,
+          "battles": 3
+        },
+        {
+          "tank_id": 5169,
           "battles": 2
+        },
+        {
+          "tank_id": 11057,
+          "battles": 2
+        },
+        {
+          "tank_id": 62273,
+          "battles": 2
+        },
+        {
+          "tank_id": 10273,
+          "battles": 1
         }
       ]
     },
@@ -2169,8 +2181,8 @@
         "spots": 0.7,
         "assist": null,
         "kd": 0.42,
-        "diff_battles": 58,
-        "diff_dpg": 769
+        "diff_battles": 210,
+        "diff_dpg": 823
       },
       "overall": {
         "battles": 3999,
@@ -2186,33 +2198,53 @@
         "totalSpotted": 3137,
         "totalAssist": 999533
       },
-      "tanks_7d": [
+      "tanks_recent": [
         {
-          "name": "WZ-113G FT",
+          "tank_id": 45057,
+          "battles": 25
+        },
+        {
+          "tank_id": 8497,
+          "battles": 15
+        },
+        {
+          "tank_id": 54177,
+          "battles": 15
+        },
+        {
+          "tank_id": 68673,
+          "battles": 10
+        },
+        {
+          "tank_id": 11025,
+          "battles": 6
+        },
+        {
+          "tank_id": 53281,
+          "battles": 6
+        },
+        {
+          "tank_id": 19713,
           "battles": 5
         },
         {
-          "name": "BZ-75",
-          "battles": 5
+          "tank_id": 43297,
+          "battles": 4
         },
         {
-          "name": "Maus",
-          "battles": 3
-        },
-        {
-          "name": "Obj. 257",
-          "battles": 3
-        },
-        {
-          "name": "Leox",
+          "tank_id": 25169,
           "battles": 2
         },
         {
-          "name": "AMX 50 B",
+          "tank_id": 34849,
+          "battles": 2
+        },
+        {
+          "tank_id": 6209,
           "battles": 1
         },
         {
-          "name": "Predatore",
+          "tank_id": 67905,
           "battles": 1
         }
       ]
@@ -2240,8 +2272,8 @@
         "spots": 0.77,
         "assist": null,
         "kd": 1.28,
-        "diff_battles": 104,
-        "diff_dpg": 1610
+        "diff_battles": 162,
+        "diff_dpg": 1473
       },
       "overall": {
         "battles": 2349,
@@ -2257,69 +2289,49 @@
         "totalSpotted": 1899,
         "totalAssist": 736582
       },
-      "tanks_7d": [
+      "tanks_recent": [
         {
-          "name": "T69",
-          "battles": 20
+          "tank_id": 5921,
+          "battles": 12
         },
         {
-          "name": "T28 Prototype",
-          "battles": 16
-        },
-        {
-          "name": "Comet",
-          "battles": 15
-        },
-        {
-          "name": "T-10",
+          "tank_id": 30481,
           "battles": 9
         },
         {
-          "name": "Pershing",
-          "battles": 5
-        },
-        {
-          "name": "Prototipo 6",
-          "battles": 3
-        },
-        {
-          "name": "Dragon's Soul",
-          "battles": 3
-        },
-        {
-          "name": "DBV-152",
+          "tank_id": 5377,
           "battles": 2
         },
         {
-          "name": "T-44",
+          "tank_id": 16657,
+          "battles": 2
+        },
+        {
+          "tank_id": 19729,
+          "battles": 2
+        },
+        {
+          "tank_id": 51857,
+          "battles": 2
+        },
+        {
+          "tank_id": 65601,
+          "battles": 2
+        },
+        {
+          "tank_id": 3121,
           "battles": 1
         },
         {
-          "name": "BZ-75",
+          "tank_id": 45057,
           "battles": 1
         },
         {
-          "name": "T-150",
+          "tank_id": 61505,
           "battles": 1
         },
         {
-          "name": "Concept 5",
-          "battles": 1
-        },
-        {
-          "name": "Ares 75",
-          "battles": 1
-        },
-        {
-          "name": "Stridsyxa",
-          "battles": 1
-        },
-        {
-          "name": "WZ-114",
-          "battles": 1
-        },
-        {
-          "name": "Ziqiang",
+          "tank_id": 65585,
           "battles": 1
         }
       ]
@@ -2364,7 +2376,7 @@
         "totalSpotted": 6441,
         "totalAssist": 1836625
       },
-      "tanks_7d": []
+      "tanks_recent": []
     },
     "2038562587": {
       "player_id": 2038562587,
@@ -2389,8 +2401,8 @@
         "spots": 0.9,
         "assist": null,
         "kd": 0.74,
-        "diff_battles": 0,
-        "diff_dpg": null
+        "diff_battles": 10,
+        "diff_dpg": 568
       },
       "overall": {
         "battles": 1636,
@@ -2406,7 +2418,7 @@
         "totalSpotted": 1273,
         "totalAssist": 401337
       },
-      "tanks_7d": []
+      "tanks_recent": []
     },
     "2043844248": {
       "player_id": 2043844248,
@@ -2448,7 +2460,7 @@
         "totalSpotted": 160,
         "totalAssist": 23539
       },
-      "tanks_7d": []
+      "tanks_recent": []
     },
     "2044856467": {
       "player_id": 2044856467,
@@ -2490,7 +2502,7 @@
         "totalSpotted": 4178,
         "totalAssist": 1809837
       },
-      "tanks_7d": []
+      "tanks_recent": []
     },
     "2045015646": {
       "player_id": 2045015646,
@@ -2515,8 +2527,8 @@
         "spots": 0.51,
         "assist": null,
         "kd": 0.68,
-        "diff_battles": 46,
-        "diff_dpg": 1618
+        "diff_battles": 54,
+        "diff_dpg": 1630
       },
       "overall": {
         "battles": 3379,
@@ -2532,20 +2544,7 @@
         "totalSpotted": 1595,
         "totalAssist": 977933
       },
-      "tanks_7d": [
-        {
-          "name": "Type 71",
-          "battles": 29
-        },
-        {
-          "name": "Concept 5",
-          "battles": 5
-        },
-        {
-          "name": "Predatore",
-          "battles": 1
-        }
-      ]
+      "tanks_recent": []
     },
     "2045926150": {
       "player_id": 2045926150,
@@ -2570,8 +2569,8 @@
         "spots": 1.01,
         "assist": null,
         "kd": 1.74,
-        "diff_battles": 34,
-        "diff_dpg": 2170
+        "diff_battles": 56,
+        "diff_dpg": 2070
       },
       "overall": {
         "battles": 6858,
@@ -2587,69 +2586,17 @@
         "totalSpotted": 7037,
         "totalAssist": 2970451
       },
-      "tanks_7d": [
+      "tanks_recent": [
         {
-          "name": "Canopener",
-          "battles": 13
-        },
-        {
-          "name": "T92 HMC",
-          "battles": 12
-        },
-        {
-          "name": "Coccodrillo",
-          "battles": 7
-        },
-        {
-          "name": "Bzyg",
-          "battles": 7
-        },
-        {
-          "name": "Type 5 H",
-          "battles": 4
-        },
-        {
-          "name": "Yong Bing",
+          "tank_id": 8481,
           "battles": 3
         },
         {
-          "name": "Bishop",
-          "battles": 2
-        },
-        {
-          "name": "T-115",
-          "battles": 2
-        },
-        {
-          "name": "Ziqiang",
-          "battles": 2
-        },
-        {
-          "name": "Chi-Nu",
+          "tank_id": 6305,
           "battles": 1
         },
         {
-          "name": "VK 36.01 H",
-          "battles": 1
-        },
-        {
-          "name": "M41",
-          "battles": 1
-        },
-        {
-          "name": "BDR G1 B",
-          "battles": 1
-        },
-        {
-          "name": "KV-2",
-          "battles": 1
-        },
-        {
-          "name": "UDES 03 3",
-          "battles": 1
-        },
-        {
-          "name": "StuG III Kaba",
+          "tank_id": 65601,
           "battles": 1
         }
       ]
@@ -2694,7 +2641,7 @@
         "totalSpotted": 427,
         "totalAssist": 74203
       },
-      "tanks_7d": []
+      "tanks_recent": []
     },
     "2046748876": {
       "player_id": 2046748876,
@@ -2736,7 +2683,7 @@
         "totalSpotted": 13540,
         "totalAssist": 5242183
       },
-      "tanks_7d": []
+      "tanks_recent": []
     },
     "2047553109": {
       "player_id": 2047553109,
@@ -2761,8 +2708,8 @@
         "spots": 0.56,
         "assist": null,
         "kd": 0.82,
-        "diff_battles": 28,
-        "diff_dpg": 905
+        "diff_battles": 56,
+        "diff_dpg": 914
       },
       "overall": {
         "battles": 8221,
@@ -2778,33 +2725,37 @@
         "totalSpotted": 5818,
         "totalAssist": 2522368
       },
-      "tanks_7d": [
+      "tanks_recent": [
         {
-          "name": "Saladin",
-          "battles": 24
+          "tank_id": 19713,
+          "battles": 6
         },
         {
-          "name": "SU-130PM",
-          "battles": 10
+          "tank_id": 19537,
+          "battles": 2
         },
         {
-          "name": "IS-3",
-          "battles": 8
+          "tank_id": 45057,
+          "battles": 2
         },
         {
-          "name": "122 TM",
-          "battles": 8
-        },
-        {
-          "name": "Panther",
-          "battles": 7
-        },
-        {
-          "name": "Leopard 1",
+          "tank_id": 3649,
           "battles": 1
         },
         {
-          "name": "Obj. 257",
+          "tank_id": 8465,
+          "battles": 1
+        },
+        {
+          "tank_id": 16401,
+          "battles": 1
+        },
+        {
+          "tank_id": 23057,
+          "battles": 1
+        },
+        {
+          "tank_id": 65329,
           "battles": 1
         }
       ]
@@ -2849,7 +2800,7 @@
         "totalSpotted": 0,
         "totalAssist": 0
       },
-      "tanks_7d": []
+      "tanks_recent": []
     },
     "2048613967": {
       "player_id": 2048613967,
@@ -2874,8 +2825,8 @@
         "spots": 1.15,
         "assist": null,
         "kd": 0.93,
-        "diff_battles": 2,
-        "diff_dpg": 903
+        "diff_battles": 45,
+        "diff_dpg": 1359
       },
       "overall": {
         "battles": 3070,
@@ -2891,69 +2842,53 @@
         "totalSpotted": 2913,
         "totalAssist": 1130046
       },
-      "tanks_7d": [
+      "tanks_recent": [
         {
-          "name": "SU-130PM",
-          "battles": 85
+          "tank_id": 14609,
+          "battles": 10
         },
         {
-          "name": "Bourrasque",
-          "battles": 33
-        },
-        {
-          "name": "Škoda T 17",
-          "battles": 16
-        },
-        {
-          "name": "Windhund",
-          "battles": 8
-        },
-        {
-          "name": "Leopard 1",
-          "battles": 7
-        },
-        {
-          "name": "Škoda T 56",
-          "battles": 7
-        },
-        {
-          "name": "ELC EVEN 90",
-          "battles": 7
-        },
-        {
-          "name": "Crusader",
+          "tank_id": 54657,
           "battles": 5
         },
         {
-          "name": "GSOR 1008",
-          "battles": 5
+          "tank_id": 2129,
+          "battles": 3
         },
         {
-          "name": "Ka-Ri",
-          "battles": 5
+          "tank_id": 60225,
+          "battles": 3
         },
         {
-          "name": "50TP",
+          "tank_id": 3217,
           "battles": 2
         },
         {
-          "name": "XM66F",
+          "tank_id": 4977,
           "battles": 2
         },
         {
-          "name": "Bisonte C45",
-          "battles": 2
-        },
-        {
-          "name": "M12",
+          "tank_id": 8545,
           "battles": 1
         },
         {
-          "name": "Grom",
+          "tank_id": 45057,
           "battles": 1
         },
         {
-          "name": "Löwe",
+          "tank_id": 51057,
+          "battles": 1
+        },
+        {
+          "tank_id": 51105,
+          "battles": 1
+        },
+        {
+          "tank_id": 61505,
+          "battles": 1
+        },
+        {
+          "tank_id": 61729,
           "battles": 1
         }
       ]
@@ -2998,7 +2933,7 @@
         "totalSpotted": 7238,
         "totalAssist": 2806980
       },
-      "tanks_7d": []
+      "tanks_recent": []
     },
     "2049985220": {
       "player_id": 2049985220,
@@ -3040,7 +2975,7 @@
         "totalSpotted": 2627,
         "totalAssist": 619611
       },
-      "tanks_7d": []
+      "tanks_recent": []
     },
     "2050690603": {
       "player_id": 2050690603,
@@ -3065,8 +3000,8 @@
         "spots": 0.7,
         "assist": null,
         "kd": 0.63,
-        "diff_battles": 193,
-        "diff_dpg": 1186
+        "diff_battles": 307,
+        "diff_dpg": 1187
       },
       "overall": {
         "battles": 1743,
@@ -3082,69 +3017,49 @@
         "totalSpotted": 1101,
         "totalAssist": 397333
       },
-      "tanks_7d": [
+      "tanks_recent": [
         {
-          "name": "Conway",
-          "battles": 41
+          "tank_id": 9009,
+          "battles": 20
         },
         {
-          "name": "BZ-75",
-          "battles": 40
+          "tank_id": 7169,
+          "battles": 12
         },
         {
-          "name": "Ares 85",
-          "battles": 33
-        },
-        {
-          "name": "Maus",
-          "battles": 21
-        },
-        {
-          "name": "T54E1",
-          "battles": 21
-        },
-        {
-          "name": "StuG III G",
-          "battles": 18
-        },
-        {
-          "name": "Ares 90",
-          "battles": 17
-        },
-        {
-          "name": "Leox",
-          "battles": 15
-        },
-        {
-          "name": "KV-1",
-          "battles": 8
-        },
-        {
-          "name": "AMX ELC bis",
+          "tank_id": 22049,
           "battles": 7
         },
         {
-          "name": "AMD 178B",
-          "battles": 7
+          "tank_id": 1537,
+          "battles": 3
         },
         {
-          "name": "TS-54",
-          "battles": 6
-        },
-        {
-          "name": "KV-1S",
+          "tank_id": 2897,
           "battles": 2
         },
         {
-          "name": "SU-100Y",
+          "tank_id": 5169,
           "battles": 2
         },
         {
-          "name": "Crusader",
+          "tank_id": 6465,
+          "battles": 2
+        },
+        {
+          "tank_id": 15393,
+          "battles": 2
+        },
+        {
+          "tank_id": 49169,
+          "battles": 2
+        },
+        {
+          "tank_id": 513,
           "battles": 1
         },
         {
-          "name": "SU-122A",
+          "tank_id": 42017,
           "battles": 1
         }
       ]
@@ -3189,7 +3104,7 @@
         "totalSpotted": 0,
         "totalAssist": 0
       },
-      "tanks_7d": []
+      "tanks_recent": []
     },
     "2051256448": {
       "player_id": 2051256448,
@@ -3231,12 +3146,7 @@
         "totalSpotted": 137,
         "totalAssist": 43162
       },
-      "tanks_7d": [
-        {
-          "name": "Grille 15",
-          "battles": 2
-        }
-      ]
+      "tanks_recent": []
     },
     "2051541655": {
       "player_id": 2051541655,
@@ -3261,8 +3171,8 @@
         "spots": 0.93,
         "assist": null,
         "kd": 0.74,
-        "diff_battles": 188,
-        "diff_dpg": 1805
+        "diff_battles": 336,
+        "diff_dpg": 1783
       },
       "overall": {
         "battles": 2546,
@@ -3278,93 +3188,73 @@
         "totalSpotted": 2186,
         "totalAssist": 737231
       },
-      "tanks_7d": [
+      "tanks_recent": [
         {
-          "name": "Taschenratte",
-          "battles": 47
+          "tank_id": 8241,
+          "battles": 23
         },
         {
-          "name": "BZ-79",
-          "battles": 19
+          "tank_id": 67585,
+          "battles": 15
         },
         {
-          "name": "IS-7",
-          "battles": 17
+          "tank_id": 22865,
+          "battles": 12
         },
         {
-          "name": "Serpente",
-          "battles": 13
+          "tank_id": 529,
+          "battles": 5
         },
         {
-          "name": "Kpz EK I",
-          "battles": 10
+          "tank_id": 9489,
+          "battles": 5
         },
         {
-          "name": "Schwertwal",
-          "battles": 6
+          "tank_id": 53665,
+          "battles": 5
         },
         {
-          "name": "E 100",
+          "tank_id": 33825,
+          "battles": 4
+        },
+        {
+          "tank_id": 31249,
           "battles": 3
         },
         {
-          "name": "T-34-2G FT",
+          "tank_id": 23073,
           "battles": 2
         },
         {
-          "name": "MBT-B",
+          "tank_id": 26641,
           "battles": 2
         },
         {
-          "name": "TS-6",
+          "tank_id": 41745,
           "battles": 2
         },
         {
-          "name": "Medvěd",
-          "battles": 2
-        },
-        {
-          "name": "Bzyg",
-          "battles": 2
-        },
-        {
-          "name": "WZ-120G FT",
-          "battles": 2
-        },
-        {
-          "name": "Ziqiang",
-          "battles": 2
-        },
-        {
-          "name": "Hummel",
+          "tank_id": 5377,
           "battles": 1
         },
         {
-          "name": "Ogar",
+          "tank_id": 10801,
           "battles": 1
         },
         {
-          "name": "Tiger-Maus",
+          "tank_id": 11793,
           "battles": 1
         },
         {
-          "name": "Ares 75",
+          "tank_id": 23057,
           "battles": 1
         },
         {
-          "name": "Sentinelle",
+          "tank_id": 53649,
           "battles": 1
         },
         {
-          "name": "Vercingétorix",
-          "battles": 1
-        },
-        {
-          "name": "VCS 6x6",
-          "battles": 1
-        },
-        {
-          "name": "Leox",
+          "tank_id": 60497,
           "battles": 1
         }
       ]
@@ -3409,20 +3299,7 @@
         "totalSpotted": 5808,
         "totalAssist": 2654210
       },
-      "tanks_7d": [
-        {
-          "name": "BZ-166",
-          "battles": 38
-        },
-        {
-          "name": "Foch",
-          "battles": 25
-        },
-        {
-          "name": "B-C 12 t",
-          "battles": 2
-        }
-      ]
+      "tanks_recent": []
     },
     "2052023362": {
       "player_id": 2052023362,
@@ -3447,8 +3324,8 @@
         "spots": 0.89,
         "assist": null,
         "kd": 0.75,
-        "diff_battles": 21,
-        "diff_dpg": 616
+        "diff_battles": 36,
+        "diff_dpg": 631
       },
       "overall": {
         "battles": 2180,
@@ -3464,49 +3341,13 @@
         "totalSpotted": 1954,
         "totalAssist": 287083
       },
-      "tanks_7d": [
+      "tanks_recent": [
         {
-          "name": "KV-1",
-          "battles": 17
-        },
-        {
-          "name": "T-34",
-          "battles": 15
-        },
-        {
-          "name": "O-I",
-          "battles": 15
-        },
-        {
-          "name": "T1",
-          "battles": 13
-        },
-        {
-          "name": "SU-85",
-          "battles": 6
-        },
-        {
-          "name": "Wolverine",
-          "battles": 6
-        },
-        {
-          "name": "Ho-Ni III",
+          "tank_id": 3361,
           "battles": 5
         },
         {
-          "name": "A-43",
-          "battles": 5
-        },
-        {
-          "name": "StuG III G",
-          "battles": 2
-        },
-        {
-          "name": "VK 30.01 H",
-          "battles": 1
-        },
-        {
-          "name": "T37",
+          "tank_id": 6945,
           "battles": 1
         }
       ]
@@ -3534,8 +3375,8 @@
         "spots": 0.85,
         "assist": null,
         "kd": 0.51,
-        "diff_battles": 73,
-        "diff_dpg": 974
+        "diff_battles": 114,
+        "diff_dpg": 1024
       },
       "overall": {
         "battles": 4855,
@@ -3551,49 +3392,49 @@
         "totalSpotted": 4344,
         "totalAssist": 1229249
       },
-      "tanks_7d": [
+      "tanks_recent": [
         {
-          "name": "WZ-111 1-4",
-          "battles": 17
-        },
-        {
-          "name": "WZ-120",
-          "battles": 13
-        },
-        {
-          "name": "Buryan",
-          "battles": 8
-        },
-        {
-          "name": "Pancernik",
-          "battles": 6
-        },
-        {
-          "name": "Medvěd",
-          "battles": 5
-        },
-        {
-          "name": "E 77",
-          "battles": 4
-        },
-        {
-          "name": "TBT",
-          "battles": 4
-        },
-        {
-          "name": "Yong Bing",
-          "battles": 4
-        },
-        {
-          "name": "WZ-114",
+          "tank_id": 2961,
           "battles": 2
         },
         {
-          "name": "Kpz EK I",
+          "tank_id": 53105,
+          "battles": 2
+        },
+        {
+          "tank_id": 66097,
+          "battles": 2
+        },
+        {
+          "tank_id": 1841,
           "battles": 1
         },
         {
-          "name": "Predatore",
+          "tank_id": 4497,
+          "battles": 1
+        },
+        {
+          "tank_id": 6289,
+          "battles": 1
+        },
+        {
+          "tank_id": 37649,
+          "battles": 1
+        },
+        {
+          "tank_id": 52593,
+          "battles": 1
+        },
+        {
+          "tank_id": 60465,
+          "battles": 1
+        },
+        {
+          "tank_id": 67617,
+          "battles": 1
+        },
+        {
+          "tank_id": 69377,
           "battles": 1
         }
       ]
@@ -3638,7 +3479,7 @@
         "totalSpotted": 1416,
         "totalAssist": 574939
       },
-      "tanks_7d": []
+      "tanks_recent": []
     },
     "3001808776": {
       "player_id": 3001808776,
@@ -3663,8 +3504,8 @@
         "spots": 0.46,
         "assist": null,
         "kd": 0.71,
-        "diff_battles": 81,
-        "diff_dpg": 1202
+        "diff_battles": 126,
+        "diff_dpg": 1092
       },
       "overall": {
         "battles": 9229,
@@ -3680,89 +3521,37 @@
         "totalSpotted": 4251,
         "totalAssist": 2047822
       },
-      "tanks_7d": [
+      "tanks_recent": [
         {
-          "name": "AMX 50 100",
-          "battles": 12
-        },
-        {
-          "name": "E 100",
-          "battles": 12
-        },
-        {
-          "name": "S-51",
-          "battles": 7
-        },
-        {
-          "name": "WZ-131G FT",
-          "battles": 7
-        },
-        {
-          "name": "BZ-68",
-          "battles": 7
-        },
-        {
-          "name": "Indien-Pz.",
-          "battles": 7
-        },
-        {
-          "name": "T69",
-          "battles": 6
-        },
-        {
-          "name": "Ares 85",
-          "battles": 6
-        },
-        {
-          "name": "G.W. Tiger",
-          "battles": 5
-        },
-        {
-          "name": "Taschenratte",
-          "battles": 5
-        },
-        {
-          "name": "Type 58",
-          "battles": 4
-        },
-        {
-          "name": "M12",
-          "battles": 3
-        },
-        {
-          "name": "Tiger-Maus",
-          "battles": 3
-        },
-        {
-          "name": "Canopener",
+          "tank_id": 3137,
           "battles": 2
         },
         {
-          "name": "Škoda T 25",
+          "tank_id": 5169,
+          "battles": 2
+        },
+        {
+          "tank_id": 9009,
+          "battles": 2
+        },
+        {
+          "tank_id": 13841,
+          "battles": 2
+        },
+        {
+          "tank_id": 20481,
+          "battles": 2
+        },
+        {
+          "tank_id": 7729,
           "battles": 1
         },
         {
-          "name": "Type 5 H",
+          "tank_id": 7969,
           "battles": 1
         },
         {
-          "name": "Maus",
-          "battles": 1
-        },
-        {
-          "name": "T110E5",
-          "battles": 1
-        },
-        {
-          "name": "AMD 178B",
-          "battles": 1
-        },
-        {
-          "name": "SU-130PM",
-          "battles": 1
-        },
-        {
-          "name": "Chrysler MTC",
+          "tank_id": 21841,
           "battles": 1
         }
       ]
@@ -3807,104 +3596,80 @@
         "totalSpotted": 247,
         "totalAssist": 138750
       },
-      "tanks_7d": []
+      "tanks_recent": []
     },
     "3002353252": {
       "player_id": 3002353252,
       "username": "Alien_9527",
       "server": "asia",
       "recent_60d": {
-        "battles": 2087,
-        "winrate": 50.36,
-        "dpg": 1232,
-        "wn8": 1461,
-        "wnx": 1791,
-        "wins": 1051,
-        "losses": 1036,
-        "totalDamage": 2570291,
-        "totalFrags": 1550,
-        "totalSurvived": 484,
-        "totalSpotted": 4704,
-        "totalAssist": 2149337,
-        "avgTier": 8.98,
-        "survivalRate": 23.19,
-        "frags": 0.74,
-        "spots": 2.25,
+        "battles": 2123,
+        "winrate": 50.64,
+        "dpg": 1214,
+        "wn8": 1449,
+        "wnx": 1784,
+        "wins": 1075,
+        "losses": 1048,
+        "totalDamage": 2578000,
+        "totalFrags": 1547,
+        "totalSurvived": 487,
+        "totalSpotted": 4854,
+        "totalAssist": 2200882,
+        "avgTier": 9,
+        "survivalRate": 22.94,
+        "frags": 0.73,
+        "spots": 2.29,
         "assist": null,
-        "kd": 0.97,
-        "diff_battles": 300,
-        "diff_dpg": 1086
+        "kd": 0.95,
+        "diff_battles": 464,
+        "diff_dpg": 1209
       },
       "overall": {
-        "battles": 32575,
+        "battles": 32724,
         "winrate": 47.7,
-        "wn8": 1293,
-        "wnx": 1277,
+        "wn8": 1294,
+        "wnx": 1278,
         "avgTier": 7.88,
-        "wins": 15538,
-        "losses": 16486,
-        "totalDamage": 39734529,
-        "totalFrags": 22518,
-        "totalSurvived": 7386,
-        "totalSpotted": 31094,
-        "totalAssist": 11796828
+        "wins": 15608,
+        "losses": 16558,
+        "totalDamage": 39910592,
+        "totalFrags": 22617,
+        "totalSurvived": 7414,
+        "totalSpotted": 31414,
+        "totalAssist": 11923142
       },
-      "tanks_7d": [
+      "tanks_recent": [
         {
-          "name": "Šelma",
-          "battles": 91
+          "tank_id": 15377,
+          "battles": 46
         },
         {
-          "name": "EBR 90",
-          "battles": 67
+          "tank_id": 54177,
+          "battles": 14
         },
         {
-          "name": "AMX 13 90",
-          "battles": 42
+          "tank_id": 4097,
+          "battles": 11
         },
         {
-          "name": "Ziqiang",
-          "battles": 21
+          "tank_id": 67121,
+          "battles": 10
         },
         {
-          "name": "Predatore",
-          "battles": 15
+          "tank_id": 14609,
+          "battles": 4
         },
         {
-          "name": "Szakal",
-          "battles": 7
-        },
-        {
-          "name": "SU-152",
-          "battles": 5
-        },
-        {
-          "name": "SU-130PM",
-          "battles": 5
-        },
-        {
-          "name": "TVP T 50/51",
+          "tank_id": 45057,
           "battles": 3
         },
         {
-          "name": "G.W. Tiger P",
+          "tank_id": 67617,
           "battles": 3
         },
         {
-          "name": "STB-1",
+          "tank_id": 12113,
           "battles": 2
-        },
-        {
-          "name": "M-VII-Y",
-          "battles": 2
-        },
-        {
-          "name": "SU-14-2",
-          "battles": 1
-        },
-        {
-          "name": "TBT",
-          "battles": 1
         }
       ]
     },
@@ -3948,200 +3713,83 @@
         "totalSpotted": 22083,
         "totalAssist": 6248442
       },
-      "tanks_7d": [
-        {
-          "name": "Borkenkäfer",
-          "battles": 9
-        },
-        {
-          "name": "G.W. E 100",
-          "battles": 7
-        },
-        {
-          "name": "XM57",
-          "battles": 5
-        },
-        {
-          "name": "ELC EVEN 90",
-          "battles": 5
-        },
-        {
-          "name": "Strv 107-12",
-          "battles": 4
-        },
-        {
-          "name": "Predatore",
-          "battles": 4
-        },
-        {
-          "name": "Skorpion",
-          "battles": 4
-        },
-        {
-          "name": "Vlkodav",
-          "battles": 3
-        },
-        {
-          "name": "E 50",
-          "battles": 3
-        },
-        {
-          "name": "Grille 15",
-          "battles": 3
-        },
-        {
-          "name": "T49",
-          "battles": 2
-        },
-        {
-          "name": "Taschenratte",
-          "battles": 2
-        },
-        {
-          "name": "T20",
-          "battles": 1
-        },
-        {
-          "name": "50TP",
-          "battles": 1
-        },
-        {
-          "name": "Blesk",
-          "battles": 1
-        },
-        {
-          "name": "Ferdinand",
-          "battles": 1
-        },
-        {
-          "name": "E 75",
-          "battles": 1
-        },
-        {
-          "name": "M53/M55",
-          "battles": 1
-        },
-        {
-          "name": "WT auf Pz. IV",
-          "battles": 1
-        },
-        {
-          "name": "B-C 12 t",
-          "battles": 1
-        },
-        {
-          "name": "EBR 105",
-          "battles": 1
-        },
-        {
-          "name": "Sheridan",
-          "battles": 1
-        },
-        {
-          "name": "Somua SM",
-          "battles": 1
-        }
-      ]
+      "tanks_recent": []
     },
     "3003591154": {
       "player_id": 3003591154,
       "username": "MIKE_MING_0923",
       "server": "asia",
       "recent_60d": {
-        "battles": 2580,
-        "winrate": 47.83,
-        "dpg": 1347,
-        "wn8": 1073,
-        "wnx": 1131,
-        "wins": 1234,
-        "losses": 1346,
-        "totalDamage": 3474878,
-        "totalFrags": 1507,
-        "totalSurvived": 623,
-        "totalSpotted": 4175,
-        "totalAssist": 1799004,
-        "avgTier": 9.48,
-        "survivalRate": 24.15,
-        "frags": 0.58,
-        "spots": 1.62,
+        "battles": 2423,
+        "winrate": 48,
+        "dpg": 1412,
+        "wn8": 1095,
+        "wnx": 1138,
+        "wins": 1163,
+        "losses": 1260,
+        "totalDamage": 3422156,
+        "totalFrags": 1465,
+        "totalSurvived": 592,
+        "totalSpotted": 3675,
+        "totalAssist": 1574413,
+        "avgTier": 9.57,
+        "survivalRate": 24.43,
+        "frags": 0.6,
+        "spots": 1.52,
         "assist": null,
-        "kd": 0.77,
-        "diff_battles": 330,
-        "diff_dpg": 1619
+        "kd": 0.8,
+        "diff_battles": 446,
+        "diff_dpg": 1601
       },
       "overall": {
-        "battles": 30359,
-        "winrate": 44.49,
-        "wn8": 825,
-        "wnx": 788,
+        "battles": 30475,
+        "winrate": 44.5,
+        "wn8": 826,
+        "wnx": 789,
         "avgTier": 9.13,
-        "wins": 13506,
-        "losses": 16185,
-        "totalDamage": 35801381,
-        "totalFrags": 15343,
-        "totalSurvived": 6276,
-        "totalSpotted": 28371,
-        "totalAssist": 12043985
+        "wins": 13561,
+        "losses": 16241,
+        "totalDamage": 35981087,
+        "totalFrags": 15431,
+        "totalSurvived": 6307,
+        "totalSpotted": 28470,
+        "totalAssist": 12093607
       },
-      "tanks_7d": [
+      "tanks_recent": [
         {
-          "name": "BZ-79",
-          "battles": 132
-        },
-        {
-          "name": "Kpz EK I",
-          "battles": 63
-        },
-        {
-          "name": "KR-1",
-          "battles": 44
-        },
-        {
-          "name": "Durendal",
-          "battles": 36
-        },
-        {
-          "name": "Ziqiang",
+          "tank_id": 67585,
           "battles": 25
         },
         {
-          "name": "ELC EVEN 90",
-          "battles": 18
+          "tank_id": 1665,
+          "battles": 21
         },
         {
-          "name": "Imbattable",
-          "battles": 15
+          "tank_id": 529,
+          "battles": 11
         },
         {
-          "name": "Obj. 752",
-          "battles": 9
-        },
-        {
-          "name": "PTZ-78",
+          "tank_id": 10801,
           "battles": 8
         },
         {
-          "name": "Vz. 55",
-          "battles": 7
+          "tank_id": 3377,
+          "battles": 3
         },
         {
-          "name": "Jg.Pz. E 90",
-          "battles": 5
+          "tank_id": 65601,
+          "battles": 3
         },
         {
-          "name": "T92 HMC",
+          "tank_id": 67361,
           "battles": 2
         },
         {
-          "name": "Serpente",
-          "battles": 2
+          "tank_id": 6513,
+          "battles": 1
         },
         {
-          "name": "DZT-159",
-          "battles": 2
-        },
-        {
-          "name": "Schwertwal",
+          "tank_id": 61505,
           "battles": 1
         }
       ]
@@ -4169,8 +3817,8 @@
         "spots": 0.97,
         "assist": null,
         "kd": 0.63,
-        "diff_battles": 128,
-        "diff_dpg": 1199
+        "diff_battles": 312,
+        "diff_dpg": 1178
       },
       "overall": {
         "battles": 13322,
@@ -4186,97 +3834,125 @@
         "totalSpotted": 11172,
         "totalAssist": 4053415
       },
-      "tanks_7d": [
+      "tanks_recent": [
         {
-          "name": "Progetto 66",
-          "battles": 24
+          "tank_id": 2465,
+          "battles": 16
         },
         {
-          "name": "Šelma",
-          "battles": 12
-        },
-        {
-          "name": "Standard B",
-          "battles": 11
-        },
-        {
-          "name": "Maus",
-          "battles": 11
-        },
-        {
-          "name": "M46 Patton",
+          "tank_id": 6929,
           "battles": 10
         },
         {
-          "name": "Obj. 704",
+          "tank_id": 18433,
+          "battles": 9
+        },
+        {
+          "tank_id": 6257,
           "battles": 8
         },
         {
-          "name": "VK 45.02 B",
+          "tank_id": 21281,
+          "battles": 8
+        },
+        {
+          "tank_id": 2929,
           "battles": 7
         },
         {
-          "name": "TVP VTU",
+          "tank_id": 5153,
+          "battles": 6
+        },
+        {
+          "tank_id": 8993,
+          "battles": 6
+        },
+        {
+          "tank_id": 13089,
+          "battles": 6
+        },
+        {
+          "tank_id": 22049,
+          "battles": 6
+        },
+        {
+          "tank_id": 8193,
           "battles": 5
         },
         {
-          "name": "Vz. 55",
+          "tank_id": 16417,
+          "battles": 5
+        },
+        {
+          "tank_id": 2161,
           "battles": 4
         },
         {
-          "name": "T110E4",
+          "tank_id": 6513,
+          "battles": 4
+        },
+        {
+          "tank_id": 7441,
+          "battles": 4
+        },
+        {
+          "tank_id": 8305,
+          "battles": 4
+        },
+        {
+          "tank_id": 11057,
+          "battles": 4
+        },
+        {
+          "tank_id": 67585,
+          "battles": 4
+        },
+        {
+          "tank_id": 5505,
+          "battles": 3
+        },
+        {
+          "tank_id": 18449,
+          "battles": 3
+        },
+        {
+          "tank_id": 23889,
+          "battles": 3
+        },
+        {
+          "tank_id": 53409,
+          "battles": 3
+        },
+        {
+          "tank_id": 54177,
+          "battles": 3
+        },
+        {
+          "tank_id": 51857,
           "battles": 2
         },
         {
-          "name": "Vercingétorix",
+          "tank_id": 67121,
           "battles": 2
         },
         {
-          "name": "Ziqiang",
-          "battles": 2
-        },
-        {
-          "name": "Škoda T 50",
+          "tank_id": 49953,
           "battles": 1
         },
         {
-          "name": "Ogar",
+          "tank_id": 65601,
           "battles": 1
         },
         {
-          "name": "LTTB",
+          "tank_id": 66369,
           "battles": 1
         },
         {
-          "name": "Ru 251",
+          "tank_id": 67137,
           "battles": 1
         },
         {
-          "name": "M-VI-Y",
-          "battles": 1
-        },
-        {
-          "name": "Ares 90",
-          "battles": 1
-        },
-        {
-          "name": "TS-6",
-          "battles": 1
-        },
-        {
-          "name": "Grom",
-          "battles": 1
-        },
-        {
-          "name": "Predatore",
-          "battles": 1
-        },
-        {
-          "name": "SFAC 105",
-          "battles": 1
-        },
-        {
-          "name": "Leox",
+          "tank_id": 68673,
           "battles": 1
         }
       ]
@@ -4304,8 +3980,8 @@
         "spots": 0.82,
         "assist": null,
         "kd": 1.29,
-        "diff_battles": 28,
-        "diff_dpg": 1049
+        "diff_battles": 37,
+        "diff_dpg": 1209
       },
       "overall": {
         "battles": 1971,
@@ -4321,10 +3997,22 @@
         "totalSpotted": 1249,
         "totalAssist": 455597
       },
-      "tanks_7d": [
+      "tanks_recent": [
         {
-          "name": "E 75",
-          "battles": 1
+          "tank_id": 45057,
+          "battles": 3
+        },
+        {
+          "tank_id": 23121,
+          "battles": 2
+        },
+        {
+          "tank_id": 60225,
+          "battles": 2
+        },
+        {
+          "tank_id": 68161,
+          "battles": 2
         }
       ]
     },
@@ -4351,8 +4039,8 @@
         "spots": 0.8,
         "assist": null,
         "kd": 1.14,
-        "diff_battles": 60,
-        "diff_dpg": 1544
+        "diff_battles": 117,
+        "diff_dpg": 1697
       },
       "overall": {
         "battles": 5908,
@@ -4368,42 +4056,30 @@
         "totalSpotted": 4398,
         "totalAssist": 2380204
       },
-      "tanks_7d": [
+      "tanks_recent": [
         {
-          "name": "Contriver",
-          "battles": 66
+          "tank_id": 42017,
+          "battles": 16
         },
         {
-          "name": "Jg.Pz. E 90",
-          "battles": 13
-        },
-        {
-          "name": "Leopard 120",
+          "tank_id": 41489,
           "battles": 12
         },
         {
-          "name": "B-C 25 t",
+          "tank_id": 41745,
           "battles": 6
         },
         {
-          "name": "BZ-79",
+          "tank_id": 21841,
+          "battles": 4
+        },
+        {
+          "tank_id": 529,
           "battles": 3
         },
         {
-          "name": "Taschenratte",
-          "battles": 3
-        },
-        {
-          "name": "Rinoceronte",
-          "battles": 2
-        },
-        {
-          "name": "B-C 155 55",
-          "battles": 2
-        },
-        {
-          "name": "WZ-120G FT",
-          "battles": 2
+          "tank_id": 63025,
+          "battles": 1
         }
       ]
     },
@@ -4447,7 +4123,7 @@
         "totalSpotted": 1765,
         "totalAssist": 610141
       },
-      "tanks_7d": []
+      "tanks_recent": []
     },
     "3007365151": {
       "player_id": 3007365151,
@@ -4489,7 +4165,7 @@
         "totalSpotted": 42,
         "totalAssist": 11572
       },
-      "tanks_7d": []
+      "tanks_recent": []
     },
     "3007815623": {
       "player_id": 3007815623,
@@ -4531,28 +4207,7 @@
         "totalSpotted": 6222,
         "totalAssist": 2037451
       },
-      "tanks_7d": [
-        {
-          "name": "Obj. 432U",
-          "battles": 9
-        },
-        {
-          "name": "DBV-152",
-          "battles": 3
-        },
-        {
-          "name": "Imbattable",
-          "battles": 2
-        },
-        {
-          "name": "BZT-70",
-          "battles": 1
-        },
-        {
-          "name": "AMX M4 54",
-          "battles": 1
-        }
-      ]
+      "tanks_recent": []
     },
     "3008678691": {
       "player_id": 3008678691,
@@ -4577,8 +4232,8 @@
         "spots": 1.08,
         "assist": null,
         "kd": 0.96,
-        "diff_battles": 0,
-        "diff_dpg": null
+        "diff_battles": 1,
+        "diff_dpg": 2473
       },
       "overall": {
         "battles": 2418,
@@ -4594,17 +4249,9 @@
         "totalSpotted": 2140,
         "totalAssist": 802824
       },
-      "tanks_7d": [
+      "tanks_recent": [
         {
-          "name": "M41",
-          "battles": 1
-        },
-        {
-          "name": "BZT-70",
-          "battles": 1
-        },
-        {
-          "name": "Jg.Pz. E 100",
+          "tank_id": 10545,
           "battles": 1
         }
       ]
@@ -4649,7 +4296,7 @@
         "totalSpotted": 1248,
         "totalAssist": 286873
       },
-      "tanks_7d": []
+      "tanks_recent": []
     },
     "3009501180": {
       "player_id": 3009501180,
@@ -4691,7 +4338,7 @@
         "totalSpotted": 294,
         "totalAssist": 194792
       },
-      "tanks_7d": []
+      "tanks_recent": []
     },
     "3009595728": {
       "player_id": 3009595728,
@@ -4733,7 +4380,7 @@
         "totalSpotted": 215,
         "totalAssist": 125882
       },
-      "tanks_7d": []
+      "tanks_recent": []
     },
     "3009633829": {
       "player_id": 3009633829,
@@ -4775,7 +4422,7 @@
         "totalSpotted": 48,
         "totalAssist": 26618
       },
-      "tanks_7d": []
+      "tanks_recent": []
     },
     "3009804616": {
       "player_id": 3009804616,
@@ -4800,8 +4447,8 @@
         "spots": 1.13,
         "assist": null,
         "kd": 0.69,
-        "diff_battles": 0,
-        "diff_dpg": null
+        "diff_battles": 1,
+        "diff_dpg": 2758
       },
       "overall": {
         "battles": 1583,
@@ -4817,41 +4464,9 @@
         "totalSpotted": 1437,
         "totalAssist": 558774
       },
-      "tanks_7d": [
+      "tanks_recent": [
         {
-          "name": "M12",
-          "battles": 15
-        },
-        {
-          "name": "Alby",
-          "battles": 6
-        },
-        {
-          "name": "GST Turm",
-          "battles": 2
-        },
-        {
-          "name": "Hirschkäfer",
-          "battles": 2
-        },
-        {
-          "name": "Coccodrillo",
-          "battles": 1
-        },
-        {
-          "name": "Chieftain",
-          "battles": 1
-        },
-        {
-          "name": "SFAC 105",
-          "battles": 1
-        },
-        {
-          "name": "KR-1",
-          "battles": 1
-        },
-        {
-          "name": "T803",
+          "tank_id": 42017,
           "battles": 1
         }
       ]
@@ -4896,7 +4511,7 @@
         "totalSpotted": 94,
         "totalAssist": 49006
       },
-      "tanks_7d": []
+      "tanks_recent": []
     },
     "3009970848": {
       "player_id": 3009970848,
@@ -4938,7 +4553,7 @@
         "totalSpotted": 0,
         "totalAssist": 0
       },
-      "tanks_7d": []
+      "tanks_recent": []
     },
     "3009977277": {
       "player_id": 3009977277,
@@ -4980,7 +4595,7 @@
         "totalSpotted": 110281,
         "totalAssist": 14505909
       },
-      "tanks_7d": []
+      "tanks_recent": []
     },
     "3010371268": {
       "player_id": 3010371268,
@@ -5022,7 +4637,7 @@
         "totalSpotted": 4,
         "totalAssist": 3932
       },
-      "tanks_7d": []
+      "tanks_recent": []
     },
     "3010451501": {
       "player_id": 3010451501,
@@ -5064,7 +4679,7 @@
         "totalSpotted": 3942,
         "totalAssist": 1361143
       },
-      "tanks_7d": []
+      "tanks_recent": []
     },
     "3011154005": {
       "player_id": 3011154005,
@@ -5105,8 +4720,7 @@
         "totalSurvived": 0,
         "totalSpotted": 0,
         "totalAssist": 0
-      },
-      "tanks_7d": []
+      }
     },
     "3011369238": {
       "player_id": 3011369238,
@@ -5131,8 +4745,8 @@
         "spots": null,
         "assist": null,
         "kd": null,
-        "diff_battles": 38,
-        "diff_dpg": 1281
+        "diff_battles": 46,
+        "diff_dpg": 1339
       },
       "overall": {
         "battles": 0,
@@ -5148,7 +4762,20 @@
         "totalSpotted": 0,
         "totalAssist": 0
       },
-      "tanks_7d": []
+      "tanks_recent": [
+        {
+          "tank_id": 8241,
+          "battles": 1
+        },
+        {
+          "tank_id": 14145,
+          "battles": 1
+        },
+        {
+          "tank_id": 18689,
+          "battles": 1
+        }
+      ]
     },
     "3011454817": {
       "player_id": 3011454817,
@@ -5173,8 +4800,8 @@
         "spots": 0.94,
         "assist": null,
         "kd": 0.49,
-        "diff_battles": 34,
-        "diff_dpg": 540
+        "diff_battles": 57,
+        "diff_dpg": 641
       },
       "overall": {
         "battles": 1617,
@@ -5190,69 +4817,45 @@
         "totalSpotted": 1494,
         "totalAssist": 451721
       },
-      "tanks_7d": [
+      "tanks_recent": [
         {
-          "name": "Indien-Pz.",
-          "battles": 13
-        },
-        {
-          "name": "Buryan",
-          "battles": 11
-        },
-        {
-          "name": "Tiger I",
-          "battles": 10
-        },
-        {
-          "name": "Ares 75",
+          "tank_id": 69377,
           "battles": 7
         },
         {
-          "name": "Fantôme",
-          "battles": 6
-        },
-        {
-          "name": "Leox",
-          "battles": 6
-        },
-        {
-          "name": "T92 HMC",
-          "battles": 4
-        },
-        {
-          "name": "T57 Heavy",
+          "tank_id": 33041,
           "battles": 3
         },
         {
-          "name": "Bzyg",
+          "tank_id": 68673,
           "battles": 3
         },
         {
-          "name": "Type T-34",
+          "tank_id": 13841,
           "battles": 2
         },
         {
-          "name": "Pershing",
+          "tank_id": 13905,
           "battles": 2
         },
         {
-          "name": "E 50 M",
+          "tank_id": 67585,
           "battles": 2
         },
         {
-          "name": "Matilda",
+          "tank_id": 9777,
           "battles": 1
         },
         {
-          "name": "IS-7",
+          "tank_id": 23073,
           "battles": 1
         },
         {
-          "name": "FV4005",
+          "tank_id": 34849,
           "battles": 1
         },
         {
-          "name": "TS-54",
+          "tank_id": 53649,
           "battles": 1
         }
       ]
@@ -5297,7 +4900,7 @@
         "totalSpotted": 2061,
         "totalAssist": 865088
       },
-      "tanks_7d": []
+      "tanks_recent": []
     },
     "3011800872": {
       "player_id": 3011800872,
@@ -5339,7 +4942,7 @@
         "totalSpotted": 684,
         "totalAssist": 628955
       },
-      "tanks_7d": []
+      "tanks_recent": []
     },
     "3011851906": {
       "player_id": 3011851906,
@@ -5364,8 +4967,8 @@
         "spots": 1.11,
         "assist": null,
         "kd": 1.59,
-        "diff_battles": 193,
-        "diff_dpg": 2197
+        "diff_battles": 323,
+        "diff_dpg": 2194
       },
       "overall": {
         "battles": 4250,
@@ -5381,205 +4984,129 @@
         "totalSpotted": 4452,
         "totalAssist": 1786669
       },
-      "tanks_7d": [
+      "tanks_recent": [
         {
-          "name": "Mäuschen",
-          "battles": 39
+          "tank_id": 61505,
+          "battles": 9
         },
         {
-          "name": "BZ-79",
-          "battles": 14
+          "tank_id": 22049,
+          "battles": 8
         },
         {
-          "name": "VK 100.01 P",
-          "battles": 14
-        },
-        {
-          "name": "DBV-152",
-          "battles": 11
-        },
-        {
-          "name": "SPHT",
-          "battles": 10
-        },
-        {
-          "name": "DZT-159",
+          "tank_id": 10801,
           "battles": 6
         },
         {
-          "name": "Saryuda",
-          "battles": 4
+          "tank_id": 67873,
+          "battles": 6
         },
         {
-          "name": "AMX 50 B",
+          "tank_id": 69377,
+          "battles": 6
+        },
+        {
+          "tank_id": 6513,
           "battles": 3
         },
         {
-          "name": "Lorr. 155 51",
+          "tank_id": 30209,
           "battles": 3
         },
         {
-          "name": "Executor",
+          "tank_id": 42017,
           "battles": 3
         },
         {
-          "name": "WZ-120G FT",
+          "tank_id": 51329,
           "battles": 3
         },
         {
-          "name": "M-VII-Y",
+          "tank_id": 55425,
           "battles": 3
         },
         {
-          "name": "Vz. 55",
+          "tank_id": 68929,
+          "battles": 3
+        },
+        {
+          "tank_id": 23889,
           "battles": 2
         },
         {
-          "name": "Pancernik",
+          "tank_id": 26705,
           "battles": 2
         },
         {
-          "name": "Maus",
+          "tank_id": 53361,
           "battles": 2
         },
         {
-          "name": "WZ-131G FT",
+          "tank_id": 53409,
           "battles": 2
         },
         {
-          "name": "Jg.Pz. E 90",
-          "battles": 2
-        },
-        {
-          "name": "Imbattable",
-          "battles": 2
-        },
-        {
-          "name": "H3",
-          "battles": 2
-        },
-        {
-          "name": "Predatore",
-          "battles": 2
-        },
-        {
-          "name": "ELC EVEN 90",
-          "battles": 2
-        },
-        {
-          "name": "T-44-100",
-          "battles": 2
-        },
-        {
-          "name": "Buryan",
-          "battles": 2
-        },
-        {
-          "name": "Dravec",
+          "tank_id": 26641,
           "battles": 1
         },
         {
-          "name": "Foch 155",
+          "tank_id": 33345,
           "battles": 1
         },
         {
-          "name": "T57 Heavy",
+          "tank_id": 45569,
           "battles": 1
         },
         {
-          "name": "Chieftain",
+          "tank_id": 49697,
           "battles": 1
         },
         {
-          "name": "BT-42 Jatk.",
+          "tank_id": 51729,
           "battles": 1
         },
         {
-          "name": "White Dragon",
+          "tank_id": 51857,
           "battles": 1
         },
         {
-          "name": "E 65 Zwilling",
+          "tank_id": 52241,
           "battles": 1
         },
         {
-          "name": "Schwertwal",
+          "tank_id": 53377,
           "battles": 1
         },
         {
-          "name": "TIII Jäger",
+          "tank_id": 54177,
           "battles": 1
         },
         {
-          "name": "Obj. 590",
+          "tank_id": 59185,
           "battles": 1
         },
         {
-          "name": "Tiger 131",
+          "tank_id": 62801,
           "battles": 1
         },
         {
-          "name": "TS-6",
+          "tank_id": 63025,
           "battles": 1
         },
         {
-          "name": "Skorpion G",
+          "tank_id": 65601,
           "battles": 1
         },
         {
-          "name": "Škoda T 56",
+          "tank_id": 66097,
           "battles": 1
         },
         {
-          "name": "Squall",
+          "tank_id": 66625,
           "battles": 1
         },
         {
-          "name": "Bzyg",
-          "battles": 1
-        },
-        {
-          "name": "Kame",
-          "battles": 1
-        },
-        {
-          "name": "BZ-74-1",
-          "battles": 1
-        },
-        {
-          "name": "Eagle 7",
-          "battles": 1
-        },
-        {
-          "name": "Turtle I",
-          "battles": 1
-        },
-        {
-          "name": "T78",
-          "battles": 1
-        },
-        {
-          "name": "SFAC 105",
-          "battles": 1
-        },
-        {
-          "name": "VCS 6x6",
-          "battles": 1
-        },
-        {
-          "name": "Ziqiang",
-          "battles": 1
-        },
-        {
-          "name": "Terrifiant",
-          "battles": 1
-        },
-        {
-          "name": "Leox",
-          "battles": 1
-        },
-        {
-          "name": "Fauteur",
+          "tank_id": 69185,
           "battles": 1
         }
       ]
@@ -5624,7 +5151,7 @@
         "totalSpotted": 214,
         "totalAssist": 54881
       },
-      "tanks_7d": []
+      "tanks_recent": []
     },
     "3012272903": {
       "player_id": 3012272903,
@@ -5649,8 +5176,8 @@
         "spots": 1.09,
         "assist": null,
         "kd": 0.7,
-        "diff_battles": 81,
-        "diff_dpg": 914
+        "diff_battles": 131,
+        "diff_dpg": 926
       },
       "overall": {
         "battles": 2304,
@@ -5666,105 +5193,73 @@
         "totalSpotted": 2103,
         "totalAssist": 643868
       },
-      "tanks_7d": [
+      "tanks_recent": [
         {
-          "name": "FSV Sch. A",
-          "battles": 13
-        },
-        {
-          "name": "AMX ELC bis",
-          "battles": 12
-        },
-        {
-          "name": "E 50",
-          "battles": 10
-        },
-        {
-          "name": "ELC EVEN 90",
-          "battles": 10
-        },
-        {
-          "name": "AMX M4 45",
-          "battles": 9
-        },
-        {
-          "name": "Indien-Pz.",
+          "tank_id": 3905,
           "battles": 8
         },
         {
-          "name": "MT-25",
-          "battles": 8
-        },
-        {
-          "name": "Chrysler MTC",
-          "battles": 8
-        },
-        {
-          "name": "Grom",
-          "battles": 7
-        },
-        {
-          "name": "Bzyg",
-          "battles": 7
-        },
-        {
-          "name": "Škoda T 56",
-          "battles": 6
-        },
-        {
-          "name": "Lätt Strf 120",
-          "battles": 6
-        },
-        {
-          "name": "UDES 03 3",
-          "battles": 6
-        },
-        {
-          "name": "DBV-152",
-          "battles": 5
-        },
-        {
-          "name": "T-34-2G FT",
-          "battles": 5
-        },
-        {
-          "name": "AMX 12 t",
+          "tank_id": 10257,
           "battles": 4
         },
         {
-          "name": "Bourrasque",
+          "tank_id": 13841,
           "battles": 4
         },
         {
-          "name": "IS-4",
+          "tank_id": 19793,
+          "battles": 4
+        },
+        {
+          "tank_id": 42017,
           "battles": 3
         },
         {
-          "name": "Setter",
-          "battles": 3
-        },
-        {
-          "name": "AMX 13 57F",
-          "battles": 3
-        },
-        {
-          "name": "Tiger (P)",
+          "tank_id": 7729,
           "battles": 2
         },
         {
-          "name": "Pancernik",
+          "tank_id": 10769,
+          "battles": 2
+        },
+        {
+          "tank_id": 61505,
+          "battles": 2
+        },
+        {
+          "tank_id": 16417,
           "battles": 1
         },
         {
-          "name": "M44",
+          "tank_id": 19457,
           "battles": 1
         },
         {
-          "name": "Strv m/42-57",
+          "tank_id": 51329,
           "battles": 1
         },
         {
-          "name": "Crocodile",
+          "tank_id": 51857,
+          "battles": 1
+        },
+        {
+          "tank_id": 53377,
+          "battles": 1
+        },
+        {
+          "tank_id": 53649,
+          "battles": 1
+        },
+        {
+          "tank_id": 59729,
+          "battles": 1
+        },
+        {
+          "tank_id": 60225,
+          "battles": 1
+        },
+        {
+          "tank_id": 60529,
           "battles": 1
         }
       ]
@@ -5809,12 +5304,7 @@
         "totalSpotted": 14,
         "totalAssist": 390
       },
-      "tanks_7d": [
-        {
-          "name": "Valentine",
-          "battles": 1
-        }
-      ]
+      "tanks_recent": []
     },
     "3012429129": {
       "player_id": 3012429129,
@@ -5856,7 +5346,7 @@
         "totalSpotted": 0,
         "totalAssist": 43
       },
-      "tanks_7d": []
+      "tanks_recent": []
     },
     "3012429987": {
       "player_id": 3012429987,
@@ -5898,28 +5388,7 @@
         "totalSpotted": 1961,
         "totalAssist": 530622
       },
-      "tanks_7d": [
-        {
-          "name": "BZ-79",
-          "battles": 191
-        },
-        {
-          "name": "ELC EVEN 90",
-          "battles": 60
-        },
-        {
-          "name": "Kpz EK I",
-          "battles": 14
-        },
-        {
-          "name": "Yong Bing",
-          "battles": 9
-        },
-        {
-          "name": "Pz. S35",
-          "battles": 4
-        }
-      ]
+      "tanks_recent": []
     },
     "3013113987": {
       "player_id": 3013113987,
@@ -5961,7 +5430,7 @@
         "totalSpotted": 219,
         "totalAssist": 43132
       },
-      "tanks_7d": []
+      "tanks_recent": []
     },
     "3013682597": {
       "player_id": 3013682597,
@@ -6003,7 +5472,7 @@
         "totalSpotted": 565,
         "totalAssist": 76341
       },
-      "tanks_7d": []
+      "tanks_recent": []
     },
     "3013712761": {
       "player_id": 3013712761,
@@ -6028,8 +5497,8 @@
         "spots": 0.68,
         "assist": null,
         "kd": 2.12,
-        "diff_battles": 107,
-        "diff_dpg": 674
+        "diff_battles": 186,
+        "diff_dpg": 678
       },
       "overall": {
         "battles": 284,
@@ -6045,22 +5514,22 @@
         "totalSpotted": 223,
         "totalAssist": 31234
       },
-      "tanks_7d": [
+      "tanks_recent": [
         {
-          "name": "Tiger I",
-          "battles": 51
+          "tank_id": 9521,
+          "battles": 15
         },
         {
-          "name": "VK 36.01 H",
-          "battles": 26
+          "tank_id": 801,
+          "battles": 14
         },
         {
-          "name": "M3 Stuart",
-          "battles": 3
+          "tank_id": 6945,
+          "battles": 9
         },
         {
-          "name": "Tiger II",
-          "battles": 2
+          "tank_id": 3873,
+          "battles": 1
         }
       ]
     },
@@ -6104,32 +5573,7 @@
         "totalSpotted": 2315,
         "totalAssist": 935786
       },
-      "tanks_7d": [
-        {
-          "name": "T-54",
-          "battles": 11
-        },
-        {
-          "name": "Rhm.-B. WT",
-          "battles": 7
-        },
-        {
-          "name": "M46 Patton",
-          "battles": 5
-        },
-        {
-          "name": "Ares 85",
-          "battles": 4
-        },
-        {
-          "name": "T-44",
-          "battles": 2
-        },
-        {
-          "name": "T6",
-          "battles": 1
-        }
-      ]
+      "tanks_recent": []
     },
     "3014051800": {
       "player_id": 3014051800,
@@ -6154,8 +5598,8 @@
         "spots": 0.5,
         "assist": null,
         "kd": 0.74,
-        "diff_battles": 39,
-        "diff_dpg": 602
+        "diff_battles": 143,
+        "diff_dpg": 536
       },
       "overall": {
         "battles": 1824,
@@ -6171,10 +5615,46 @@
         "totalSpotted": 905,
         "totalAssist": 790449
       },
-      "tanks_7d": [
+      "tanks_recent": [
         {
-          "name": "Obj. 261",
-          "battles": 2
+          "tank_id": 5473,
+          "battles": 23
+        },
+        {
+          "tank_id": 19729,
+          "battles": 13
+        },
+        {
+          "tank_id": 2129,
+          "battles": 12
+        },
+        {
+          "tank_id": 8705,
+          "battles": 10
+        },
+        {
+          "tank_id": 18961,
+          "battles": 9
+        },
+        {
+          "tank_id": 49697,
+          "battles": 9
+        },
+        {
+          "tank_id": 10001,
+          "battles": 7
+        },
+        {
+          "tank_id": 257,
+          "battles": 5
+        },
+        {
+          "tank_id": 59729,
+          "battles": 4
+        },
+        {
+          "tank_id": 6401,
+          "battles": 3
         }
       ]
     },
@@ -6218,16 +5698,7 @@
         "totalSpotted": 88,
         "totalAssist": 33004
       },
-      "tanks_7d": [
-        {
-          "name": "KV-2",
-          "battles": 5
-        },
-        {
-          "name": "Ferdinand",
-          "battles": 2
-        }
-      ]
+      "tanks_recent": []
     },
     "3016581628": {
       "player_id": 3016581628,
@@ -6252,8 +5723,8 @@
         "spots": 0.98,
         "assist": null,
         "kd": 0.74,
-        "diff_battles": 47,
-        "diff_dpg": 838
+        "diff_battles": 86,
+        "diff_dpg": 1003
       },
       "overall": {
         "battles": 1287,
@@ -6269,85 +5740,33 @@
         "totalSpotted": 1260,
         "totalAssist": 421935
       },
-      "tanks_7d": [
+      "tanks_recent": [
         {
-          "name": "Centurion 7/1",
-          "battles": 42
+          "tank_id": 33793,
+          "battles": 4
         },
         {
-          "name": "T30",
-          "battles": 34
+          "tank_id": 59729,
+          "battles": 4
         },
         {
-          "name": "T28 Prototype",
-          "battles": 19
+          "tank_id": 68161,
+          "battles": 4
         },
         {
-          "name": "Obj. 257",
-          "battles": 18
+          "tank_id": 68673,
+          "battles": 4
         },
         {
-          "name": "AMX 13 57",
-          "battles": 16
-        },
-        {
-          "name": "Crusader",
-          "battles": 15
-        },
-        {
-          "name": "M40/M43",
-          "battles": 15
-        },
-        {
-          "name": "Leox",
-          "battles": 14
-        },
-        {
-          "name": "Centurion AX",
-          "battles": 12
-        },
-        {
-          "name": "M-VII-Y",
-          "battles": 12
-        },
-        {
-          "name": "TS-54",
-          "battles": 11
-        },
-        {
-          "name": "Pz. T 25",
-          "battles": 11
-        },
-        {
-          "name": "IS-3",
-          "battles": 10
-        },
-        {
-          "name": "DZT-159",
-          "battles": 8
-        },
-        {
-          "name": "Tiger 131",
+          "tank_id": 67617,
           "battles": 3
         },
         {
-          "name": "CS-52 LIS",
-          "battles": 3
+          "tank_id": 7169,
+          "battles": 1
         },
         {
-          "name": "Pudel",
-          "battles": 2
-        },
-        {
-          "name": "703 II (122)",
-          "battles": 2
-        },
-        {
-          "name": "LT-432",
-          "battles": 2
-        },
-        {
-          "name": "TS-5",
+          "tank_id": 65585,
           "battles": 1
         }
       ]
@@ -6375,8 +5794,8 @@
         "spots": null,
         "assist": null,
         "kd": null,
-        "diff_battles": 98,
-        "diff_dpg": 558
+        "diff_battles": 168,
+        "diff_dpg": 586
       },
       "overall": {
         "battles": 0,
@@ -6392,7 +5811,56 @@
         "totalSpotted": 0,
         "totalAssist": 0
       },
-      "tanks_7d": []
+      "tanks_recent": [
+        {
+          "tank_id": 11025,
+          "battles": 14
+        },
+        {
+          "tank_id": 11777,
+          "battles": 7
+        },
+        {
+          "tank_id": 4513,
+          "battles": 5
+        },
+        {
+          "tank_id": 5633,
+          "battles": 5
+        },
+        {
+          "tank_id": 4225,
+          "battles": 4
+        },
+        {
+          "tank_id": 7729,
+          "battles": 3
+        },
+        {
+          "tank_id": 16385,
+          "battles": 3
+        },
+        {
+          "tank_id": 34849,
+          "battles": 2
+        },
+        {
+          "tank_id": 68673,
+          "battles": 2
+        },
+        {
+          "tank_id": 3969,
+          "battles": 1
+        },
+        {
+          "tank_id": 7009,
+          "battles": 1
+        },
+        {
+          "tank_id": 59985,
+          "battles": 1
+        }
+      ]
     },
     "3017408286": {
       "player_id": 3017408286,
@@ -6417,8 +5885,8 @@
         "spots": null,
         "assist": null,
         "kd": null,
-        "diff_battles": 51,
-        "diff_dpg": 425
+        "diff_battles": 78,
+        "diff_dpg": 413
       },
       "overall": {
         "battles": 0,
@@ -6434,8 +5902,22 @@
         "totalSpotted": 0,
         "totalAssist": 0
       },
-      "tanks_7d": []
+      "tanks_recent": [
+        {
+          "tank_id": 6465,
+          "battles": 5
+        },
+        {
+          "tank_id": 2897,
+          "battles": 4
+        },
+        {
+          "tank_id": 7969,
+          "battles": 4
+        }
+      ]
     }
   },
-  "recent_window_days": 5
+  "recent_window_days": 8,
+  "tanks_window_days": 2
 }

@@ -1,5 +1,5 @@
 {
-  "collected_at": "2026-08-15T22:04:06.178Z",
+  "collected_at": "2026-08-16T04:04:04.714Z",
   "source": "tomato.gg (Puppeteer, TSR barrier extraction, JS disabled)",
   "clan": {
     "clan_id": 2000020638,
@@ -1360,8 +1360,8 @@
         "spots": 1,
         "assist": null,
         "kd": 3,
-        "diff_battles": 9,
-        "diff_dpg": 1281
+        "diff_battles": 13,
+        "diff_dpg": 1235
       },
       "overall": {
         "battles": 4786,
@@ -1384,7 +1384,11 @@
         },
         {
           "tank_id": 10241,
-          "battles": 1
+          "battles": 2
+        },
+        {
+          "tank_id": 11265,
+          "battles": 2
         },
         {
           "tank_id": 11009,
@@ -1396,6 +1400,10 @@
         },
         {
           "tank_id": 22785,
+          "battles": 1
+        },
+        {
+          "tank_id": 25169,
           "battles": 1
         },
         {
@@ -4702,8 +4710,8 @@
         "spots": 0.95,
         "assist": null,
         "kd": 1.1,
-        "diff_battles": 22,
-        "diff_dpg": 1570
+        "diff_battles": 0,
+        "diff_dpg": null
       },
       "overall": {
         "battles": 4682,

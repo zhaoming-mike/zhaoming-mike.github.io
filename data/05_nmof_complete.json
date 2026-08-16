@@ -1,5 +1,5 @@
 {
-  "collected_at": "2026-08-15T22:00:33.797Z",
+  "collected_at": "2026-08-16T04:00:34.289Z",
   "source": "Wargaming Public API",
   "region": "asia",
   "base_url": "https://api.worldoftanks.asia",
@@ -15383,30 +15383,30 @@
       "role_i18n": "พลทหาร",
       "joined_at": 1775066728,
       "created_at": 1535092741,
-      "last_battle_time": 1786753274,
-      "global_rating": 5883,
+      "last_battle_time": 1786841710,
+      "global_rating": 5882,
       "statistics": {
-        "battles": 4795,
-        "wins": 2430,
-        "losses": 2261,
+        "battles": 4799,
+        "wins": 2432,
+        "losses": 2263,
         "draws": 104,
         "winrate": "50.68",
         "survived_battles": 1520,
-        "frags": 3894,
-        "damage_dealt": 4655476,
-        "damage_received": 3947388,
-        "xp": 2849794,
+        "frags": 3897,
+        "damage_dealt": 4660008,
+        "damage_received": 3952118,
+        "xp": 2852847,
         "max_xp": 2474,
         "max_damage": 5775,
         "max_frags": 9,
         "battle_avg_xp": 594,
-        "spotted": 4465,
+        "spotted": 4466,
         "capture_points": 5128,
         "dropped_capture_points": 1517,
         "tanking_factor": 0.31
       },
       "tanks_summary": {
-        "total_tanks_played": 82,
+        "total_tanks_played": 83,
         "all_battles": {
           "1": 64,
           "257": 42,
@@ -15441,10 +15441,10 @@
           "8449": 94,
           "8705": 86,
           "9297": 3,
-          "10241": 33,
+          "10241": 34,
           "10497": 144,
           "11009": 28,
-          "11265": 127,
+          "11265": 129,
           "11521": 144,
           "11777": 103,
           "12289": 29,
@@ -15460,6 +15460,7 @@
           "22017": 17,
           "22785": 63,
           "23041": 61,
+          "25169": 1,
           "25617": 30,
           "30993": 8,
           "31233": 179,
@@ -20736,5 +20737,5 @@
       }
     }
   ],
-  "_generated_at": "2026-08-15T22:00:33.797Z"
+  "_generated_at": "2026-08-16T04:00:34.289Z"
 }

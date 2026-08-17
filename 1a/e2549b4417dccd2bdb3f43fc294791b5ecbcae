@@ -1,0 +1,29 @@
+tank-data/vehicles_data.js
+  s_777961e944ecc7::t_d09134ebabec6c 1-134909
+wot-tanks.html
+  s_3ea9257efabc9a::t_b87f7fcc057e9b 7
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "1ae2549b4417dccd2bdb3f43fc294791b5ecbcae",
+  "prompts": {},
+  "sessions": {
+    "s_3ea9257efabc9a": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "8a2598d6-0a8c-442f-b093-676e1a5e347b",
+        "model": "deepseek-v4-flash"
+      },
+      "human_author": "zhaoming-mike <37763390@qq.com>"
+    },
+    "s_777961e944ecc7": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "5ec10454-6b99-4f9a-a1a0-3ca941d8fb61",
+        "model": "deepseek-v4-flash"
+      },
+      "human_author": "zhaoming-mike <37763390@qq.com>"
+    }
+  }
+}

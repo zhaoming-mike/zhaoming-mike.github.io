@@ -133756,12 +133756,12 @@
                     "weight": 1500,
                     "move_up_arc": 15,
                     "fire_rate": 7.27,
-                    "dispersion": 0.41,
+                    "dispersion": 0.39,
                     "tag": "_120mm_Canon_de_120_67_T53_D",
                     "traverse_speed": 26,
                     "reload_time": 28.0,
                     "tier": 10,
-                    "aim_time": 3.2
+                    "aim_time": 2.9
                 },
                 "turret": {
                     "name": "Durendal",
@@ -133803,9 +133803,9 @@
                     },
                     {
                         "penetration": [
-                            229,
-                            305,
-                            381
+                            233,
+                            311,
+                            389
                         ],
                         "stun": null,
                         "type": "ARMOR_PIERCING_CR",

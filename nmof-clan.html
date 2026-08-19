@@ -844,7 +844,7 @@ tr.row-selected{background:rgba(233,202,93,0.06)!important}
             <span class="card-title">&#x1f4aa; 劳模榜</span>
             <div class="seg" id="honor-worker-mode">
               <button type="button" class="seg-btn" data-mode="all" onclick="setHonorWorkerMode('all')">全员</button>
-              <button type="button" class="seg-btn seg-active" data-mode="event" onclick="setHonorWorkerMode('event')">嘉年华已报名</button>
+              <button type="button" class="seg-btn seg-active" data-mode="event" id="honor-worker-event-btn" onclick="setHonorWorkerMode('event')">嘉年华已报名</button>
             </div>
           </div>
           <span style="font-size:12px;color:var(--text-muted)" id="honor-worker-subtitle">最近60日场次最多的15个人（仅含60日DPG ≥ 1,000）</span>
@@ -930,6 +930,8 @@ let eventEndTimeStr = null;    // 嘉年华活动结束时间（元信息原始�
 let eventTitle = null;         // 嘉年华活动标题
 let eventPrizes = [];          // 嘉年华奖品（按 id 排序，下标=名次-1）
 let eventCountdownTimer = null; // 嘉年华倒计时定时器句柄
+let eventFinalState = 'idle';  // 嘉年华定格快照加载状态：'idle' | 'loading' | 'ready' | 'missing'
+let eventFinalData = null;     // 嘉年华定格快照（活动结束后静态数据）
 let TANK_NAMES = {};
 let currentPage = 'overview';
 let currentMemberId = null;
@@ -2409,16 +2411,19 @@ function textColorFor(bg){
 }
 
 function honorHeatmap(account_id){
-  var daily = DAILY?.data?.[account_id];
-  if (!daily || !DAILY.dates || DAILY.dates.length === 0) return '';
+  // 活动结束后：读定格快照的每日数据（daily 数组 + daily_dates），不再用实时 DAILY
+  var snapMode = honorWorkerMode === 'event' && eventFinalState === 'ready' && eventFinalData;
+  var daily = snapMode ? (eventFinalData.members || {})[String(account_id)]?.daily : DAILY?.data?.[account_id];
+  var dates = snapMode ? (eventFinalData.daily_dates || []) : DAILY?.dates;
+  if (!daily || !dates || dates.length === 0) return '';
   function parse(s){ var p = s.split('-'); return new Date(+p[0], +p[1] - 1, +p[2]); }
   function fmt(d){ return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0'); }
   function mondayOf(d){ var day = d.getDay(); d.setDate(d.getDate() + (day === 0 ? -6 : 1 - day)); return d; }
   var byDate = {};
-  DAILY.dates.forEach(function(d, i){ byDate[d] = daily[i]; });
+  dates.forEach(function(d, i){ byDate[d] = daily[i]; });
   // 列 = 周（周一~周日），行 = 星期，从最老周到最新周
-  var first = mondayOf(parse(DAILY.dates[0]));
-  var last  = mondayOf(parse(DAILY.dates[DAILY.dates.length - 1]));
+  var first = mondayOf(parse(dates[0]));
+  var last  = mondayOf(parse(dates[dates.length - 1]));
   var cols = [];
   for (var c = new Date(first); c <= last; c.setDate(c.getDate() + 7)) cols.push(new Date(c));
   var html = '';
@@ -2549,6 +2554,28 @@ function loadEventSignups(){
     })
     .then(function(){ renderHonor(); });
 }
+// 嘉年华定格快照：活动结束后读取采集端生成的静态快照，榜单不再变化
+function loadEventFinal(){
+  if (eventFinalState === 'loading' || eventFinalState === 'ready') return;
+  eventFinalState = 'loading';
+  renderHonor();
+  fetch('data/12_honor_event_final.json')
+    .then(function(r){ if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+    .then(function(j){
+      eventFinalData = j;
+      eventFinalState = 'ready';
+      // 用快照中的活动元信息填充全局（倒计时/奖品渲染用）
+      eventEndTime = j.event && j.event.end_time ? Date.parse(j.event.end_time) : null;
+      eventEndTimeStr = j.event && j.event.end_time ? j.event.end_time : null;
+      if (eventEndTime && isNaN(eventEndTime)) eventEndTime = null;
+      eventTitle = j.event ? j.event.title : null;
+      eventPrizes = (j.event && j.event.prizes || []).slice();
+    })
+    .catch(function(){
+      eventFinalState = 'missing'; // 快照不存在 → 走实时逻辑（活动进行中）
+    })
+    .then(function(){ renderHonor(); });
+}
 // 嘉年华活动倒计时：截止时间精确到秒，剩余时间精确到毫秒（千分位）
 function fmtDateTime(ms){
   var d = new Date(ms);
@@ -2618,8 +2645,10 @@ function setHonorWorkerMode(mode){
     btns[i].classList.toggle('seg-active', btns[i].getAttribute('data-mode') === mode);
   }
   if (mode === 'all') stopHonorCountdown();
-  if (mode === 'event' && eventSignupState !== 'ready') {
-    loadEventSignups();
+  if (mode === 'event') {
+    // 嘉年华模式：优先加载定格快照；renderHonor 内按 eventFinalState 分支
+    if (eventFinalState === 'idle') loadEventFinal();
+    else renderHonor();
   } else {
     renderHonor();
   }
@@ -2629,8 +2658,11 @@ function renderHonor(){
   preloadTankDetailAssets(); // 首次进荣誉页预取详情页资源，减少首次弹窗卡顿
   // 周常用：最近7天玩的坦克表格（场次最多3辆，名字+场次），未出战返回空串
   function tanks7dTable(accountId) {
-    var recent = TOMATO.data?.[accountId]?.tanks_recent || [];
-    var windowDays = TOMATO.tanks_window_days || 0;
+    // 活动结束后：读定格快照（tanks_recent / top_tanks / 窗口天数均来自快照）
+    var snapMode = honorWorkerMode === 'event' && eventFinalState === 'ready' && eventFinalData;
+    var em = snapMode ? (eventFinalData.members || {})[String(accountId)] : null;
+    var recent = snapMode ? (em && em.tanks_recent || []) : (TOMATO.data?.[accountId]?.tanks_recent || []);
+    var windowDays = snapMode ? (eventFinalData.tanks_window_days || 0) : (TOMATO.tanks_window_days || 0);
     var rows, header;
     if (recent.length && windowDays >= 1) {
       // 近N日周常用（WG 差分）
@@ -2640,8 +2672,10 @@ function renderHonor(){
       header = '周常用·近' + windowDays + '日（TOP3）';
     } else {
       // 回退：生涯常用（WG 官方 top_tanks），近N日数据积累中/未出车时展示
-      var mem = members().find(function (m) { return m.account_id === accountId; });
-      var lt = (mem && mem.tanks_summary && mem.tanks_summary.top_tanks) || [];
+      var lt = snapMode ? (em && em.top_tanks || []) : (function(){
+        var mem = members().find(function (m) { return m.account_id === accountId; });
+        return (mem && mem.tanks_summary && mem.tanks_summary.top_tanks) || [];
+      })();
       if (!lt.length) return '';
       rows = lt.slice(0, 3).map(function (t) {
         return '<tr><td><a class="honor-tank-link" onclick="openTankDetail(' + t.tank_id + ',' + accountId + ',' + t.battles + ')">' + tankName(t.tank_id) + '</a></td><td class="stat-val">' + t.battles + '</td></tr>';
@@ -2651,19 +2685,27 @@ function renderHonor(){
     return '<table class="honor-stats-table"><thead><tr><th>' + header + '</th><th>场次</th></tr></thead><tbody>' + rows + '</tbody></table>';
   }
   initHonorTooltip();
-  var windowDays = TOMATO.recent_window_days || 60;
+  var windowDays = TOMATO.recent_window_days || 60; // 标兵榜窗口（实时）
+  var workerWindowDays = windowDays;                 // 劳模榜窗口：快照就绪时以定格快照为准
+  if (honorWorkerMode === 'event' && eventFinalState === 'ready' && eventFinalData && eventFinalData.window_days) {
+    workerWindowDays = eventFinalData.window_days;
+  }
   var modelSub = document.getElementById('honor-model-subtitle');
   if (modelSub) modelSub.textContent = '近' + windowDays + '日进步最大的15人（难度加权：DPG区间×场次×坦克等级 · 每天≥10场）';
   var workerSub = document.getElementById('honor-worker-subtitle');
   var workerEmptyEl = document.getElementById('honor-worker-empty');
+  var workerEventBtn = document.getElementById('honor-worker-event-btn');
   var workerTopN = 15;
+  // 活动结束快照就绪时,嘉年华按钮标注"已封榜"
+  var finalActive = honorWorkerMode === 'event' && eventFinalState === 'ready';
+  if (workerEventBtn) workerEventBtn.textContent = finalActive ? '嘉年华已报名（已封榜）' : '嘉年华已报名';
   if (honorWorkerMode === 'event') {
     workerTopN = 10;
-    if (workerSub) workerSub.textContent = '最近' + windowDays + '日场次最多的10位嘉年华已报名成员（仅含' + windowDays + '日DPG ≥ 1,000）';
-    if (workerEmptyEl) workerEmptyEl.textContent = '暂无符合条件的数据（需要近' + windowDays + '日DPG ≥ 1,000、已报名嘉年华且有场次的成员）';
+    if (workerSub) workerSub.textContent = '最近' + workerWindowDays + '日场次最多的10位嘉年华已报名成员（仅含' + workerWindowDays + '日DPG ≥ 1,000）';
+    if (workerEmptyEl) workerEmptyEl.textContent = '暂无符合条件的数据（需要近' + workerWindowDays + '日DPG ≥ 1,000、已报名嘉年华且有场次的成员）';
   } else {
-    if (workerSub) workerSub.textContent = '最近' + windowDays + '日场次最多的15个人（仅含' + windowDays + '日DPG ≥ 1,000）';
-    if (workerEmptyEl) workerEmptyEl.textContent = '暂无符合条件的数据（需要近' + windowDays + '日DPG ≥ 1,000 且有场次的成员）';
+    if (workerSub) workerSub.textContent = '最近' + workerWindowDays + '日场次最多的15个人（仅含' + workerWindowDays + '日DPG ≥ 1,000）';
+    if (workerEmptyEl) workerEmptyEl.textContent = '暂无符合条件的数据（需要近' + workerWindowDays + '日DPG ≥ 1,000 且有场次的成员）';
   }
   // 标兵榜：进步分前15（delta > 0，窗口日均场次 ≥ 10）
   var improveData = buildImprovementData().filter(function(d){ return d.delta > 0 && d.battles_now / windowDays >= 10; });
@@ -2722,35 +2764,62 @@ function renderHonor(){
   // 劳模榜：60日场次（过滤DPG<1000）；嘉年华模式仅统计已报名成员、取前10
   var workerList = document.getElementById('honor-worker-list');
   var workerEmpty = document.getElementById('honor-worker-empty');
-  if (honorWorkerMode === 'event' && eventSignupState === 'idle') loadEventSignups();
-  if (honorWorkerMode === 'event' && eventSignupState === 'loading') {
+  // 嘉年华模式：优先加载定格快照（活动结束后静态榜单）
+  if (honorWorkerMode === 'event' && eventFinalState === 'idle') { loadEventFinal(); return; }
+  if (honorWorkerMode === 'event' && eventFinalState === 'loading') {
     workerList.innerHTML = '';
     workerEmpty.style.display = 'block';
-    workerEmpty.textContent = '正在加载活动报名表…';
+    workerEmpty.textContent = '正在加载活动数据…';
     return;
   }
-  if (honorWorkerMode === 'event' && eventSignupState === 'error') {
-    workerList.innerHTML = '';
-    workerEmpty.style.display = 'block';
-    workerEmpty.innerHTML = '活动报名表暂时不可用。<br><br><button type="button" class="btn btn-sm btn-secondary" onclick="loadEventSignups()">重试</button>';
-    return;
-  }
-  var membersList = members();
   var workerData = [];
-  for (var i = 0; i < membersList.length; i++) {
-    var m = membersList[i];
-    if (honorWorkerMode === 'event' && !eventSignupIds.has(m.account_id)) continue;
-    var t = TOMATO.data?.[m.account_id];
-    var recent60 = t?.recent_60d || {};
-    var battles60 = recent60.diff_battles || 0;
-    var dpg60 = recent60.diff_dpg != null ? recent60.diff_dpg : 0;
-    if (dpg60 < 1000) continue;
-    var ov = t?.overall || {};
-    var ovDpg = ov.battles > 0 ? Math.round(ov.totalDamage / ov.battles) : null;
-    workerData.push({ account_id: m.account_id, nickname: m.account_name, role: m.role, battles60: battles60,
-      dailyBattles: windowDays > 0 ? battles60 / windowDays : 0,
-      wn8_60: recent60.wn8 != null ? recent60.wn8 : null, wnx_60: recent60.wnx != null ? recent60.wnx : null, dpg_60: dpg60,
-      wn8_ov: ov.wn8 != null ? ov.wn8 : null, wnx_ov: ov.wnx != null ? ov.wnx : null, dpg_ov: ovDpg });
+  if (honorWorkerMode === 'event' && eventFinalState === 'ready' && eventFinalData) {
+    // 定格快照数据源：报名名单 + 成员指标均取自快照（活动结束时的值）
+    var snap = eventFinalData;
+    var snapIds = snap.signup_ids || [];
+    for (var si = 0; si < snapIds.length; si++) {
+      var aid = snapIds[si];
+      var sm = snap.members ? snap.members[String(aid)] : null;
+      if (!sm) continue;
+      var sBattles = sm.battles60 || 0;
+      var sDpg = sm.dpg_60 != null ? sm.dpg_60 : 0;
+      if (sDpg < 1000) continue;
+      workerData.push({ account_id: aid, nickname: sm.nickname, role: sm.role, battles60: sBattles,
+        dailyBattles: sm.daily_battles != null ? sm.daily_battles : (workerWindowDays > 0 ? sBattles / workerWindowDays : 0),
+        wn8_60: sm.wn8_60, wnx_60: sm.wnx_60, dpg_60: sDpg,
+        wn8_ov: sm.wn8_ov, wnx_ov: sm.wnx_ov, dpg_ov: sm.dpg_ov });
+    }
+  } else {
+    // 实时逻辑（活动进行中 / 全员模式）
+    if (honorWorkerMode === 'event' && eventSignupState === 'idle') loadEventSignups();
+    if (honorWorkerMode === 'event' && eventSignupState === 'loading') {
+      workerList.innerHTML = '';
+      workerEmpty.style.display = 'block';
+      workerEmpty.textContent = '正在加载活动报名表…';
+      return;
+    }
+    if (honorWorkerMode === 'event' && eventSignupState === 'error') {
+      workerList.innerHTML = '';
+      workerEmpty.style.display = 'block';
+      workerEmpty.innerHTML = '活动报名表暂时不可用。<br><br><button type="button" class="btn btn-sm btn-secondary" onclick="loadEventSignups()">重试</button>';
+      return;
+    }
+    var membersList = members();
+    for (var i = 0; i < membersList.length; i++) {
+      var m = membersList[i];
+      if (honorWorkerMode === 'event' && !eventSignupIds.has(m.account_id)) continue;
+      var t = TOMATO.data?.[m.account_id];
+      var recent60 = t?.recent_60d || {};
+      var battles60 = recent60.diff_battles || 0;
+      var dpg60 = recent60.diff_dpg != null ? recent60.diff_dpg : 0;
+      if (dpg60 < 1000) continue;
+      var ov = t?.overall || {};
+      var ovDpg = ov.battles > 0 ? Math.round(ov.totalDamage / ov.battles) : null;
+      workerData.push({ account_id: m.account_id, nickname: m.account_name, role: m.role, battles60: battles60,
+        dailyBattles: workerWindowDays > 0 ? battles60 / workerWindowDays : 0,
+        wn8_60: recent60.wn8 != null ? recent60.wn8 : null, wnx_60: recent60.wnx != null ? recent60.wnx : null, dpg_60: dpg60,
+        wn8_ov: ov.wn8 != null ? ov.wn8 : null, wnx_ov: ov.wnx != null ? ov.wnx : null, dpg_ov: ovDpg });
+    }
   }
   workerData.sort(function(a,b){ return b.battles60 - a.battles60; });
   var topWorker = workerData.slice(0, workerTopN);
@@ -2781,7 +2850,7 @@ function renderHonor(){
           var c60 = r.v60 != null ? colorScale.get(r.v60, r.scale).hex : 'var(--text-muted)';
           var sAll = r.vAll != null ? r.vAll.toLocaleString() : '-';
           var s60 = r.v60 != null ? r.v60.toLocaleString() : '-';
-          var win = (r.label === 'DPG') ? ' <span style="font-size:11px;color:var(--text-muted)">(近' + windowDays + '日)</span>' : '';
+          var win = (r.label === 'DPG') ? ' <span style="font-size:11px;color:var(--text-muted)">(近' + workerWindowDays + '日)</span>' : '';
           return '<tr><td>'+r.label+'</td><td><span class="stat-val" style="color:'+cAll+'">'+sAll+'</span></td><td><span class="stat-val" style="color:'+c60+'">'+s60+win+'</span></td></tr>';
         }).join('');
         return '<table class="honor-stats-table"><thead><tr><th>指标</th><th>生涯</th><th>60日</th></tr></thead><tbody>'+rows+'</tbody></table>';

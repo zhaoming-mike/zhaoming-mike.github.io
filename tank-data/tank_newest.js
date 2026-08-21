@@ -2,6 +2,18 @@
 // 每次 WG 新增坦克时，在此追加一个批次即可
 const NEWEST_TANK_BATCHES = [
     {
+        date: "2026-08-21",
+        label: "2026年8月更新",
+        short: "8月",
+        color: "#fa0",   // 批次专属色
+        ids: [
+            43809,  // 美国 VIII Ironclad Guardian 坦歼
+            67377,  // 中国 VIII Bull Demon King 重坦
+            68401,  // 中国 X Waffentrager 15 坦歼
+            69441,  // 法国 IX M47 Chevalier 中坦
+        ]
+    },
+    {
         date: "2026-07-27",
         label: "2026年7月更新",
         short: "7月",

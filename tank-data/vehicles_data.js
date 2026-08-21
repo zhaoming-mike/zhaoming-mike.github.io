@@ -1,8 +1,8 @@
 ﻿const VEHICLES_JSON = {
     "meta": {
-        "total": 1011,
-        "page_total": 1011,
-        "count": 1011,
+        "total": 1015,
+        "page_total": 1015,
+        "count": 1015,
         "limit": 1,
         "page": null
     },
@@ -134903,6 +134903,1406 @@
             },
             "turrets": [
                 48467
+            ]
+        },
+        "43809": {
+            "is_wheeled": false,
+            "radios": [
+                28455
+            ],
+            "is_premium": true,
+            "tag": "A168_XM_57_CFE_I",
+            "images": {
+                "small_icon": "http://api.worldoftanks.asia/static/2.77.0/wot/encyclopedia/vehicle/small/usa-A168_XM_57_CFE_I.png",
+                "contour_icon": "http://api.worldoftanks.asia/static/2.77.0/wot/encyclopedia/vehicle/contour/usa-A168_XM_57_CFE_I.png",
+                "big_icon": "http://api.worldoftanks.asia/static/2.77.0/wot/encyclopedia/vehicle/usa-A168_XM_57_CFE_I.png"
+            },
+            "tank_id": 43809,
+            "suspensions": [
+                67874
+            ],
+            "provisions": [
+                5378811,
+                5631995,
+                52987,
+                25851,
+                26107,
+                26363,
+                26619,
+                26875,
+                27131,
+                230651,
+                27899,
+                28155,
+                5631739,
+                12283,
+                28923,
+                17147,
+                12795,
+                29435,
+                46075,
+                29947,
+                29179,
+                28411,
+                30203,
+                47099,
+                48891,
+                52219,
+                14843,
+                15355,
+                5631483,
+                52475,
+                29691,
+                251,
+                507,
+                16891,
+                763,
+                1019,
+                1275,
+                1531,
+                5377275,
+                5376507,
+                51963,
+                5377019,
+                14331,
+                52731,
+                11771,
+                28667,
+                5377787,
+                5378043,
+                5378299,
+                5377531,
+                27387,
+                5378555,
+                39417,
+                23289,
+                39929,
+                29433,
+                40185,
+                40441,
+                40697,
+                13305,
+                40953,
+                41209,
+                41465,
+                25593,
+                29945,
+                26361,
+                27129,
+                27385,
+                30201,
+                27641,
+                27897,
+                11769,
+                28409,
+                28665,
+                30457,
+                12537,
+                29177,
+                24057,
+                13049,
+                29689,
+                13561,
+                13817,
+                11257,
+                14073,
+                30713,
+                39673,
+                31225,
+                30969,
+                15097,
+                11513,
+                16121,
+                24825,
+                16889,
+                28153,
+                31481,
+                12025,
+                15353,
+                18681,
+                31737,
+                22009,
+                19193,
+                19961,
+                20729,
+                28921,
+                21241,
+                14329,
+                17913
+            ],
+            "engines": [
+                48421
+            ],
+            "crew": [
+                {
+                    "roles": {
+                        "commander": "车长",
+                        "radioman": "通信兵"
+                    },
+                    "member_id": "commander"
+                },
+                {
+                    "roles": {
+                        "gunner": "炮手"
+                    },
+                    "member_id": "gunner"
+                },
+                {
+                    "roles": {
+                        "driver": "驾驶员"
+                    },
+                    "member_id": "driver"
+                },
+                {
+                    "roles": {
+                        "loader": "装填手"
+                    },
+                    "member_id": "loader"
+                }
+            ],
+            "type": "AT-SPG",
+            "guns": [
+                85796
+            ],
+            "multination": null,
+            "description": "龙龟者，合四灵之精，融真龙之生机、灵龟之遐寿，乃智慧昌荣之瑞象也。自古便有镇宅御难、祈福迎祥之誉，其纹为珍，上镌青铜古器，下传今世。观其形，雕镂入微：厚重龟甲，寓守御之固；威严龙首，显磅礴之气；灵尾迤逦，劲爪生风，形神兼备，混元一体。灵石孕形，承天地重器，曾令九州立碑；背负苍山，稳若磐石，是为赑屃，志镇八荒。寻江河尽处，阅古今兴衰；世途崎岖，挺身担道，镇水安澜，赑屃镇川，守定四方。恒毅、厚德、守正、承乾，凌云巅，证玄黄，神州万里，莫不崇仰此灵瑞之盛名。",
+            "short_name": "Ironclad",
+            "is_premium_igr": false,
+            "next_tanks": null,
+            "modules_tree": {
+                "67874": {
+                    "name": "玄甲镇岳",
+                    "next_modules": null,
+                    "next_tanks": null,
+                    "is_default": true,
+                    "price_xp": 0,
+                    "price_credit": 30000,
+                    "module_id": 67874,
+                    "type": "vehicleChassis"
+                },
+                "61475": {
+                    "name": "玄甲镇岳",
+                    "next_modules": null,
+                    "next_tanks": null,
+                    "is_default": true,
+                    "price_xp": 0,
+                    "price_credit": 66000,
+                    "module_id": 61475,
+                    "type": "vehicleTurret"
+                },
+                "85796": {
+                    "name": "155 mm Gun T7XM",
+                    "next_modules": null,
+                    "next_tanks": null,
+                    "is_default": true,
+                    "price_xp": 0,
+                    "price_credit": 335000,
+                    "module_id": 85796,
+                    "type": "vehicleGun"
+                },
+                "48421": {
+                    "name": "Continental AVI-1790-8XM",
+                    "next_modules": null,
+                    "next_tanks": null,
+                    "is_default": true,
+                    "price_xp": 0,
+                    "price_credit": 60000,
+                    "module_id": 48421,
+                    "type": "vehicleEngine"
+                },
+                "28455": {
+                    "name": "AN/VRC-3XM",
+                    "next_modules": null,
+                    "next_tanks": null,
+                    "is_default": true,
+                    "price_xp": 0,
+                    "price_credit": 51600,
+                    "module_id": 28455,
+                    "type": "vehicleRadio"
+                }
+            },
+            "nation": "usa",
+            "tier": 8,
+            "prices_xp": null,
+            "is_gift": false,
+            "name": "Ironclad Guardian",
+            "price_gold": null,
+            "price_credit": null,
+            "default_profile": {
+                "engine": {
+                    "name": "Continental AVI-1790-8XM",
+                    "power": 810,
+                    "weight": 1349,
+                    "tag": "Continental_AVI_1790_8XM_CFE_I",
+                    "fire_chance": 0.2,
+                    "tier": 8
+                },
+                "siege": null,
+                "max_ammo": 30,
+                "suspension": {
+                    "name": "玄甲镇岳",
+                    "weight": 10000,
+                    "load_limit": 0,
+                    "tag": "Chassis_A168_XM_57_CFE_I",
+                    "traverse_speed": 22,
+                    "tier": 8,
+                    "steering_lock_angle": 0
+                },
+                "weight": 60000,
+                "armor": {
+                    "turret": {
+                        "front": 305,
+                        "sides": 102,
+                        "rear": 38
+                    },
+                    "hull": {
+                        "front": 121,
+                        "sides": 89,
+                        "rear": 38
+                    }
+                },
+                "hp": 1300,
+                "modules": {
+                    "gun_id": 85796,
+                    "suspension_id": 67874,
+                    "turret_id": 61475,
+                    "radio_id": 28455,
+                    "engine_id": 48421
+                },
+                "gun": {
+                    "move_down_arc": 7,
+                    "caliber": 155,
+                    "name": "155 mm Gun T7XM",
+                    "weight": 3371,
+                    "move_up_arc": 15,
+                    "fire_rate": 3.16,
+                    "dispersion": 0.43,
+                    "tag": "_155mm_Gun_T7XM_CFE_I",
+                    "traverse_speed": 24,
+                    "reload_time": 19.0,
+                    "tier": 10,
+                    "aim_time": 3.0
+                },
+                "turret": {
+                    "name": "玄甲镇岳",
+                    "weight": 12000,
+                    "view_range": 370,
+                    "hp": 260,
+                    "tag": "Turret_1_A168_XM_57_CFE_I",
+                    "traverse_speed": 22,
+                    "traverse_right_arc": 75,
+                    "tier": 8,
+                    "traverse_left_arc": 75
+                },
+                "hull_weight": 32820,
+                "radio": {
+                    "tier": 10,
+                    "signal_range": 745,
+                    "tag": "AN_VRC_3_XM_CFE_I",
+                    "name": "AN/VRC-3XM",
+                    "weight": 160
+                },
+                "rapid": null,
+                "speed_forward": 24,
+                "hull_hp": 1040,
+                "speed_backward": 12,
+                "ammo": [
+                    {
+                        "penetration": [
+                            203,
+                            270,
+                            338
+                        ],
+                        "stun": null,
+                        "type": "ARMOR_PIERCING",
+                        "damage": [
+                            473,
+                            630,
+                            788
+                        ]
+                    },
+                    {
+                        "penetration": [
+                            236,
+                            315,
+                            394
+                        ],
+                        "stun": null,
+                        "type": "ARMOR_PIERCING_CR",
+                        "damage": [
+                            473,
+                            630,
+                            788
+                        ]
+                    },
+                    {
+                        "penetration": [
+                            68,
+                            90,
+                            113
+                        ],
+                        "stun": null,
+                        "type": "HIGH_EXPLOSIVE",
+                        "damage": [
+                            675,
+                            900,
+                            1125
+                        ]
+                    }
+                ],
+                "max_weight": 0
+            },
+            "turrets": [
+                61475
+            ]
+        },
+        "67377": {
+            "is_wheeled": false,
+            "radios": [
+                8759
+            ],
+            "is_premium": true,
+            "tag": "Ch47_BZ_176_CFE_B",
+            "images": {
+                "small_icon": "http://api.worldoftanks.asia/static/2.77.0/wot/encyclopedia/vehicle/small/china-Ch47_BZ_176_CFE_B.png",
+                "contour_icon": "http://api.worldoftanks.asia/static/2.77.0/wot/encyclopedia/vehicle/contour/china-Ch47_BZ_176_CFE_B.png",
+                "big_icon": "http://api.worldoftanks.asia/static/2.77.0/wot/encyclopedia/vehicle/china-Ch47_BZ_176_CFE_B.png"
+            },
+            "tank_id": 67377,
+            "suspensions": [
+                28722
+            ],
+            "provisions": [
+                5378811,
+                5631995,
+                5378043,
+                52987,
+                26107,
+                26363,
+                26619,
+                26875,
+                27131,
+                27643,
+                27899,
+                28155,
+                28411,
+                12283,
+                28923,
+                17147,
+                12795,
+                29435,
+                46075,
+                29947,
+                29179,
+                30203,
+                47099,
+                48891,
+                52219,
+                14843,
+                5631739,
+                15355,
+                5631483,
+                52475,
+                29691,
+                251,
+                507,
+                16891,
+                763,
+                1019,
+                230651,
+                1531,
+                5377275,
+                5376507,
+                51963,
+                5377019,
+                14331,
+                52731,
+                11771,
+                28667,
+                5377787,
+                4091,
+                1275,
+                5378299,
+                5377531,
+                27387,
+                5378555,
+                39417,
+                23289,
+                39161,
+                39929,
+                29433,
+                40185,
+                40441,
+                40697,
+                13305,
+                40953,
+                41209,
+                41465,
+                25593,
+                29945,
+                26361,
+                27129,
+                27385,
+                30201,
+                27641,
+                11513,
+                11769,
+                12025,
+                12281,
+                30457,
+                12537,
+                29177,
+                24057,
+                13049,
+                29689,
+                13561,
+                13817,
+                11257,
+                14073,
+                30713,
+                14585,
+                39673,
+                14841,
+                30969,
+                15097,
+                15353,
+                27897,
+                16121,
+                31225,
+                24825,
+                16889,
+                28153,
+                31481,
+                28409,
+                18681,
+                31737,
+                22009,
+                19193,
+                28665,
+                19961,
+                20729,
+                28921,
+                21241,
+                14329,
+                38905,
+                38649,
+                22521,
+                17913
+            ],
+            "engines": [
+                69685
+            ],
+            "crew": [
+                {
+                    "roles": {
+                        "commander": "车长",
+                        "radioman": "通信兵"
+                    },
+                    "member_id": "commander"
+                },
+                {
+                    "roles": {
+                        "gunner": "炮手"
+                    },
+                    "member_id": "gunner"
+                },
+                {
+                    "roles": {
+                        "driver": "驾驶员"
+                    },
+                    "member_id": "driver"
+                },
+                {
+                    "roles": {
+                        "loader": "装填手"
+                    },
+                    "member_id": "loader"
+                }
+            ],
+            "type": "heavyTank",
+            "guns": [
+                24372
+            ],
+            "multination": null,
+            "description": "妖胎化形，洞悉混沌真章，威撼六合，震魄惊寰。横断幽冥，狂性烈烈，号曰平天，其志愈盛；踞火山之红焰地，拥雷岭之翠云堤，雄霸一方，气吞八荒。世途艰危，振威扬风，慑服群妖，莫敢不从；秉野性，重情契，性骄横，心自在，步入雷音，伏却尘缘。八荒之内，远近皆闻其名，平天大圣之威，震彻三界。",
+            "short_name": "Bull Demon",
+            "is_premium_igr": false,
+            "next_tanks": null,
+            "modules_tree": {
+                "28722": {
+                    "name": "Bull Demon King",
+                    "next_modules": null,
+                    "next_tanks": null,
+                    "is_default": true,
+                    "price_xp": 0,
+                    "price_credit": 30200,
+                    "module_id": 28722,
+                    "type": "vehicleChassis"
+                },
+                "26163": {
+                    "name": "Bull Demon King",
+                    "next_modules": null,
+                    "next_tanks": null,
+                    "is_default": true,
+                    "price_xp": 0,
+                    "price_credit": 28000,
+                    "module_id": 26163,
+                    "type": "vehicleTurret"
+                },
+                "24372": {
+                    "name": "160 mm 56-160 BZS",
+                    "next_modules": null,
+                    "next_tanks": null,
+                    "is_default": true,
+                    "price_xp": 0,
+                    "price_credit": 132000,
+                    "module_id": 24372,
+                    "type": "vehicleGun"
+                },
+                "69685": {
+                    "name": "MTU 8V 331",
+                    "next_modules": null,
+                    "next_tanks": null,
+                    "is_default": true,
+                    "price_xp": 0,
+                    "price_credit": 79290,
+                    "module_id": 69685,
+                    "type": "vehicleEngine"
+                },
+                "8759": {
+                    "name": "A-220",
+                    "next_modules": null,
+                    "next_tanks": null,
+                    "is_default": true,
+                    "price_xp": 0,
+                    "price_credit": 38000,
+                    "module_id": 8759,
+                    "type": "vehicleRadio"
+                }
+            },
+            "nation": "china",
+            "tier": 8,
+            "prices_xp": null,
+            "is_gift": false,
+            "name": "Bull Demon King",
+            "price_gold": null,
+            "price_credit": null,
+            "default_profile": {
+                "engine": {
+                    "name": "MTU 8V 331",
+                    "power": 600,
+                    "weight": 750,
+                    "tag": "MTU_8V_331_CFE_B",
+                    "fire_chance": 0.12,
+                    "tier": 8
+                },
+                "siege": null,
+                "max_ammo": 30,
+                "suspension": {
+                    "name": "Bull Demon King",
+                    "weight": 12000,
+                    "load_limit": 0,
+                    "tag": "Chassis_Ch47_BZ_176_CFE_B",
+                    "traverse_speed": 29,
+                    "tier": 8,
+                    "steering_lock_angle": 0
+                },
+                "weight": 57100,
+                "armor": {
+                    "turret": {
+                        "front": 250,
+                        "sides": 152,
+                        "rear": 60
+                    },
+                    "hull": {
+                        "front": 240,
+                        "sides": 152,
+                        "rear": 60
+                    }
+                },
+                "hp": 1550,
+                "modules": {
+                    "gun_id": 24372,
+                    "suspension_id": 28722,
+                    "turret_id": 26163,
+                    "radio_id": 8759,
+                    "engine_id": 69685
+                },
+                "gun": {
+                    "move_down_arc": 10,
+                    "caliber": 160,
+                    "name": "160 mm 56-160 BZS",
+                    "weight": 2300,
+                    "move_up_arc": 20,
+                    "fire_rate": 2.4,
+                    "dispersion": 0.46,
+                    "tag": "_160mm_56_160_BZS_CFE_B",
+                    "traverse_speed": 21,
+                    "reload_time": 25.0,
+                    "tier": 8,
+                    "aim_time": 3.5
+                },
+                "turret": {
+                    "name": "Bull Demon King",
+                    "weight": 12890,
+                    "view_range": 380,
+                    "hp": 310,
+                    "tag": "Turret_1_Ch47_BZ_176_CFE_B",
+                    "traverse_speed": 29,
+                    "traverse_right_arc": 180,
+                    "tier": 8,
+                    "traverse_left_arc": 180
+                },
+                "hull_weight": 28845,
+                "radio": {
+                    "tier": 9,
+                    "signal_range": 600,
+                    "tag": "A_220_CFE_B",
+                    "name": "A-220",
+                    "weight": 40
+                },
+                "rapid": null,
+                "speed_forward": 30,
+                "hull_hp": 1240,
+                "speed_backward": 15,
+                "ammo": [
+                    {
+                        "penetration": [
+                            156,
+                            208,
+                            260
+                        ],
+                        "stun": null,
+                        "type": "ARMOR_PIERCING",
+                        "damage": [
+                            488,
+                            650,
+                            813
+                        ]
+                    },
+                    {
+                        "penetration": [
+                            169,
+                            225,
+                            281
+                        ],
+                        "stun": null,
+                        "type": "HIGH_EXPLOSIVE",
+                        "damage": [
+                            600,
+                            800,
+                            1000
+                        ]
+                    }
+                ],
+                "max_weight": 0
+            },
+            "turrets": [
+                26163
+            ]
+        },
+        "69441": {
+            "is_wheeled": false,
+            "radios": [
+                18503
+            ],
+            "is_premium": true,
+            "tag": "F142_M47_Chevalier",
+            "images": {
+                "small_icon": "http://api.worldoftanks.asia/static/2.77.0/wot/encyclopedia/vehicle/small/france-F142_M47_Chevalier.png",
+                "contour_icon": "http://api.worldoftanks.asia/static/2.77.0/wot/encyclopedia/vehicle/contour/france-F142_M47_Chevalier.png",
+                "big_icon": "http://api.worldoftanks.asia/static/2.77.0/wot/encyclopedia/vehicle/france-F142_M47_Chevalier.png"
+            },
+            "tank_id": 69441,
+            "suspensions": [
+                50498
+            ],
+            "provisions": [
+                5378811,
+                5631995,
+                52987,
+                26363,
+                26619,
+                26875,
+                27131,
+                27387,
+                27643,
+                27899,
+                28155,
+                28411,
+                12283,
+                28923,
+                17147,
+                12795,
+                29435,
+                46075,
+                29947,
+                29179,
+                30203,
+                47099,
+                48891,
+                26107,
+                52219,
+                14843,
+                5631739,
+                15355,
+                3579,
+                5631483,
+                52475,
+                29691,
+                251,
+                507,
+                16891,
+                763,
+                1019,
+                230651,
+                1531,
+                5377275,
+                5376507,
+                51963,
+                5377019,
+                14331,
+                52731,
+                11771,
+                28667,
+                5377787,
+                5378043,
+                1275,
+                5378299,
+                5377531,
+                5378555,
+                39417,
+                28665,
+                23289,
+                39161,
+                39929,
+                29433,
+                40185,
+                40441,
+                40697,
+                13305,
+                40953,
+                41209,
+                41465,
+                25593,
+                25849,
+                39673,
+                29945,
+                26361,
+                27129,
+                27385,
+                30201,
+                27641,
+                11513,
+                23801,
+                11769,
+                12025,
+                24313,
+                12281,
+                30457,
+                12537,
+                29177,
+                13049,
+                29689,
+                13561,
+                13817,
+                11257,
+                14073,
+                30713,
+                14585,
+                15097,
+                14841,
+                30969,
+                31481,
+                15353,
+                27897,
+                16121,
+                31225,
+                16633,
+                24825,
+                28153,
+                28409,
+                18681,
+                31737,
+                22009,
+                19193,
+                19705,
+                20729,
+                20985,
+                28921,
+                14329,
+                38905,
+                38649,
+                22521,
+                17913
+            ],
+            "engines": [
+                36421
+            ],
+            "crew": [
+                {
+                    "roles": {
+                        "commander": "车长",
+                        "radioman": "通信兵"
+                    },
+                    "member_id": "commander"
+                },
+                {
+                    "roles": {
+                        "gunner": "炮手"
+                    },
+                    "member_id": "gunner"
+                },
+                {
+                    "roles": {
+                        "driver": "驾驶员"
+                    },
+                    "member_id": "driver"
+                },
+                {
+                    "roles": {
+                        "loader": "装填手"
+                    },
+                    "member_id": "loader"
+                }
+            ],
+            "type": "mediumTank",
+            "guns": [
+                35396
+            ],
+            "multination": null,
+            "description": "M47是F系陆军装备的坦克，该计划旨在对其进行大规模现代化改造。主要目标是在生产出足够数量的AMX 30坦克之前，使该坦克保持先进水平。设计方案要求安装一门全新火炮、增强火控系统、强化装甲、安装推土铲和外挂油箱，并减少乘员——驾驶员助手的位置被弹药架取代。然而，AMX 30的列装速度快于预期，M47的现代化改造对于F系陆军而言已经过时。该坦克也曾计划用于出口，但并未吸引到客户。为展示换装武器的可能性，建造了一辆装备全新火炮的原型车；然而，其后续历史不得而知。",
+            "short_name": "M47 Chevalier",
+            "is_premium_igr": false,
+            "next_tanks": null,
+            "modules_tree": {
+                "50498": {
+                    "name": "M47 Chevalier",
+                    "next_modules": null,
+                    "next_tanks": null,
+                    "is_default": true,
+                    "price_xp": 0,
+                    "price_credit": 60000,
+                    "module_id": 50498,
+                    "type": "vehicleChassis"
+                },
+                "43843": {
+                    "name": "M47 Chevalier",
+                    "next_modules": null,
+                    "next_tanks": null,
+                    "is_default": true,
+                    "price_xp": 0,
+                    "price_credit": 60000,
+                    "module_id": 43843,
+                    "type": "vehicleTurret"
+                },
+                "35396": {
+                    "name": "105 mm CN-105-F1 (Chevalier)",
+                    "next_modules": null,
+                    "next_tanks": null,
+                    "is_default": true,
+                    "price_xp": 0,
+                    "price_credit": 200000,
+                    "module_id": 35396,
+                    "type": "vehicleGun"
+                },
+                "36421": {
+                    "name": "Continental AV-1790-5B (Chevalier)",
+                    "next_modules": null,
+                    "next_tanks": null,
+                    "is_default": true,
+                    "price_xp": 0,
+                    "price_credit": 90000,
+                    "module_id": 36421,
+                    "type": "vehicleEngine"
+                },
+                "18503": {
+                    "name": "SCR 528 (Chevalier)",
+                    "next_modules": null,
+                    "next_tanks": null,
+                    "is_default": true,
+                    "price_xp": 0,
+                    "price_credit": 40000,
+                    "module_id": 18503,
+                    "type": "vehicleRadio"
+                }
+            },
+            "nation": "france",
+            "tier": 9,
+            "prices_xp": null,
+            "is_gift": false,
+            "name": "M47 Chevalier",
+            "price_gold": null,
+            "price_credit": null,
+            "default_profile": {
+                "engine": {
+                    "name": "Continental AV-1790-5B (Chevalier)",
+                    "power": 1000,
+                    "weight": 800,
+                    "tag": "Continental_AV_1790_5B_Chevalier",
+                    "fire_chance": 0.2,
+                    "tier": 9
+                },
+                "siege": null,
+                "max_ammo": 50,
+                "suspension": {
+                    "name": "M47 Chevalier",
+                    "weight": 13750,
+                    "load_limit": 0,
+                    "tag": "Chassis_F142_M47_Chevalier",
+                    "traverse_speed": 50,
+                    "tier": 9,
+                    "steering_lock_angle": 0
+                },
+                "weight": 55000,
+                "armor": {
+                    "turret": {
+                        "front": 254,
+                        "sides": 89,
+                        "rear": 76
+                    },
+                    "hull": {
+                        "front": 102,
+                        "sides": 76,
+                        "rear": 51
+                    }
+                },
+                "hp": 1700,
+                "modules": {
+                    "gun_id": 35396,
+                    "suspension_id": 50498,
+                    "turret_id": 43843,
+                    "radio_id": 18503,
+                    "engine_id": 36421
+                },
+                "gun": {
+                    "move_down_arc": 10,
+                    "caliber": 105,
+                    "name": "105 mm CN-105-F1 (Chevalier)",
+                    "weight": 2600,
+                    "move_up_arc": 19,
+                    "fire_rate": 6.38,
+                    "dispersion": 0.37,
+                    "tag": "_105mm_CN_105_F1_Chevalier",
+                    "traverse_speed": 20,
+                    "reload_time": 9.4,
+                    "tier": 9,
+                    "aim_time": 2.0
+                },
+                "turret": {
+                    "name": "M47 Chevalier",
+                    "weight": 11000,
+                    "view_range": 400,
+                    "hp": 340,
+                    "tag": "Turret_1_F142_M47_Chevalier",
+                    "traverse_speed": 38,
+                    "traverse_right_arc": 180,
+                    "tier": 9,
+                    "traverse_left_arc": 180
+                },
+                "hull_weight": 26450,
+                "radio": {
+                    "tier": 9,
+                    "signal_range": 670,
+                    "tag": "SCR_528_Chevalier",
+                    "name": "SCR 528 (Chevalier)",
+                    "weight": 100
+                },
+                "rapid": null,
+                "speed_forward": 48,
+                "hull_hp": 1360,
+                "speed_backward": 20,
+                "ammo": [
+                    {
+                        "penetration": [
+                            188,
+                            250,
+                            313
+                        ],
+                        "stun": null,
+                        "type": "ARMOR_PIERCING_CR",
+                        "damage": [
+                            293,
+                            390,
+                            488
+                        ]
+                    },
+                    {
+                        "penetration": [
+                            233,
+                            310,
+                            388
+                        ],
+                        "stun": null,
+                        "type": "HOLLOW_CHARGE",
+                        "damage": [
+                            293,
+                            390,
+                            488
+                        ]
+                    },
+                    {
+                        "penetration": [
+                            40,
+                            53,
+                            66
+                        ],
+                        "stun": null,
+                        "type": "HIGH_EXPLOSIVE",
+                        "damage": [
+                            360,
+                            480,
+                            600
+                        ]
+                    }
+                ],
+                "max_weight": 0
+            },
+            "turrets": [
+                43843
+            ]
+        },
+        "68401": {
+            "is_wheeled": false,
+            "radios": [
+                9271
+            ],
+            "is_premium": true,
+            "tag": "Ch74_Waffentrager_15",
+            "images": {
+                "small_icon": "http://api.worldoftanks.asia/static/2.77.0/wot/encyclopedia/vehicle/small/china-Ch74_Waffentrager_15.png",
+                "contour_icon": "http://api.worldoftanks.asia/static/2.77.0/wot/encyclopedia/vehicle/contour/china-Ch74_Waffentrager_15.png",
+                "big_icon": "http://api.worldoftanks.asia/static/2.77.0/wot/encyclopedia/vehicle/china-Ch74_Waffentrager_15.png"
+            },
+            "tank_id": 68401,
+            "suspensions": [
+                30258
+            ],
+            "provisions": [
+                5631995,
+                11771,
+                26107,
+                26363,
+                26619,
+                230651,
+                27899,
+                28155,
+                5631739,
+                12283,
+                28923,
+                48891,
+                29179,
+                29435,
+                29691,
+                29947,
+                28411,
+                30203,
+                47099,
+                14843,
+                15355,
+                5631483,
+                52475,
+                251,
+                46075,
+                507,
+                16891,
+                763,
+                1019,
+                1275,
+                1531,
+                51963,
+                52219,
+                14331,
+                52731,
+                17147,
+                28667,
+                52987,
+                4091,
+                12795,
+                27387,
+                13049,
+                39673,
+                39929,
+                40185,
+                40441,
+                40697,
+                13305,
+                40953,
+                41209,
+                41465,
+                23289,
+                25593,
+                26361,
+                27129,
+                27385,
+                27641,
+                27897,
+                28153,
+                12025,
+                28665,
+                12537,
+                29177,
+                24057,
+                29433,
+                29689,
+                29945,
+                30201,
+                11257,
+                30457,
+                30713,
+                16121,
+                31225,
+                15097,
+                15353,
+                24825,
+                17145,
+                31481,
+                17913,
+                28409,
+                18681,
+                31737,
+                22009,
+                19193,
+                20729,
+                28921,
+                30969,
+                39417
+            ],
+            "engines": [
+                18741
+            ],
+            "crew": [
+                {
+                    "roles": {
+                        "commander": "车长"
+                    },
+                    "member_id": "commander"
+                },
+                {
+                    "roles": {
+                        "gunner": "炮手"
+                    },
+                    "member_id": "gunner"
+                },
+                {
+                    "roles": {
+                        "driver": "驾驶员"
+                    },
+                    "member_id": "driver"
+                },
+                {
+                    "roles": {
+                        "radioman": "通信兵"
+                    },
+                    "member_id": "radioman"
+                },
+                {
+                    "roles": {
+                        "loader": "装填手"
+                    },
+                    "member_id": "loader"
+                },
+                {
+                    "roles": {
+                        "loader": "装填手"
+                    },
+                    "member_id": "loader"
+                }
+            ],
+            "type": "AT-SPG",
+            "guns": [
+                68404
+            ],
+            "multination": null,
+            "description": "仙凡毓秀，额绽金睛，丰神俊雅，气凌霄汉。玄功九转通变化，三尖两刃破万重，持弓挟弹，哮天随行，法天象地，勇冠诸天。劈桃山以救母，担日月而巡天，孝心动宸阙，英名满尘寰。守灌江灵境，统梅山六圣，听调不听宣，神威镇八荒。斩蛟治水，护佑生民，赐福护佑，去灾弥祸。秉刚直，怀忠义，性孤高，志凌云，不慕天廷爵，甘为守土神。九州万姓同奉祀，清源妙道，二郎显圣真君，威名永耀，万古长存。",
+            "short_name": "Erlang Shen",
+            "is_premium_igr": false,
+            "next_tanks": null,
+            "modules_tree": {
+                "30258": {
+                    "name": "二郎真君",
+                    "next_modules": null,
+                    "next_tanks": null,
+                    "is_default": true,
+                    "price_xp": 0,
+                    "price_credit": 80000,
+                    "module_id": 30258,
+                    "type": "vehicleChassis"
+                },
+                "27699": {
+                    "name": "二郎真君",
+                    "next_modules": null,
+                    "next_tanks": null,
+                    "is_default": true,
+                    "price_xp": 0,
+                    "price_credit": 80000,
+                    "module_id": 27699,
+                    "type": "vehicleTurret"
+                },
+                "68404": {
+                    "name": "15 cm Pak L/38",
+                    "next_modules": null,
+                    "next_tanks": null,
+                    "is_default": true,
+                    "price_xp": 0,
+                    "price_credit": 300000,
+                    "module_id": 68404,
+                    "type": "vehicleGun"
+                },
+                "18741": {
+                    "name": "Maybach Neues Projekt",
+                    "next_modules": null,
+                    "next_tanks": null,
+                    "is_default": true,
+                    "price_xp": 0,
+                    "price_credit": 120000,
+                    "module_id": 18741,
+                    "type": "vehicleEngine"
+                },
+                "9271": {
+                    "name": "10WSc",
+                    "next_modules": null,
+                    "next_tanks": null,
+                    "is_default": true,
+                    "price_xp": 0,
+                    "price_credit": 55000,
+                    "module_id": 9271,
+                    "type": "vehicleRadio"
+                }
+            },
+            "nation": "china",
+            "tier": 10,
+            "prices_xp": null,
+            "is_gift": false,
+            "name": "Erlang Shen",
+            "price_gold": null,
+            "price_credit": null,
+            "default_profile": {
+                "engine": {
+                    "name": "Maybach Neues Projekt",
+                    "power": 1350,
+                    "weight": 750,
+                    "tag": "Maybach_HL_234P60",
+                    "fire_chance": 0.2,
+                    "tier": 10
+                },
+                "siege": null,
+                "max_ammo": 40,
+                "suspension": {
+                    "name": "二郎真君",
+                    "weight": 42000,
+                    "load_limit": 0,
+                    "tag": "Chassis_Ch74_Waffentrager_15",
+                    "traverse_speed": 26,
+                    "tier": 10,
+                    "steering_lock_angle": 0
+                },
+                "weight": 101000,
+                "armor": {
+                    "turret": {
+                        "front": 20,
+                        "sides": 10,
+                        "rear": 8
+                    },
+                    "hull": {
+                        "front": 80,
+                        "sides": 50,
+                        "rear": 40
+                    }
+                },
+                "hp": 2000,
+                "modules": {
+                    "gun_id": 68404,
+                    "suspension_id": 30258,
+                    "turret_id": 27699,
+                    "radio_id": 9271,
+                    "engine_id": 18741
+                },
+                "gun": {
+                    "move_down_arc": 5,
+                    "caliber": 150,
+                    "name": "15 cm Pak L/38",
+                    "weight": 9300,
+                    "move_up_arc": 15,
+                    "fire_rate": 3.53,
+                    "dispersion": 0.35,
+                    "tag": "_15cm_KwK44_L_38",
+                    "traverse_speed": 24,
+                    "reload_time": 50.0,
+                    "tier": 10,
+                    "aim_time": 1.8
+                },
+                "turret": {
+                    "name": "二郎真君",
+                    "weight": 10000,
+                    "view_range": 380,
+                    "hp": 400,
+                    "tag": "Turret_1_Ch74_Waffentrager_15",
+                    "traverse_speed": 22,
+                    "traverse_right_arc": 180,
+                    "tier": 10,
+                    "traverse_left_arc": 180
+                },
+                "hull_weight": 38490,
+                "radio": {
+                    "tier": 10,
+                    "signal_range": 750,
+                    "tag": "_10WSc",
+                    "name": "10WSc",
+                    "weight": 160
+                },
+                "rapid": null,
+                "speed_forward": 40,
+                "hull_hp": 1600,
+                "speed_backward": 15,
+                "ammo": [
+                    {
+                        "penetration": [
+                            218,
+                            290,
+                            363
+                        ],
+                        "stun": null,
+                        "type": "ARMOR_PIERCING",
+                        "damage": [
+                            563,
+                            750,
+                            938
+                        ]
+                    },
+                    {
+                        "penetration": [
+                            278,
+                            370,
+                            463
+                        ],
+                        "stun": null,
+                        "type": "HOLLOW_CHARGE",
+                        "damage": [
+                            563,
+                            750,
+                            938
+                        ]
+                    },
+                    {
+                        "penetration": [
+                            56,
+                            75,
+                            94
+                        ],
+                        "stun": null,
+                        "type": "HIGH_EXPLOSIVE",
+                        "damage": [
+                            713,
+                            950,
+                            1188
+                        ]
+                    }
+                ],
+                "max_weight": 0
+            },
+            "turrets": [
+                27699
             ]
         }
     }

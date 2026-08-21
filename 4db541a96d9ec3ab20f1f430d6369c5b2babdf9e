@@ -1,0 +1,19 @@
+CHANGELOG.md
+  s_0fd85dc819fc65::t_cf19e29d5580a1 3-6
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "4db541a96d9ec3ab20f1f430d6369c5b2babdf9e",
+  "prompts": {},
+  "sessions": {
+    "s_0fd85dc819fc65": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "81407aa5-f138-4577-a331-1eddd27e9377",
+        "model": "deepseek-v4-flash"
+      },
+      "human_author": "zhaoming-mike <37763390@qq.com>"
+    }
+  }
+}

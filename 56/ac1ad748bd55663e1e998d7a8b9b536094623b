@@ -1,0 +1,19 @@
+data/01_clan_search.json
+  s_0fd85dc819fc65::t_f26f2cec6ac9d0 4
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.23",
+  "base_commit_sha": "56ac1ad748bd55663e1e998d7a8b9b536094623b",
+  "prompts": {},
+  "sessions": {
+    "s_0fd85dc819fc65": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "81407aa5-f138-4577-a331-1eddd27e9377",
+        "model": "deepseek-v4-flash"
+      },
+      "human_author": "zhaoming-mike <37763390@qq.com>"
+    }
+  }
+}

@@ -2,6 +2,29 @@
 // 每次 WG 新增坦克时，在此追加一个批次即可
 const NEWEST_TANK_BATCHES = [
     {
+        date: "2026-08-28",
+        label: "2.4 更新",
+        short: "2.4",
+        color: "#f5f",   // 批次专属色
+        ids: [
+            6273,   // 瑞典 XI BV-111 中坦
+            6817,   // 意大利 XI CAV mod. 71 中坦
+            8049,   // 捷克 XI Vz. 63P 重坦
+            9825,   // 日本 XI Ho-Ri Shugo 坦歼
+            11313,  // 中国 XI WZ-219 轻坦
+            32529,  // 德国 XI Pz.Kpfw. Neu 重坦
+            32017,  // 德国 X Kampfpanzer 67 重坦
+            66577,  // 德国 X Fossa VM 68 中坦
+            68145,  // 中国 X Fireborn 重坦
+            38417,  // 德国 IX Versuchspanzer 57 重坦
+            22353,  // 英国 IX FV225 Collector 重坦
+            53873,  // 捷克 IX Vz. 62 Jasan 中坦
+            55937,  // 瑞典 IX Ambassador 重坦
+            32273,  // 德国 VIII Pz.Kpfw. 55 重坦
+            53905,  // 波兰 VIII Husarz 坦歼
+        ]
+    },
+    {
         date: "2026-08-21",
         label: "2026年8月更新",
         short: "8月",

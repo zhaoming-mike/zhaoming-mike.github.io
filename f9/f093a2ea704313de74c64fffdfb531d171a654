@@ -1,0 +1,29 @@
+tank-data/tank_newest.js
+  s_fad0f4e0498707::t_a932b4fe638198 4-26
+tank-data/vehicles_data.js
+  s_23be947bd6c605::t_1542a2095323a6 3-5,136307-141725
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "f9f093a2ea704313de74c64fffdfb531d171a654",
+  "prompts": {},
+  "sessions": {
+    "s_23be947bd6c605": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "a405bc9f-d730-44df-96c0-df2471b56e26",
+        "model": "deepseek-v4-flash-0731"
+      },
+      "human_author": "zhaoming-mike <37763390@qq.com>"
+    },
+    "s_fad0f4e0498707": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "67af873c-77eb-4371-84f4-091fab3d5e3f",
+        "model": "deepseek-v4-flash-0731"
+      },
+      "human_author": "zhaoming-mike <37763390@qq.com>"
+    }
+  }
+}

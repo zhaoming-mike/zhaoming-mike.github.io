@@ -1,0 +1,1495 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>坦克世界视野计算器</title>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600&family=Barlow:wght@400;500;600&family=Barlow+Semi+Condensed:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --steel:      #2b3138;
+    --steel-dark: #1e2328;
+    --steel-line: #3d454e;
+    --plate:      #343b43;
+    --optic:      #7fb069;
+    --optic-dim:  #5a7d4a;
+    --text:       #e4e6e8;
+    --text-dim:   #8f979f;
+    --warn:       #d4a13c;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    padding: 2rem 1rem 4rem;
+    background: var(--steel-dark);
+    color: var(--text);
+    font-family: 'Barlow', 'Microsoft YaHei', 'PingFang SC', system-ui, sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+  }
+
+  .shell { max-width: 620px; margin: 0 auto; }
+
+  /* Two columns once there's room; a single stack on narrow screens. */
+  .columns {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0 1.25rem;
+    align-items: start;
+  }
+
+  /* 顶部一行：两张卡片之间始终保留 1.25rem 间隙；
+     默认纵向堆叠，媒体查询位于其后，宽屏时覆盖为并排。
+     上距标题 1.5rem，下距其余面板 1.25rem。 */
+  .top-row {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    margin: 1.5rem 0 1.25rem;
+  }
+  .top-row > .panel,
+  .top-row > .readout { margin: 0; }
+
+  /* 可折叠选择面板：默认折叠，点击标题展开（仅下方两栏的 6 张面板）。 */
+  .panel.collapsible h2 { cursor: pointer; user-select: none; display: flex; align-items: center; gap: 0.5rem; }
+  .panel.collapsible h2::after { content: ' ▾'; color: var(--text-dim); font-size: 1.1rem; line-height: 1; flex-shrink: 0; }
+  .panel.collapsible.collapsed h2::after { content: ' ▸'; }
+  .panel.collapsible.collapsed h2 ~ * { display: none; }
+  .panel.collapsible h2:focus-visible { outline: 2px solid var(--optic); outline-offset: 1px; }
+
+  /* 折叠面板标题右侧：罗列当前已选项目。 */
+  .panel.collapsible h2 .fold-summary {
+    flex: 1;
+    text-align: right;
+    font-family: 'Barlow Semi Condensed', 'Microsoft YaHei', 'PingFang SC', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 400;
+    letter-spacing: 0;
+    text-transform: none;
+    color: var(--optic);
+    overflow-wrap: anywhere;
+  }
+
+  @media (min-width: 900px) {
+    .shell { max-width: 1680px; }
+    .columns { grid-template-columns: 1fr 1fr; }
+
+    /* 宽屏时顶部一行改为并排三卡：基础视野居左、敌方隐蔽居中、结果居右。 */
+    .top-row { flex-direction: row; align-items: stretch; gap: 1.25rem; }
+    .top-row .panel { flex: 1 1 18rem; min-width: 0; margin-bottom: 0; }
+    .top-row .readout { flex: 1 1 28rem; min-width: 0; }
+  }
+
+  h1 {
+    font-family: 'Oswald', 'Microsoft YaHei', 'PingFang SC', sans-serif;
+    font-weight: 600;
+    font-size: 1.75rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin: 0 0 0.25rem;
+  }
+
+  .sub {
+    font-family: 'Barlow Semi Condensed', 'Microsoft YaHei', 'PingFang SC', sans-serif;
+    color: var(--text-dim);
+    font-size: 0.95rem;
+    margin: 0.9rem 0 0;
+  }
+
+  .formula-line {
+    font-family: 'Barlow Semi Condensed', 'Microsoft YaHei', 'PingFang SC', sans-serif;
+    font-size: 1.05rem;
+    color: var(--optic);
+    margin: 0;
+    word-spacing: 0.22em;
+  }
+
+  /* 结果区间单独标注：警示金，与绿色公式区分。 */
+  .formula-range { color: var(--warn); font-weight: 600; }
+
+  
+  .panel {
+    background: var(--steel);
+    border: 1px solid var(--steel-line);
+    border-radius: 0.75rem;
+    padding: 1.25rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .panel h2 {
+    font-family: 'Oswald', 'Microsoft YaHei', 'PingFang SC', sans-serif;
+    font-weight: 500;
+    font-size: 0.8rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin: 0 0 1rem;
+    padding-bottom: 0.6rem;
+    border-bottom: 1px solid var(--steel-line);
+  }
+
+  label.field { display: block; }
+
+  .field-label {
+    font-family: 'Barlow Semi Condensed', 'Microsoft YaHei', 'PingFang SC', sans-serif;
+    font-size: 0.9rem;
+    color: var(--text-dim);
+    display: block;
+    margin-bottom: 0.35rem;
+  }
+
+  input[type="number"] {
+    width: 100%;
+    background: var(--steel-dark);
+    border: 1px solid var(--steel-line);
+    color: var(--text);
+    font-family: 'Oswald', 'Microsoft YaHei', 'PingFang SC', sans-serif;
+    font-size: 1.4rem;
+    padding: 0.5rem 0.7rem;
+    border-radius: 0;
+  }
+
+  input[type="number"]:focus {
+    outline: 2px solid var(--optic);
+    outline-offset: 1px;
+  }
+
+  .toggle {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.65rem 0.75rem;
+    border: 1px solid var(--steel-line);
+    background: var(--plate);
+    margin-bottom: 0.5rem;
+    cursor: pointer;
+  }
+
+  .toggle:last-of-type { margin-bottom: 0; }
+
+  /* A mutually exclusive set reads as one control, not three separate ones. */
+  .group {
+    border-left: 2px solid var(--steel-line);
+    padding-left: 0.6rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .group .toggle { margin-bottom: 0.35rem; }
+  .group .toggle:last-child { margin-bottom: 0; }
+  .group input[type="radio"] { accent-color: var(--optic); }
+
+  .toggle:has(input:checked) {
+    border-color: var(--optic-dim);
+    background: #37423a;
+  }
+
+  .toggle:has(input:focus-visible) {
+    outline: 2px solid var(--optic);
+    outline-offset: 1px;
+  }
+
+  .toggle input[type="checkbox"],
+  .toggle input[type="radio"] {
+    width: 1.1rem;
+    height: 1.1rem;
+    accent-color: var(--optic);
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+
+  .toggle-name { flex: 1; }
+
+  .toggle-icon {
+    width: 34px;
+    height: 34px;
+    flex-shrink: 0;
+    border-radius: 2px;
+    object-fit: contain;
+  }
+
+  .toggle-note {
+    display: block;
+    font-family: 'Barlow Semi Condensed', 'Microsoft YaHei', 'PingFang SC', sans-serif;
+    font-size: 0.8rem;
+    color: var(--text-dim);
+  }
+
+  .toggle-val {
+    font-family: 'Oswald', 'Microsoft YaHei', 'PingFang SC', sans-serif;
+    color: var(--optic);
+    font-size: 0.95rem;
+    text-align: right;
+    flex-shrink: 0;
+  }
+
+  .pct {
+    font-family: 'Oswald', 'Microsoft YaHei', 'PingFang SC', sans-serif;
+    color: var(--optic);
+    font-size: 0.95rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.15rem;
+    flex-shrink: 0;
+  }
+
+  input[type="number"].pct-input {
+    width: 3.4rem;
+    background: var(--steel-dark);
+    border: 1px solid var(--steel-line);
+    color: var(--optic);
+    font-family: 'Oswald', 'Microsoft YaHei', 'PingFang SC', sans-serif;
+    font-size: 1.05rem;
+    padding: 0.3rem 0.4rem;
+    text-align: right;
+    border-radius: 0;
+    -moz-appearance: textfield;
+  }
+
+  /* Spinner arrows eat the width on a box this narrow. */
+  .pct-input::-webkit-outer-spin-button,
+  .pct-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  input[type="number"].pct-input:disabled {
+    color: var(--text-dim);
+    opacity: 1;
+    border-style: dashed;
+  }
+
+  input[type="number"].pct-input:focus { outline: 2px solid var(--optic); outline-offset: 1px; }
+
+  .vehicle-row {
+    display: flex;
+    align-items: flex-end;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  .vehicle-row .field { flex: 0 0 auto; }
+
+  input[type="number"]#baseVR { width: 7rem; }
+
+  #resetBtn {
+    flex: 1 1 12rem;
+    background: var(--plate);
+    border: 1px solid var(--steel-line);
+    color: var(--text-dim);
+    font-family: 'Oswald', 'Microsoft YaHei', 'PingFang SC', sans-serif;
+    font-size: 1.125rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 0 0.9rem;
+    height: 2.9rem;
+    cursor: pointer;
+    border-radius: 0;
+  }
+
+  #resetBtn:hover { color: var(--text); border-color: var(--text-dim); }
+  #resetBtn:focus-visible { outline: 2px solid var(--optic); outline-offset: 1px; }
+
+  .readout-spot {
+    border-color: var(--warn);
+    border-left-color: var(--warn);
+  }
+
+  .readout-spot .readout-value { color: var(--warn); }
+  .readout-spot #result { color: var(--optic); }
+
+  /* Equal columns keep the three figures on a shared baseline. */
+  .spot-pair {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    align-items: end;
+    gap: 1rem;
+    width: 100%;
+  }
+
+  .spot-case { min-width: 0; }
+
+  .spot-case .readout-value { font-size: 2.4rem; }
+
+  @media (max-width: 480px) {
+    .spot-pair { grid-template-columns: 1fr; }
+  }
+
+  .spot-case .readout-label {
+    display: block;
+    margin-bottom: 0.4rem;
+    min-height: 2.2em;
+  }
+
+  .spot-case .readout-value { display: block; }
+
+  input[type="number"]#camo,
+  input[type="number"]#foliage { width: 7rem; }
+
+  .panel .field + .field { margin-top: 0.9rem; }
+
+  /* The two concealment inputs sit side by side, stacking when space is tight. */
+  .conceal-row {
+    display: flex;
+    gap: 1.25rem;
+    flex-wrap: wrap;
+  }
+
+  .conceal-row .field { flex: 1 1 12rem; }
+  .conceal-row .field + .field { margin-top: 0; }
+  .conceal-row .field-label { min-height: 2.6em; }
+
+  .cvs-total {
+    font-family: 'Barlow Semi Condensed', 'Microsoft YaHei', 'PingFang SC', sans-serif;
+    font-size: 0.9rem;
+    color: var(--text-dim);
+    margin: 0.9rem 0 0;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--steel-line);
+  }
+
+  .cvs-total b { color: var(--optic); font-weight: 500; }
+
+  .worse { color: #c9584f; }
+  .better { color: var(--optic); }
+
+  
+  .credit {
+    font-family: 'Barlow Semi Condensed', 'Microsoft YaHei', 'PingFang SC', sans-serif;
+    font-size: 0.8rem;
+    color: var(--text-dim);
+    text-align: center;
+    margin: 2rem 0 0;
+    opacity: 0.7;
+  }
+
+  .credit a { color: var(--optic); text-decoration: underline; }
+  .credit a:hover { color: var(--text); }
+
+  .footnote {
+    font-family: 'Barlow Semi Condensed', 'Microsoft YaHei', 'PingFang SC', sans-serif;
+    font-size: 0.85rem;
+    line-height: 1.45;
+    color: var(--text-dim);
+    margin: 0.9rem 0 0;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--steel-line);
+  }
+
+  .readout {
+    background: var(--steel);
+    border: 2px solid var(--optic);
+    border-radius: 0.75rem;
+    padding: 1.25rem;
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .readout-label {
+    font-family: 'Oswald', 'Microsoft YaHei', 'PingFang SC', sans-serif;
+    font-size: 0.8rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+  }
+
+  .readout-value {
+    font-family: 'Oswald', 'Microsoft YaHei', 'PingFang SC', sans-serif;
+    font-size: 2.6rem;
+    font-weight: 600;
+    line-height: 1;
+    color: var(--optic);
+  }
+
+  .readout-value span { font-size: 1.2rem; color: var(--text-dim); }
+
+  .breakdown {
+    font-family: 'Barlow Semi Condensed', 'Microsoft YaHei', 'PingFang SC', sans-serif;
+    font-size: 0.9rem;
+    color: var(--text-dim);
+    margin-top: 0.75rem;
+    width: 100%;
+    border-top: 1px solid var(--steel-line);
+    padding-top: 0.75rem;
+  }
+
+  .breakdown b { color: var(--text); font-weight: 500; }
+
+  #cvsSummary { padding-top: 0.75rem; }
+  #spotBreakdown { border-top: none; padding-top: 0.35rem; margin-top: 0; }
+
+  .msg {
+    color: var(--warn);
+    font-family: 'Barlow Semi Condensed', 'Microsoft YaHei', 'PingFang SC', sans-serif;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .readout-value { transition: color 0.15s ease; }
+  }
+</style>
+</head>
+<body>
+<div class="shell">
+
+  <h1>坦克世界视野计算器</h1>
+
+  <div class="panel">
+    <h2>点亮机制说明</h2>
+    <p class="formula-line">最终点亮距离 = 视野 − （视野 − 50）× 总隐蔽系数，<span class="formula-range">结果区间为 [50, 445] 米</span></p>
+    <p class="sub">视野取上方计算结果（含技能/装备加成）；总隐蔽系数按静止/移动分两种：静止 = 坦克隐蔽 + 草丛×草丛系数，移动 = 坦克×移动系数 + 草丛×草丛系数，可被车长镜等削减。50 米为强制点亮下限，445 米为视野硬上限。</p>
+  </div>
+
+  <!-- 顶部一行：基础视野 / 敌方隐蔽 / 结果三张卡片，宽屏并排、窄屏堆叠。 -->
+  <div class="top-row">
+    <div class="panel">
+      <h2>战车</h2>
+      <div class="vehicle-row">
+        <label class="field">
+          <span class="field-label">基础视野（米）</span>
+          <input type="number" id="baseVR" value="410" min="0" step="1" inputmode="decimal">
+        </label>
+        <button type="button" id="resetBtn">清除下方所有选择</button>
+      </div>
+      <p class="sub">假设车长主职熟练度为100%。</p>
+    </div>
+
+    <div class="panel">
+      <h2>敌方隐蔽</h2>
+      <div class="conceal-row">
+        <label class="field">
+          <span class="field-label">敌方坦克总隐蔽值（%）</span>
+          <input type="number" id="camo" value="30" min="0" max="100" step="0.1" inputmode="decimal">
+        </label>
+        <label class="field">
+          <span class="field-label">草丛/灌木总隐蔽（%）</span>
+          <input type="number" id="foliage" value="0" min="0" max="80" step="0.1" inputmode="decimal">
+        </label>
+      </div>
+      <p class="footnote">全草：50%、半草：25%、枯草：10%；双草或多草总叠加不超过 80%。</p>
+    </div>
+
+    <div class="readout readout-spot">
+      <div class="spot-pair">
+        <div class="spot-case">
+          <span class="readout-label">视野</span>
+          <span class="readout-value" id="result">—</span>
+        </div>
+        <div class="spot-case">
+          <span class="readout-label">静止敌方<br>点亮距离</span>
+          <span class="readout-value" id="spotStill">—</span>
+        </div>
+        <div class="spot-case">
+          <span class="readout-label">移动敌方<br>点亮距离</span>
+          <span class="readout-value" id="spotMove">—</span>
+        </div>
+      </div>
+      <div class="breakdown" id="cvsSummary"></div>
+      <div class="breakdown" id="spotBreakdown"></div>
+    </div>
+  </div>
+
+  <div class="columns">
+    <div class="column">
+  <div class="panel collapsible">
+    <h2>加成视野百分比的乘员技能</h2>
+    <div id="skills"></div>
+  </div>
+
+  <div class="panel collapsible">
+    <h2>提升车长熟练度的情境乘员技能</h2>
+    <div id="conditionalSkills"></div>
+  </div>
+
+  <div class="panel collapsible">
+    <h2>车长熟练度百分比</h2>
+    <div id="crewBonuses"><p class="msg">正在加载设置…</p></div>
+  </div>
+
+    </div>
+
+    <div class="column">
+  <div class="panel collapsible">
+    <h2>视野百分比加成</h2>
+    <div id="flatBonuses"></div>
+  </div>
+
+  <div class="panel collapsible">
+    <h2>车长镜加成</h2>
+    <div id="cvs"></div>
+  </div>
+
+  <div class="panel collapsible">
+    <h2>战车模式</h2>
+    <div id="combinedModes"></div>
+  </div>
+
+  </div>
+  </div>
+
+  <p class="credit">由 RedshiftOTF 制作（v1.1）· 简体中文版基于 <a href="https://redshiftotf.github.io/WOT-view-range-calculator/" target="_blank" rel="noopener">GitHub原站</a> · 汉化：阿明【北冥有鱼军团长】 · 非官方工具，与 Wargaming 无关联，版权归 <a href="https://Wargaming.net" target="_blank" rel="noopener">Wargaming.net</a> 所有。</p>
+
+</div>
+
+<!-- Item name/note translations live in this file; edit it to localize. Items missing a translation keep their English names. -->
+<script src="locales/zh-CN.js"></script>
+
+<script>
+// ---------------------------------------------------------------------------
+//  SETTINGS - edit the numbers below after a game patch.
+//  Icons are loaded from the images/ folder next to this file.
+// ---------------------------------------------------------------------------
+const CONFIG = {
+  "_comment": "View range constants for World of Tanks. Values derived from tanks.gg and in-game comparison-tool measurements. Edit this file after a patch; index.html does not need changing.",
+  "_formula": "VR = base * (0.57 + 0.0043 * C) * PROD(1 + skill * C/100) * PROD(1 + flat) * equipment",
+  "qualification": {
+    "constant": 0.57,
+    "coefficient": 0.0043,
+    "commanderBase": 100,
+    "_note": "Commander is assumed to be at 100% major qualification. C = commanderBase + sum of active crewBonus values. Do not round C."
+  },
+  "crewBonuses": [
+    {
+      "id": "bia",
+      "name": "Brothers in Arms",
+      "value": 5,
+      "note": "All crew members trained to 100%"
+    },
+    {
+      "id": "vents",
+      "name": "Ventilation",
+      "value": 5,
+      "note": "Not in an equipment slot",
+      "exclusiveGroup": "vents"
+    },
+    {
+      "id": "ventsSlot",
+      "name": "Ventilation (equipment slot)",
+      "value": 6,
+      "note": "Mounted in an equipment slot",
+      "exclusiveGroup": "vents"
+    },
+    {
+      "id": "bountyVents",
+      "name": "Bounty Ventilation",
+      "value": 7.5,
+      "exclusiveGroup": "vents"
+    },
+    {
+      "id": "bondVents",
+      "name": "Bond Ventilation",
+      "value": 8.5,
+      "exclusiveGroup": "vents"
+    },
+    {
+      "id": "ventPurge",
+      "name": "Vent Purge directive",
+      "value": 2.5,
+      "note": "Requires vents",
+      "requiresGroup": "vents",
+      "slot": "directive"
+    },
+    {
+      "id": "food",
+      "name": "Food Consumable",
+      "value": 10
+    }
+  ],
+  "_unverified": "Confirmed on a 410m tank: BiA 418.82, vents-slot 420.58, bounty 423.22, bond 424.99, food 427.63, bond+vent purge 429.39. Vent Purge measured once (bond vents only).",
+  "_exclusive": "Bonuses sharing an exclusiveGroup are mutually exclusive (radio buttons). Only one vent type can be mounted.",
+  "flatBonuses": [
+    {
+      "id": "fieldMod",
+      "name": "View range field mod",
+      "percent": 2,
+      "userEditable": true,
+      "note": "Percentage varies by vehicle - check in game"
+    },
+    {
+      "id": "optics",
+      "name": "Coated Optics",
+      "percent": 10,
+      "exclusiveGroup": "vision"
+    },
+    {
+      "id": "opticsSlot",
+      "name": "Coated Optics (scouting slot)",
+      "percent": 11.5,
+      "exclusiveGroup": "vision"
+    },
+    {
+      "id": "bountyOptics",
+      "name": "Bounty Optics",
+      "percent": 12.5,
+      "exclusiveGroup": "vision"
+    },
+    {
+      "id": "bondOptics",
+      "name": "Bond Optics",
+      "percent": 13.5,
+      "exclusiveGroup": "vision"
+    },
+    {
+      "id": "binocs",
+      "name": "Binocular Telescope",
+      "percent": 25,
+      "note": "Only after 3 seconds stationary",
+      "exclusiveGroup": "vision"
+    },
+    {
+      "id": "binocsSlot",
+      "name": "Binoculars (scouting slot)",
+      "percent": 27.5,
+      "note": "Only after 3 seconds stationary",
+      "exclusiveGroup": "vision"
+    },
+    {
+      "id": "bondBinocs",
+      "name": "Bond Binoculars",
+      "percent": 27.5,
+      "note": "Only after 2 seconds stationary",
+      "exclusiveGroup": "vision"
+    },
+    {
+      "id": "opticalCalibration",
+      "name": "Optical Calibration directive",
+      "percent": 2.3,
+      "note": "Requires optics. Game lists it as 2.5%; measured effect is 2.3%.",
+      "slot": "directive",
+      "requiresIds": [
+        "optics",
+        "opticsSlot",
+        "bountyOptics",
+        "bondOptics"
+      ]
+    }
+  ],
+  "_flatNote": "Flat bonuses are undamped multipliers applied after the qualification stage, each as its own separate factor: VR *= (1 + percent/100). They do NOT scale with C, unlike crew skills. Confirmed on a 410m tank: 2% field mod = 418.20, optics = 451.00, optics + directive = 461.37, optics + directive + BiA + food = 491.13.",
+  "_slotNote": "Bonuses sharing a 'slot' value compete for the same mounting slot and cannot be used together. A tank has only one directive slot, so Vent Purge and Optical Calibration are mutually exclusive even though they live in different sections of the page.",
+  "skills": [
+    {
+      "id": "recon",
+      "name": "Recon",
+      "percent": 2,
+      "note": "Commander skill"
+    },
+    {
+      "id": "situationalAwareness",
+      "name": "Situational Awareness",
+      "percent": 3,
+      "note": "Radio operator skill"
+    },
+    {
+      "id": "threatSearch",
+      "name": "Threat Search",
+      "percent": 2,
+      "note": "Activates for 5 seconds from when Sixth Sense is triggered"
+    }
+  ],
+  "_skillNote": "Crew skills differ from flat bonuses: their percentage scales with the commander's effective qualification, as percent * C/100. At C=110 Recon shows 2.2%, at C=120 Situational Awareness shows 3.6% - both confirmed by the in-game tooltip. Each skill then applies as its own multiplier. Confirmed on a 410m tank: recon+SA at C=100 = 430.75, food+recon = 437 (in game, rounded), SA+BiA+food+vents = 461 (in game, rounded).",
+  "groupLabels": {
+    "vents": "No vents",
+    "vision": "No optics or binoculars"
+  },
+  "_visionNote": "Optics and binoculars occupy the same choice - only one can be active, so they share one exclusive group. Confirmed on a 410m tank: optics = 451.00, binoculars = 512.50.",
+  "conditionalCrewSkills": [
+    {
+      "id": "emergency",
+      "name": "Emergency",
+      "percent": 5,
+      "note": "15s after your tank takes damage"
+    },
+    {
+      "id": "holdTheLine",
+      "name": "Hold the Line",
+      "percent": 5,
+      "note": "While the enemy team has at least 3 more tanks than yours"
+    },
+    {
+      "id": "staySharp",
+      "name": "Stay Sharp",
+      "percent": 5,
+      "note": "15s after a Med Kit is used"
+    },
+    {
+      "id": "bulletproof",
+      "name": "Bulletproof",
+      "percent": 5,
+      "note": "Once blocked damage exceeds your vehicle's hit points"
+    },
+    {
+      "id": "sideBySide",
+      "name": "Side by Side",
+      "percent": 2.5,
+      "note": "Within 50m of an allied vehicle of the same type"
+    },
+    {
+      "id": "communicationsExpert",
+      "name": "Communications Expert",
+      "percent": 2.5,
+      "note": "Once assisted damage exceeds your vehicle's starting hit points"
+    }
+  ],
+  "_conditionalNote": "These skills add a FLAT percentage to the commander's qualification - the in-game tooltip displays them scaled (5% shows as 6.18% at C=123.5) but the applied value is the flat one. They feed the qualification damping bracket only; they do NOT scale the view range skills (Recon/SA/Threat Search), which use baseC from equipment and consumables alone. Confirmed: food+Emergency = 436, food+2 skills = 445, BiA+food+bond vents+3 skills = 478, Side by Side alone = 414.",
+  "conditionalFootnote": "Crew skill percentage boosts these values however, only the base values of these skills are added to the Commander for view range calculations. These crew skills do not boost the Recon, Situational Awareness or Threat Search crew skills below",
+  "spotting": {
+    "hardCap": 445,
+    "minimumSpot": 50,
+    "_model": "spottingDistance = viewRange - ((viewRange - minimumSpot) * camo/100), then clamped to hardCap",
+    "_note": "Camo reduces the range between the minimum spot distance and your view range, not the whole view range - so 100% camo leaves the 50m floor rather than reaching zero. Foliage adds to the tank's own camo and is capped at maxFoliage; the combined total is not capped. UNVERIFIED against the game.",
+    "maxFoliage": 80,
+    "maxCamo": 100
+  },
+  "cvs": {
+    "groupLabel": "No CVS",
+    "options": [
+      {
+        "id": "cvsNone",
+        "name": "No CVS",
+        "moving": 1.0,
+        "foliage": 1.0
+      },
+      {
+        "id": "cvsStandard",
+        "name": "Commander's Vision System",
+        "moving": 0.9,
+        "foliage": 0.85
+      },
+      {
+        "id": "cvsSlot",
+        "name": "Commander's Vision System (scouting slot)",
+        "moving": 0.875,
+        "foliage": 0.8
+      }
+    ],
+    "_model": "effectiveCamo = (tankCamo * CVSmoving) + (foliageCamo * CVSfoliage). CVSmoving is 1 unless the enemy is moving; CVSfoliage is 1 unless the enemy is behind foliage. The two conditions are independent, so a stationary target in a bush still loses the foliage portion.",
+    "_note": "CVS reduces the enemy's concealment rather than raising your view range, and it treats the tank's own camo and the foliage separately. UNVERIFIED against the game.",
+    "fieldMods": [
+      {
+        "id": "cvsModNone",
+        "name": "No CVS field mod",
+        "moving": 1.0,
+        "foliage": 1.0
+      },
+      {
+        "id": "panoramicTriplex",
+        "name": "Panoramic Triplex",
+        "moving": 0.97,
+        "foliage": 1.03,
+        "note": "Certain tier 10 tanks only"
+      },
+      {
+        "id": "narrowAngle",
+        "name": "Narrow Angle Observation Device",
+        "moving": 1.03,
+        "foliage": 0.97,
+        "note": "Certain tier 10 tanks only"
+      }
+    ],
+    "_fieldModNote": "These field mods trade concealment reduction between the two conditions and can be fitted without the CVS equipment. Their effect ADDS to the equipment's rather than multiplying: CVS (-10% moving) with Panoramic Triplex (-3%) gives -13%. UNVERIFIED against the game.",
+    "upgrades": [
+      {
+        "id": "spotBonusFoliage",
+        "name": "Spotting Bonus: Foliage",
+        "moving": 1.0,
+        "foliage": 0.97,
+        "note": "Tier 11 upgrade"
+      },
+      {
+        "id": "spotBonusMovement",
+        "name": "Spotting Bonus: Movement",
+        "moving": 0.97,
+        "foliage": 1.0,
+        "note": "Tier 11 upgrade"
+      }
+    ],
+    "_upgradeNote": "Tier 11 vehicles take upgrades instead of field mods. Each affects only one of the two conditions, and stacks additively with the equipment and field mod like everything else in this section."
+  },
+  "combinedModes": [
+    {
+      "id": "irst",
+      "name": "IRST mode (WZ-219) - Experimental!",
+      "percent": 30,
+      "moving": 0.825,
+      "foliage": 0.6,
+      "note": "Tier 11 - fully upgraded, narrowest beam"
+    }
+  ],
+  "_combinedModeNote": "Vehicle modes that act on both sides of the calculation at once: a view range multiplier like a field mod, plus CVS-style concealment reduction. UNVERIFIED against the game.",
+  "icons": {
+    "bia": "images/bia.png",
+    "binocs": "images/binocs.png",
+    "binocsSlot": "images/binocsSlot.png",
+    "bondBinocs": "images/bondBinocs.png",
+    "bondOptics": "images/bondOptics.png",
+    "bondVents": "images/bondVents.png",
+    "bountyOptics": "images/bountyOptics.png",
+    "bountyVents": "images/bountyVents.png",
+    "bulletproof": "images/bulletproof.png",
+    "communicationsExpert": "images/communicationsExpert.png",
+    "cvsSlot": "images/cvsSlot.png",
+    "cvsStandard": "images/cvsStandard.png",
+    "emergency": "images/emergency.png",
+    "fieldMod": "images/fieldMod.png",
+    "food": "images/food.png",
+    "holdTheLine": "images/holdTheLine.png",
+    "narrowAngle": "images/narrowAngle.png",
+    "opticalCalibration": "images/opticalCalibration.png",
+    "optics": "images/optics.png",
+    "opticsSlot": "images/opticsSlot.png",
+    "panoramicTriplex": "images/panoramicTriplex.png",
+    "recon": "images/recon.png",
+    "sideBySide": "images/sideBySide.png",
+    "situationalAwareness": "images/situationalAwareness.png",
+    "spotBonusFoliage": "images/spotBonusFoliage.png",
+    "spotBonusMovement": "images/spotBonusMovement.png",
+    "staySharp": "images/staySharp.png",
+    "threatSearch": "images/threatSearch.png",
+    "ventPurge": "images/ventPurge.png",
+    "vents": "images/vents.png",
+    "ventsSlot": "images/ventsSlot.png"
+  }
+};
+// ---------------------------------------------------------------------------
+
+// 将 locales/zh-CN.js 的翻译按 id 合并进 CONFIG。各渲染函数读取
+// 合并后的 CONFIG，因此渲染/公式逻辑无需任何改动；
+// 未提供翻译的词条保留英文名称/说明。
+function mergeLocales() {
+  if (typeof TRANSLATIONS === 'undefined') return;
+  const t = TRANSLATIONS;
+  const sets = [
+    CONFIG.crewBonuses, CONFIG.flatBonuses, CONFIG.skills,
+    CONFIG.conditionalCrewSkills, CONFIG.cvs.options,
+    CONFIG.cvs.fieldMods, CONFIG.cvs.upgrades, CONFIG.combinedModes
+  ];
+  sets.forEach(set => set.forEach(item => {
+    const tr = t[item.id];
+    if (!tr) return;
+    if (typeof tr.name === 'string') item.name = tr.name;
+    if (typeof tr.note === 'string') item.note = tr.note;
+  }));
+  if (t.groupLabels) {
+    Object.assign(CONFIG.groupLabels, t.groupLabels);
+  }
+  if (typeof t.conditionalFootnote === 'string' && t.conditionalFootnote) {
+    CONFIG.conditionalFootnote = t.conditionalFootnote;
+  }
+}
+
+function init() {
+  mergeLocales();
+  renderBonuses();
+  renderConditional();
+  renderSkills();
+  renderFlat();
+  renderModes();
+  renderCVS();
+  ['baseVR', 'camo', 'foliage'].forEach(id =>
+    wireNumberField(document.getElementById(id)));
+
+  document.getElementById('resetBtn').addEventListener('click', resetSelections);
+  calculate();
+}
+
+// A tank has one directive slot, so ticking one directive must clear any other
+// competing for the same slot - even though they sit in different sections.
+function clearSlotConflicts(justChanged) {
+  const slot = justChanged.dataset.slot;
+  if (!slot || !justChanged.checked) return;
+  document.querySelectorAll(`input[data-slot="${slot}"]`).forEach(other => {
+    if (other === justChanged) return;
+    other.checked = false;
+    const field = other.closest('.toggle').querySelector('.pct-input');
+    if (field) field.disabled = true;
+  });
+}
+
+// Crew skills scale with commander qualification, so their displayed
+// percentage moves as vents/food/BiA are toggled.
+// Clears every selection but deliberately leaves the base view range alone -
+// that's the one value the user typed in themselves.
+function resetSelections() {
+  renderBonuses();
+  renderConditional();
+  renderModes();
+  renderCVS();
+  renderConditional();
+  renderSkills();
+  renderFlat();
+  renderModes();
+  renderCVS();
+  calculate();
+}
+
+// These skills add to the commander's qualification, but their own percentage
+// is scaled by the qualification the equipment and consumables have already
+// produced - so the badge moves as vents/food/BiA are toggled.
+// Camo eats into the gap between the minimum spot distance and your view
+// range, so 100% concealment leaves the 50m floor rather than reaching zero.
+// Shared behaviour for every numeric field: click to select the whole value so
+// it can be typed over, and fall back to 0 on blur if the box was left empty -
+// otherwise an empty box stalls the calculation.
+// CVS reduces the enemy's concealment rather than boosting your view range,
+// and it treats the tank's own camo separately from the foliage.
+// Vehicle-specific modes. These behave like a view range field mod - an
+// undamped multiplier, not scaled by commander qualification.
+// Optional per-option artwork. Rows without an image are unchanged.
+function iconFor(id) {
+  const src = (CONFIG.icons || {})[id];
+  return src ? `<img class="toggle-icon" src="${src}" alt="">` : '';
+}
+
+function renderModes() {
+  const box = document.getElementById('combinedModes');
+  box.innerHTML = '';
+  const pct = m => {
+    const p = +((1 - m) * 100).toFixed(2);
+    return (p >= 0 ? '\u2212' : '+') + Math.abs(p) + '%';
+  };
+  CONFIG.combinedModes.forEach(m => {
+    const label = document.createElement('label');
+    label.className = 'toggle';
+    const bits = [`+${m.percent}% 视野`];
+    if (m.moving !== 1) bits.push(`${pct(m.moving)} 移动`);
+    if (m.foliage !== 1) bits.push(`${pct(m.foliage)} 草丛`);
+    label.innerHTML = `
+      <input type="checkbox" data-mode="${m.id}" data-percent="${m.percent}"
+             data-moving="${m.moving}" data-foliage="${m.foliage}">
+      <span class="toggle-name">${m.name}${m.note ? `<span class="toggle-note">${m.note}</span>` : ''}</span>
+      <span class="toggle-val">${bits.join('<br>')}</span>`;
+    label.querySelector('input').addEventListener('change', calculate);
+    box.appendChild(label);
+  });
+}
+
+function renderCVS() {
+  const box = document.getElementById('cvs');
+  box.innerHTML = '';
+
+  // Reductions read more naturally as percentages than as raw multipliers,
+  // and these mods can push a value up as well as down.
+  // A positive value means the enemy gets MORE concealment, so flag the whole
+  // phrase red rather than just the number.
+  const label = (m, word) => {
+    const p = +((1 - m) * 100).toFixed(2);
+    const text = (p >= 0 ? '\u2212' : '+') + Math.abs(p) + '%'
+      + (word ? ' ' + word : '');
+    return p < 0 ? `<span class="worse">${text}</span>` : text;
+  };
+
+  const buildGroup = (options, groupName) => {
+    const set = document.createElement('div');
+    set.className = 'group';
+    options.forEach((o, i) => {
+      const row = document.createElement('label');
+      row.className = 'toggle';
+      const effect = (o.moving !== 1 || o.foliage !== 1)
+        ? `${label(o.moving, '移动')} &amp; ${label(o.foliage, '草丛')}`
+        : '';
+      row.innerHTML = `
+        <input type="radio" name="${groupName}" data-cvs="${o.id}"
+               data-moving="${o.moving}" data-foliage="${o.foliage}"
+               ${i === 0 ? 'checked' : ''}>
+        ${iconFor(o.id)}
+        <span class="toggle-name">${o.name}${o.note ? `<span class="toggle-note">${o.note}</span>` : ''}</span>
+        <span class="toggle-val">${effect}</span>`;
+      row.querySelector('input').addEventListener('change', () => {
+        // Field mods and tier 11 upgrades are alternatives, so picking a real
+        // field mod clears any upgrades (and "No CVS field mod" leaves them).
+        if (groupName === 'cvsFieldMod') {
+          const chosen = set.querySelector('input:checked');
+          const isReal = chosen && (parseFloat(chosen.dataset.moving) !== 1
+                                 || parseFloat(chosen.dataset.foliage) !== 1);
+          if (isReal) {
+            document.querySelectorAll('input[data-cvs-upgrade]')
+              .forEach(u => { u.checked = false; });
+          }
+        }
+        calculate();
+      });
+      set.appendChild(row);
+    });
+    box.appendChild(set);
+  };
+
+  buildGroup(CONFIG.cvs.options, 'cvs');
+  if (CONFIG.cvs.fieldMods) buildGroup(CONFIG.cvs.fieldMods, 'cvsFieldMod');
+
+  // Tier 11 upgrades are independent of each other, so checkboxes rather than
+  // a radio group - a tank can carry both.
+  if (CONFIG.cvs.upgrades) {
+    const set = document.createElement('div');
+    set.className = 'group';
+    CONFIG.cvs.upgrades.forEach(o => {
+      const row = document.createElement('label');
+      row.className = 'toggle';
+      const parts = [];
+      if (o.moving !== 1) parts.push(label(o.moving, '移动'));
+      if (o.foliage !== 1) parts.push(label(o.foliage, '草丛'));
+      const effect = parts.join(' &amp; ');
+      row.innerHTML = `
+        <input type="checkbox" data-cvs-upgrade="${o.id}"
+               data-moving="${o.moving}" data-foliage="${o.foliage}">
+        ${iconFor(o.id)}
+        <span class="toggle-name">${o.name}${o.note ? `<span class="toggle-note">${o.note}</span>` : ''}</span>
+        <span class="toggle-val">${effect}</span>`;
+      row.querySelector('input').addEventListener('change', e => {
+        // Ticking an upgrade drops any field mod back to "none".
+        if (e.target.checked) {
+          const first = document.querySelector('input[name="cvsFieldMod"]');
+          if (first) first.checked = true;
+        }
+        calculate();
+      });
+      set.appendChild(row);
+    });
+    box.appendChild(set);
+  }
+
+  const total = document.createElement('p');
+  total.className = 'cvs-total';
+  total.id = 'cvsTotal';
+  box.appendChild(total);
+}
+
+function wireNumberField(field, emptyValue = 0) {
+  if (!field) return;
+  field.addEventListener('input', calculate);
+  field.addEventListener('focus', () => field.select());
+  field.addEventListener('click', () => field.select());
+  field.addEventListener('blur', () => {
+    const v = parseFloat(field.value);
+    if (field.value.trim() === '' || !isFinite(v)) {
+      field.value = emptyValue;
+      calculate();
+    } else if (v < 0) {
+      // Negative bonuses aren't a thing - pull it back to zero.
+      field.value = 0;
+      calculate();
+    }
+  });
+}
+
+function calculateSpotting(vr) {
+  const sp = CONFIG.spotting;
+  const still = document.getElementById('spotStill');
+  const move = document.getElementById('spotMove');
+  const bd = document.getElementById('spotBreakdown');
+  const camoField = document.getElementById('camo');
+  const foliageField = document.getElementById('foliage');
+
+  let camo = parseFloat(camoField.value);
+  let foliage = parseFloat(foliageField.value);
+
+  // Each field has its own ceiling, so pull anything higher back into range.
+  if (isFinite(camo) && camo > sp.maxCamo) {
+    camo = sp.maxCamo;
+    camoField.value = sp.maxCamo;
+  }
+  if (isFinite(foliage) && foliage > sp.maxFoliage) {
+    foliage = sp.maxFoliage;
+    foliageField.value = sp.maxFoliage;
+  }
+
+  if (!isFinite(camo) || camo < 0 || !isFinite(foliage) || foliage < 0) {
+    still.textContent = '\u2014';
+    move.textContent = '\u2014';
+    bd.innerHTML = '<span class="msg">请输入0到100之间的隐蔽值。</span>';
+    return;
+  }
+
+  // The two CVS factors are independent conditions. The foliage factor applies
+  // whenever the target is in a bush, moving or not; the moving factor only
+  // applies once they roll. So a stationary target in a bush still loses the
+  // foliage portion of its concealment.
+  // The equipment and the field mod stack additively, not multiplicatively:
+  // CVS (-10% moving) with Panoramic Triplex (-3%) gives -13%, not -12.7%.
+  const cvs = document.querySelector('input[name="cvs"]:checked');
+  const cvsMod = document.querySelector('input[name="cvsFieldMod"]:checked');
+  const upgrades = [
+    ...document.querySelectorAll('input[data-cvs-upgrade]:checked'),
+    ...document.querySelectorAll('#combinedModes input:checked')
+  ];
+  const reduction = (el, key) => el ? 1 - parseFloat(el.dataset[key]) : 0;
+  const sum = key => reduction(cvs, key) + reduction(cvsMod, key)
+    + upgrades.reduce((t, el) => t + reduction(el, key), 0);
+  const mMul = 1 - sum('moving');
+  const fMul = 1 - sum('foliage');
+
+  // Green when the enemy loses concealment, red when they gain it.
+  const pc = (v, tail) => {
+    const p = +((1 - v) * 100).toFixed(2);
+    const text = (p >= 0 ? '\u2212' : '+') + Math.abs(p) + '%'
+      + (tail ? ' ' + tail : '');
+    if (p === 0) return text;
+    return `<span class="${p > 0 ? 'better' : 'worse'}">${text}</span>`;
+  };
+  const none = mMul === 1 && fMul === 1;
+
+  const totalBox = document.getElementById('cvsTotal');
+  if (totalBox) {
+    totalBox.innerHTML = none
+      ? '无隐蔽削减'
+      : `总计 ${pc(mMul, '移动车辆隐蔽')} · `
+        + `${pc(fMul, '草丛后车辆隐蔽')}`;
+  }
+
+  // Repeat the CVS totals on the view range panel so both halves of the
+  // build can be read from one place.
+  const cvsSummary = document.getElementById('cvsSummary');
+  if (cvsSummary) {
+    cvsSummary.innerHTML = none
+      ? '无车长镜加成'
+      : `车长镜加成 ${pc(mMul, '移动隐蔽')} · ${pc(fMul, '草丛后隐蔽')}`;
+  }
+
+  const foliageEff = foliage * fMul;
+  const totalStill = camo + foliageEff;
+  const totalMove = (camo * mMul) + foliageEff;
+
+  // The formula can run past both ends of the game's spotting window, so the
+  // figure is clamped to the 50-445m range the game actually uses.
+  const distance = total => {
+    const raw = vr - ((vr - sp.minimumSpot) * total / 100);
+    return Math.min(Math.max(raw, sp.minimumSpot), sp.hardCap);
+  };
+
+  const render = (el, value) => {
+    el.innerHTML = value.toFixed(2) + '<span> m</span>';
+  };
+
+  const a = distance(totalStill);
+  const b = distance(totalMove);
+  render(still, a);
+  render(move, b);
+
+  bd.innerHTML = `敌方新隐蔽 = <b>${+totalStill.toFixed(2)}%</b> 静止 &amp; `
+               + `<b>${+totalMove.toFixed(2)}%</b> 移动`
+               + ` · 对照 <b>${vr.toFixed(2)} m</b> 视野`;
+}
+
+function renderConditional() {
+  const box = document.getElementById('conditionalSkills');
+  box.innerHTML = '';
+  CONFIG.conditionalCrewSkills.forEach(s => {
+    const label = document.createElement('label');
+    label.className = 'toggle';
+    label.innerHTML = `
+      <input type="checkbox" data-cond="${s.id}" data-percent="${s.percent}">
+      ${iconFor(s.id)}
+      <span class="toggle-name">${s.name}${s.note ? `<span class="toggle-note">${s.note}</span>` : ''}</span>
+      <span class="toggle-val" data-cond-val="${s.id}">+${s.percent}</span>`;
+    label.querySelector('input').addEventListener('change', calculate);
+    box.appendChild(label);
+  });
+
+  if (CONFIG.conditionalFootnote) {
+    const note = document.createElement('p');
+    note.className = 'footnote';
+    note.textContent = CONFIG.conditionalFootnote;
+    box.appendChild(note);
+  }
+}
+
+function renderSkills() {
+  const box = document.getElementById('skills');
+  box.innerHTML = '';
+  CONFIG.skills.forEach(s => {
+    const label = document.createElement('label');
+    label.className = 'toggle';
+    label.innerHTML = `
+      <input type="checkbox" data-skill="${s.id}" data-percent="${s.percent}">
+      ${iconFor(s.id)}
+      <span class="toggle-name">${s.name}${s.note ? `<span class="toggle-note">${s.note}</span>` : ''}</span>
+      <span class="toggle-val" data-skill-val="${s.id}">+${s.percent}%</span>`;
+    label.querySelector('input').addEventListener('change', calculate);
+    box.appendChild(label);
+  });
+}
+
+function renderFlat() {
+  const box = document.getElementById('flatBonuses');
+  box.innerHTML = '';
+
+  const makeRow = (b, type, groupName, checked) => {
+    const label = document.createElement('label');
+    label.className = 'toggle';
+    label.innerHTML = `
+      <input type="${type}" data-flat="${b.id}" data-percent="${b.percent}"
+             ${b.slot ? `data-slot="${b.slot}"` : ''}
+             ${groupName ? `name="flat-${groupName}"` : ''} ${checked ? 'checked' : ''}>
+      ${iconFor(b.id)}
+      <span class="toggle-name">${b.name}${b.note ? `<span class="toggle-note">${b.note}</span>` : ''}</span>
+      ${b.userEditable
+        ? `<span class="pct"><input type="number" class="pct-input" value="${b.percent}"
+             min="0" step="0.1" inputmode="decimal" aria-label="${b.name} percentage" disabled>%</span>`
+        : `<span class="toggle-val">${b.percent ? '+' + b.percent + '%' : ''}</span>`}`;
+
+    const control = label.querySelector('input[data-flat]');
+    const pct = label.querySelector('.pct-input');
+
+    control.addEventListener('change', () => {
+      if (pct) pct.disabled = !control.checked;
+      clearSlotConflicts(control);
+      calculate();
+    });
+    if (pct) {
+      // Stop the click reaching the surrounding <label>, which would toggle the
+      // checkbox - but don't preventDefault, or the field can never take focus.
+      ['click', 'mousedown', 'keydown'].forEach(evt =>
+        pct.addEventListener(evt, e => e.stopPropagation()));
+      wireNumberField(pct);
+    }
+    if (b.requiresGroup) label.dataset.requiresFlat = b.requiresGroup;
+    if (b.requiresIds) label.dataset.requiresIds = b.requiresIds.join(',');
+    return label;
+  };
+
+  const done = new Set();
+
+  CONFIG.flatBonuses.forEach(b => {
+    if (done.has(b.id)) return;
+
+    if (!b.exclusiveGroup) {
+      box.appendChild(makeRow(b, 'checkbox', null, false));
+      return;
+    }
+
+    // Only one optic can be mounted, so the set becomes radios with a
+    // "none" option so the choice can be cleared.
+    const group = CONFIG.flatBonuses.filter(x => x.exclusiveGroup === b.exclusiveGroup);
+    const set = document.createElement('div');
+    set.className = 'group';
+    const noneLabel = (CONFIG.groupLabels && CONFIG.groupLabels[b.exclusiveGroup])
+      || ('无' + b.exclusiveGroup);
+    set.appendChild(makeRow(
+      { id: b.exclusiveGroup + '-none', name: noneLabel, percent: 0 },
+      'radio', b.exclusiveGroup, true));
+    group.forEach(g => {
+      done.add(g.id);
+      set.appendChild(makeRow(g, 'radio', b.exclusiveGroup, false));
+    });
+    box.appendChild(set);
+  });
+}
+
+function renderBonuses() {
+  const box = document.getElementById('crewBonuses');
+  box.innerHTML = '';
+
+  const makeRow = (b, type, groupName, checked) => {
+    const label = document.createElement('label');
+    label.className = 'toggle';
+    label.innerHTML = `
+      <input type="${type}" data-value="${b.value}" data-id="${b.id}"
+             ${b.slot ? `data-slot="${b.slot}"` : ''}
+             ${groupName ? `name="${groupName}"` : ''} ${checked ? 'checked' : ''}>
+      ${iconFor(b.id)}
+      <span class="toggle-name">${b.name}${b.note ? `<span class="toggle-note">${b.note}</span>` : ''}</span>
+      <span class="toggle-val">${b.value ? '+' + b.value : ''}</span>`;
+    const control = label.querySelector('input');
+    control.addEventListener('change', () => { clearSlotConflicts(control); calculate(); });
+    return label;
+  };
+
+  const done = new Set();
+
+  CONFIG.crewBonuses.forEach(b => {
+    if (done.has(b.id)) return;
+
+    // Plain checkbox for anything that can be combined freely.
+    if (!b.exclusiveGroup) {
+      const row = makeRow(b, 'checkbox', null, false);
+      if (b.requiresGroup) row.dataset.requires = b.requiresGroup;
+      box.appendChild(row);
+      return;
+    }
+
+    // Mutually exclusive set: only one can be mounted, so render as radios
+    // with a "none" option so the choice can be cleared.
+    const group = CONFIG.crewBonuses.filter(x => x.exclusiveGroup === b.exclusiveGroup);
+    const set = document.createElement('div');
+    set.className = 'group';
+    set.appendChild(makeRow(
+      { id: b.exclusiveGroup + '-none', name: CONFIG.groupLabels[b.exclusiveGroup] || ('无' + b.exclusiveGroup), value: 0 },
+      'radio', b.exclusiveGroup, true));
+    group.forEach(g => {
+      done.add(g.id);
+      set.appendChild(makeRow(g, 'radio', b.exclusiveGroup, false));
+    });
+    box.appendChild(set);
+  });
+}
+
+function calculate() {
+  updateFoldSummaries();
+  const base = parseFloat(document.getElementById('baseVR').value);
+  const out = document.getElementById('result');
+
+  if (!isFinite(base) || base <= 0) {
+    out.textContent = '—';
+    const note = document.getElementById('cvsSummary');
+    if (note) note.innerHTML = '<span class="msg">请先输入基础视野再计算。</span>';
+    return;
+  }
+
+  const q = CONFIG.qualification;
+  let C = q.commanderBase;
+
+  // Some bonuses only apply alongside another choice (Vent Purge needs vents).
+  // Grey those out and clear them when the requirement isn't met.
+  document.querySelectorAll('[data-requires]').forEach(row => {
+    const group = row.dataset.requires;
+    const active = [...document.querySelectorAll(`input[name="${group}"]:checked`)]
+      .some(i => parseFloat(i.dataset.value) > 0);
+    const input = row.querySelector('input');
+    input.disabled = !active;
+    if (!active) input.checked = false;
+    row.querySelector('.toggle-name').style.opacity = active ? '' : '0.45';
+  });
+
+  document.querySelectorAll('#crewBonuses input:checked')
+    .forEach(i => { C += parseFloat(i.dataset.value); });
+
+  // Conditional skills add to qualification, but their own value is scaled by
+  // the qualification produced above - so they are applied after that sum.
+  const baseC = C;
+  const conds = [];
+  CONFIG.conditionalCrewSkills.forEach(s => {
+    const chk = document.querySelector(`input[data-cond="${s.id}"]`);
+    // The in-game tooltip shows these scaled by qualification (5% reads as
+    // 6.18% at C=123.5), but the value actually applied is the flat one.
+    // Confirmed: food+Emergency = 436, food+2 skills = 445,
+    // BiA+food+bond vents+3 skills = 478 - all need the flat figure.
+    const badge = document.querySelector(`[data-cond-val="${s.id}"]`);
+    if (badge) badge.textContent = '+' + s.percent;
+    if (chk && chk.checked) {
+      C += s.percent;
+      conds.push(s.percent);
+    }
+  });
+
+  const multiplier = q.constant + q.coefficient * C;
+  let vr = base * multiplier;
+
+  // Crew skills apply before the flat bonuses. Each scales with qualification
+  // (percent * C/100) and then applies as its own separate multiplier.
+  const skills = [];
+  CONFIG.skills.forEach(s => {
+    const chk = document.querySelector(`input[data-skill="${s.id}"]`);
+    // Scaled by baseC, NOT the full C: the conditional skills raise the
+    // commander's qualification but do not feed the view range skills.
+    const scaled = s.percent * baseC / 100;
+    const badge = document.querySelector(`[data-skill-val="${s.id}"]`);
+    if (badge) badge.textContent = '+' + (+scaled.toFixed(2)) + '%';
+    if (chk && chk.checked) {
+      vr *= (1 + scaled / 100);
+      skills.push(+scaled.toFixed(2));
+    }
+  });
+
+  // Gate bonuses that need another choice active. Some depend on a whole group,
+  // others on specific entries - the directive works with optics but not binoculars.
+  document.querySelectorAll('[data-requires-flat], [data-requires-ids]').forEach(row => {
+    let active;
+    if (row.dataset.requiresIds) {
+      const needed = row.dataset.requiresIds.split(',');
+      active = needed.some(id =>
+        document.querySelector(`input[data-flat="${id}"]:checked`));
+    } else {
+      const group = row.dataset.requiresFlat;
+      active = [...document.querySelectorAll(`input[name="flat-${group}"]:checked`)]
+        .some(i => parseFloat(i.dataset.percent) > 0);
+    }
+    const input = row.querySelector('input[data-flat]');
+    input.disabled = !active;
+    if (!active) input.checked = false;
+    row.querySelector('.toggle-name').style.opacity = active ? '' : '0.45';
+  });
+
+  // Flat bonuses are undamped and each applies as its own separate factor -
+  // they are NOT summed into one pool before multiplying.
+  const flats = [];
+  document.querySelectorAll('#flatBonuses input[data-flat]:checked').forEach(chk => {
+    const row = chk.closest('.toggle');
+    const field = row.querySelector('.pct-input');
+    let p = field ? parseFloat(field.value) : parseFloat(chk.dataset.percent);
+    if (isFinite(p) && p < 0) p = 0;   // never let a negative bonus through
+    if (isFinite(p) && p !== 0) {
+      vr *= (1 + p / 100);
+      flats.push(p);
+    }
+  });
+
+  // Vehicle modes multiply like the flat bonuses, undamped.
+  document.querySelectorAll('#combinedModes input:checked').forEach(chk => {
+    const p = parseFloat(chk.dataset.percent);
+    if (isFinite(p) && p !== 0) {
+      vr *= (1 + p / 100);
+      flats.push(p);
+    }
+  });
+
+  const gain = vr - base;
+
+  out.innerHTML = vr.toFixed(2) + '<span> m</span>';
+  calculateSpotting(vr);
+
+}
+
+// 可折叠选择面板：点击（或回车/空格）标题展开/收起，默认收起。
+function initFolds() {
+  document.querySelectorAll('.panel.collapsible').forEach(panel => {
+    const title = panel.querySelector('h2');
+    title.insertAdjacentHTML('beforeend', '<span class="fold-summary"></span>');
+    title.setAttribute('role', 'button');
+    title.setAttribute('tabindex', '0');
+    title.setAttribute('aria-expanded', String(!panel.classList.contains('collapsed')));
+    const toggle = () => {
+      const collapsed = panel.classList.toggle('collapsed');
+      title.setAttribute('aria-expanded', String(!collapsed));
+    };
+    title.addEventListener('click', toggle);
+    title.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
+    });
+  });
+}
+
+// 把各折叠面板当前已选项目罗列到标题右侧（排除"无 xx"的空选项）。
+function updateFoldSummaries() {
+  const isNone = el => {
+    const id = (el.getAttribute('id') || el.getAttribute('data-id')
+      || el.getAttribute('data-flat') || el.getAttribute('data-cvs') || '').toLowerCase();
+    return id.endsWith('-none') || id === 'cvsnone' || id === 'cvsmodnone';
+  };
+  const nameOf = input => {
+    const row = input.closest('.toggle');
+    const el = row && row.querySelector('.toggle-name');
+    if (!el) return '';
+    const clone = el.cloneNode(true);
+    const note = clone.querySelector('.toggle-note');
+    if (note) note.remove();
+    return clone.textContent.trim();
+  };
+  document.querySelectorAll('.panel.collapsible').forEach(panel => {
+    const box = panel.querySelector('div[id]');
+    const sum = panel.querySelector('.fold-summary');
+    if (!box || !sum) return;
+    const names = [...box.querySelectorAll('input:checked')]
+      .filter(i => !isNone(i))
+      .map(nameOf)
+      .filter(Boolean);
+    sum.textContent = names.join('、');
+  });
+}
+initFolds();
+init();
+</script>
+
+</body>
+</html>

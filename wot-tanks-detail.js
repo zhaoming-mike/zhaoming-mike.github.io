@@ -88,9 +88,15 @@ html += ' <span style="color:#666;font-size:0.55em;font-weight:normal">#'+v.tank
     html += '</table></div>';
   }
   if (v.crew && v.crew.length > 0) {
+    var CREW_ROLES = {commander:'车长', gunner:'炮手', driver:'驾驶员', loader:'装填手', radioman:'通讯员'};
     html += '<div class="section"><h3>车组</h3><div class="crew-list">';
     v.crew.forEach(function(c){
-      html += '<span>'+(c.roles.commander||c.roles.gunner||c.roles.driver||c.roles.loader||c.roles.radioman||c.member_id)+'</span>';
+      var roles = c.roles || {};
+      var name = '';
+      for (var k in CREW_ROLES) {
+        if (roles[k]) { name = CREW_ROLES[k]; break; }
+      }
+      html += '<span>'+(name||c.member_id)+'</span>';
     });
     html += '</div></div>';
   }

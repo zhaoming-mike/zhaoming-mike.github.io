@@ -5,7 +5,7 @@ const NEWEST_TANK_BATCHES = [
         date: "2026-08-28",
         label: "2.4 更新",
         short: "2.4",
-        color: "#f5f",   // 批次专属色
+        color: "#9b7ede",   // 批次专属色——柔和紫罗兰,与其他批次(橙/青/绿)区分且不刺眼
         ids: [
             6273,   // 瑞典 XI BV-111 中坦
             6817,   // 意大利 XI CAV mod. 71 中坦

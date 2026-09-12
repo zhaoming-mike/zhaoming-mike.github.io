@@ -1,0 +1,6833 @@
+{
+  "generated_at": "2026-09-12T22:04:10.330Z",
+  "event": {
+    "title": "北冥有鱼首届嘉年华活动",
+    "end_time": "2026-09-13T08:00:00.000Z",
+    "prizes": [
+      {
+        "id": 1,
+        "event_id": 5,
+        "name": "一等奖",
+        "description": "5000",
+        "type": "game_currency",
+        "recipient_wg_id": null,
+        "created_by": 1,
+        "sort_order": 0,
+        "created_at": "2026-07-20T06:17:14.000Z",
+        "updated_at": "2026-07-20T06:17:14.000Z",
+        "status": "pending",
+        "recipient_nickname": null,
+        "recipient_display_name": null
+      },
+      {
+        "id": 2,
+        "event_id": 5,
+        "name": "二等奖",
+        "description": "1500",
+        "type": "game_currency",
+        "recipient_wg_id": null,
+        "created_by": 1,
+        "sort_order": 0,
+        "created_at": "2026-07-20T06:17:26.000Z",
+        "updated_at": "2026-07-20T06:19:40.000Z",
+        "status": "pending",
+        "recipient_nickname": null,
+        "recipient_display_name": null
+      },
+      {
+        "id": 3,
+        "event_id": 5,
+        "name": "二等奖",
+        "description": "1500",
+        "type": "game_currency",
+        "recipient_wg_id": null,
+        "created_by": 1,
+        "sort_order": 0,
+        "created_at": "2026-07-20T06:17:39.000Z",
+        "updated_at": "2026-07-20T06:19:44.000Z",
+        "status": "pending",
+        "recipient_nickname": null,
+        "recipient_display_name": null
+      },
+      {
+        "id": 4,
+        "event_id": 5,
+        "name": "三等奖",
+        "description": "500",
+        "type": "game_currency",
+        "recipient_wg_id": null,
+        "created_by": 1,
+        "sort_order": 0,
+        "created_at": "2026-07-20T06:17:52.000Z",
+        "updated_at": "2026-07-20T06:24:42.000Z",
+        "status": "pending",
+        "recipient_nickname": null,
+        "recipient_display_name": null
+      },
+      {
+        "id": 5,
+        "event_id": 5,
+        "name": "三等奖",
+        "description": "500",
+        "type": "game_currency",
+        "recipient_wg_id": null,
+        "created_by": 1,
+        "sort_order": 0,
+        "created_at": "2026-07-20T06:18:31.000Z",
+        "updated_at": "2026-07-20T06:24:42.000Z",
+        "status": "pending",
+        "recipient_nickname": null,
+        "recipient_display_name": null
+      },
+      {
+        "id": 6,
+        "event_id": 5,
+        "name": "三等奖",
+        "description": "500",
+        "type": "game_currency",
+        "recipient_wg_id": null,
+        "created_by": 1,
+        "sort_order": 0,
+        "created_at": "2026-07-20T06:18:37.000Z",
+        "updated_at": "2026-07-20T06:24:42.000Z",
+        "status": "pending",
+        "recipient_nickname": null,
+        "recipient_display_name": null
+      },
+      {
+        "id": 7,
+        "event_id": 5,
+        "name": "三等奖",
+        "description": "500",
+        "type": "game_currency",
+        "recipient_wg_id": null,
+        "created_by": 1,
+        "sort_order": 0,
+        "created_at": "2026-07-20T06:18:43.000Z",
+        "updated_at": "2026-07-20T06:24:42.000Z",
+        "status": "pending",
+        "recipient_nickname": null,
+        "recipient_display_name": null
+      },
+      {
+        "id": 8,
+        "event_id": 5,
+        "name": "三等奖",
+        "description": "500",
+        "type": "game_currency",
+        "recipient_wg_id": null,
+        "created_by": 1,
+        "sort_order": 0,
+        "created_at": "2026-07-20T06:18:49.000Z",
+        "updated_at": "2026-07-20T06:24:42.000Z",
+        "status": "pending",
+        "recipient_nickname": null,
+        "recipient_display_name": null
+      },
+      {
+        "id": 9,
+        "event_id": 5,
+        "name": "三等奖",
+        "description": "500",
+        "type": "game_currency",
+        "recipient_wg_id": null,
+        "created_by": 1,
+        "sort_order": 0,
+        "created_at": "2026-07-20T06:18:54.000Z",
+        "updated_at": "2026-07-20T06:24:42.000Z",
+        "status": "pending",
+        "recipient_nickname": null,
+        "recipient_display_name": null
+      },
+      {
+        "id": 10,
+        "event_id": 5,
+        "name": "三等奖",
+        "description": "500",
+        "type": "game_currency",
+        "recipient_wg_id": null,
+        "created_by": 1,
+        "sort_order": 0,
+        "created_at": "2026-07-20T06:18:59.000Z",
+        "updated_at": "2026-07-20T06:24:42.000Z",
+        "status": "pending",
+        "recipient_nickname": null,
+        "recipient_display_name": null
+      }
+    ]
+  },
+  "signup_ids": [
+    3012429987,
+    3011851906,
+    3002916712,
+    2030508428,
+    3014048007,
+    3003962708,
+    2047553109,
+    2005334503,
+    2033355828,
+    2006087444,
+    2031666919,
+    3016581628,
+    2014034336,
+    3011369238,
+    2026085642,
+    2022954970,
+    2011072346
+  ],
+  "window_days": 38,
+  "tanks_window_days": 7,
+  "daily_dates": [
+    "2026-07-16",
+    "2026-07-17",
+    "2026-07-18",
+    "2026-07-19",
+    "2026-07-20",
+    "2026-07-21",
+    "2026-07-22",
+    "2026-07-23",
+    "2026-07-24",
+    "2026-07-25",
+    "2026-07-26",
+    "2026-07-27",
+    "2026-07-28",
+    "2026-07-29",
+    "2026-07-30",
+    "2026-07-31",
+    "2026-08-01",
+    "2026-08-02",
+    "2026-08-03",
+    "2026-08-04",
+    "2026-08-05",
+    "2026-08-06",
+    "2026-08-07",
+    "2026-08-08",
+    "2026-08-09",
+    "2026-08-10",
+    "2026-08-11",
+    "2026-08-12",
+    "2026-08-13",
+    "2026-08-14",
+    "2026-08-15",
+    "2026-08-16",
+    "2026-08-17",
+    "2026-08-18",
+    "2026-08-19",
+    "2026-08-20",
+    "2026-08-21",
+    "2026-08-22",
+    "2026-08-23",
+    "2026-08-24",
+    "2026-08-25",
+    "2026-08-26",
+    "2026-08-27",
+    "2026-08-28",
+    "2026-08-29",
+    "2026-08-30",
+    "2026-08-31",
+    "2026-09-01",
+    "2026-09-02",
+    "2026-09-03",
+    "2026-09-04",
+    "2026-09-05",
+    "2026-09-06",
+    "2026-09-07",
+    "2026-09-08",
+    "2026-09-09",
+    "2026-09-10",
+    "2026-09-11",
+    "2026-09-12",
+    "2026-09-13"
+  ],
+  "members": {
+    "2005334503": {
+      "nickname": "poisonfree",
+      "role": "junior_officer",
+      "battles60": 659,
+      "daily_battles": 17.342105263157894,
+      "wn8_60": 1780,
+      "wnx_60": 1712,
+      "dpg_60": 1290,
+      "wn8_ov": 1780,
+      "wnx_ov": 1590,
+      "dpg_ov": 1065,
+      "tanks_recent": [
+        {
+          "tank_id": 529,
+          "battles": 20
+        },
+        {
+          "tank_id": 66097,
+          "battles": 9
+        },
+        {
+          "tank_id": 67617,
+          "battles": 8
+        },
+        {
+          "tank_id": 32273,
+          "battles": 6
+        },
+        {
+          "tank_id": 49953,
+          "battles": 6
+        },
+        {
+          "tank_id": 5377,
+          "battles": 5
+        },
+        {
+          "tank_id": 30481,
+          "battles": 5
+        },
+        {
+          "tank_id": 49169,
+          "battles": 5
+        },
+        {
+          "tank_id": 7457,
+          "battles": 4
+        },
+        {
+          "tank_id": 46865,
+          "battles": 4
+        },
+        {
+          "tank_id": 1697,
+          "battles": 3
+        },
+        {
+          "tank_id": 2113,
+          "battles": 3
+        },
+        {
+          "tank_id": 53105,
+          "battles": 3
+        },
+        {
+          "tank_id": 62993,
+          "battles": 3
+        },
+        {
+          "tank_id": 26641,
+          "battles": 2
+        },
+        {
+          "tank_id": 54177,
+          "battles": 2
+        },
+        {
+          "tank_id": 769,
+          "battles": 1
+        },
+        {
+          "tank_id": 897,
+          "battles": 1
+        },
+        {
+          "tank_id": 1185,
+          "battles": 1
+        },
+        {
+          "tank_id": 1393,
+          "battles": 1
+        },
+        {
+          "tank_id": 2881,
+          "battles": 1
+        },
+        {
+          "tank_id": 4257,
+          "battles": 1
+        },
+        {
+          "tank_id": 4673,
+          "battles": 1
+        },
+        {
+          "tank_id": 4689,
+          "battles": 1
+        },
+        {
+          "tank_id": 5153,
+          "battles": 1
+        },
+        {
+          "tank_id": 6161,
+          "battles": 1
+        },
+        {
+          "tank_id": 7569,
+          "battles": 1
+        },
+        {
+          "tank_id": 8465,
+          "battles": 1
+        },
+        {
+          "tank_id": 9505,
+          "battles": 1
+        },
+        {
+          "tank_id": 11553,
+          "battles": 1
+        },
+        {
+          "tank_id": 14673,
+          "battles": 1
+        },
+        {
+          "tank_id": 21329,
+          "battles": 1
+        },
+        {
+          "tank_id": 23121,
+          "battles": 1
+        },
+        {
+          "tank_id": 44289,
+          "battles": 1
+        }
+      ],
+      "top_tanks": [
+        {
+          "tank_id": 3873,
+          "battles": 1253,
+          "winrate": "62.65",
+          "avg_damage": 0,
+          "mark_of_mastery": 4
+        },
+        {
+          "tank_id": 11777,
+          "battles": 626,
+          "winrate": "59.58",
+          "avg_damage": 0,
+          "mark_of_mastery": 4
+        },
+        {
+          "tank_id": 10753,
+          "battles": 588,
+          "winrate": "53.23",
+          "avg_damage": 0,
+          "mark_of_mastery": 4
+        },
+        {
+          "tank_id": 17953,
+          "battles": 397,
+          "winrate": "54.91",
+          "avg_damage": 0,
+          "mark_of_mastery": 4
+        },
+        {
+          "tank_id": 2113,
+          "battles": 389,
+          "winrate": "55.27",
+          "avg_damage": 0,
+          "mark_of_mastery": 4
+        },
+        {
+          "tank_id": 14145,
+          "battles": 298,
+          "winrate": "54.03",
+          "avg_damage": 0,
+          "mark_of_mastery": 4
+        },
+        {
+          "tank_id": 1041,
+          "battles": 283,
+          "winrate": "55.83",
+          "avg_damage": 0,
+          "mark_of_mastery": 4
+        },
+        {
+          "tank_id": 11009,
+          "battles": 281,
+          "winrate": "55.16",
+          "avg_damage": 0,
+          "mark_of_mastery": 4
+        },
+        {
+          "tank_id": 3665,
+          "battles": 253,
+          "winrate": "51.78",
+          "avg_damage": 0,
+          "mark_of_mastery": 4
+        },
+        {
+          "tank_id": 66097,
+          "battles": 235,
+          "winrate": "49.79",
+          "avg_damage": 0,
+          "mark_of_mastery": 4
+        }
+      ],
+      "daily": [
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 23,
+          "d": 26520
+        },
+        {
+          "b": 13,
+          "d": 11928
+        },
+        {
+          "b": 15,
+          "d": 17735
+        },
+        {
+          "b": 11,
+          "d": 11579
+        },
+        {
+          "b": 13,
+          "d": 20667
+        },
+        {
+          "b": 18,
+          "d": 22852
+        },
+        {
+          "b": 37,
+          "d": 47721
+        },
+        {
+          "b": 15,
+          "d": 13325
+        },
+        {
+          "b": 16,
+          "d": 21255
+        },
+        {
+          "b": 23,
+          "d": 25748
+        },
+        {
+          "b": 10,
+          "d": 14825
+        },
+        {
+          "b": 22,
+          "d": 25085
+        },
+        {
+          "b": 23,
+          "d": 32705
+        },
+        {
+          "b": 14,
+          "d": 19716
+        },
+        {
+          "b": 31,
+          "d": 41438
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 21,
+          "d": 29209
+        },
+        {
+          "b": 15,
+          "d": 20162
+        },
+        {
+          "b": 33,
+          "d": 34816
+        },
+        {
+          "b": 25,
+          "d": 34241
+        },
+        {
+          "b": 15,
+          "d": 18178
+        },
+        {
+          "b": 9,
+          "d": 13396
+        },
+        {
+          "b": 9,
+          "d": 12899
+        },
+        {
+          "b": 13,
+          "d": 19490
+        },
+        {
+          "b": 21,
+          "d": 25841
+        },
+        {
+          "b": 17,
+          "d": 27586
+        },
+        {
+          "b": 7,
+          "d": 10866
+        },
+        {
+          "b": 30,
+          "d": 45270
+        },
+        {
+          "b": 11,
+          "d": 16124
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 18,
+          "d": 21915
+        },
+        {
+          "b": 35,
+          "d": 45175
+        },
+        {
+          "b": 12,
+          "d": 14340
+        },
+        {
+          "b": 22,
+          "d": 35156
+        },
+        {
+          "b": 18,
+          "d": 17643
+        },
+        {
+          "b": 14,
+          "d": 16029
+        },
+        {
+          "b": 30,
+          "d": 38627
+        },
+        {
+          "b": 0,
+          "d": 0
+        }
+      ]
+    },
+    "2006087444": {
+      "nickname": "AddzP",
+      "role": "recruitment_officer",
+      "battles60": 0,
+      "daily_battles": 0,
+      "wn8_60": 1842,
+      "wnx_60": 1951,
+      "dpg_60": null,
+      "wn8_ov": 1138,
+      "wnx_ov": 1050,
+      "dpg_ov": 974,
+      "tanks_recent": [],
+      "top_tanks": [
+        {
+          "tank_id": 51361,
+          "battles": 1230,
+          "winrate": "50.00",
+          "avg_damage": 0,
+          "mark_of_mastery": 4
+        },
+        {
+          "tank_id": 11521,
+          "battles": 561,
+          "winrate": "44.21",
+          "avg_damage": 0,
+          "mark_of_mastery": 3
+        },
+        {
+          "tank_id": 60225,
+          "battles": 538,
+          "winrate": "47.96",
+          "avg_damage": 0,
+          "mark_of_mastery": 4
+        },
+        {
+          "tank_id": 5377,
+          "battles": 339,
+          "winrate": "42.48",
+          "avg_damage": 0,
+          "mark_of_mastery": 3
+        },
+        {
+          "tank_id": 50193,
+          "battles": 327,
+          "winrate": "51.07",
+          "avg_damage": 0,
+          "mark_of_mastery": 4
+        },
+        {
+          "tank_id": 16401,
+          "battles": 299,
+          "winrate": "43.14",
+          "avg_damage": 0,
+          "mark_of_mastery": 4
+        },
+        {
+          "tank_id": 10769,
+          "battles": 293,
+          "winrate": "51.19",
+          "avg_damage": 0,
+          "mark_of_mastery": 4
+        },
+        {
+          "tank_id": 16657,
+          "battles": 256,
+          "winrate": "48.44",
+          "avg_damage": 0,
+          "mark_of_mastery": 2
+        },
+        {
+          "tank_id": 2561,
+          "battles": 248,
+          "winrate": "49.19",
+          "avg_damage": 0,
+          "mark_of_mastery": 4
+        },
+        {
+          "tank_id": 513,
+          "battles": 240,
+          "winrate": "47.08",
+          "avg_damage": 0,
+          "mark_of_mastery": 4
+        }
+      ],
+      "daily": [
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        }
+      ]
+    },
+    "2011072346": {
+      "nickname": "elfofnight",
+      "role": "junior_officer",
+      "battles60": 466,
+      "daily_battles": 12.263157894736842,
+      "wn8_60": 1714,
+      "wnx_60": 1721,
+      "dpg_60": 1513,
+      "wn8_ov": 1744,
+      "wnx_ov": 1751,
+      "dpg_ov": 1469,
+      "tanks_recent": [
+        {
+          "tank_id": 16657,
+          "battles": 34
+        },
+        {
+          "tank_id": 11345,
+          "battles": 12
+        },
+        {
+          "tank_id": 10257,
+          "battles": 8
+        },
+        {
+          "tank_id": 16161,
+          "battles": 7
+        },
+        {
+          "tank_id": 18449,
+          "battles": 6
+        },
+        {
+          "tank_id": 4769,
+          "battles": 4
+        },
+        {
+          "tank_id": 2161,
+          "battles": 3
+        },
+        {
+          "tank_id": 4721,
+          "battles": 3
+        },
+        {
+          "tank_id": 7777,
+          "battles": 3
+        },
+        {
+          "tank_id": 14401,
+          "battles": 3
+        },
+        {
+          "tank_id": 16401,
+          "battles": 3
+        },
+        {
+          "tank_id": 45569,
+          "battles": 3
+        },
+        {
+          "tank_id": 2097,
+          "battles": 2
+        },
+        {
+          "tank_id": 9057,
+          "battles": 2
+        },
+        {
+          "tank_id": 14625,
+          "battles": 2
+        },
+        {
+          "tank_id": 45057,
+          "battles": 2
+        },
+        {
+          "tank_id": 45841,
+          "battles": 2
+        },
+        {
+          "tank_id": 60225,
+          "battles": 2
+        },
+        {
+          "tank_id": 64817,
+          "battles": 2
+        },
+        {
+          "tank_id": 2177,
+          "battles": 1
+        },
+        {
+          "tank_id": 2593,
+          "battles": 1
+        },
+        {
+          "tank_id": 4225,
+          "battles": 1
+        },
+        {
+          "tank_id": 4929,
+          "battles": 1
+        },
+        {
+          "tank_id": 8241,
+          "battles": 1
+        },
+        {
+          "tank_id": 8449,
+          "battles": 1
+        },
+        {
+          "tank_id": 8977,
+          "battles": 1
+        },
+        {
+          "tank_id": 11521,
+          "battles": 1
+        },
+        {
+          "tank_id": 13137,
+          "battles": 1
+        },
+        {
+          "tank_id": 18209,
+          "battles": 1
+        },
+        {
+          "tank_id": 22529,
+          "battles": 1
+        },
+        {
+          "tank_id": 32273,
+          "battles": 1
+        },
+        {
+          "tank_id": 51105,
+          "battles": 1
+        },
+        {
+          "tank_id": 63281,
+          "battles": 1
+        },
+        {
+          "tank_id": 63809,
+          "battles": 1
+        }
+      ],
+      "top_tanks": [
+        {
+          "tank_id": 50193,
+          "battles": 1039,
+          "winrate": "52.17",
+          "avg_damage": 0,
+          "mark_of_mastery": 4
+        },
+        {
+          "tank_id": 10753,
+          "battles": 805,
+          "winrate": "51.68",
+          "avg_damage": 0,
+          "mark_of_mastery": 4
+        },
+        {
+          "tank_id": 19217,
+          "battles": 776,
+          "winrate": "51.42",
+          "avg_damage": 0,
+          "mark_of_mastery": 4
+        },
+        {
+          "tank_id": 4929,
+          "battles": 589,
+          "winrate": "50.42",
+          "avg_damage": 0,
+          "mark_of_mastery": 3
+        },
+        {
+          "tank_id": 6145,
+          "battles": 581,
+          "winrate": "45.96",
+          "avg_damage": 0,
+          "mark_of_mastery": 4
+        },
+        {
+          "tank_id": 3649,
+          "battles": 567,
+          "winrate": "50.26",
+          "avg_damage": 0,
+          "mark_of_mastery": 3
+        },
+        {
+          "tank_id": 63553,
+          "battles": 557,
+          "winrate": "47.58",
+          "avg_damage": 0,
+          "mark_of_mastery": 3
+        },
+        {
+          "tank_id": 16161,
+          "battles": 432,
+          "winrate": "49.77",
+          "avg_damage": 0,
+          "mark_of_mastery": 4
+        },
+        {
+          "tank_id": 11009,
+          "battles": 404,
+          "winrate": "47.28",
+          "avg_damage": 0,
+          "mark_of_mastery": 4
+        },
+        {
+          "tank_id": 14865,
+          "battles": 374,
+          "winrate": "51.60",
+          "avg_damage": 0,
+          "mark_of_mastery": 4
+        }
+      ],
+      "daily": [
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 24,
+          "d": 47023
+        },
+        {
+          "b": 22,
+          "d": 48915
+        },
+        {
+          "b": 13,
+          "d": 16426
+        },
+        {
+          "b": 5,
+          "d": 6738
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 21,
+          "d": 27492
+        },
+        {
+          "b": 11,
+          "d": 10438
+        },
+        {
+          "b": 12,
+          "d": 15102
+        },
+        {
+          "b": 15,
+          "d": 18635
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 3,
+          "d": 5312
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 20,
+          "d": 34549
+        },
+        {
+          "b": 26,
+          "d": 34786
+        },
+        {
+          "b": 4,
+          "d": 9657
+        },
+        {
+          "b": 18,
+          "d": 32649
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 28,
+          "d": 34169
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 17,
+          "d": 27304
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 20,
+          "d": 23788
+        },
+        {
+          "b": 58,
+          "d": 70748
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 4,
+          "d": 8300
+        },
+        {
+          "b": 7,
+          "d": 10881
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 39,
+          "d": 58508
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 11,
+          "d": 9578
+        },
+        {
+          "b": 39,
+          "d": 65972
+        },
+        {
+          "b": 49,
+          "d": 88307
+        },
+        {
+          "b": 0,
+          "d": 0
+        }
+      ]
+    },
+    "2014034336": {
+      "nickname": "OoBigHeadoO",
+      "role": "junior_officer",
+      "battles60": 1630,
+      "daily_battles": 42.89473684210526,
+      "wn8_60": 864,
+      "wnx_60": 867,
+      "dpg_60": 1054,
+      "wn8_ov": 763,
+      "wnx_ov": 735,
+      "dpg_ov": 780,
+      "tanks_recent": [
+        {
+          "tank_id": 529,
+          "battles": 39
+        },
+        {
+          "tank_id": 3889,
+          "battles": 36
+        },
+        {
+          "tank_id": 32273,
+          "battles": 28
+        },
+        {
+          "tank_id": 54177,
+          "battles": 17
+        },
+        {
+          "tank_id": 9297,
+          "battles": 12
+        },
+        {
+          "tank_id": 56353,
+          "battles": 9
+        },
+        {
+          "tank_id": 2321,
+          "battles": 7
+        },
+        {
+          "tank_id": 51793,
+          "battles": 7
+        },
+        {
+          "tank_id": 20241,
+          "battles": 6
+        },
+        {
+          "tank_id": 5153,
+          "battles": 5
+        },
+        {
+          "tank_id": 45057,
+          "battles": 5
+        },
+        {
+          "tank_id": 5393,
+          "battles": 3
+        },
+        {
+          "tank_id": 56657,
+          "battles": 3
+        },
+        {
+          "tank_id": 8305,
+          "battles": 2
+        },
+        {
+          "tank_id": 13905,
+          "battles": 2
+        },
+        {
+          "tank_id": 36129,
+          "battles": 2
+        },
+        {
+          "tank_id": 41745,
+          "battles": 2
+        },
+        {
+          "tank_id": 61505,
+          "battles": 2
+        },
+        {
+          "tank_id": 67585,
+          "battles": 2
+        },
+        {
+          "tank_id": 4721,
+          "battles": 1
+        },
+        {
+          "tank_id": 4913,
+          "battles": 1
+        },
+        {
+          "tank_id": 6769,
+          "battles": 1
+        },
+        {
+          "tank_id": 11841,
+          "battles": 1
+        },
+        {
+          "tank_id": 32785,
+          "battles": 1
+        },
+        {
+          "tank_id": 33089,
+          "battles": 1
+        },
+        {
+          "tank_id": 60497,
+          "battles": 1
+        }
+      ],
+      "top_tanks": [
+        {
+          "tank_id": 17217,
+          "battles": 444,
+          "winrate": "44.14",
+          "avg_damage": 0,
+          "mark_of_mastery": 2
+        },
+        {
+          "tank_id": 3649,
+          "battles": 441,
+          "winrate": "46.26",
+          "avg_damage": 0,
+          "mark_of_mastery": 2
+        },
+        {
+          "tank_id": 5393,
+          "battles": 412,
+          "winrate": "48.54",
+          "avg_damage": 0,
+          "mark_of_mastery": 4
+        },
+        {
+          "tank_id": 61505,
+          "battles": 412,
+          "winrate": "48.30",
+          "avg_damage": 0,
+          "mark_of_mastery": 2
+        },
+        {
+          "tank_id": 13137,
+          "battles": 378,
+          "winrate": "43.92",
+          "avg_damage": 0,
+          "mark_of_mastery": 2
+        },
+        {
+          "tank_id": 13905,
+          "battles": 375,
+          "winrate": "40.53",
+          "avg_damage": 0,
+          "mark_of_mastery": 3
+        },
+        {
+          "tank_id": 54177,
+          "battles": 351,
+          "winrate": "51.28",
+          "avg_damage": 0,
+          "mark_of_mastery": 2
+        },
+        {
+          "tank_id": 14673,
+          "battles": 331,
+          "winrate": "41.39",
+          "avg_damage": 0,
+          "mark_of_mastery": 4
+        },
+        {
+          "tank_id": 63537,
+          "battles": 324,
+          "winrate": "46.91",
+          "avg_damage": 0,
+          "mark_of_mastery": 3
+        },
+        {
+          "tank_id": 5697,
+          "battles": 319,
+          "winrate": "46.08",
+          "avg_damage": 0,
+          "mark_of_mastery": 4
+        }
+      ],
+      "daily": [
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 34,
+          "d": 41214
+        },
+        {
+          "b": 26,
+          "d": 34424
+        },
+        {
+          "b": 32,
+          "d": 40755
+        },
+        {
+          "b": 53,
+          "d": 47246
+        },
+        {
+          "b": 27,
+          "d": 26591
+        },
+        {
+          "b": 49,
+          "d": 58598
+        },
+        {
+          "b": 41,
+          "d": 60729
+        },
+        {
+          "b": 47,
+          "d": 47933
+        },
+        {
+          "b": 38,
+          "d": 34677
+        },
+        {
+          "b": 60,
+          "d": 39124
+        },
+        {
+          "b": 41,
+          "d": 28360
+        },
+        {
+          "b": 47,
+          "d": 44727
+        },
+        {
+          "b": 63,
+          "d": 79211
+        },
+        {
+          "b": 52,
+          "d": 51682
+        },
+        {
+          "b": 41,
+          "d": 33975
+        },
+        {
+          "b": 67,
+          "d": 91259
+        },
+        {
+          "b": 30,
+          "d": 41121
+        },
+        {
+          "b": 43,
+          "d": 45393
+        },
+        {
+          "b": 25,
+          "d": 37317
+        },
+        {
+          "b": 61,
+          "d": 75023
+        },
+        {
+          "b": 64,
+          "d": 71390
+        },
+        {
+          "b": 61,
+          "d": 37702
+        },
+        {
+          "b": 81,
+          "d": 69118
+        },
+        {
+          "b": 37,
+          "d": 29972
+        },
+        {
+          "b": 38,
+          "d": 53576
+        },
+        {
+          "b": 16,
+          "d": 14597
+        },
+        {
+          "b": 34,
+          "d": 31090
+        },
+        {
+          "b": 69,
+          "d": 97842
+        },
+        {
+          "b": 40,
+          "d": 43542
+        },
+        {
+          "b": 65,
+          "d": 70274
+        },
+        {
+          "b": 18,
+          "d": 17061
+        },
+        {
+          "b": 38,
+          "d": 35011
+        },
+        {
+          "b": 81,
+          "d": 73810
+        },
+        {
+          "b": 34,
+          "d": 35579
+        },
+        {
+          "b": 8,
+          "d": 10474
+        },
+        {
+          "b": 28,
+          "d": 28951
+        },
+        {
+          "b": 32,
+          "d": 32752
+        },
+        {
+          "b": 9,
+          "d": 6520
+        }
+      ]
+    },
+    "2022954970": {
+      "nickname": "wanhaojie",
+      "role": "junior_officer",
+      "battles60": 97,
+      "daily_battles": 2.5526315789473686,
+      "wn8_60": null,
+      "wnx_60": null,
+      "dpg_60": 1200,
+      "wn8_ov": null,
+      "wnx_ov": null,
+      "dpg_ov": null,
+      "tanks_recent": [
+        {
+          "tank_id": 60977,
+          "battles": 3
+        },
+        {
+          "tank_id": 11313,
+          "battles": 2
+        },
+        {
+          "tank_id": 32273,
+          "battles": 2
+        },
+        {
+          "tank_id": 68641,
+          "battles": 2
+        },
+        {
+          "tank_id": 4721,
+          "battles": 1
+        },
+        {
+          "tank_id": 5265,
+          "battles": 1
+        },
+        {
+          "tank_id": 9297,
+          "battles": 1
+        },
+        {
+          "tank_id": 26705,
+          "battles": 1
+        },
+        {
+          "tank_id": 33345,
+          "battles": 1
+        },
+        {
+          "tank_id": 58673,
+          "battles": 1
+        }
+      ],
+      "top_tanks": [
+        {
+          "tank_id": 58673,
+          "battles": 165,
+          "winrate": "46.67",
+          "avg_damage": 0,
+          "mark_of_mastery": 4
+        },
+        {
+          "tank_id": 51361,
+          "battles": 162,
+          "winrate": "53.70",
+          "avg_damage": 0,
+          "mark_of_mastery": 2
+        },
+        {
+          "tank_id": 16161,
+          "battles": 115,
+          "winrate": "49.57",
+          "avg_damage": 0,
+          "mark_of_mastery": 3
+        },
+        {
+          "tank_id": 2961,
+          "battles": 106,
+          "winrate": "39.62",
+          "avg_damage": 0,
+          "mark_of_mastery": 3
+        },
+        {
+          "tank_id": 3217,
+          "battles": 103,
+          "winrate": "44.66",
+          "avg_damage": 0,
+          "mark_of_mastery": 2
+        },
+        {
+          "tank_id": 16657,
+          "battles": 102,
+          "winrate": "41.18",
+          "avg_damage": 0,
+          "mark_of_mastery": 3
+        },
+        {
+          "tank_id": 19729,
+          "battles": 99,
+          "winrate": "45.45",
+          "avg_damage": 0,
+          "mark_of_mastery": 3
+        },
+        {
+          "tank_id": 8241,
+          "battles": 94,
+          "winrate": "50.00",
+          "avg_damage": 0,
+          "mark_of_mastery": 2
+        },
+        {
+          "tank_id": 32321,
+          "battles": 91,
+          "winrate": "50.55",
+          "avg_damage": 0,
+          "mark_of_mastery": 3
+        },
+        {
+          "tank_id": 59473,
+          "battles": 87,
+          "winrate": "45.98",
+          "avg_damage": 0,
+          "mark_of_mastery": 2
+        }
+      ],
+      "daily": [
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 28,
+          "d": 36665
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 1,
+          "d": 2074
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 7,
+          "d": 8606
+        },
+        {
+          "b": 13,
+          "d": 9802
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 5,
+          "d": 6153
+        },
+        {
+          "b": 25,
+          "d": 31603
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 3,
+          "d": 2222
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 1,
+          "d": 341
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 3,
+          "d": 5446
+        },
+        {
+          "b": 1,
+          "d": 650
+        },
+        {
+          "b": 10,
+          "d": 12883
+        },
+        {
+          "b": 0,
+          "d": 0
+        }
+      ]
+    },
+    "2026085642": {
+      "nickname": "MeatGrinder_leggie",
+      "role": "intelligence_officer",
+      "battles60": 913,
+      "daily_battles": 24.026315789473685,
+      "wn8_60": 1131,
+      "wnx_60": 1124,
+      "dpg_60": 1461,
+      "wn8_ov": 1899,
+      "wnx_ov": 1934,
+      "dpg_ov": 1528,
+      "tanks_recent": [
+        {
+          "tank_id": 14113,
+          "battles": 73
+        },
+        {
+          "tank_id": 32017,
+          "battles": 43
+        },
+        {
+          "tank_id": 19281,
+          "battles": 12
+        },
+        {
+          "tank_id": 45057,
+          "battles": 12
+        },
+        {
+          "tank_id": 21841,
+          "battles": 10
+        },
+        {
+          "tank_id": 69377,
+          "battles": 5
+        },
+        {
+          "tank_id": 8049,
+          "battles": 2
+        },
+        {
+          "tank_id": 13905,
+          "battles": 1
+        },
+        {
+          "tank_id": 16897,
+          "battles": 1
+        },
+        {
+          "tank_id": 32769,
+          "battles": 1
+        },
+        {
+          "tank_id": 54161,
+          "battles": 1
+        }
+      ],
+      "top_tanks": [
+        {
+          "tank_id": 60225,
+          "battles": 809,
+          "winrate": "59.21",
+          "avg_damage": 0,
+          "mark_of_mastery": 4
+        },
+        {
+          "tank_id": 61985,
+          "battles": 778,
+          "winrate": "54.76",
+          "avg_damage": 0,
+          "mark_of_mastery": 4
+        },
+        {
+          "tank_id": 45057,
+          "battles": 702,
+          "winrate": "50.85",
+          "avg_damage": 0,
+          "mark_of_mastery": 4
+        },
+        {
+          "tank_id": 52097,
+          "battles": 632,
+          "winrate": "47.94",
+          "avg_damage": 0,
+          "mark_of_mastery": 4
+        },
+        {
+          "tank_id": 45569,
+          "battles": 594,
+          "winrate": "55.72",
+          "avg_damage": 0,
+          "mark_of_mastery": 4
+        },
+        {
+          "tank_id": 51361,
+          "battles": 413,
+          "winrate": "50.85",
+          "avg_damage": 0,
+          "mark_of_mastery": 3
+        },
+        {
+          "tank_id": 44289,
+          "battles": 349,
+          "winrate": "51.86",
+          "avg_damage": 0,
+          "mark_of_mastery": 4
+        },
+        {
+          "tank_id": 61761,
+          "battles": 346,
+          "winrate": "54.62",
+          "avg_damage": 0,
+          "mark_of_mastery": 4
+        },
+        {
+          "tank_id": 5377,
+          "battles": 310,
+          "winrate": "50.32",
+          "avg_damage": 0,
+          "mark_of_mastery": 4
+        },
+        {
+          "tank_id": 60449,
+          "battles": 289,
+          "winrate": "57.09",
+          "avg_damage": 0,
+          "mark_of_mastery": 4
+        }
+      ],
+      "daily": [
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 13,
+          "d": 15786
+        },
+        {
+          "b": 22,
+          "d": 30466
+        },
+        {
+          "b": 16,
+          "d": 27590
+        },
+        {
+          "b": 17,
+          "d": 24526
+        },
+        {
+          "b": 23,
+          "d": 32011
+        },
+        {
+          "b": 25,
+          "d": 40552
+        },
+        {
+          "b": 23,
+          "d": 26366
+        },
+        {
+          "b": 41,
+          "d": 58695
+        },
+        {
+          "b": 18,
+          "d": 29371
+        },
+        {
+          "b": 13,
+          "d": 16551
+        },
+        {
+          "b": 31,
+          "d": 39872
+        },
+        {
+          "b": 19,
+          "d": 27378
+        },
+        {
+          "b": 42,
+          "d": 53508
+        },
+        {
+          "b": 34,
+          "d": 55332
+        },
+        {
+          "b": 26,
+          "d": 54314
+        },
+        {
+          "b": 38,
+          "d": 48211
+        },
+        {
+          "b": 21,
+          "d": 28533
+        },
+        {
+          "b": 43,
+          "d": 69261
+        },
+        {
+          "b": 39,
+          "d": 58451
+        },
+        {
+          "b": 34,
+          "d": 46581
+        },
+        {
+          "b": 27,
+          "d": 39444
+        },
+        {
+          "b": 24,
+          "d": 35624
+        },
+        {
+          "b": 40,
+          "d": 52939
+        },
+        {
+          "b": 25,
+          "d": 38269
+        },
+        {
+          "b": 49,
+          "d": 74131
+        },
+        {
+          "b": 18,
+          "d": 27455
+        },
+        {
+          "b": 36,
+          "d": 57529
+        },
+        {
+          "b": 14,
+          "d": 26450
+        },
+        {
+          "b": 37,
+          "d": 58766
+        },
+        {
+          "b": 26,
+          "d": 35887
+        },
+        {
+          "b": 34,
+          "d": 42207
+        },
+        {
+          "b": 45,
+          "d": 62092
+        },
+        {
+          "b": 0,
+          "d": 0
+        }
+      ]
+    },
+    "2030508428": {
+      "nickname": "Oleg_Malankov",
+      "role": "junior_officer",
+      "battles60": 999,
+      "daily_battles": 26.289473684210527,
+      "wn8_60": 1597,
+      "wnx_60": 1595,
+      "dpg_60": 1532,
+      "wn8_ov": 1335,
+      "wnx_ov": 1291,
+      "dpg_ov": 1209,
+      "tanks_recent": [
+        {
+          "tank_id": 7985,
+          "battles": 37
+        },
+        {
+          "tank_id": 21505,
+          "battles": 25
+        },
+        {
+          "tank_id": 529,
+          "battles": 21
+        },
+        {
+          "tank_id": 25681,
+          "battles": 20
+        },
+        {
+          "tank_id": 6241,
+          "battles": 18
+        },
+        {
+          "tank_id": 63025,
+          "battles": 12
+        },
+        {
+          "tank_id": 5457,
+          "battles": 10
+        },
+        {
+          "tank_id": 6977,
+          "battles": 10
+        },
+        {
+          "tank_id": 14865,
+          "battles": 8
+        },
+        {
+          "tank_id": 6465,
+          "battles": 6
+        },
+        {
+          "tank_id": 3137,
+          "battles": 5
+        },
+        {
+          "tank_id": 32273,
+          "battles": 5
+        },
+        {
+          "tank_id": 7937,
+          "battles": 3
+        },
+        {
+          "tank_id": 1409,
+          "battles": 2
+        },
+        {
+          "tank_id": 5921,
+          "battles": 2
+        },
+        {
+          "tank_id": 7265,
+          "battles": 2
+        },
+        {
+          "tank_id": 7537,
+          "battles": 2
+        },
+        {
+          "tank_id": 54177,
+          "battles": 2
+        },
+        {
+          "tank_id": 55393,
+          "battles": 2
+        },
+        {
+          "tank_id": 65601,
+          "battles": 2
+        },
+        {
+          "tank_id": 6257,
+          "battles": 1
+        },
+        {
+          "tank_id": 60497,
+          "battles": 1
+        },
+        {
+          "tank_id": 66097,
+          "battles": 1
+        },
+        {
+          "tank_id": 69377,
+          "battles": 1
+        }
+      ],
+      "top_tanks": [
+        {
+          "tank_id": 7537,
+          "battles": 221,
+          "winrate": "38.46",
+          "avg_damage": 0,
+          "mark_of_mastery": 2
+        },
+        {
+          "tank_id": 54177,
+          "battles": 209,
+          "winrate": "46.41",
+          "avg_damage": 0,
+          "mark_of_mastery": 3
+        },
+        {
+          "tank_id": 5377,
+          "battles": 203,
+          "winrate": "52.71",
+          "avg_damage": 0,
+          "mark_of_mastery": 4
+        },
+        {
+          "tank_id": 53377,
+          "battles": 139,
+          "winrate": "38.13",
+          "avg_damage": 0,
+          "mark_of_mastery": 2
+        },
+        {
+          "tank_id": 33041,
+          "battles": 132,
+          "winrate": "50.00",
+          "avg_damage": 0,
+          "mark_of_mastery": 3
+        },
+        {
+          "tank_id": 9745,
+          "battles": 130,
+          "winrate": "37.69",
+          "avg_damage": 0,
+          "mark_of_mastery": 2
+        },
+        {
+          "tank_id": 53281,
+          "battles": 125,
+          "winrate": "40.00",
+          "avg_damage": 0,
+          "mark_of_mastery": 3
+        },
+        {
+          "tank_id": 1569,
+          "battles": 124,
+          "winrate": "54.03",
+          "avg_damage": 0,
+          "mark_of_mastery": 4
+        },
+        {
+          "tank_id": 3441,
+          "battles": 120,
+          "winrate": "44.17",
+          "avg_damage": 0,
+          "mark_of_mastery": 4
+        },
+        {
+          "tank_id": 3185,
+          "battles": 108,
+          "winrate": "37.04",
+          "avg_damage": 0,
+          "mark_of_mastery": 2
+        }
+      ],
+      "daily": [
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 11,
+          "d": 14831
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 24,
+          "d": 31899
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 76,
+          "d": 117584
+        },
+        {
+          "b": 11,
+          "d": 10889
+        },
+        {
+          "b": 37,
+          "d": 56949
+        },
+        {
+          "b": 32,
+          "d": 48984
+        },
+        {
+          "b": 23,
+          "d": 35942
+        },
+        {
+          "b": 28,
+          "d": 43690
+        },
+        {
+          "b": 2,
+          "d": 3271
+        },
+        {
+          "b": 29,
+          "d": 49918
+        },
+        {
+          "b": 39,
+          "d": 61684
+        },
+        {
+          "b": 6,
+          "d": 11637
+        },
+        {
+          "b": 23,
+          "d": 36017
+        },
+        {
+          "b": 38,
+          "d": 58558
+        },
+        {
+          "b": 21,
+          "d": 27602
+        },
+        {
+          "b": 43,
+          "d": 68842
+        },
+        {
+          "b": 15,
+          "d": 22605
+        },
+        {
+          "b": 46,
+          "d": 62392
+        },
+        {
+          "b": 21,
+          "d": 35927
+        },
+        {
+          "b": 46,
+          "d": 76177
+        },
+        {
+          "b": 46,
+          "d": 76428
+        },
+        {
+          "b": 31,
+          "d": 39541
+        },
+        {
+          "b": 24,
+          "d": 36623
+        },
+        {
+          "b": 22,
+          "d": 31802
+        },
+        {
+          "b": 12,
+          "d": 18762
+        },
+        {
+          "b": 45,
+          "d": 63548
+        },
+        {
+          "b": 19,
+          "d": 29342
+        },
+        {
+          "b": 3,
+          "d": 2907
+        },
+        {
+          "b": 28,
+          "d": 48618
+        },
+        {
+          "b": 44,
+          "d": 68646
+        },
+        {
+          "b": 10,
+          "d": 14640
+        },
+        {
+          "b": 41,
+          "d": 57738
+        },
+        {
+          "b": 16,
+          "d": 32592
+        },
+        {
+          "b": 51,
+          "d": 72816
+        },
+        {
+          "b": 36,
+          "d": 60981
+        },
+        {
+          "b": 0,
+          "d": 0
+        }
+      ]
+    },
+    "2031666919": {
+      "nickname": "DD_Yudachi_poipoi",
+      "role": "junior_officer",
+      "battles60": 1245,
+      "daily_battles": 32.76315789473684,
+      "wn8_60": 1027,
+      "wnx_60": 1009,
+      "dpg_60": 1082,
+      "wn8_ov": 995,
+      "wnx_ov": 959,
+      "dpg_ov": 1076,
+      "tanks_recent": [
+        {
+          "tank_id": 32273,
+          "battles": 31
+        },
+        {
+          "tank_id": 69921,
+          "battles": 24
+        },
+        {
+          "tank_id": 6209,
+          "battles": 16
+        },
+        {
+          "tank_id": 68673,
+          "battles": 16
+        },
+        {
+          "tank_id": 5937,
+          "battles": 14
+        },
+        {
+          "tank_id": 69377,
+          "battles": 3
+        },
+        {
+          "tank_id": 4129,
+          "battles": 2
+        },
+        {
+          "tank_id": 10545,
+          "battles": 2
+        },
+        {
+          "tank_id": 11057,
+          "battles": 2
+        },
+        {
+          "tank_id": 68641,
+          "battles": 1
+        }
+      ],
+      "top_tanks": [
+        {
+          "tank_id": 11057,
+          "battles": 298,
+          "winrate": "43.96",
+          "avg_damage": 0,
+          "mark_of_mastery": 3
+        },
+        {
+          "tank_id": 68673,
+          "battles": 182,
+          "winrate": "41.76",
+          "avg_damage": 0,
+          "mark_of_mastery": 3
+        },
+        {
+          "tank_id": 8241,
+          "battles": 131,
+          "winrate": "41.98",
+          "avg_damage": 0,
+          "mark_of_mastery": 2
+        },
+        {
+          "tank_id": 9265,
+          "battles": 126,
+          "winrate": "50.00",
+          "avg_damage": 0,
+          "mark_of_mastery": 3
+        },
+        {
+          "tank_id": 7985,
+          "battles": 114,
+          "winrate": "45.61",
+          "avg_damage": 0,
+          "mark_of_mastery": 2
+        },
+        {
+          "tank_id": 8497,
+          "battles": 95,
+          "winrate": "50.53",
+          "avg_damage": 0,
+          "mark_of_mastery": 2
+        },
+        {
+          "tank_id": 5681,
+          "battles": 85,
+          "winrate": "45.88",
+          "avg_damage": 0,
+          "mark_of_mastery": 1
+        },
+        {
+          "tank_id": 3905,
+          "battles": 84,
+          "winrate": "38.10",
+          "avg_damage": 0,
+          "mark_of_mastery": 2
+        },
+        {
+          "tank_id": 3137,
+          "battles": 84,
+          "winrate": "50.00",
+          "avg_damage": 0,
+          "mark_of_mastery": 2
+        },
+        {
+          "tank_id": 9777,
+          "battles": 83,
+          "winrate": "36.14",
+          "avg_damage": 0,
+          "mark_of_mastery": 2
+        }
+      ],
+      "daily": [
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 37,
+          "d": 52497
+        },
+        {
+          "b": 49,
+          "d": 57398
+        },
+        {
+          "b": 68,
+          "d": 65865
+        },
+        {
+          "b": 39,
+          "d": 38422
+        },
+        {
+          "b": 36,
+          "d": 43889
+        },
+        {
+          "b": 33,
+          "d": 39255
+        },
+        {
+          "b": 36,
+          "d": 29495
+        },
+        {
+          "b": 33,
+          "d": 18394
+        },
+        {
+          "b": 52,
+          "d": 40832
+        },
+        {
+          "b": 54,
+          "d": 51169
+        },
+        {
+          "b": 43,
+          "d": 37999
+        },
+        {
+          "b": 32,
+          "d": 31227
+        },
+        {
+          "b": 26,
+          "d": 49175
+        },
+        {
+          "b": 31,
+          "d": 36451
+        },
+        {
+          "b": 28,
+          "d": 40099
+        },
+        {
+          "b": 48,
+          "d": 48460
+        },
+        {
+          "b": 11,
+          "d": 16277
+        },
+        {
+          "b": 22,
+          "d": 24628
+        },
+        {
+          "b": 44,
+          "d": 38111
+        },
+        {
+          "b": 24,
+          "d": 17688
+        },
+        {
+          "b": 37,
+          "d": 39430
+        },
+        {
+          "b": 38,
+          "d": 38793
+        },
+        {
+          "b": 44,
+          "d": 50140
+        },
+        {
+          "b": 29,
+          "d": 34124
+        },
+        {
+          "b": 23,
+          "d": 26965
+        },
+        {
+          "b": 16,
+          "d": 14434
+        },
+        {
+          "b": 27,
+          "d": 36981
+        },
+        {
+          "b": 26,
+          "d": 28504
+        },
+        {
+          "b": 17,
+          "d": 21374
+        },
+        {
+          "b": 32,
+          "d": 49442
+        },
+        {
+          "b": 41,
+          "d": 43491
+        },
+        {
+          "b": 58,
+          "d": 62518
+        },
+        {
+          "b": 22,
+          "d": 27499
+        },
+        {
+          "b": 25,
+          "d": 23423
+        },
+        {
+          "b": 23,
+          "d": 25990
+        },
+        {
+          "b": 15,
+          "d": 16966
+        },
+        {
+          "b": 26,
+          "d": 30054
+        },
+        {
+          "b": 0,
+          "d": 0
+        }
+      ]
+    },
+    "2033355828": {
+      "nickname": "Leopard_Cl",
+      "role": "junior_officer",
+      "battles60": 665,
+      "daily_battles": 17.5,
+      "wn8_60": 1810,
+      "wnx_60": 1805,
+      "dpg_60": 1645,
+      "wn8_ov": 1643,
+      "wnx_ov": 1612,
+      "dpg_ov": 1307,
+      "tanks_recent": [
+        {
+          "tank_id": 32273,
+          "battles": 28
+        },
+        {
+          "tank_id": 38417,
+          "battles": 26
+        },
+        {
+          "tank_id": 19281,
+          "battles": 7
+        },
+        {
+          "tank_id": 68641,
+          "battles": 4
+        },
+        {
+          "tank_id": 5969,
+          "battles": 3
+        },
+        {
+          "tank_id": 6481,
+          "battles": 2
+        },
+        {
+          "tank_id": 9009,
+          "battles": 2
+        },
+        {
+          "tank_id": 8993,
+          "battles": 1
+        },
+        {
+          "tank_id": 16657,
+          "battles": 1
+        },
+        {
+          "tank_id": 21505,
+          "battles": 1
+        },
+        {
+          "tank_id": 65585,
+          "battles": 1
+        },
+        {
+          "tank_id": 65601,
+          "battles": 1
+        },
+        {
+          "tank_id": 68161,
+          "battles": 1
+        }
+      ],
+      "top_tanks": [
+        {
+          "tank_id": 19537,
+          "battles": 124,
+          "winrate": "43.55",
+          "avg_damage": 0,
+          "mark_of_mastery": 2
+        },
+        {
+          "tank_id": 4353,
+          "battles": 106,
+          "winrate": "41.51",
+          "avg_damage": 0,
+          "mark_of_mastery": 2
+        },
+        {
+          "tank_id": 1569,
+          "battles": 102,
+          "winrate": "51.96",
+          "avg_damage": 0,
+          "mark_of_mastery": 2
+        },
+        {
+          "tank_id": 11521,
+          "battles": 93,
+          "winrate": "46.24",
+          "avg_damage": 0,
+          "mark_of_mastery": 3
+        },
+        {
+          "tank_id": 7937,
+          "battles": 91,
+          "winrate": "45.05",
+          "avg_damage": 0,
+          "mark_of_mastery": 2
+        },
+        {
+          "tank_id": 21505,
+          "battles": 85,
+          "winrate": "49.41",
+          "avg_damage": 0,
+          "mark_of_mastery": 3
+        },
+        {
+          "tank_id": 23377,
+          "battles": 81,
+          "winrate": "48.15",
+          "avg_damage": 0,
+          "mark_of_mastery": 2
+        },
+        {
+          "tank_id": 5377,
+          "battles": 77,
+          "winrate": "54.55",
+          "avg_damage": 0,
+          "mark_of_mastery": 4
+        },
+        {
+          "tank_id": 23073,
+          "battles": 74,
+          "winrate": "51.35",
+          "avg_damage": 0,
+          "mark_of_mastery": 3
+        },
+        {
+          "tank_id": 16657,
+          "battles": 71,
+          "winrate": "39.44",
+          "avg_damage": 0,
+          "mark_of_mastery": 2
+        }
+      ],
+      "daily": [
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 13,
+          "d": 25088
+        },
+        {
+          "b": 6,
+          "d": 5372
+        },
+        {
+          "b": 29,
+          "d": 49031
+        },
+        {
+          "b": 36,
+          "d": 60228
+        },
+        {
+          "b": 20,
+          "d": 27772
+        },
+        {
+          "b": 22,
+          "d": 22231
+        },
+        {
+          "b": 19,
+          "d": 24970
+        },
+        {
+          "b": 17,
+          "d": 23958
+        },
+        {
+          "b": 7,
+          "d": 9909
+        },
+        {
+          "b": 42,
+          "d": 58988
+        },
+        {
+          "b": 24,
+          "d": 36253
+        },
+        {
+          "b": 23,
+          "d": 35235
+        },
+        {
+          "b": 17,
+          "d": 23326
+        },
+        {
+          "b": 6,
+          "d": 4496
+        },
+        {
+          "b": 19,
+          "d": 28678
+        },
+        {
+          "b": 15,
+          "d": 21232
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 7,
+          "d": 9266
+        },
+        {
+          "b": 13,
+          "d": 16673
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 8,
+          "d": 16348
+        },
+        {
+          "b": 21,
+          "d": 38531
+        },
+        {
+          "b": 41,
+          "d": 60890
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 11,
+          "d": 16251
+        },
+        {
+          "b": 21,
+          "d": 39782
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 37,
+          "d": 72512
+        },
+        {
+          "b": 32,
+          "d": 73586
+        },
+        {
+          "b": 30,
+          "d": 61731
+        },
+        {
+          "b": 32,
+          "d": 56794
+        },
+        {
+          "b": 19,
+          "d": 34089
+        },
+        {
+          "b": 19,
+          "d": 37269
+        },
+        {
+          "b": 15,
+          "d": 26222
+        },
+        {
+          "b": 26,
+          "d": 46988
+        },
+        {
+          "b": 18,
+          "d": 29944
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        }
+      ]
+    },
+    "2047553109": {
+      "nickname": "hailang_2023",
+      "role": "junior_officer",
+      "battles60": 699,
+      "daily_battles": 18.394736842105264,
+      "wn8_60": 843,
+      "wnx_60": 778,
+      "dpg_60": 1115,
+      "wn8_ov": 659,
+      "wnx_ov": 592,
+      "dpg_ov": 760,
+      "tanks_recent": [
+        {
+          "tank_id": 32273,
+          "battles": 41
+        },
+        {
+          "tank_id": 65329,
+          "battles": 27
+        },
+        {
+          "tank_id": 45057,
+          "battles": 26
+        },
+        {
+          "tank_id": 19281,
+          "battles": 20
+        },
+        {
+          "tank_id": 9009,
+          "battles": 1
+        }
+      ],
+      "top_tanks": [
+        {
+          "tank_id": 45057,
+          "battles": 1080,
+          "winrate": "45.74",
+          "avg_damage": 0,
+          "mark_of_mastery": 3
+        },
+        {
+          "tank_id": 65329,
+          "battles": 323,
+          "winrate": "49.54",
+          "avg_damage": 0,
+          "mark_of_mastery": 3
+        },
+        {
+          "tank_id": 35873,
+          "battles": 245,
+          "winrate": "38.78",
+          "avg_damage": 0,
+          "mark_of_mastery": 2
+        },
+        {
+          "tank_id": 14609,
+          "battles": 216,
+          "winrate": "43.52",
+          "avg_damage": 0,
+          "mark_of_mastery": 2
+        },
+        {
+          "tank_id": 2593,
+          "battles": 208,
+          "winrate": "40.87",
+          "avg_damage": 0,
+          "mark_of_mastery": 3
+        },
+        {
+          "tank_id": 36129,
+          "battles": 206,
+          "winrate": "42.23",
+          "avg_damage": 0,
+          "mark_of_mastery": 2
+        },
+        {
+          "tank_id": 22049,
+          "battles": 200,
+          "winrate": "41.00",
+          "avg_damage": 0,
+          "mark_of_mastery": 2
+        },
+        {
+          "tank_id": 19537,
+          "battles": 177,
+          "winrate": "45.76",
+          "avg_damage": 0,
+          "mark_of_mastery": 2
+        },
+        {
+          "tank_id": 7937,
+          "battles": 176,
+          "winrate": "42.61",
+          "avg_damage": 0,
+          "mark_of_mastery": 2
+        },
+        {
+          "tank_id": 18449,
+          "battles": 168,
+          "winrate": "42.26",
+          "avg_damage": 0,
+          "mark_of_mastery": 2
+        }
+      ],
+      "daily": [
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 28,
+          "d": 25349
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 13,
+          "d": 12997
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 15,
+          "d": 12828
+        },
+        {
+          "b": 25,
+          "d": 22055
+        },
+        {
+          "b": 30,
+          "d": 27543
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 31,
+          "d": 31733
+        },
+        {
+          "b": 18,
+          "d": 18380
+        },
+        {
+          "b": 23,
+          "d": 24616
+        },
+        {
+          "b": 20,
+          "d": 23918
+        },
+        {
+          "b": 32,
+          "d": 34233
+        },
+        {
+          "b": 18,
+          "d": 19093
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 18,
+          "d": 20318
+        },
+        {
+          "b": 17,
+          "d": 17449
+        },
+        {
+          "b": 14,
+          "d": 12446
+        },
+        {
+          "b": 20,
+          "d": 26220
+        },
+        {
+          "b": 49,
+          "d": 54642
+        },
+        {
+          "b": 30,
+          "d": 39583
+        },
+        {
+          "b": 7,
+          "d": 10131
+        },
+        {
+          "b": 2,
+          "d": 1729
+        },
+        {
+          "b": 43,
+          "d": 50682
+        },
+        {
+          "b": 3,
+          "d": 3313
+        },
+        {
+          "b": 22,
+          "d": 23311
+        },
+        {
+          "b": 54,
+          "d": 67374
+        },
+        {
+          "b": 31,
+          "d": 41110
+        },
+        {
+          "b": 21,
+          "d": 22778
+        },
+        {
+          "b": 13,
+          "d": 12670
+        },
+        {
+          "b": 9,
+          "d": 8492
+        },
+        {
+          "b": 6,
+          "d": 4912
+        },
+        {
+          "b": 25,
+          "d": 33698
+        },
+        {
+          "b": 62,
+          "d": 75958
+        },
+        {
+          "b": 0,
+          "d": 0
+        }
+      ]
+    },
+    "3002916712": {
+      "nickname": "fearsome_archer_64",
+      "role": "junior_officer",
+      "battles60": 308,
+      "daily_battles": 8.105263157894736,
+      "wn8_60": 814,
+      "wnx_60": 801,
+      "dpg_60": 1229,
+      "wn8_ov": null,
+      "wnx_ov": null,
+      "dpg_ov": null,
+      "tanks_recent": [
+        {
+          "tank_id": 8305,
+          "battles": 11
+        },
+        {
+          "tank_id": 41233,
+          "battles": 10
+        },
+        {
+          "tank_id": 62481,
+          "battles": 10
+        },
+        {
+          "tank_id": 61505,
+          "battles": 7
+        },
+        {
+          "tank_id": 54177,
+          "battles": 6
+        },
+        {
+          "tank_id": 9233,
+          "battles": 5
+        },
+        {
+          "tank_id": 10257,
+          "battles": 5
+        },
+        {
+          "tank_id": 6017,
+          "battles": 3
+        },
+        {
+          "tank_id": 7697,
+          "battles": 3
+        },
+        {
+          "tank_id": 18209,
+          "battles": 3
+        },
+        {
+          "tank_id": 42017,
+          "battles": 3
+        },
+        {
+          "tank_id": 46865,
+          "battles": 3
+        },
+        {
+          "tank_id": 7537,
+          "battles": 2
+        },
+        {
+          "tank_id": 9745,
+          "battles": 2
+        },
+        {
+          "tank_id": 7169,
+          "battles": 1
+        },
+        {
+          "tank_id": 7281,
+          "battles": 1
+        },
+        {
+          "tank_id": 16161,
+          "battles": 1
+        },
+        {
+          "tank_id": 16401,
+          "battles": 1
+        },
+        {
+          "tank_id": 19217,
+          "battles": 1
+        },
+        {
+          "tank_id": 62273,
+          "battles": 1
+        }
+      ],
+      "top_tanks": [
+        {
+          "tank_id": 42017,
+          "battles": 963,
+          "winrate": "48.29",
+          "avg_damage": 0,
+          "mark_of_mastery": 4
+        },
+        {
+          "tank_id": 41233,
+          "battles": 799,
+          "winrate": "42.18",
+          "avg_damage": 0,
+          "mark_of_mastery": 3
+        },
+        {
+          "tank_id": 61505,
+          "battles": 783,
+          "winrate": "45.47",
+          "avg_damage": 0,
+          "mark_of_mastery": 3
+        },
+        {
+          "tank_id": 18209,
+          "battles": 586,
+          "winrate": "43.69",
+          "avg_damage": 0,
+          "mark_of_mastery": 3
+        },
+        {
+          "tank_id": 62481,
+          "battles": 419,
+          "winrate": "47.49",
+          "avg_damage": 0,
+          "mark_of_mastery": 3
+        },
+        {
+          "tank_id": 4737,
+          "battles": 393,
+          "winrate": "45.04",
+          "avg_damage": 0,
+          "mark_of_mastery": 3
+        },
+        {
+          "tank_id": 18449,
+          "battles": 301,
+          "winrate": "46.18",
+          "avg_damage": 0,
+          "mark_of_mastery": 2
+        },
+        {
+          "tank_id": 513,
+          "battles": 298,
+          "winrate": "47.99",
+          "avg_damage": 0,
+          "mark_of_mastery": 2
+        },
+        {
+          "tank_id": 5377,
+          "battles": 292,
+          "winrate": "39.38",
+          "avg_damage": 0,
+          "mark_of_mastery": 3
+        },
+        {
+          "tank_id": 19217,
+          "battles": 264,
+          "winrate": "42.42",
+          "avg_damage": 0,
+          "mark_of_mastery": 3
+        }
+      ],
+      "daily": [
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 22,
+          "d": 34770
+        },
+        {
+          "b": 10,
+          "d": 14934
+        },
+        {
+          "b": 17,
+          "d": 19205
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 23,
+          "d": 27237
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 18,
+          "d": 13584
+        },
+        {
+          "b": 9,
+          "d": 13135
+        },
+        {
+          "b": 8,
+          "d": 11623
+        },
+        {
+          "b": 13,
+          "d": 11225
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 5,
+          "d": 6238
+        },
+        {
+          "b": 19,
+          "d": 24938
+        },
+        {
+          "b": 1,
+          "d": 2644
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 14,
+          "d": 15585
+        },
+        {
+          "b": 9,
+          "d": 15200
+        },
+        {
+          "b": 22,
+          "d": 31091
+        },
+        {
+          "b": 39,
+          "d": 40523
+        },
+        {
+          "b": 13,
+          "d": 10067
+        },
+        {
+          "b": 16,
+          "d": 15495
+        },
+        {
+          "b": 10,
+          "d": 14601
+        },
+        {
+          "b": 12,
+          "d": 11304
+        },
+        {
+          "b": 8,
+          "d": 9904
+        },
+        {
+          "b": 20,
+          "d": 35123
+        }
+      ]
+    },
+    "3003962708": {
+      "nickname": "redstar_CHINA",
+      "role": "junior_officer",
+      "battles60": 1180,
+      "daily_battles": 31.05263157894737,
+      "wn8_60": 894,
+      "wnx_60": 832,
+      "dpg_60": 1125,
+      "wn8_ov": 791,
+      "wnx_ov": 718,
+      "dpg_ov": 957,
+      "tanks_recent": [
+        {
+          "tank_id": 32273,
+          "battles": 27
+        },
+        {
+          "tank_id": 6977,
+          "battles": 21
+        },
+        {
+          "tank_id": 21281,
+          "battles": 17
+        },
+        {
+          "tank_id": 7969,
+          "battles": 14
+        },
+        {
+          "tank_id": 6257,
+          "battles": 13
+        },
+        {
+          "tank_id": 2161,
+          "battles": 12
+        },
+        {
+          "tank_id": 18177,
+          "battles": 9
+        },
+        {
+          "tank_id": 16449,
+          "battles": 8
+        },
+        {
+          "tank_id": 19985,
+          "battles": 7
+        },
+        {
+          "tank_id": 6929,
+          "battles": 6
+        },
+        {
+          "tank_id": 8305,
+          "battles": 5
+        },
+        {
+          "tank_id": 38417,
+          "battles": 5
+        },
+        {
+          "tank_id": 53105,
+          "battles": 5
+        },
+        {
+          "tank_id": 2929,
+          "battles": 3
+        },
+        {
+          "tank_id": 3137,
+          "battles": 3
+        },
+        {
+          "tank_id": 54161,
+          "battles": 3
+        },
+        {
+          "tank_id": 25681,
+          "battles": 2
+        },
+        {
+          "tank_id": 66369,
+          "battles": 2
+        },
+        {
+          "tank_id": 67121,
+          "battles": 2
+        },
+        {
+          "tank_id": 69921,
+          "battles": 2
+        },
+        {
+          "tank_id": 5505,
+          "battles": 1
+        },
+        {
+          "tank_id": 13089,
+          "battles": 1
+        },
+        {
+          "tank_id": 26641,
+          "battles": 1
+        },
+        {
+          "tank_id": 49953,
+          "battles": 1
+        },
+        {
+          "tank_id": 51857,
+          "battles": 1
+        },
+        {
+          "tank_id": 53409,
+          "battles": 1
+        },
+        {
+          "tank_id": 65601,
+          "battles": 1
+        },
+        {
+          "tank_id": 69377,
+          "battles": 1
+        },
+        {
+          "tank_id": 69441,
+          "battles": 1
+        }
+      ],
+      "top_tanks": [
+        {
+          "tank_id": 19217,
+          "battles": 245,
+          "winrate": "41.22",
+          "avg_damage": 0,
+          "mark_of_mastery": 3
+        },
+        {
+          "tank_id": 9489,
+          "battles": 221,
+          "winrate": "38.46",
+          "avg_damage": 0,
+          "mark_of_mastery": 2
+        },
+        {
+          "tank_id": 42017,
+          "battles": 190,
+          "winrate": "46.32",
+          "avg_damage": 0,
+          "mark_of_mastery": 2
+        },
+        {
+          "tank_id": 10801,
+          "battles": 182,
+          "winrate": "39.56",
+          "avg_damage": 0,
+          "mark_of_mastery": 3
+        },
+        {
+          "tank_id": 32065,
+          "battles": 177,
+          "winrate": "37.85",
+          "avg_damage": 0,
+          "mark_of_mastery": 2
+        },
+        {
+          "tank_id": 14673,
+          "battles": 174,
+          "winrate": "43.10",
+          "avg_damage": 0,
+          "mark_of_mastery": 2
+        },
+        {
+          "tank_id": 3649,
+          "battles": 172,
+          "winrate": "46.51",
+          "avg_damage": 0,
+          "mark_of_mastery": 2
+        },
+        {
+          "tank_id": 9265,
+          "battles": 170,
+          "winrate": "45.88",
+          "avg_damage": 0,
+          "mark_of_mastery": 2
+        },
+        {
+          "tank_id": 2961,
+          "battles": 168,
+          "winrate": "46.43",
+          "avg_damage": 0,
+          "mark_of_mastery": 2
+        },
+        {
+          "tank_id": 9745,
+          "battles": 167,
+          "winrate": "40.72",
+          "avg_damage": 0,
+          "mark_of_mastery": 2
+        }
+      ],
+      "daily": [
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 33,
+          "d": 33710
+        },
+        {
+          "b": 29,
+          "d": 39755
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 33,
+          "d": 37934
+        },
+        {
+          "b": 33,
+          "d": 42104
+        },
+        {
+          "b": 44,
+          "d": 55655
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 140,
+          "d": 158502
+        },
+        {
+          "b": 22,
+          "d": 33830
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 67,
+          "d": 71600
+        },
+        {
+          "b": 47,
+          "d": 50491
+        },
+        {
+          "b": 82,
+          "d": 96302
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 19,
+          "d": 18389
+        },
+        {
+          "b": 33,
+          "d": 50033
+        },
+        {
+          "b": 29,
+          "d": 25356
+        },
+        {
+          "b": 13,
+          "d": 22149
+        },
+        {
+          "b": 23,
+          "d": 21860
+        },
+        {
+          "b": 53,
+          "d": 60839
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 114,
+          "d": 117668
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 80,
+          "d": 73007
+        },
+        {
+          "b": 11,
+          "d": 11258
+        },
+        {
+          "b": 29,
+          "d": 39723
+        },
+        {
+          "b": 18,
+          "d": 14415
+        },
+        {
+          "b": 53,
+          "d": 64309
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 84,
+          "d": 84932
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 33,
+          "d": 41835
+        },
+        {
+          "b": 17,
+          "d": 16757
+        },
+        {
+          "b": 41,
+          "d": 44905
+        },
+        {
+          "b": 0,
+          "d": 0
+        }
+      ]
+    },
+    "3011369238": {
+      "nickname": "Nfertari_",
+      "role": "junior_officer",
+      "battles60": 309,
+      "daily_battles": 8.131578947368421,
+      "wn8_60": 1338,
+      "wnx_60": 1281,
+      "dpg_60": 1296,
+      "wn8_ov": 1005,
+      "wnx_ov": 961,
+      "dpg_ov": 921,
+      "tanks_recent": [
+        {
+          "tank_id": 8241,
+          "battles": 44
+        },
+        {
+          "tank_id": 5377,
+          "battles": 25
+        },
+        {
+          "tank_id": 2577,
+          "battles": 7
+        },
+        {
+          "tank_id": 19217,
+          "battles": 4
+        },
+        {
+          "tank_id": 8497,
+          "battles": 2
+        },
+        {
+          "tank_id": 9009,
+          "battles": 2
+        },
+        {
+          "tank_id": 2321,
+          "battles": 1
+        },
+        {
+          "tank_id": 6465,
+          "battles": 1
+        },
+        {
+          "tank_id": 6945,
+          "battles": 1
+        },
+        {
+          "tank_id": 8785,
+          "battles": 1
+        }
+      ],
+      "top_tanks": [
+        {
+          "tank_id": 61505,
+          "battles": 260,
+          "winrate": "42.69",
+          "avg_damage": 0,
+          "mark_of_mastery": 2
+        },
+        {
+          "tank_id": 57409,
+          "battles": 219,
+          "winrate": "40.18",
+          "avg_damage": 0,
+          "mark_of_mastery": 2
+        },
+        {
+          "tank_id": 49,
+          "battles": 213,
+          "winrate": "43.19",
+          "avg_damage": 0,
+          "mark_of_mastery": 2
+        },
+        {
+          "tank_id": 36129,
+          "battles": 197,
+          "winrate": "45.69",
+          "avg_damage": 0,
+          "mark_of_mastery": 2
+        },
+        {
+          "tank_id": 51089,
+          "battles": 178,
+          "winrate": "32.58",
+          "avg_damage": 0,
+          "mark_of_mastery": 2
+        },
+        {
+          "tank_id": 11073,
+          "battles": 143,
+          "winrate": "50.35",
+          "avg_damage": 0,
+          "mark_of_mastery": 3
+        },
+        {
+          "tank_id": 8241,
+          "battles": 141,
+          "winrate": "47.52",
+          "avg_damage": 0,
+          "mark_of_mastery": 3
+        },
+        {
+          "tank_id": 23073,
+          "battles": 102,
+          "winrate": "50.00",
+          "avg_damage": 0,
+          "mark_of_mastery": 2
+        },
+        {
+          "tank_id": 12097,
+          "battles": 102,
+          "winrate": "42.16",
+          "avg_damage": 0,
+          "mark_of_mastery": 2
+        },
+        {
+          "tank_id": 16401,
+          "battles": 83,
+          "winrate": "44.58",
+          "avg_damage": 0,
+          "mark_of_mastery": 3
+        }
+      ],
+      "daily": [
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 11,
+          "d": 14019
+        },
+        {
+          "b": 3,
+          "d": 5532
+        },
+        {
+          "b": 8,
+          "d": 9134
+        },
+        {
+          "b": 7,
+          "d": 4237
+        },
+        {
+          "b": 9,
+          "d": 15749
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 5,
+          "d": 8694
+        },
+        {
+          "b": 3,
+          "d": 4228
+        },
+        {
+          "b": 8,
+          "d": 11851
+        },
+        {
+          "b": 8,
+          "d": 7159
+        },
+        {
+          "b": 8,
+          "d": 9788
+        },
+        {
+          "b": 14,
+          "d": 15499
+        },
+        {
+          "b": 7,
+          "d": 3366
+        },
+        {
+          "b": 7,
+          "d": 11889
+        },
+        {
+          "b": 4,
+          "d": 3704
+        },
+        {
+          "b": 5,
+          "d": 3761
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 2,
+          "d": 2766
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 1,
+          "d": 1521
+        },
+        {
+          "b": 3,
+          "d": 3560
+        },
+        {
+          "b": 5,
+          "d": 3396
+        },
+        {
+          "b": 11,
+          "d": 13507
+        },
+        {
+          "b": 2,
+          "d": 1432
+        },
+        {
+          "b": 2,
+          "d": 2122
+        },
+        {
+          "b": 13,
+          "d": 14361
+        },
+        {
+          "b": 7,
+          "d": 7885
+        },
+        {
+          "b": 24,
+          "d": 26809
+        },
+        {
+          "b": 13,
+          "d": 20314
+        },
+        {
+          "b": 9,
+          "d": 13433
+        },
+        {
+          "b": 12,
+          "d": 18340
+        },
+        {
+          "b": 23,
+          "d": 31493
+        },
+        {
+          "b": 3,
+          "d": 2832
+        },
+        {
+          "b": 29,
+          "d": 35305
+        },
+        {
+          "b": 21,
+          "d": 39813
+        },
+        {
+          "b": 22,
+          "d": 33053
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        }
+      ]
+    },
+    "3011851906": {
+      "nickname": "Rollo_Tomas1",
+      "role": "junior_officer",
+      "battles60": 757,
+      "daily_battles": 19.92105263157895,
+      "wn8_60": 2138,
+      "wnx_60": 2194,
+      "dpg_60": 2257,
+      "wn8_ov": 2086,
+      "wnx_ov": 2137,
+      "dpg_ov": 2027,
+      "tanks_recent": [
+        {
+          "tank_id": 32273,
+          "battles": 4
+        },
+        {
+          "tank_id": 6513,
+          "battles": 3
+        },
+        {
+          "tank_id": 69377,
+          "battles": 3
+        },
+        {
+          "tank_id": 69921,
+          "battles": 3
+        },
+        {
+          "tank_id": 51329,
+          "battles": 2
+        },
+        {
+          "tank_id": 68929,
+          "battles": 2
+        },
+        {
+          "tank_id": 3649,
+          "battles": 1
+        },
+        {
+          "tank_id": 11841,
+          "battles": 1
+        },
+        {
+          "tank_id": 51729,
+          "battles": 1
+        },
+        {
+          "tank_id": 54145,
+          "battles": 1
+        },
+        {
+          "tank_id": 55137,
+          "battles": 1
+        },
+        {
+          "tank_id": 60497,
+          "battles": 1
+        },
+        {
+          "tank_id": 61505,
+          "battles": 1
+        },
+        {
+          "tank_id": 67361,
+          "battles": 1
+        },
+        {
+          "tank_id": 67873,
+          "battles": 1
+        },
+        {
+          "tank_id": 68641,
+          "battles": 1
+        }
+      ],
+      "top_tanks": [
+        {
+          "tank_id": 68385,
+          "battles": 281,
+          "winrate": "54.80",
+          "avg_damage": 0,
+          "mark_of_mastery": 4
+        },
+        {
+          "tank_id": 67873,
+          "battles": 236,
+          "winrate": "53.39",
+          "avg_damage": 0,
+          "mark_of_mastery": 4
+        },
+        {
+          "tank_id": 69377,
+          "battles": 220,
+          "winrate": "59.09",
+          "avg_damage": 0,
+          "mark_of_mastery": 4
+        },
+        {
+          "tank_id": 10801,
+          "battles": 210,
+          "winrate": "53.33",
+          "avg_damage": 0,
+          "mark_of_mastery": 4
+        },
+        {
+          "tank_id": 6513,
+          "battles": 149,
+          "winrate": "49.66",
+          "avg_damage": 0,
+          "mark_of_mastery": 4
+        },
+        {
+          "tank_id": 26641,
+          "battles": 123,
+          "winrate": "54.47",
+          "avg_damage": 0,
+          "mark_of_mastery": 3
+        },
+        {
+          "tank_id": 53377,
+          "battles": 111,
+          "winrate": "52.25",
+          "avg_damage": 0,
+          "mark_of_mastery": 3
+        },
+        {
+          "tank_id": 54177,
+          "battles": 108,
+          "winrate": "46.30",
+          "avg_damage": 0,
+          "mark_of_mastery": 3
+        },
+        {
+          "tank_id": 55137,
+          "battles": 104,
+          "winrate": "56.73",
+          "avg_damage": 0,
+          "mark_of_mastery": 4
+        },
+        {
+          "tank_id": 61505,
+          "battles": 102,
+          "winrate": "43.14",
+          "avg_damage": 0,
+          "mark_of_mastery": 2
+        }
+      ],
+      "daily": [
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 57,
+          "d": 112034
+        },
+        {
+          "b": 38,
+          "d": 90384
+        },
+        {
+          "b": 25,
+          "d": 42058
+        },
+        {
+          "b": 30,
+          "d": 80721
+        },
+        {
+          "b": 43,
+          "d": 98788
+        },
+        {
+          "b": 27,
+          "d": 56315
+        },
+        {
+          "b": 50,
+          "d": 109657
+        },
+        {
+          "b": 53,
+          "d": 118700
+        },
+        {
+          "b": 27,
+          "d": 80026
+        },
+        {
+          "b": 22,
+          "d": 62309
+        },
+        {
+          "b": 30,
+          "d": 66119
+        },
+        {
+          "b": 40,
+          "d": 86577
+        },
+        {
+          "b": 31,
+          "d": 68795
+        },
+        {
+          "b": 43,
+          "d": 98098
+        },
+        {
+          "b": 20,
+          "d": 56897
+        },
+        {
+          "b": 28,
+          "d": 72757
+        },
+        {
+          "b": 26,
+          "d": 53111
+        },
+        {
+          "b": 42,
+          "d": 101727
+        },
+        {
+          "b": 17,
+          "d": 33851
+        },
+        {
+          "b": 25,
+          "d": 58791
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 3,
+          "d": 5732
+        },
+        {
+          "b": 9,
+          "d": 12114
+        },
+        {
+          "b": 6,
+          "d": 14012
+        },
+        {
+          "b": 31,
+          "d": 59475
+        },
+        {
+          "b": 7,
+          "d": 13797
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 10,
+          "d": 18182
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 4,
+          "d": 9184
+        },
+        {
+          "b": 12,
+          "d": 26970
+        },
+        {
+          "b": 1,
+          "d": 1622
+        },
+        {
+          "b": 0,
+          "d": 0
+        }
+      ]
+    },
+    "3012429987": {
+      "nickname": "MIKE_MING_1995",
+      "role": "executive_officer",
+      "battles60": 0,
+      "daily_battles": 0,
+      "wn8_60": 1046,
+      "wnx_60": 1000,
+      "dpg_60": null,
+      "wn8_ov": 1197,
+      "wnx_ov": 1131,
+      "dpg_ov": 1191,
+      "tanks_recent": [],
+      "top_tanks": [
+        {
+          "tank_id": 10801,
+          "battles": 502,
+          "winrate": "45.42",
+          "avg_damage": 0,
+          "mark_of_mastery": 2
+        },
+        {
+          "tank_id": 26641,
+          "battles": 206,
+          "winrate": "40.78",
+          "avg_damage": 0,
+          "mark_of_mastery": 2
+        },
+        {
+          "tank_id": 51985,
+          "battles": 194,
+          "winrate": "60.82",
+          "avg_damage": 0,
+          "mark_of_mastery": 4
+        },
+        {
+          "tank_id": 23041,
+          "battles": 193,
+          "winrate": "58.03",
+          "avg_damage": 0,
+          "mark_of_mastery": 3
+        },
+        {
+          "tank_id": 61505,
+          "battles": 180,
+          "winrate": "52.22",
+          "avg_damage": 0,
+          "mark_of_mastery": 3
+        },
+        {
+          "tank_id": 10497,
+          "battles": 73,
+          "winrate": "54.79",
+          "avg_damage": 0,
+          "mark_of_mastery": 3
+        },
+        {
+          "tank_id": 66097,
+          "battles": 62,
+          "winrate": "51.61",
+          "avg_damage": 0,
+          "mark_of_mastery": 2
+        },
+        {
+          "tank_id": 11777,
+          "battles": 43,
+          "winrate": "41.86",
+          "avg_damage": 0,
+          "mark_of_mastery": 3
+        },
+        {
+          "tank_id": 1313,
+          "battles": 36,
+          "winrate": "36.11",
+          "avg_damage": 0,
+          "mark_of_mastery": 2
+        },
+        {
+          "tank_id": 1057,
+          "battles": 33,
+          "winrate": "54.55",
+          "avg_damage": 0,
+          "mark_of_mastery": 2
+        }
+      ],
+      "daily": [
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        }
+      ]
+    },
+    "3014048007": {
+      "nickname": "Dortmund",
+      "role": "junior_officer",
+      "battles60": 280,
+      "daily_battles": 7.368421052631579,
+      "wn8_60": 1348,
+      "wnx_60": 1342,
+      "dpg_60": 1452,
+      "wn8_ov": 1307,
+      "wnx_ov": 1321,
+      "dpg_ov": 1250,
+      "tanks_recent": [],
+      "top_tanks": [
+        {
+          "tank_id": 31249,
+          "battles": 173,
+          "winrate": "48.55",
+          "avg_damage": 0,
+          "mark_of_mastery": 3
+        },
+        {
+          "tank_id": 8993,
+          "battles": 135,
+          "winrate": "42.22",
+          "avg_damage": 0,
+          "mark_of_mastery": 3
+        },
+        {
+          "tank_id": 1569,
+          "battles": 123,
+          "winrate": "52.85",
+          "avg_damage": 0,
+          "mark_of_mastery": 3
+        },
+        {
+          "tank_id": 36129,
+          "battles": 120,
+          "winrate": "44.17",
+          "avg_damage": 0,
+          "mark_of_mastery": 3
+        },
+        {
+          "tank_id": 67121,
+          "battles": 114,
+          "winrate": "46.49",
+          "avg_damage": 0,
+          "mark_of_mastery": 3
+        },
+        {
+          "tank_id": 67137,
+          "battles": 114,
+          "winrate": "49.12",
+          "avg_damage": 0,
+          "mark_of_mastery": 3
+        },
+        {
+          "tank_id": 7457,
+          "battles": 107,
+          "winrate": "49.53",
+          "avg_damage": 0,
+          "mark_of_mastery": 2
+        },
+        {
+          "tank_id": 16161,
+          "battles": 103,
+          "winrate": "44.66",
+          "avg_damage": 0,
+          "mark_of_mastery": 3
+        },
+        {
+          "tank_id": 23073,
+          "battles": 97,
+          "winrate": "45.36",
+          "avg_damage": 0,
+          "mark_of_mastery": 4
+        },
+        {
+          "tank_id": 15393,
+          "battles": 95,
+          "winrate": "52.63",
+          "avg_damage": 0,
+          "mark_of_mastery": 3
+        }
+      ],
+      "daily": [
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 24,
+          "d": 29483
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 12,
+          "d": 15801
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 21,
+          "d": 22521
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 18,
+          "d": 23637
+        },
+        {
+          "b": 15,
+          "d": 18658
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 43,
+          "d": 74296
+        },
+        {
+          "b": 33,
+          "d": 51062
+        },
+        {
+          "b": 12,
+          "d": 7454
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 8,
+          "d": 16266
+        },
+        {
+          "b": 12,
+          "d": 21008
+        },
+        {
+          "b": 11,
+          "d": 18640
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 10,
+          "d": 14040
+        },
+        {
+          "b": 19,
+          "d": 22478
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 12,
+          "d": 17983
+        },
+        {
+          "b": 14,
+          "d": 21494
+        },
+        {
+          "b": 4,
+          "d": 3398
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 12,
+          "d": 28289
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        }
+      ]
+    },
+    "3016581628": {
+      "nickname": "Allen_0524",
+      "role": "junior_officer",
+      "battles60": 460,
+      "daily_battles": 12.105263157894736,
+      "wn8_60": 854,
+      "wnx_60": 853,
+      "dpg_60": 1138,
+      "wn8_ov": 828,
+      "wnx_ov": 802,
+      "dpg_ov": 887,
+      "tanks_recent": [
+        {
+          "tank_id": 38417,
+          "battles": 7
+        },
+        {
+          "tank_id": 69921,
+          "battles": 6
+        },
+        {
+          "tank_id": 16161,
+          "battles": 3
+        },
+        {
+          "tank_id": 67617,
+          "battles": 3
+        },
+        {
+          "tank_id": 60497,
+          "battles": 2
+        },
+        {
+          "tank_id": 7249,
+          "battles": 1
+        },
+        {
+          "tank_id": 10801,
+          "battles": 1
+        },
+        {
+          "tank_id": 33825,
+          "battles": 1
+        },
+        {
+          "tank_id": 54305,
+          "battles": 1
+        },
+        {
+          "tank_id": 58705,
+          "battles": 1
+        },
+        {
+          "tank_id": 68161,
+          "battles": 1
+        },
+        {
+          "tank_id": 68641,
+          "battles": 1
+        }
+      ],
+      "top_tanks": [
+        {
+          "tank_id": 5713,
+          "battles": 200,
+          "winrate": "43.50",
+          "avg_damage": 0,
+          "mark_of_mastery": 1
+        },
+        {
+          "tank_id": 68673,
+          "battles": 151,
+          "winrate": "47.02",
+          "avg_damage": 0,
+          "mark_of_mastery": 2
+        },
+        {
+          "tank_id": 5969,
+          "battles": 90,
+          "winrate": "43.33",
+          "avg_damage": 0,
+          "mark_of_mastery": 2
+        },
+        {
+          "tank_id": 63809,
+          "battles": 87,
+          "winrate": "52.87",
+          "avg_damage": 0,
+          "mark_of_mastery": 4
+        },
+        {
+          "tank_id": 7969,
+          "battles": 86,
+          "winrate": "41.86",
+          "avg_damage": 0,
+          "mark_of_mastery": 3
+        },
+        {
+          "tank_id": 513,
+          "battles": 80,
+          "winrate": "50.00",
+          "avg_damage": 0,
+          "mark_of_mastery": 2
+        },
+        {
+          "tank_id": 2593,
+          "battles": 76,
+          "winrate": "38.16",
+          "avg_damage": 0,
+          "mark_of_mastery": 2
+        },
+        {
+          "tank_id": 11297,
+          "battles": 67,
+          "winrate": "53.73",
+          "avg_damage": 0,
+          "mark_of_mastery": 2
+        },
+        {
+          "tank_id": 7457,
+          "battles": 63,
+          "winrate": "46.03",
+          "avg_damage": 0,
+          "mark_of_mastery": 3
+        },
+        {
+          "tank_id": 11041,
+          "battles": 48,
+          "winrate": "47.92",
+          "avg_damage": 0,
+          "mark_of_mastery": 3
+        }
+      ],
+      "daily": [
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 3,
+          "d": 2599
+        },
+        {
+          "b": 16,
+          "d": 11788
+        },
+        {
+          "b": 6,
+          "d": 5277
+        },
+        {
+          "b": 8,
+          "d": 6439
+        },
+        {
+          "b": 14,
+          "d": 13302
+        },
+        {
+          "b": 18,
+          "d": 25329
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 21,
+          "d": 21498
+        },
+        {
+          "b": 30,
+          "d": 37529
+        },
+        {
+          "b": 26,
+          "d": 36621
+        },
+        {
+          "b": 17,
+          "d": 18920
+        },
+        {
+          "b": 7,
+          "d": 7798
+        },
+        {
+          "b": 1,
+          "d": 674
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 16,
+          "d": 18561
+        },
+        {
+          "b": 20,
+          "d": 21645
+        },
+        {
+          "b": 37,
+          "d": 39905
+        },
+        {
+          "b": 32,
+          "d": 38158
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 4,
+          "d": 5028
+        },
+        {
+          "b": 2,
+          "d": 2831
+        },
+        {
+          "b": 12,
+          "d": 11757
+        },
+        {
+          "b": 10,
+          "d": 11773
+        },
+        {
+          "b": 2,
+          "d": 3248
+        },
+        {
+          "b": 23,
+          "d": 28296
+        },
+        {
+          "b": 48,
+          "d": 62140
+        },
+        {
+          "b": 30,
+          "d": 27961
+        },
+        {
+          "b": 9,
+          "d": 12498
+        },
+        {
+          "b": 9,
+          "d": 8194
+        },
+        {
+          "b": 9,
+          "d": 8996
+        },
+        {
+          "b": 2,
+          "d": 2204
+        },
+        {
+          "b": 21,
+          "d": 24571
+        },
+        {
+          "b": 7,
+          "d": 8086
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        },
+        {
+          "b": 0,
+          "d": 0
+        }
+      ]
+    }
+  }
+}

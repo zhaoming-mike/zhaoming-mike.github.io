@@ -337,6 +337,23 @@ tbody tr:hover{background:var(--bg-hover)}
 .honor-stats-table td .stat-val{font-weight:500}
 .honor-stats-table td .honor-tank-link{color:var(--accent2);cursor:pointer;text-decoration:none;transition:filter .15s}
 .honor-stats-table td .honor-tank-link:hover{filter:brightness(1.25)}
+.tank-row{display:flex;align-items:center;gap:6px;font-size:13px;line-height:2;white-space:nowrap;min-width:0}
+.tank-row .honor-tank-link{color:var(--text-primary);cursor:pointer;text-decoration:none;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis}
+.tank-row .honor-tank-link:hover{color:var(--accent)}
+.tank-ico{width:30px;height:16px;object-fit:contain;flex-shrink:0;vertical-align:middle}
+.tank-num{color:var(--text-secondary);font-size:12px;flex-shrink:0}
+.member-tank-card{max-height:420px}
+.member-tank-list{max-height:300px;overflow-y:auto;border-top:1px solid var(--border);padding-top:6px;margin-top:2px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 12px}
+.member-tank-list:empty{display:none}
+.tank-list-head{grid-column:1/3;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 12px;position:sticky;top:-6px;background:#252830;z-index:1;border-bottom:1px solid var(--border);padding-bottom:3px;margin-bottom:-1px}
+.tank-col-head{display:flex;justify-content:space-between;align-items:center;font-size:11px;color:var(--text-muted);padding:0 2px}
+.member-tank-list::-webkit-scrollbar{width:6px}
+.member-tank-list::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
+.member-tank-head{display:flex;align-items:center;gap:10px;margin-bottom:6px}
+.member-tank-title{flex:1;min-width:0}
+.member-tank-title .honor-card-link{font-size:18px;font-weight:600;color:var(--text-primary);text-decoration:none}
+.member-tank-title .honor-card-link:hover{color:var(--accent)}
+.member-tank-sub{font-size:12px;color:var(--text-muted);margin-top:2px}
 .honor-card-stats{position:relative;padding-left:14px}
 .honor-card-stats::before{content:'';position:absolute;left:0;top:28px;bottom:0;width:1px;background:linear-gradient(to bottom, transparent, var(--text-muted) 12%, var(--text-muted) 88%, transparent)}
 .stat-sub{font-size:10px;color:var(--text-muted);margin:0 2px}
@@ -691,6 +708,9 @@ tr.row-selected{background:rgba(233,202,93,0.06)!important}
     <div class="nav-item" data-page="honor">
       <span class="icon">&#x1f3c5;</span> 荣誉排行
     </div>
+    <div class="nav-item" data-page="tanks">
+      <span class="icon">&#x1f6e1;&#xfe0f;</span> 成员战车
+    </div>
   </nav>
 
   <!-- Main Content -->
@@ -862,6 +882,40 @@ tr.row-selected{background:rgba(233,202,93,0.06)!important}
       </div>
     </div>
 
+    <!-- 成员战车 Page -->
+    <div class="page" id="page-tanks">
+      <div class="card">
+        <div class="card-header" style="flex-wrap:wrap;gap:8px;align-items:center">
+          <span class="card-title">&#x1f6e1;&#xfe0f; 成员战车</span>
+          <div class="seg" id="tank-signup-mode">
+            <button type="button" class="seg-btn seg-active" data-mode="all" onclick="setTankSignupMode('all')">全员</button>
+            <button type="button" class="seg-btn" data-mode="event" onclick="setTankSignupMode('event')">机动战已报名</button>
+          </div>
+          <span style="font-size:12px;color:var(--text-muted)" id="tank-count">…</span>
+          <span style="display:flex;gap:6px;align-items:center;margin-left:auto;flex-wrap:wrap">
+            <label style="font-size:12px;color:var(--text-muted)">等级</label>
+            <select id="tank-tier" onchange="renderTanks()" class="filter-select" style="width:auto">
+              <option value="8">VIII 级</option>
+              <option value="9">IX 级</option>
+              <option value="10">X 级</option>
+              <option value="11" selected>XI 级</option>
+            </select>
+            <label style="font-size:12px;color:var(--text-muted)">至少</label>
+            <input id="tank-mincount" type="number" min="1" max="99" value="3" class="filter-input" style="width:60px" oninput="renderTanks()">
+            <label style="font-size:12px;color:var(--text-muted)">辆</label>
+            <label style="font-size:12px;color:var(--text-muted)">每车场次≥</label>
+            <input id="tank-minbattles" type="number" min="0" max="99999" value="20" class="filter-input" style="width:70px" oninput="renderTanks()">
+            <label style="font-size:12px;color:var(--text-muted)">场</label>
+          </span>
+        </div>
+        <div style="font-size:12px;color:var(--text-muted);margin-bottom:8px;line-height:1.7">
+          机动战成员选拔
+        </div>
+        <div id="tank-member-list" class="honor-grid"></div>
+        <div class="empty" id="tank-member-empty" style="display:none">没有符合筛选条件的成员</div>
+      </div>
+    </div>
+
     <!-- Analysis Page -->
     <div class="page" id="page-analysis">
       <div class="grid-2">
@@ -933,6 +987,7 @@ let eventCountdownTimer = null; // 嘉年华倒计时定时器句柄
 let eventFinalState = 'idle';  // 嘉年华定格快照加载状态：'idle' | 'loading' | 'ready' | 'missing'
 let eventFinalData = null;     // 嘉年华定格快照（活动结束后静态数据）
 let TANK_NAMES = {};
+let TANK_STATS = {};     // data/04_tank_stats.json：account_id -> [{tank_id, statistics, mark_of_mastery}]
 let currentPage = 'overview';
 let currentMemberId = null;
 let sortField = 'battles';
@@ -971,17 +1026,19 @@ function formatDescription(text){
 let CHANGELOG = '';
 async function loadData(){
   try{
-    const [dataResp,tankResp,tomatoResp,clResp,dailyResp]=await Promise.all([
+    const [dataResp,tankResp,tomatoResp,clResp,dailyResp,tankStatsResp]=await Promise.all([
       fetch('data/05_nmof_complete.json'),
       fetch('data/08_tank_names.json'),
       fetch('data/07_tomato_60day.json'),
       fetch('CHANGELOG.md'),
       fetch('data/10_daily.json'),
+      fetch('data/04_tank_stats.json'),
     ]);
     DATA=await dataResp.json();
     TANK_NAMES=await tankResp.json();
     TOMATO=await tomatoResp.json();
     DAILY=await dailyResp.json();
+    TANK_STATS=await tankStatsResp.json();
     CHANGELOG = clResp.ok ? await clResp.text() : '';
     initApp();
   }catch(e){
@@ -1065,6 +1122,7 @@ function navigateTo(page){
   if(page==='detail'&&currentMemberId)renderMemberDetail(currentMemberId);
   if(page==='teamup')renderTeamUpGraph();
   if(page==='honor')renderHonor();
+  if(page==='tanks')renderTanks();
 }
 
 let teamUpSim = null;
@@ -2410,9 +2468,9 @@ function textColorFor(bg){
   return yiq >= 150 ? '#111' : '#fff';
 }
 
-function honorHeatmap(account_id){
-  // 活动结束后：读定格快照的每日数据（daily 数组 + daily_dates），不再用实时 DAILY
-  var snapMode = honorWorkerMode === 'event' && eventFinalState === 'ready' && eventFinalData;
+function honorHeatmap(account_id, useSnap){
+  // 活动结束后：读定格快照的每日数据（daily 数组 + daily_dates），不再用实时 DAILY；仅劳模榜（嘉年华榜）传入 useSnap
+  var snapMode = !!useSnap && honorWorkerMode === 'event' && eventFinalState === 'ready' && eventFinalData;
   var daily = snapMode ? (eventFinalData.members || {})[String(account_id)]?.daily : DAILY?.data?.[account_id];
   var dates = snapMode ? (eventFinalData.daily_dates || []) : DAILY?.dates;
   if (!daily || !dates || dates.length === 0) return '';
@@ -2654,12 +2712,104 @@ function setHonorWorkerMode(mode){
   }
 }
 
+// ============================================================
+// 成员战车：筛选拥有指定等级战车的成员，卡片罗列对应战车
+// 数据口径：WG account/tanks（有战绩战车），等级+数量筛选，按成员场均伤害降序
+// ============================================================
+
+function tankTierText(t){ return ['I','II','III','IV','V','VI','VII','VIII','IX','X','XI'][t-1]||String(t); }
+
+// 机动战报名过滤：数据直连 https://nmof.top/api/events/6（CORS 放行），只显示 status==='signed' 的成员
+let tankSignupMode='all';
+let tankSignupIds=null,tankSignupState='idle',tankSignupCount=0;
+const TANK_SIGNUP_URL='https://nmof.top/api/events/6';
+
+function setTankSignupMode(mode){
+  tankSignupMode=mode;
+  document.querySelectorAll('#tank-signup-mode .seg-btn').forEach(function(b){b.classList.toggle('seg-active',b.getAttribute('data-mode')===mode);});
+  if(mode==='all'){renderTanks();return;}
+  if(tankSignupState==='idle'){ensureTankSignup();}
+  else{renderTanks();}
+}
+function ensureTankSignup(){
+  if(tankSignupState==='loading'||tankSignupState==='ready'){renderTanks();return;}
+  tankSignupState='loading';
+  renderTanks();
+  fetch(TANK_SIGNUP_URL).then(function(r){return r.json();}).then(function(j){
+    var ev=j&&j.data;
+    tankSignupIds=new Set((ev.participants||[]).filter(function(p){return p.status==='signed'&&p.account_id;}).map(function(p){return p.account_id;}));
+    tankSignupCount=tankSignupIds.size;
+    tankSignupState='ready';
+    renderTanks();
+  }).catch(function(){tankSignupState='error';renderTanks();});
+}
+function tankIcon(tn){ // 复用 WG 官方坦克轮廓图标（08_tank_names.images.contour_icon）
+  var u=tn&&tn.images&&tn.images.contour_icon;
+  return u?'<img class="tank-ico" src="'+u+'" alt="" loading="lazy" onerror="this.style.display=\'none\'">':'';
+}
+function memberDpg60(m){ // 近60日场均（数据源 07_tomato_60day recent_60d）
+  var r=(TOMATO.data&&TOMATO.data[String(m.account_id)]&&TOMATO.data[String(m.account_id)].recent_60d)||{};
+  var b=r.battles||0;
+  return b>0?Math.round((r.totalDamage||0)/b):null;
+}
+function renderTanks(){
+  var tierSel=parseInt(document.getElementById('tank-tier').value,10)||10;
+  var minCount=parseInt(document.getElementById('tank-mincount').value,10)||1;
+  var minBattles=parseInt(document.getElementById('tank-minbattles').value,10)||0;
+  var rows=members().map(function(m){
+    var tanks=(TANK_STATS[String(m.account_id)]||[]).filter(function(t){
+      var tn=TANK_NAMES[String(t.tank_id)];
+      return tn&&tn.tier===tierSel&&(t.statistics.battles||0)>=minBattles;
+    });
+    return {m:m,tanks:tanks};
+  }).filter(function(r){return r.tanks.length>=minCount;});
+  if(tankSignupMode==='event'&&tankSignupState==='ready')rows=rows.filter(function(r){return tankSignupIds.has(r.m.account_id);});
+  rows.sort(function(a,b){ // 卡片排序：按战车数量降序，次按近60日场均（无数据排后）
+    var da=memberDpg60(a.m),db=memberDpg60(b.m);
+    return b.tanks.length-a.tanks.length||((db==null?-1:db)-(da==null?-1:da));
+  });
+  var cnt=document.getElementById('tank-count');
+  var modeTxt=tankSignupMode==='event'?(tankSignupState==='ready'?' · 仅机动战已报名（'+tankSignupCount+'人）':tankSignupState==='error'?' · 报名数据加载失败，显示全员':tankSignupState==='loading'?' · 报名数据加载中…':''):'';
+  if(cnt)cnt.textContent='拥有 ≥'+minCount+' 辆 '+tankTierText(tierSel)+' 级（每车 ≥'+minBattles+' 场）战车：'+rows.length+' 人'+modeTxt;
+  var list=document.getElementById('tank-member-list');
+  var empty=document.getElementById('tank-member-empty');
+  if(!rows.length){list.innerHTML='';empty.style.display='block';return;}
+  empty.style.display='none';
+  list.innerHTML=rows.map(function(r,i){
+    var m=r.m,dpg=memberDpg60(m);
+    var tankHead='<div class="tank-list-head">'+
+      '<div class="tank-col-head"><span>战车</span><span>场次</span></div>'+
+      '<div class="tank-col-head"><span>战车</span><span>场次</span></div>'+
+    '</div>';
+    var tankRows=tankHead+r.tanks.slice().sort(function(a,b){return (b.statistics.battles||0)-(a.statistics.battles||0);}).map(function(t){
+      var tn=TANK_NAMES[String(t.tank_id)];
+      var b=t.statistics.battles||0;
+      return '<div class="tank-row">'+
+        tankIcon(tn)+
+        '<a class="honor-tank-link" onclick="openTankDetail('+t.tank_id+','+m.account_id+','+b+')">'+tankName(t.tank_id)+'</a>'+
+        '<span class="tank-num">'+b+'</span>'+
+      '</div>';
+    }).join('');
+    return '<div class="honor-card member-tank-card">'+
+      '<div class="member-tank-head">'+
+        '<div class="honor-card-left" style="cursor:default">'+roleBadge(m.role)+'</div>'+
+        '<div class="member-tank-title">'+
+          '<a class="honor-card-link" href="https://tomato.gg/stats/'+encodeURIComponent(m.account_name)+'-'+m.account_id+'/ASIA" target="_blank">'+m.account_name+'</a>'+
+          (nicknames.get(m.account_id)?' <span class="honor-card-display" style="display:inline-block;vertical-align:middle">'+nicknames.get(m.account_id)+'</span>':'')+
+          '<div class="member-tank-sub">'+r.tanks.length+' 辆 '+tankTierText(tierSel)+' 级 · 场均 <span style="color:'+(dpg==null?'var(--text-muted)':colorScale.get(dpg,'dpg').hex)+'">'+(dpg==null?'-':dpg.toLocaleString())+'</span>（60日）</div>'+
+        '</div>'+
+      '</div>'+
+      '<div class="member-tank-list">'+tankRows+'</div>'+
+    '</div>';
+  }).join('');
+}
+
 function renderHonor(){
   preloadTankDetailAssets(); // 首次进荣誉页预取详情页资源，减少首次弹窗卡顿
   // 周常用：最近7天玩的坦克表格（场次最多3辆，名字+场次），未出战返回空串
-  function tanks7dTable(accountId) {
-    // 活动结束后：读定格快照（tanks_recent / top_tanks / 窗口天数均来自快照）
-    var snapMode = honorWorkerMode === 'event' && eventFinalState === 'ready' && eventFinalData;
+  function tanks7dTable(accountId, useSnap) {
+    // 活动结束后：读定格快照（tanks_recent / top_tanks / 窗口天数均来自快照）；仅劳模榜（嘉年华榜）传入 useSnap
+    var snapMode = !!useSnap && honorWorkerMode === 'event' && eventFinalState === 'ready' && eventFinalData;
     var em = snapMode ? (eventFinalData.members || {})[String(accountId)] : null;
     var recent = snapMode ? (em && em.tanks_recent || []) : (TOMATO.data?.[accountId]?.tanks_recent || []);
     var windowDays = snapMode ? (eventFinalData.tanks_window_days || 0) : (TOMATO.tanks_window_days || 0);
@@ -2838,6 +2988,7 @@ function renderHonor(){
         '<span class="honor-countdown-val" id="honor-countdown-val">--</span>' +
       '</div>';
     }
+    var workerSnapMode = honorWorkerMode === 'event' && eventFinalState === 'ready' && eventFinalData;
     workerList.innerHTML = workerHtml + topWorker.map(function(d, i){
       var stats = [
         {label:'WN8',v60:d.wn8_60,vAll:d.wn8_ov,scale:'wn8'},
@@ -2865,10 +3016,10 @@ function renderHonor(){
             (nicknames.get(d.account_id) ? '<div class="honor-card-display">' + nicknames.get(d.account_id) + '</div>' : '') +
           '</div>' +
           '<div class="honor-card-top">' +
-            honorHeatmap(d.account_id) +
+            honorHeatmap(d.account_id, workerSnapMode) +
           '</div>' +
-          (tanks7dTable(d.account_id) ?
-            '<div style="grid-row:2;grid-column:1">' + tanks7dTable(d.account_id) + '</div>' :
+          (tanks7dTable(d.account_id, workerSnapMode) ?
+            '<div style="grid-row:2;grid-column:1">' + tanks7dTable(d.account_id, workerSnapMode) + '</div>' :
             '<div style="grid-row:2;grid-column:1;align-self:stretch;display:flex;align-items:center;justify-content:center;color:var(--text-muted);font-size:11px">暂无周常用数据</div>') +
           '<div class="honor-card-stats" style="grid-row:2;grid-column:2">' + statBlock() + '</div>' +
         '</div>' +

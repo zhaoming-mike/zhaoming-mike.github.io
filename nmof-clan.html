@@ -894,18 +894,25 @@ tr.row-selected{background:rgba(233,202,93,0.06)!important}
           <span style="font-size:12px;color:var(--text-muted)" id="tank-count">…</span>
           <span style="display:flex;gap:6px;align-items:center;margin-left:auto;flex-wrap:wrap">
             <label style="font-size:12px;color:var(--text-muted)">等级</label>
-            <select id="tank-tier" onchange="renderTanks()" class="filter-select" style="width:auto">
+            <select id="tank-tier" onchange="onTankTierChange()" class="filter-select" style="width:auto">
               <option value="8">VIII 级</option>
               <option value="9">IX 级</option>
               <option value="10">X 级</option>
               <option value="11" selected>XI 级</option>
             </select>
+            <select id="tank-select" class="filter-select" style="width:auto;max-width:150px" onchange="renderTanks()">
+              <option value="">全部战车</option>
+            </select>
             <label style="font-size:12px;color:var(--text-muted)">至少</label>
-            <input id="tank-mincount" type="number" min="1" max="99" value="3" class="filter-input" style="width:60px" oninput="renderTanks()">
+            <input id="tank-mincount" type="number" min="1" max="99" value="1" class="filter-input" style="width:60px" oninput="renderTanks()">
             <label style="font-size:12px;color:var(--text-muted)">辆</label>
             <label style="font-size:12px;color:var(--text-muted)">每车场次≥</label>
-            <input id="tank-minbattles" type="number" min="0" max="99999" value="20" class="filter-input" style="width:70px" oninput="renderTanks()">
+            <input id="tank-minbattles" type="number" min="0" max="99999" value="1" class="filter-input" style="width:70px" oninput="renderTanks()">
             <label style="font-size:12px;color:var(--text-muted)">场</label>
+            <select id="tank-member-select" class="filter-select" style="width:auto;max-width:150px" onchange="renderTanks()">
+              <option value="">全部成员</option>
+            </select>
+            <button class="btn btn-sm btn-secondary" onclick="resetTankFilters()">重置</button>
           </span>
         </div>
         <div style="font-size:12px;color:var(--text-muted);margin-bottom:8px;line-height:1.7">
@@ -988,6 +995,17 @@ let eventFinalState = 'idle';  // 嘉年华定格快照加载状态：'idle' | '
 let eventFinalData = null;     // 嘉年华定格快照（活动结束后静态数据）
 let TANK_NAMES = {};
 let TANK_STATS = {};     // data/04_tank_stats.json：account_id -> [{tank_id, statistics, mark_of_mastery}]
+// 图鉴已下架车辆补充表：WG 各服图鉴已不再收录、无法从 API 解析，人工维护（tank_id -> 基础信息）
+const TANK_ALIAS = {
+  16913: { name: 'Waffenträger auf E 100', short_name: 'WT E 100', tier: 10, nation: 'germany', type: 'AT-SPG' },
+};
+// 机动战推荐战车：战车下拉中高亮（XI 级推荐标红、X 级推荐标蓝）
+const TANK_RECOMMEND_COLOR = {
+  // XI 级推荐（红）：囊鼠、BZ-79、法虎、KR-1、无双、Pz. Neu、火箭鱼
+  41745: '#e57373', 10801: '#e57373', 69185: '#e57373', 67585: '#e57373', 33345: '#e57373', 32529: '#e57373', 11057: '#e57373',
+  // X 级推荐（蓝）：IS-7、Dravec、Type 5 H、BZ-75、VK 72.01(K)
+  7169: '#64b5f6', 7281: '#64b5f6', 3937: '#64b5f6', 9009: '#64b5f6', 58641: '#64b5f6',
+};
 let currentPage = 'overview';
 let currentMemberId = null;
 let sortField = 'battles';
@@ -1036,6 +1054,7 @@ async function loadData(){
     ]);
     DATA=await dataResp.json();
     TANK_NAMES=await tankResp.json();
+    Object.assign(TANK_NAMES,TANK_ALIAS); // 合并图鉴下架车辆（人工补充表）
     TOMATO=await tomatoResp.json();
     DAILY=await dailyResp.json();
     TANK_STATS=await tankStatsResp.json();
@@ -2727,9 +2746,9 @@ const TANK_SIGNUP_URL='https://nmof.top/api/events/6';
 function setTankSignupMode(mode){
   tankSignupMode=mode;
   document.querySelectorAll('#tank-signup-mode .seg-btn').forEach(function(b){b.classList.toggle('seg-active',b.getAttribute('data-mode')===mode);});
-  if(mode==='all'){renderTanks();return;}
+  if(mode==='all'){populateTankMemberOptions();renderTanks();return;}
   if(tankSignupState==='idle'){ensureTankSignup();}
-  else{renderTanks();}
+  else{populateTankMemberOptions();renderTanks();}
 }
 function ensureTankSignup(){
   if(tankSignupState==='loading'||tankSignupState==='ready'){renderTanks();return;}
@@ -2740,8 +2759,9 @@ function ensureTankSignup(){
     tankSignupIds=new Set((ev.participants||[]).filter(function(p){return p.status==='signed'&&p.account_id;}).map(function(p){return p.account_id;}));
     tankSignupCount=tankSignupIds.size;
     tankSignupState='ready';
+    populateTankMemberOptions();
     renderTanks();
-  }).catch(function(){tankSignupState='error';renderTanks();});
+  }).catch(function(){tankSignupState='error';populateTankMemberOptions();renderTanks();});
 }
 function tankIcon(tn){ // 复用 WG 官方坦克轮廓图标（08_tank_names.images.contour_icon）
   var u=tn&&tn.images&&tn.images.contour_icon;
@@ -2752,28 +2772,82 @@ function memberDpg60(m){ // 近60日场均（数据源 07_tomato_60day recent_60
   var b=r.battles||0;
   return b>0?Math.round((r.totalDamage||0)/b):null;
 }
+function populateTankOptions(){ // 战车下拉：候选=所选等级的全部战车（含暂无成员拥有的），按车名排序
+  var sel=document.getElementById('tank-select');
+  if(!sel)return;
+  var tierSel=parseInt(document.getElementById('tank-tier').value,10)||10;
+  var cur=sel.value;
+  var list=Object.keys(TANK_NAMES).filter(function(id){return TANK_NAMES[id].tier===tierSel;})
+    .map(function(id){var tn=TANK_NAMES[id];return {id:id,name:tn.short_name||tn.name||('ID:'+id)};})
+    .sort(function(a,b){return a.name.localeCompare(b.name);});
+  sel.innerHTML='<option value="">全部战车（'+list.length+'）</option>'+list.map(function(t){
+    var rc=TANK_RECOMMEND_COLOR[t.id];
+    return '<option value="'+t.id+'"'+(rc?' style="color:'+rc+';font-weight:600"':'')+'>'+t.name+'</option>';
+  }).join('');
+  if(cur&&TANK_NAMES[String(cur)]&&TANK_NAMES[String(cur)].tier===tierSel)sel.value=cur;
+}
+function onTankTierChange(){populateTankOptions();renderTanks();}
+function resetTankFilters(){ // 重置筛选：等级 XI、全部战车/成员、至少 1 辆、每车 ≥1 场
+  document.getElementById('tank-tier').value='11';
+  document.getElementById('tank-mincount').value='1';
+  document.getElementById('tank-minbattles').value='1';
+  var t=document.getElementById('tank-select');if(t)t.value='';
+  var m=document.getElementById('tank-member-select');if(m)m.value='';
+  populateTankOptions();
+  renderTanks();
+}
+function populateTankMemberOptions(){ // 成员下拉：机动战模式下候选=报名成员，否则全员；保留原选中项
+  var sel=document.getElementById('tank-member-select');
+  if(!sel)return;
+  var cur=sel.value;
+  var list=members();
+  if(tankSignupMode==='event'&&tankSignupState==='ready')list=list.filter(function(m){return tankSignupIds.has(m.account_id);});
+  list=list.slice().sort(function(a,b){return (a.account_name||'').localeCompare(b.account_name||'');});
+  sel.innerHTML='<option value="">全部成员（'+list.length+'）</option>'+list.map(function(m){
+    var nn=nicknames.get(m.account_id);
+    return '<option value="'+m.account_id+'">'+m.account_name+(nn?'（'+nn+'）':'')+'</option>';
+  }).join('');
+  if(cur&&list.some(function(m){return String(m.account_id)===cur;}))sel.value=cur;
+}
 function renderTanks(){
   var tierSel=parseInt(document.getElementById('tank-tier').value,10)||10;
   var minCount=parseInt(document.getElementById('tank-mincount').value,10)||1;
   var minBattles=parseInt(document.getElementById('tank-minbattles').value,10)||0;
-  var rows=members().map(function(m){
-    var tanks=(TANK_STATS[String(m.account_id)]||[]).filter(function(t){
-      var tn=TANK_NAMES[String(t.tank_id)];
-      return tn&&tn.tier===tierSel&&(t.statistics.battles||0)>=minBattles;
-    });
-    return {m:m,tanks:tanks};
-  }).filter(function(r){return r.tanks.length>=minCount;});
+  var memberSelEl=document.getElementById('tank-member-select');
+  if(memberSelEl&&memberSelEl.options.length<=1)populateTankMemberOptions();
+  var memberId=memberSelEl?memberSelEl.value:'';
+  var tankSelEl=document.getElementById('tank-select');
+  if(tankSelEl&&tankSelEl.options.length<=1)populateTankOptions();
+  var tankSel=tankSelEl?tankSelEl.value:'';
+  var rows;
+  if(tankSel){
+    // 选定战车：列出拥有这辆车的成员（忽略数量/场次条件）
+    rows=members().map(function(m){
+      var tanks=(TANK_STATS[String(m.account_id)]||[]).filter(function(t){return String(t.tank_id)===String(tankSel);});
+      return {m:m,tanks:tanks};
+    }).filter(function(r){return r.tanks.length>0;});
+  }else{
+    rows=members().map(function(m){
+      var tanks=(TANK_STATS[String(m.account_id)]||[]).filter(function(t){
+        var tn=TANK_NAMES[String(t.tank_id)];
+        return tn&&tn.tier===tierSel&&(t.statistics.battles||0)>=minBattles;
+      });
+      return {m:m,tanks:tanks};
+    }).filter(function(r){return r.tanks.length>=minCount;});
+  }
   if(tankSignupMode==='event'&&tankSignupState==='ready')rows=rows.filter(function(r){return tankSignupIds.has(r.m.account_id);});
-  rows.sort(function(a,b){ // 卡片排序：按战车数量降序，次按近60日场均（无数据排后）
-    var da=memberDpg60(a.m),db=memberDpg60(b.m);
-    return b.tanks.length-a.tanks.length||((db==null?-1:db)-(da==null?-1:da));
+  if(memberId)rows=rows.filter(function(r){return String(r.m.account_id)===memberId;});
+  rows.sort(function(a,b){ // 卡片排序：数量降序（选车时按该车场次），次按近60日场均（无数据排后）
+    var da=memberDpg60(a.m),db=memberDpg60(b.m),dpgCmp=(db==null?-1:db)-(da==null?-1:da);
+    if(tankSel)return ((b.tanks[0].statistics.battles||0)-(a.tanks[0].statistics.battles||0))||dpgCmp;
+    return b.tanks.length-a.tanks.length||dpgCmp;
   });
   var cnt=document.getElementById('tank-count');
   var modeTxt=tankSignupMode==='event'?(tankSignupState==='ready'?' · 仅机动战已报名（'+tankSignupCount+'人）':tankSignupState==='error'?' · 报名数据加载失败，显示全员':tankSignupState==='loading'?' · 报名数据加载中…':''):'';
-  if(cnt)cnt.textContent='拥有 ≥'+minCount+' 辆 '+tankTierText(tierSel)+' 级（每车 ≥'+minBattles+' 场）战车：'+rows.length+' 人'+modeTxt;
+  if(cnt)cnt.textContent=(tankSel?'拥有「'+tankName(Number(tankSel))+'」的成员：'+rows.length+' 人':'拥有 ≥'+minCount+' 辆 '+tankTierText(tierSel)+' 级（每车 ≥'+minBattles+' 场）战车：'+rows.length+' 人')+modeTxt;
   var list=document.getElementById('tank-member-list');
   var empty=document.getElementById('tank-member-empty');
-  if(!rows.length){list.innerHTML='';empty.style.display='block';return;}
+  if(!rows.length){list.innerHTML='';empty.textContent=tankSel?'没有成员拥有这辆战车':'没有符合筛选条件的成员';empty.style.display='block';return;}
   empty.style.display='none';
   list.innerHTML=rows.map(function(r,i){
     var m=r.m,dpg=memberDpg60(m);
@@ -2796,7 +2870,7 @@ function renderTanks(){
         '<div class="member-tank-title">'+
           '<a class="honor-card-link" href="https://tomato.gg/stats/'+encodeURIComponent(m.account_name)+'-'+m.account_id+'/ASIA" target="_blank">'+m.account_name+'</a>'+
           (nicknames.get(m.account_id)?' <span class="honor-card-display" style="display:inline-block;vertical-align:middle">'+nicknames.get(m.account_id)+'</span>':'')+
-          '<div class="member-tank-sub">'+r.tanks.length+' 辆 '+tankTierText(tierSel)+' 级 · 场均 <span style="color:'+(dpg==null?'var(--text-muted)':colorScale.get(dpg,'dpg').hex)+'">'+(dpg==null?'-':dpg.toLocaleString())+'</span>（60日）</div>'+
+          '<div class="member-tank-sub">'+(tankSel?'匹配 '+r.tanks.length+' 辆':r.tanks.length+' 辆 '+tankTierText(tierSel)+' 级')+' · 场均 <span style="color:'+(dpg==null?'var(--text-muted)':colorScale.get(dpg,'dpg').hex)+'">'+(dpg==null?'-':dpg.toLocaleString())+'</span>（60日）</div>'+
         '</div>'+
       '</div>'+
       '<div class="member-tank-list">'+tankRows+'</div>'+

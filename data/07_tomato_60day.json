@@ -1,5 +1,5 @@
 {
-  "collected_at": "2026-10-11T04:04:29.667Z",
+  "collected_at": "2026-10-11T10:04:33.165Z",
   "source": "tomato.gg (Puppeteer, TSR barrier extraction, JS disabled)",
   "clan": {
     "clan_id": 2000020638,
@@ -7,194 +7,9 @@
     "name": "北冥有鱼"
   },
   "total_members": 94,
-  "success": 94,
-  "failed": 0,
+  "success": 76,
+  "failed": 18,
   "data": {
-    "2000035289": {
-      "player_id": 2000035289,
-      "username": "LLL",
-      "server": "asia",
-      "recent_60d": {
-        "battles": 0,
-        "winrate": null,
-        "dpg": null,
-        "wn8": null,
-        "wnx": null,
-        "wins": 0,
-        "losses": 0,
-        "totalDamage": 0,
-        "totalFrags": 0,
-        "totalSurvived": 0,
-        "totalSpotted": 0,
-        "totalAssist": 0,
-        "avgTier": null,
-        "survivalRate": null,
-        "frags": null,
-        "spots": null,
-        "assist": null,
-        "kd": null,
-        "diff_battles": 0,
-        "diff_dpg": null
-      },
-      "overall": {
-        "battles": 0,
-        "winrate": null,
-        "wn8": null,
-        "wnx": null,
-        "avgTier": null,
-        "wins": 0,
-        "losses": 0,
-        "totalDamage": 0,
-        "totalFrags": 0,
-        "totalSurvived": 0,
-        "totalSpotted": 0,
-        "totalAssist": 0
-      },
-      "tanks_recent": []
-    },
-    "2001643486": {
-      "player_id": 2001643486,
-      "username": "bonwang",
-      "server": "asia",
-      "recent_60d": {
-        "battles": 787,
-        "winrate": 46.76,
-        "dpg": 945,
-        "wn8": 789,
-        "wnx": 695,
-        "wins": 368,
-        "losses": 419,
-        "totalDamage": 743994,
-        "totalFrags": 389,
-        "totalSurvived": 185,
-        "totalSpotted": 713,
-        "totalAssist": 228472,
-        "avgTier": 8.25,
-        "survivalRate": 23.51,
-        "frags": 0.49,
-        "spots": 0.91,
-        "assist": null,
-        "kd": 0.65,
-        "diff_battles": 816,
-        "diff_dpg": 933
-      },
-      "overall": {
-        "battles": 31120,
-        "winrate": 48.4,
-        "wn8": 1008,
-        "wnx": 839,
-        "avgTier": 7.21,
-        "wins": 15061,
-        "losses": 15574,
-        "totalDamage": 25013034,
-        "totalFrags": 20811,
-        "totalSurvived": 7997,
-        "totalSpotted": 30171,
-        "totalAssist": 6962644
-      },
-      "tanks_recent": [
-        {
-          "tank_id": 10801,
-          "battles": 25
-        },
-        {
-          "tank_id": 8801,
-          "battles": 18
-        },
-        {
-          "tank_id": 1665,
-          "battles": 13
-        },
-        {
-          "tank_id": 529,
-          "battles": 6
-        },
-        {
-          "tank_id": 67857,
-          "battles": 5
-        },
-        {
-          "tank_id": 19537,
-          "battles": 4
-        },
-        {
-          "tank_id": 23073,
-          "battles": 4
-        },
-        {
-          "tank_id": 6929,
-          "battles": 3
-        },
-        {
-          "tank_id": 6769,
-          "battles": 2
-        },
-        {
-          "tank_id": 47105,
-          "battles": 2
-        },
-        {
-          "tank_id": 59937,
-          "battles": 2
-        },
-        {
-          "tank_id": 62801,
-          "battles": 2
-        },
-        {
-          "tank_id": 3649,
-          "battles": 1
-        },
-        {
-          "tank_id": 3681,
-          "battles": 1
-        },
-        {
-          "tank_id": 6209,
-          "battles": 1
-        },
-        {
-          "tank_id": 13089,
-          "battles": 1
-        },
-        {
-          "tank_id": 21841,
-          "battles": 1
-        },
-        {
-          "tank_id": 25169,
-          "battles": 1
-        },
-        {
-          "tank_id": 49697,
-          "battles": 1
-        },
-        {
-          "tank_id": 50977,
-          "battles": 1
-        },
-        {
-          "tank_id": 52561,
-          "battles": 1
-        },
-        {
-          "tank_id": 53377,
-          "battles": 1
-        },
-        {
-          "tank_id": 54785,
-          "battles": 1
-        },
-        {
-          "tank_id": 61505,
-          "battles": 1
-        },
-        {
-          "tank_id": 69153,
-          "battles": 1
-        }
-      ]
-    },
     "2001726018": {
       "player_id": 2001726018,
       "username": "Defenderx01",
@@ -218,8 +33,8 @@
         "spots": 1.81,
         "assist": null,
         "kd": 0.48,
-        "diff_battles": 874,
-        "diff_dpg": 1221
+        "diff_battles": 891,
+        "diff_dpg": 1220
       },
       "overall": {
         "battles": 20115,
@@ -238,43 +53,43 @@
       "tanks_recent": [
         {
           "tank_id": 5505,
-          "battles": 34
+          "battles": 42
         },
         {
           "tank_id": 6817,
-          "battles": 14
+          "battles": 15
         },
         {
           "tank_id": 5937,
           "battles": 13
         },
         {
-          "tank_id": 58961,
+          "tank_id": 10801,
           "battles": 12
         },
         {
-          "tank_id": 10801,
-          "battles": 11
+          "tank_id": 58961,
+          "battles": 12
         },
         {
           "tank_id": 32017,
           "battles": 7
         },
         {
-          "tank_id": 53665,
-          "battles": 2
+          "tank_id": 22353,
+          "battles": 5
         },
         {
-          "tank_id": 22353,
-          "battles": 1
+          "tank_id": 53665,
+          "battles": 3
         },
         {
           "tank_id": 53105,
-          "battles": 1
+          "battles": 2
         },
         {
           "tank_id": 67585,
-          "battles": 1
+          "battles": 2
         }
       ]
     },
@@ -301,7 +116,7 @@
         "spots": 1.09,
         "assist": null,
         "kd": 0.72,
-        "diff_battles": 1493,
+        "diff_battles": 1499,
         "diff_dpg": 1311
       },
       "overall": {
@@ -321,11 +136,11 @@
       "tanks_recent": [
         {
           "tank_id": 4993,
-          "battles": 16
+          "battles": 17
         },
         {
           "tank_id": 5265,
-          "battles": 13
+          "battles": 15
         },
         {
           "tank_id": 5473,
@@ -333,11 +148,11 @@
         },
         {
           "tank_id": 3649,
-          "battles": 10
+          "battles": 11
         },
         {
           "tank_id": 6209,
-          "battles": 9
+          "battles": 10
         },
         {
           "tank_id": 19969,
@@ -381,6 +196,10 @@
         },
         {
           "tank_id": 2433,
+          "battles": 1
+        },
+        {
+          "tank_id": 10545,
           "battles": 1
         },
         {
@@ -1040,90 +859,6 @@
       },
       "tanks_recent": []
     },
-    "2007207912": {
-      "player_id": 2007207912,
-      "username": "MoTen_2015",
-      "server": "asia",
-      "recent_60d": {
-        "battles": 0,
-        "winrate": null,
-        "dpg": null,
-        "wn8": null,
-        "wnx": null,
-        "wins": 0,
-        "losses": 0,
-        "totalDamage": 0,
-        "totalFrags": 0,
-        "totalSurvived": 0,
-        "totalSpotted": 0,
-        "totalAssist": 0,
-        "avgTier": null,
-        "survivalRate": null,
-        "frags": null,
-        "spots": null,
-        "assist": null,
-        "kd": null,
-        "diff_battles": 0,
-        "diff_dpg": null
-      },
-      "overall": {
-        "battles": 0,
-        "winrate": null,
-        "wn8": null,
-        "wnx": null,
-        "avgTier": null,
-        "wins": 0,
-        "losses": 0,
-        "totalDamage": 0,
-        "totalFrags": 0,
-        "totalSurvived": 0,
-        "totalSpotted": 0,
-        "totalAssist": 0
-      },
-      "tanks_recent": []
-    },
-    "2008252355": {
-      "player_id": 2008252355,
-      "username": "XGK",
-      "server": "asia",
-      "recent_60d": {
-        "battles": 336,
-        "winrate": 58.63,
-        "dpg": 2740,
-        "wn8": 2286,
-        "wnx": 2363,
-        "wins": 197,
-        "losses": 139,
-        "totalDamage": 920657,
-        "totalFrags": 319,
-        "totalSurvived": 111,
-        "totalSpotted": 330,
-        "totalAssist": 151217,
-        "avgTier": 9.65,
-        "survivalRate": 33.04,
-        "frags": 0.95,
-        "spots": 0.98,
-        "assist": null,
-        "kd": 1.42,
-        "diff_battles": 543,
-        "diff_dpg": 2742
-      },
-      "overall": {
-        "battles": 21591,
-        "winrate": 50.4,
-        "wn8": 1879,
-        "wnx": 1936,
-        "avgTier": 8.78,
-        "wins": 10882,
-        "losses": 10155,
-        "totalDamage": 40603325,
-        "totalFrags": 19706,
-        "totalSurvived": 5481,
-        "totalSpotted": 26130,
-        "totalAssist": 11181630
-      },
-      "tanks_recent": []
-    },
     "2011072346": {
       "player_id": 2011072346,
       "username": "elfofnight",
@@ -1163,48 +898,6 @@
         "totalSurvived": 7206,
         "totalSpotted": 20764,
         "totalAssist": 9780915
-      },
-      "tanks_recent": []
-    },
-    "2014034336": {
-      "player_id": 2014034336,
-      "username": "OoBigHeadoO",
-      "server": "asia",
-      "recent_60d": {
-        "battles": 2213,
-        "winrate": 47.67,
-        "dpg": 1052,
-        "wn8": 890,
-        "wnx": 931,
-        "wins": 1055,
-        "losses": 1158,
-        "totalDamage": 2327080,
-        "totalFrags": 1262,
-        "totalSurvived": 507,
-        "totalSpotted": 3342,
-        "totalAssist": 1360044,
-        "avgTier": 8.84,
-        "survivalRate": 22.91,
-        "frags": 0.57,
-        "spots": 1.51,
-        "assist": null,
-        "kd": 0.74,
-        "diff_battles": 1920,
-        "diff_dpg": 1043
-      },
-      "overall": {
-        "battles": 12315,
-        "winrate": 46.03,
-        "wn8": 770,
-        "wnx": 750,
-        "avgTier": 7.85,
-        "wins": 5668,
-        "losses": 6346,
-        "totalDamage": 9740111,
-        "totalFrags": 6281,
-        "totalSurvived": 2698,
-        "totalSpotted": 16210,
-        "totalAssist": 5553304
       },
       "tanks_recent": []
     },
@@ -1537,8 +1230,8 @@
         "spots": 0.7,
         "assist": null,
         "kd": 2.19,
-        "diff_battles": 140,
-        "diff_dpg": 1856
+        "diff_battles": 145,
+        "diff_dpg": 1821
       },
       "overall": {
         "battles": 9845,
@@ -1561,15 +1254,15 @@
         },
         {
           "tank_id": 51713,
+          "battles": 9
+        },
+        {
+          "tank_id": 54881,
           "battles": 8
         },
         {
           "tank_id": 5473,
           "battles": 7
-        },
-        {
-          "tank_id": 54881,
-          "battles": 6
         },
         {
           "tank_id": 8737,
@@ -1597,6 +1290,10 @@
         },
         {
           "tank_id": 10817,
+          "battles": 2
+        },
+        {
+          "tank_id": 22865,
           "battles": 2
         },
         {
@@ -1725,49 +1422,49 @@
       "username": "LAINERO",
       "server": "asia",
       "recent_60d": {
-        "battles": 925,
-        "winrate": 49.73,
-        "dpg": 1875,
-        "wn8": 1746,
-        "wnx": 1904,
-        "wins": 460,
-        "losses": 465,
-        "totalDamage": 1734208,
-        "totalFrags": 802,
-        "totalSurvived": 253,
-        "totalSpotted": 1359,
-        "totalAssist": 702344,
-        "avgTier": 9.06,
-        "survivalRate": 27.35,
+        "battles": 927,
+        "winrate": 50.05,
+        "dpg": 1871,
+        "wn8": 1752,
+        "wnx": 1908,
+        "wins": 464,
+        "losses": 463,
+        "totalDamage": 1734348,
+        "totalFrags": 805,
+        "totalSurvived": 256,
+        "totalSpotted": 1387,
+        "totalAssist": 712621,
+        "avgTier": 9.07,
+        "survivalRate": 27.62,
         "frags": 0.87,
-        "spots": 1.47,
+        "spots": 1.5,
         "assist": null,
-        "kd": 1.19,
-        "diff_battles": 747,
-        "diff_dpg": 1951
+        "kd": 1.2,
+        "diff_battles": 759,
+        "diff_dpg": 1949
       },
       "overall": {
-        "battles": 15418,
-        "winrate": 48.03,
-        "wn8": 1293,
-        "wnx": 1327,
+        "battles": 15430,
+        "winrate": 48.05,
+        "wn8": 1294,
+        "wnx": 1329,
         "avgTier": 8.55,
-        "wins": 7406,
-        "losses": 7623,
-        "totalDamage": 20874663,
-        "totalFrags": 10978,
-        "totalSurvived": 3646,
-        "totalSpotted": 18764,
-        "totalAssist": 7848339
+        "wins": 7414,
+        "losses": 7627,
+        "totalDamage": 20897039,
+        "totalFrags": 10990,
+        "totalSurvived": 3651,
+        "totalSpotted": 18801,
+        "totalAssist": 7865169
       },
       "tanks_recent": [
         {
-          "tank_id": 53665,
-          "battles": 43
+          "tank_id": 5937,
+          "battles": 48
         },
         {
-          "tank_id": 5937,
-          "battles": 38
+          "tank_id": 53665,
+          "battles": 45
         },
         {
           "tank_id": 6513,
@@ -1794,48 +1491,6 @@
           "battles": 1
         }
       ]
-    },
-    "2022954970": {
-      "player_id": 2022954970,
-      "username": "wanhaojie",
-      "server": "asia",
-      "recent_60d": {
-        "battles": 0,
-        "winrate": null,
-        "dpg": null,
-        "wn8": null,
-        "wnx": null,
-        "wins": 0,
-        "losses": 0,
-        "totalDamage": 0,
-        "totalFrags": 0,
-        "totalSurvived": 0,
-        "totalSpotted": 0,
-        "totalAssist": 0,
-        "avgTier": null,
-        "survivalRate": null,
-        "frags": null,
-        "spots": null,
-        "assist": null,
-        "kd": null,
-        "diff_battles": 142,
-        "diff_dpg": 1364
-      },
-      "overall": {
-        "battles": 0,
-        "winrate": null,
-        "wn8": null,
-        "wnx": null,
-        "avgTier": null,
-        "wins": 0,
-        "losses": 0,
-        "totalDamage": 0,
-        "totalFrags": 0,
-        "totalSurvived": 0,
-        "totalSpotted": 0,
-        "totalAssist": 0
-      },
-      "tanks_recent": []
     },
     "2024049723": {
       "player_id": 2024049723,
@@ -1878,133 +1533,6 @@
         "totalAssist": 3298755
       },
       "tanks_recent": []
-    },
-    "2025124839": {
-      "player_id": 2025124839,
-      "username": "Soldier_Wq",
-      "server": "asia",
-      "recent_60d": {
-        "battles": 1684,
-        "winrate": 57.3,
-        "dpg": 3129,
-        "wn8": 2870,
-        "wnx": 2893,
-        "wins": 965,
-        "losses": 719,
-        "totalDamage": 5269131,
-        "totalFrags": 2052,
-        "totalSurvived": 673,
-        "totalSpotted": 2720,
-        "totalAssist": 1425330,
-        "avgTier": 10.63,
-        "survivalRate": 39.96,
-        "frags": 1.22,
-        "spots": 1.62,
-        "assist": null,
-        "kd": 2.03,
-        "diff_battles": 1659,
-        "diff_dpg": 3111
-      },
-      "overall": {
-        "battles": 24113,
-        "winrate": 57.33,
-        "wn8": 2625,
-        "wnx": 2854,
-        "avgTier": 9.62,
-        "wins": 13825,
-        "losses": 9702,
-        "totalDamage": 62951876,
-        "totalFrags": 30574,
-        "totalSurvived": 9545,
-        "totalSpotted": 33887,
-        "totalAssist": 18484062
-      },
-      "tanks_recent": [
-        {
-          "tank_id": 8049,
-          "battles": 33
-        },
-        {
-          "tank_id": 26705,
-          "battles": 30
-        },
-        {
-          "tank_id": 6273,
-          "battles": 20
-        },
-        {
-          "tank_id": 6817,
-          "battles": 15
-        },
-        {
-          "tank_id": 67873,
-          "battles": 10
-        },
-        {
-          "tank_id": 32529,
-          "battles": 9
-        },
-        {
-          "tank_id": 6513,
-          "battles": 8
-        },
-        {
-          "tank_id": 58961,
-          "battles": 4
-        },
-        {
-          "tank_id": 67361,
-          "battles": 4
-        },
-        {
-          "tank_id": 3937,
-          "battles": 3
-        },
-        {
-          "tank_id": 10801,
-          "battles": 3
-        },
-        {
-          "tank_id": 54177,
-          "battles": 3
-        },
-        {
-          "tank_id": 11057,
-          "battles": 2
-        },
-        {
-          "tank_id": 23329,
-          "battles": 2
-        },
-        {
-          "tank_id": 23889,
-          "battles": 2
-        },
-        {
-          "tank_id": 26641,
-          "battles": 2
-        },
-        {
-          "tank_id": 9569,
-          "battles": 1
-        },
-        {
-          "tank_id": 32001,
-          "battles": 1
-        },
-        {
-          "tank_id": 41745,
-          "battles": 1
-        },
-        {
-          "tank_id": 65585,
-          "battles": 1
-        },
-        {
-          "tank_id": 69185,
-          "battles": 1
-        }
-      ]
     },
     "2025595139": {
       "player_id": 2025595139,
@@ -2118,8 +1646,8 @@
         "spots": 1.27,
         "assist": null,
         "kd": 0.81,
-        "diff_battles": 1482,
-        "diff_dpg": 1519
+        "diff_battles": 1485,
+        "diff_dpg": 1521
       },
       "overall": {
         "battles": 26780,
@@ -2138,7 +1666,7 @@
       "tanks_recent": [
         {
           "tank_id": 32529,
-          "battles": 39
+          "battles": 42
         },
         {
           "tank_id": 69377,
@@ -2189,48 +1717,6 @@
           "battles": 1
         }
       ]
-    },
-    "2026218486": {
-      "player_id": 2026218486,
-      "username": "1964782361",
-      "server": "asia",
-      "recent_60d": {
-        "battles": 0,
-        "winrate": null,
-        "dpg": null,
-        "wn8": null,
-        "wnx": null,
-        "wins": 0,
-        "losses": 0,
-        "totalDamage": 0,
-        "totalFrags": 0,
-        "totalSurvived": 0,
-        "totalSpotted": 0,
-        "totalAssist": 0,
-        "avgTier": null,
-        "survivalRate": null,
-        "frags": null,
-        "spots": null,
-        "assist": null,
-        "kd": null,
-        "diff_battles": 15,
-        "diff_dpg": 713
-      },
-      "overall": {
-        "battles": 0,
-        "winrate": null,
-        "wn8": null,
-        "wnx": null,
-        "avgTier": null,
-        "wins": 0,
-        "losses": 0,
-        "totalDamage": 0,
-        "totalFrags": 0,
-        "totalSurvived": 0,
-        "totalSpotted": 0,
-        "totalAssist": 0
-      },
-      "tanks_recent": []
     },
     "2026668650": {
       "player_id": 2026668650,
@@ -2494,65 +1980,65 @@
       "username": "Oleg_Malankov",
       "server": "asia",
       "recent_60d": {
-        "battles": 1547,
-        "winrate": 48.29,
-        "dpg": 1619,
-        "wn8": 1515,
-        "wnx": 1584,
-        "wins": 747,
-        "losses": 800,
-        "totalDamage": 2504428,
-        "totalFrags": 1323,
-        "totalSurvived": 460,
-        "totalSpotted": 1331,
-        "totalAssist": 589642,
-        "avgTier": 8.53,
-        "survivalRate": 29.73,
-        "frags": 0.86,
+        "battles": 1535,
+        "winrate": 48.27,
+        "dpg": 1624,
+        "wn8": 1513,
+        "wnx": 1582,
+        "wins": 741,
+        "losses": 794,
+        "totalDamage": 2492800,
+        "totalFrags": 1310,
+        "totalSurvived": 456,
+        "totalSpotted": 1317,
+        "totalAssist": 584533,
+        "avgTier": 8.54,
+        "survivalRate": 29.71,
+        "frags": 0.85,
         "spots": 0.86,
         "assist": null,
-        "kd": 1.22,
-        "diff_battles": 1558,
-        "diff_dpg": 1618
+        "kd": 1.21,
+        "diff_battles": 1571,
+        "diff_dpg": 1620
       },
       "overall": {
-        "battles": 7221,
-        "winrate": 47.1,
+        "battles": 7229,
+        "winrate": 47.09,
         "wn8": 1342,
         "wnx": 1322,
         "avgTier": 7.77,
-        "wins": 3401,
-        "losses": 3660,
-        "totalDamage": 9081665,
-        "totalFrags": 5636,
-        "totalSurvived": 1779,
-        "totalSpotted": 6437,
-        "totalAssist": 2303972
+        "wins": 3404,
+        "losses": 3665,
+        "totalDamage": 9095397,
+        "totalFrags": 5640,
+        "totalSurvived": 1780,
+        "totalSpotted": 6441,
+        "totalAssist": 2304590
       },
       "tanks_recent": [
         {
           "tank_id": 26641,
-          "battles": 39
+          "battles": 40
         },
         {
           "tank_id": 7169,
-          "battles": 22
+          "battles": 24
         },
         {
           "tank_id": 66625,
-          "battles": 15
+          "battles": 16
         },
         {
           "tank_id": 69441,
           "battles": 12
         },
         {
-          "tank_id": 63025,
-          "battles": 8
+          "tank_id": 10785,
+          "battles": 10
         },
         {
-          "tank_id": 10785,
-          "battles": 7
+          "tank_id": 63025,
+          "battles": 10
         },
         {
           "tank_id": 19217,
@@ -2576,7 +2062,11 @@
         },
         {
           "tank_id": 8497,
-          "battles": 4
+          "battles": 5
+        },
+        {
+          "tank_id": 9009,
+          "battles": 5
         },
         {
           "tank_id": 32273,
@@ -2591,15 +2081,15 @@
           "battles": 3
         },
         {
-          "tank_id": 9009,
-          "battles": 3
-        },
-        {
           "tank_id": 6465,
           "battles": 2
         },
         {
           "tank_id": 7937,
+          "battles": 2
+        },
+        {
+          "tank_id": 13089,
           "battles": 2
         },
         {
@@ -2620,10 +2110,6 @@
         },
         {
           "tank_id": 8305,
-          "battles": 1
-        },
-        {
-          "tank_id": 13089,
           "battles": 1
         },
         {
@@ -2709,8 +2195,8 @@
         "spots": 0.86,
         "assist": null,
         "kd": 0.57,
-        "diff_battles": 1803,
-        "diff_dpg": 928
+        "diff_battles": 1807,
+        "diff_dpg": 930
       },
       "overall": {
         "battles": 5253,
@@ -2733,7 +2219,7 @@
         },
         {
           "tank_id": 3185,
-          "battles": 15
+          "battles": 17
         },
         {
           "tank_id": 4433,
@@ -2752,6 +2238,10 @@
           "battles": 11
         },
         {
+          "tank_id": 5505,
+          "battles": 10
+        },
+        {
           "tank_id": 6977,
           "battles": 10
         },
@@ -2761,10 +2251,6 @@
         },
         {
           "tank_id": 1665,
-          "battles": 9
-        },
-        {
-          "tank_id": 5505,
           "battles": 9
         },
         {
@@ -2788,6 +2274,10 @@
           "battles": 9
         },
         {
+          "tank_id": 2465,
+          "battles": 8
+        },
+        {
           "tank_id": 5217,
           "battles": 8
         },
@@ -2798,10 +2288,6 @@
         {
           "tank_id": 60465,
           "battles": 8
-        },
-        {
-          "tank_id": 2465,
-          "battles": 7
         },
         {
           "tank_id": 3633,
@@ -2938,8 +2424,8 @@
         "spots": null,
         "assist": null,
         "kd": null,
-        "diff_battles": 113,
-        "diff_dpg": 1696
+        "diff_battles": 117,
+        "diff_dpg": 1695
       },
       "overall": {
         "battles": 0,
@@ -2958,11 +2444,11 @@
       "tanks_recent": [
         {
           "tank_id": 69377,
-          "battles": 28
+          "battles": 29
         },
         {
           "tank_id": 53105,
-          "battles": 19
+          "battles": 21
         },
         {
           "tank_id": 52593,
@@ -2970,7 +2456,7 @@
         },
         {
           "tank_id": 54177,
-          "battles": 8
+          "battles": 9
         },
         {
           "tank_id": 32529,
@@ -3310,8 +2796,8 @@
         "spots": 0.64,
         "assist": null,
         "kd": 0.76,
-        "diff_battles": 1324,
-        "diff_dpg": 1170
+        "diff_battles": 1340,
+        "diff_dpg": 1169
       },
       "overall": {
         "battles": 9118,
@@ -3330,15 +2816,15 @@
       "tanks_recent": [
         {
           "tank_id": 38417,
-          "battles": 61
+          "battles": 68
         },
         {
           "tank_id": 65329,
-          "battles": 38
+          "battles": 39
         },
         {
           "tank_id": 10801,
-          "battles": 33
+          "battles": 35
         },
         {
           "tank_id": 19281,
@@ -3346,7 +2832,7 @@
         },
         {
           "tank_id": 8465,
-          "battles": 20
+          "battles": 23
         },
         {
           "tank_id": 45057,
@@ -3354,11 +2840,11 @@
         },
         {
           "tank_id": 3649,
-          "battles": 11
+          "battles": 12
         },
         {
           "tank_id": 5969,
-          "battles": 6
+          "battles": 8
         },
         {
           "tank_id": 19713,
@@ -3532,8 +3018,8 @@
         "spots": 0.84,
         "assist": null,
         "kd": 0.65,
-        "diff_battles": 1195,
-        "diff_dpg": 1291
+        "diff_battles": 1204,
+        "diff_dpg": 1298
       },
       "overall": {
         "battles": 2943,
@@ -3552,11 +3038,11 @@
       "tanks_recent": [
         {
           "tank_id": 10801,
-          "battles": 61
+          "battles": 68
         },
         {
           "tank_id": 68161,
-          "battles": 23
+          "battles": 25
         },
         {
           "tank_id": 32785,
@@ -3830,101 +3316,6 @@
         }
       ]
     },
-    "2052173747": {
-      "player_id": 2052173747,
-      "username": "BABYBoris9527_",
-      "server": "asia",
-      "recent_60d": {
-        "battles": 0,
-        "winrate": null,
-        "dpg": null,
-        "wn8": null,
-        "wnx": null,
-        "wins": 0,
-        "losses": 0,
-        "totalDamage": 0,
-        "totalFrags": 0,
-        "totalSurvived": 0,
-        "totalSpotted": 0,
-        "totalAssist": 0,
-        "avgTier": null,
-        "survivalRate": null,
-        "frags": null,
-        "spots": null,
-        "assist": null,
-        "kd": null,
-        "diff_battles": 415,
-        "diff_dpg": 1155
-      },
-      "overall": {
-        "battles": 0,
-        "winrate": null,
-        "wn8": null,
-        "wnx": null,
-        "avgTier": null,
-        "wins": 0,
-        "losses": 0,
-        "totalDamage": 0,
-        "totalFrags": 0,
-        "totalSurvived": 0,
-        "totalSpotted": 0,
-        "totalAssist": 0
-      },
-      "tanks_recent": [
-        {
-          "tank_id": 37649,
-          "battles": 5
-        },
-        {
-          "tank_id": 6289,
-          "battles": 4
-        },
-        {
-          "tank_id": 52593,
-          "battles": 4
-        },
-        {
-          "tank_id": 53105,
-          "battles": 4
-        },
-        {
-          "tank_id": 60465,
-          "battles": 4
-        },
-        {
-          "tank_id": 66097,
-          "battles": 4
-        },
-        {
-          "tank_id": 67617,
-          "battles": 4
-        },
-        {
-          "tank_id": 69377,
-          "battles": 4
-        },
-        {
-          "tank_id": 54177,
-          "battles": 3
-        },
-        {
-          "tank_id": 69921,
-          "battles": 3
-        },
-        {
-          "tank_id": 2561,
-          "battles": 1
-        },
-        {
-          "tank_id": 3217,
-          "battles": 1
-        },
-        {
-          "tank_id": 32273,
-          "battles": 1
-        }
-      ]
-    },
     "3001808776": {
       "player_id": 3001808776,
       "username": "savage_3480240370_825",
@@ -4053,8 +3444,8 @@
         "spots": 0.5,
         "assist": null,
         "kd": 1.12,
-        "diff_battles": 1580,
-        "diff_dpg": 1506
+        "diff_battles": 1596,
+        "diff_dpg": 1503
       },
       "overall": {
         "battles": 34324,
@@ -4077,7 +3468,7 @@
         },
         {
           "tank_id": 8449,
-          "battles": 29
+          "battles": 38
         },
         {
           "tank_id": 8721,
@@ -4092,15 +3483,19 @@
           "battles": 17
         },
         {
+          "tank_id": 7825,
+          "battles": 14
+        },
+        {
+          "tank_id": 16161,
+          "battles": 14
+        },
+        {
           "tank_id": 23329,
           "battles": 13
         },
         {
-          "tank_id": 7825,
-          "battles": 12
-        },
-        {
-          "tank_id": 16161,
+          "tank_id": 16961,
           "battles": 11
         },
         {
@@ -4108,20 +3503,16 @@
           "battles": 11
         },
         {
-          "tank_id": 16961,
-          "battles": 10
-        },
-        {
           "tank_id": 67361,
           "battles": 9
         },
         {
-          "tank_id": 13089,
+          "tank_id": 2929,
           "battles": 6
         },
         {
-          "tank_id": 2929,
-          "battles": 5
+          "tank_id": 13089,
+          "battles": 6
         },
         {
           "tank_id": 54145,
@@ -4240,184 +3631,6 @@
         }
       ]
     },
-    "3003502049": {
-      "player_id": 3003502049,
-      "username": "nmd_470",
-      "server": "asia",
-      "recent_60d": {
-        "battles": 500,
-        "winrate": 51.4,
-        "dpg": 1596,
-        "wn8": 1335,
-        "wnx": 1312,
-        "wins": 257,
-        "losses": 243,
-        "totalDamage": 797869,
-        "totalFrags": 400,
-        "totalSurvived": 136,
-        "totalSpotted": 502,
-        "totalAssist": 235380,
-        "avgTier": 9.33,
-        "survivalRate": 27.2,
-        "frags": 0.8,
-        "spots": 1,
-        "assist": null,
-        "kd": 1.1,
-        "diff_battles": 899,
-        "diff_dpg": 1562
-      },
-      "overall": {
-        "battles": 1438,
-        "winrate": 49.65,
-        "wn8": 1210,
-        "wnx": 1213,
-        "avgTier": 9.08,
-        "wins": 714,
-        "losses": 687,
-        "totalDamage": 2106794,
-        "totalFrags": 1032,
-        "totalSurvived": 438,
-        "totalSpotted": 944,
-        "totalAssist": 554140
-      },
-      "tanks_recent": [
-        {
-          "tank_id": 40977,
-          "battles": 14
-        },
-        {
-          "tank_id": 32273,
-          "battles": 13
-        },
-        {
-          "tank_id": 18753,
-          "battles": 12
-        },
-        {
-          "tank_id": 8481,
-          "battles": 10
-        },
-        {
-          "tank_id": 8049,
-          "battles": 7
-        },
-        {
-          "tank_id": 9297,
-          "battles": 6
-        },
-        {
-          "tank_id": 69377,
-          "battles": 6
-        }
-      ]
-    },
-    "3003591154": {
-      "player_id": 3003591154,
-      "username": "MIKE_MING_0923",
-      "server": "asia",
-      "recent_60d": {
-        "battles": 2001,
-        "winrate": 45.58,
-        "dpg": 1466,
-        "wn8": 1032,
-        "wnx": 1022,
-        "wins": 912,
-        "losses": 1089,
-        "totalDamage": 2933727,
-        "totalFrags": 1340,
-        "totalSurvived": 494,
-        "totalSpotted": 1511,
-        "totalAssist": 755677,
-        "avgTier": 9.27,
-        "survivalRate": 24.69,
-        "frags": 0.67,
-        "spots": 0.76,
-        "assist": null,
-        "kd": 0.89,
-        "diff_battles": 2001,
-        "diff_dpg": 1466
-      },
-      "overall": {
-        "battles": 32401,
-        "winrate": 44.55,
-        "wn8": 842,
-        "wnx": 811,
-        "avgTier": 9.14,
-        "wins": 14436,
-        "losses": 17236,
-        "totalDamage": 38807624,
-        "totalFrags": 16707,
-        "totalSurvived": 6785,
-        "totalSpotted": 29934,
-        "totalAssist": 12822519
-      },
-      "tanks_recent": [
-        {
-          "tank_id": 53873,
-          "battles": 112
-        },
-        {
-          "tank_id": 11057,
-          "battles": 43
-        },
-        {
-          "tank_id": 55937,
-          "battles": 30
-        },
-        {
-          "tank_id": 10801,
-          "battles": 12
-        },
-        {
-          "tank_id": 26641,
-          "battles": 12
-        },
-        {
-          "tank_id": 41745,
-          "battles": 6
-        },
-        {
-          "tank_id": 53665,
-          "battles": 5
-        },
-        {
-          "tank_id": 26705,
-          "battles": 4
-        },
-        {
-          "tank_id": 32529,
-          "battles": 4
-        },
-        {
-          "tank_id": 6513,
-          "battles": 2
-        },
-        {
-          "tank_id": 67873,
-          "battles": 2
-        },
-        {
-          "tank_id": 13089,
-          "battles": 1
-        },
-        {
-          "tank_id": 22353,
-          "battles": 1
-        },
-        {
-          "tank_id": 24401,
-          "battles": 1
-        },
-        {
-          "tank_id": 68641,
-          "battles": 1
-        },
-        {
-          "tank_id": 68673,
-          "battles": 1
-        }
-      ]
-    },
     "3003962708": {
       "player_id": 3003962708,
       "username": "redstar_CHINA",
@@ -4489,89 +3702,6 @@
         },
         {
           "tank_id": 65601,
-          "battles": 1
-        }
-      ]
-    },
-    "3004547018": {
-      "player_id": 3004547018,
-      "username": "jeffea905",
-      "server": "asia",
-      "recent_60d": {
-        "battles": 968,
-        "winrate": 50.52,
-        "dpg": 2003,
-        "wn8": 2032,
-        "wnx": 2221,
-        "wins": 489,
-        "losses": 479,
-        "totalDamage": 1938963,
-        "totalFrags": 1076,
-        "totalSurvived": 365,
-        "totalSpotted": 1082,
-        "totalAssist": 554042,
-        "avgTier": 8.78,
-        "survivalRate": 37.71,
-        "frags": 1.11,
-        "spots": 1.12,
-        "assist": null,
-        "kd": 1.78,
-        "diff_battles": 855,
-        "diff_dpg": 2028
-      },
-      "overall": {
-        "battles": 8570,
-        "winrate": 52.01,
-        "wn8": 1873,
-        "wnx": 1954,
-        "avgTier": 8.38,
-        "wins": 4457,
-        "losses": 3905,
-        "totalDamage": 14166174,
-        "totalFrags": 8502,
-        "totalSurvived": 3188,
-        "totalSpotted": 8967,
-        "totalAssist": 4186639
-      },
-      "tanks_recent": [
-        {
-          "tank_id": 5697,
-          "battles": 58
-        },
-        {
-          "tank_id": 67873,
-          "battles": 17
-        },
-        {
-          "tank_id": 17473,
-          "battles": 15
-        },
-        {
-          "tank_id": 54177,
-          "battles": 7
-        },
-        {
-          "tank_id": 38417,
-          "battles": 4
-        },
-        {
-          "tank_id": 14609,
-          "battles": 3
-        },
-        {
-          "tank_id": 19217,
-          "battles": 3
-        },
-        {
-          "tank_id": 62481,
-          "battles": 2
-        },
-        {
-          "tank_id": 9009,
-          "battles": 1
-        },
-        {
-          "tank_id": 9489,
           "battles": 1
         }
       ]
@@ -4693,178 +3823,6 @@
       },
       "tanks_recent": []
     },
-    "3005642683": {
-      "player_id": 3005642683,
-      "username": "JerechoBear",
-      "server": "asia",
-      "recent_60d": {
-        "battles": 0,
-        "winrate": null,
-        "dpg": null,
-        "wn8": null,
-        "wnx": null,
-        "wins": 0,
-        "losses": 0,
-        "totalDamage": 0,
-        "totalFrags": 0,
-        "totalSurvived": 0,
-        "totalSpotted": 0,
-        "totalAssist": 0,
-        "avgTier": null,
-        "survivalRate": null,
-        "frags": null,
-        "spots": null,
-        "assist": null,
-        "kd": null,
-        "diff_battles": 84,
-        "diff_dpg": 1185
-      },
-      "overall": {
-        "battles": 0,
-        "winrate": null,
-        "wn8": null,
-        "wnx": null,
-        "avgTier": null,
-        "wins": 0,
-        "losses": 0,
-        "totalDamage": 0,
-        "totalFrags": 0,
-        "totalSurvived": 0,
-        "totalSpotted": 0,
-        "totalAssist": 0
-      },
-      "tanks_recent": [
-        {
-          "tank_id": 49169,
-          "battles": 5
-        },
-        {
-          "tank_id": 529,
-          "battles": 2
-        },
-        {
-          "tank_id": 4369,
-          "battles": 1
-        },
-        {
-          "tank_id": 18193,
-          "battles": 1
-        }
-      ]
-    },
-    "3007116239": {
-      "player_id": 3007116239,
-      "username": "Old_Boy",
-      "server": "asia",
-      "recent_60d": {
-        "battles": 1018,
-        "winrate": 50.59,
-        "dpg": 1750,
-        "wn8": 1353,
-        "wnx": 1403,
-        "wins": 515,
-        "losses": 503,
-        "totalDamage": 1781547,
-        "totalFrags": 799,
-        "totalSurvived": 338,
-        "totalSpotted": 830,
-        "totalAssist": 515064,
-        "avgTier": 9.73,
-        "survivalRate": 33.2,
-        "frags": 0.78,
-        "spots": 0.82,
-        "assist": null,
-        "kd": 1.18,
-        "diff_battles": 290,
-        "diff_dpg": 1609
-      },
-      "overall": {
-        "battles": 6205,
-        "winrate": 48.57,
-        "wn8": 1087,
-        "wnx": 1067,
-        "avgTier": 8.49,
-        "wins": 3014,
-        "losses": 3062,
-        "totalDamage": 7428812,
-        "totalFrags": 4046,
-        "totalSurvived": 1800,
-        "totalSpotted": 4629,
-        "totalAssist": 2539987
-      },
-      "tanks_recent": []
-    },
-    "3007815623": {
-      "player_id": 3007815623,
-      "username": "alksdfiov",
-      "server": "asia",
-      "recent_60d": {
-        "battles": 210,
-        "winrate": 48.1,
-        "dpg": 2222,
-        "wn8": 1462,
-        "wnx": 1345,
-        "wins": 101,
-        "losses": 109,
-        "totalDamage": 466615,
-        "totalFrags": 127,
-        "totalSurvived": 29,
-        "totalSpotted": 243,
-        "totalAssist": 85687,
-        "avgTier": 10.47,
-        "survivalRate": 13.81,
-        "frags": 0.6,
-        "spots": 1.16,
-        "assist": null,
-        "kd": 0.7,
-        "diff_battles": 212,
-        "diff_dpg": 2219
-      },
-      "overall": {
-        "battles": 5426,
-        "winrate": 49.8,
-        "wn8": 1470,
-        "wnx": 1407,
-        "avgTier": 9.17,
-        "wins": 2702,
-        "losses": 2628,
-        "totalDamage": 9482645,
-        "totalFrags": 3926,
-        "totalSurvived": 888,
-        "totalSpotted": 6480,
-        "totalAssist": 2135278
-      },
-      "tanks_recent": [
-        {
-          "tank_id": 32529,
-          "battles": 21
-        },
-        {
-          "tank_id": 33345,
-          "battles": 11
-        },
-        {
-          "tank_id": 32017,
-          "battles": 9
-        },
-        {
-          "tank_id": 22353,
-          "battles": 6
-        },
-        {
-          "tank_id": 36609,
-          "battles": 3
-        },
-        {
-          "tank_id": 53873,
-          "battles": 1
-        },
-        {
-          "tank_id": 58961,
-          "battles": 1
-        }
-      ]
-    },
     "3008678691": {
       "player_id": 3008678691,
       "username": "Ghostbox0218",
@@ -4935,8 +3893,8 @@
         "spots": null,
         "assist": null,
         "kd": null,
-        "diff_battles": 308,
-        "diff_dpg": 767
+        "diff_battles": 311,
+        "diff_dpg": 770
       },
       "overall": {
         "battles": 0,
@@ -4955,7 +3913,7 @@
       "tanks_recent": [
         {
           "tank_id": 529,
-          "battles": 6
+          "battles": 8
         },
         {
           "tank_id": 5969,
@@ -4966,6 +3924,10 @@
           "battles": 2
         },
         {
+          "tank_id": 5137,
+          "battles": 1
+        },
+        {
           "tank_id": 10801,
           "battles": 1
         },
@@ -4974,48 +3936,6 @@
           "battles": 1
         }
       ]
-    },
-    "3009501180": {
-      "player_id": 3009501180,
-      "username": "yc289115",
-      "server": "asia",
-      "recent_60d": {
-        "battles": 0,
-        "winrate": null,
-        "dpg": null,
-        "wn8": null,
-        "wnx": null,
-        "wins": 0,
-        "losses": 0,
-        "totalDamage": 0,
-        "totalFrags": 0,
-        "totalSurvived": 0,
-        "totalSpotted": 0,
-        "totalAssist": 0,
-        "avgTier": null,
-        "survivalRate": null,
-        "frags": null,
-        "spots": null,
-        "assist": null,
-        "kd": null,
-        "diff_battles": 0,
-        "diff_dpg": null
-      },
-      "overall": {
-        "battles": 0,
-        "winrate": null,
-        "wn8": null,
-        "wnx": null,
-        "avgTier": null,
-        "wins": 0,
-        "losses": 0,
-        "totalDamage": 0,
-        "totalFrags": 0,
-        "totalSurvived": 0,
-        "totalSpotted": 0,
-        "totalAssist": 0
-      },
-      "tanks_recent": []
     },
     "3009513492": {
       "player_id": 3009513492,
@@ -5326,8 +4246,8 @@
         "spots": 1.57,
         "assist": null,
         "kd": 0.54,
-        "diff_battles": 1500,
-        "diff_dpg": 867
+        "diff_battles": 1520,
+        "diff_dpg": 880
       },
       "overall": {
         "battles": 3981,
@@ -5365,6 +4285,14 @@
           "battles": 121
         },
         {
+          "tank_id": 9057,
+          "battles": 30
+        },
+        {
+          "tank_id": 38417,
+          "battles": 28
+        },
+        {
           "tank_id": 7201,
           "battles": 24
         },
@@ -5375,14 +4303,6 @@
         {
           "tank_id": 7777,
           "battles": 22
-        },
-        {
-          "tank_id": 9057,
-          "battles": 21
-        },
-        {
-          "tank_id": 38417,
-          "battles": 17
         },
         {
           "tank_id": 9009,
@@ -5857,73 +4777,6 @@
       },
       "tanks_recent": []
     },
-    "3014051800": {
-      "player_id": 3014051800,
-      "username": "great_tth_161",
-      "server": "asia",
-      "recent_60d": {
-        "battles": 0,
-        "winrate": null,
-        "dpg": null,
-        "wn8": null,
-        "wnx": null,
-        "wins": 0,
-        "losses": 0,
-        "totalDamage": 0,
-        "totalFrags": 0,
-        "totalSurvived": 0,
-        "totalSpotted": 0,
-        "totalAssist": 0,
-        "avgTier": null,
-        "survivalRate": null,
-        "frags": null,
-        "spots": null,
-        "assist": null,
-        "kd": null,
-        "diff_battles": 756,
-        "diff_dpg": 795
-      },
-      "overall": {
-        "battles": 0,
-        "winrate": null,
-        "wn8": null,
-        "wnx": null,
-        "avgTier": null,
-        "wins": 0,
-        "losses": 0,
-        "totalDamage": 0,
-        "totalFrags": 0,
-        "totalSurvived": 0,
-        "totalSpotted": 0,
-        "totalAssist": 0
-      },
-      "tanks_recent": [
-        {
-          "tank_id": 8705,
-          "battles": 10
-        },
-        {
-          "tank_id": 5217,
-          "battles": 3
-        },
-        {
-          "tank_id": 2305,
-          "battles": 1
-        },
-        {
-          "tank_id": 16417,
-          "battles": 1
-        },
-        {
-          "tank_id": 18705,
-          "battles": 1
-        },
-        {
-          "tank_id": 30993,
-          "battles": 1
-        }
-      ]
-    },
     "3015766815": {
       "player_id": 3015766815,
       "username": "I_Love_Pizza_",
@@ -5965,137 +4818,6 @@
         "totalAssist": 0
       },
       "tanks_recent": []
-    },
-    "3016581628": {
-      "player_id": 3016581628,
-      "username": "Allen_0524",
-      "server": "asia",
-      "recent_60d": {
-        "battles": 602,
-        "winrate": 44.02,
-        "dpg": 1177,
-        "wn8": 871,
-        "wnx": 947,
-        "wins": 265,
-        "losses": 337,
-        "totalDamage": 708739,
-        "totalFrags": 348,
-        "totalSurvived": 135,
-        "totalSpotted": 697,
-        "totalAssist": 313318,
-        "avgTier": 8.95,
-        "survivalRate": 22.43,
-        "frags": 0.58,
-        "spots": 1.16,
-        "assist": null,
-        "kd": 0.75,
-        "diff_battles": 585,
-        "diff_dpg": 1198
-      },
-      "overall": {
-        "battles": 2195,
-        "winrate": 46.01,
-        "wn8": 843,
-        "wnx": 829,
-        "avgTier": 7.96,
-        "wins": 1010,
-        "losses": 1120,
-        "totalDamage": 2004434,
-        "totalFrags": 1223,
-        "totalSurvived": 544,
-        "totalSpotted": 2273,
-        "totalAssist": 866254
-      },
-      "tanks_recent": [
-        {
-          "tank_id": 5681,
-          "battles": 8
-        },
-        {
-          "tank_id": 32017,
-          "battles": 7
-        },
-        {
-          "tank_id": 62801,
-          "battles": 7
-        },
-        {
-          "tank_id": 30481,
-          "battles": 5
-        },
-        {
-          "tank_id": 65601,
-          "battles": 5
-        },
-        {
-          "tank_id": 8481,
-          "battles": 3
-        },
-        {
-          "tank_id": 10545,
-          "battles": 3
-        },
-        {
-          "tank_id": 22353,
-          "battles": 3
-        },
-        {
-          "tank_id": 53105,
-          "battles": 3
-        },
-        {
-          "tank_id": 69377,
-          "battles": 3
-        },
-        {
-          "tank_id": 10801,
-          "battles": 2
-        },
-        {
-          "tank_id": 53905,
-          "battles": 2
-        },
-        {
-          "tank_id": 67873,
-          "battles": 2
-        },
-        {
-          "tank_id": 69921,
-          "battles": 2
-        },
-        {
-          "tank_id": 23329,
-          "battles": 1
-        },
-        {
-          "tank_id": 53873,
-          "battles": 1
-        },
-        {
-          "tank_id": 54161,
-          "battles": 1
-        },
-        {
-          "tank_id": 58961,
-          "battles": 1
-        },
-        {
-          "tank_id": 60497,
-          "battles": 1
-        },
-        {
-          "tank_id": 65585,
-          "battles": 1
-        },
-        {
-          "tank_id": 68161,
-          "battles": 1
-        },
-        {
-          "tank_id": 68673,
-          "battles": 1
-        }
-      ]
     },
     "3017378123": {
       "player_id": 3017378123,

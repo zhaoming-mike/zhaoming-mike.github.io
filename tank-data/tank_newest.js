@@ -2,6 +2,23 @@
 // 每次 WG 新增坦克时，在此追加一个批次即可
 const NEWEST_TANK_BATCHES = [
     {
+        date: "2026-10-13",
+        label: "2.4.1 更新",
+        short: "2.4.1",
+        color: "#f78fa7",   // 批次专属色——柔和玫瑰,与其他批次(紫/橙/青/绿)区分且不刺眼
+        ids: [
+            67633,  // 中国 X Yongshi 重坦
+            68113,  // 德国 X Automaton 中坦
+            70401,  // 苏联 X Object Veles 重坦
+            54417,  // 波兰 IX 63TP Rycerski 重坦
+            70657,  // 苏联 IX Object 265-II 重坦
+            70945,  // 美国 IX Jezevec 中坦
+            72193,  // 苏联 IX Eclipse 重坦（API 名为泰语）
+            65681,  // 波兰 VIII Dream Chaser 坦歼
+            68881,  // 德国 VI Tiger (P) Leoponsan 重坦
+        ]
+    },
+    {
         date: "2026-08-28",
         label: "2.4 更新",
         short: "2.4",

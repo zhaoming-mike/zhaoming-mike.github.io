@@ -1,8 +1,8 @@
 ﻿const VEHICLES_JSON = {
     "meta": {
-        "total": 1030,
-        "page_total": 1030,
-        "count": 1030,
+        "total": 1039,
+        "page_total": 1039,
+        "count": 1039,
         "limit": 1,
         "page": null
     },
@@ -141722,6 +141722,3205 @@
             },
             "turrets": [
                 44115
+            ]
+        },
+        "70401": {
+            "is_wheeled": false,
+            "radios": [
+                62471
+            ],
+            "is_premium": true,
+            "tag": "R239_Object_Veles",
+            "images": {
+                "small_icon": "http://api.worldoftanks.asia/static/2.77.0/wot/encyclopedia/vehicle/small/ussr-R239_Object_Veles.png",
+                "contour_icon": "http://api.worldoftanks.asia/static/2.77.0/wot/encyclopedia/vehicle/contour/ussr-R239_Object_Veles.png",
+                "big_icon": "http://api.worldoftanks.asia/static/2.77.0/wot/encyclopedia/vehicle/ussr-R239_Object_Veles.png"
+            },
+            "tank_id": 70401,
+            "suspensions": [
+                82178
+            ],
+            "provisions": [
+                6154491,
+                5631995,
+                11771,
+                26107,
+                26363,
+                26619,
+                26875,
+                27131,
+                6155003,
+                27643,
+                27899,
+                28155,
+                28411,
+                28667,
+                28923,
+                48891,
+                29179,
+                29435,
+                3067,
+                46075,
+                29947,
+                30203,
+                47099,
+                6154747,
+                14843,
+                15355,
+                5631483,
+                52475,
+                29691,
+                251,
+                507,
+                16891,
+                763,
+                1019,
+                12283,
+                230651,
+                1531,
+                51963,
+                52219,
+                14331,
+                52731,
+                17147,
+                52987,
+                1275,
+                12795,
+                27387,
+                5631739,
+                39673,
+                39161,
+                39929,
+                29433,
+                40185,
+                40441,
+                40697,
+                40953,
+                41209,
+                29689,
+                41465,
+                23289,
+                25593,
+                29945,
+                26361,
+                27129,
+                27385,
+                30201,
+                27641,
+                27897,
+                11769,
+                28409,
+                12281,
+                30457,
+                12537,
+                29177,
+                13049,
+                14329,
+                13305,
+                13561,
+                13817,
+                11257,
+                14073,
+                30713,
+                14585,
+                16121,
+                14841,
+                30969,
+                15097,
+                11513,
+                31225,
+                24825,
+                16889,
+                28153,
+                31481,
+                12025,
+                15353,
+                18681,
+                31737,
+                22009,
+                19193,
+                28665,
+                19961,
+                20729,
+                28921,
+                21241,
+                17913,
+                24057,
+                38905,
+                38649,
+                22521,
+                39417
+            ],
+            "engines": [
+                73733
+            ],
+            "crew": [
+                {
+                    "roles": {
+                        "commander": "ผู้บังคับการ",
+                        "radioman": "พลวิทยุ"
+                    },
+                    "member_id": "commander"
+                },
+                {
+                    "roles": {
+                        "driver": "พลขับ"
+                    },
+                    "member_id": "driver"
+                },
+                {
+                    "roles": {
+                        "gunner": "พลปืน"
+                    },
+                    "member_id": "gunner"
+                },
+                {
+                    "roles": {
+                        "loader": "พลบรรจุ"
+                    },
+                    "member_id": "loader"
+                }
+            ],
+            "type": "heavyTank",
+            "guns": [
+                73476
+            ],
+            "multination": null,
+            "description": "Object Veles 以斯拉夫神话中与雷霆之神佩龙相对的冥界之神维列斯命名；152 毫米 D-73 主炮与 2600 点生命值，让它在十级战场上既是图腾，也是威胁。",
+            "short_name": "Veles",
+            "is_premium_igr": false,
+            "next_tanks": null,
+            "modules_tree": {
+                "82178": {
+                    "name": "Veles",
+                    "next_modules": null,
+                    "next_tanks": null,
+                    "is_default": true,
+                    "price_xp": 0,
+                    "price_credit": 80000,
+                    "module_id": 82178,
+                    "type": "vehicleChassis"
+                },
+                "73219": {
+                    "name": "Veles",
+                    "next_modules": null,
+                    "next_tanks": null,
+                    "is_default": true,
+                    "price_xp": 0,
+                    "price_credit": 80000,
+                    "module_id": 73219,
+                    "type": "vehicleTurret"
+                },
+                "73476": {
+                    "name": "152 mm D-73",
+                    "next_modules": null,
+                    "next_tanks": null,
+                    "is_default": true,
+                    "price_xp": 0,
+                    "price_credit": 300000,
+                    "module_id": 73476,
+                    "type": "vehicleGun"
+                },
+                "73733": {
+                    "name": "DTH-10",
+                    "next_modules": null,
+                    "next_tanks": null,
+                    "is_default": true,
+                    "price_xp": 0,
+                    "price_credit": 120000,
+                    "module_id": 73733,
+                    "type": "vehicleEngine"
+                },
+                "62471": {
+                    "name": "R-123V",
+                    "next_modules": null,
+                    "next_tanks": null,
+                    "is_default": true,
+                    "price_xp": 0,
+                    "price_credit": 55000,
+                    "module_id": 62471,
+                    "type": "vehicleRadio"
+                }
+            },
+            "nation": "ussr",
+            "tier": 10,
+            "prices_xp": null,
+            "is_gift": false,
+            "name": "Object Veles",
+            "price_gold": null,
+            "price_credit": null,
+            "default_profile": {
+                "engine": {
+                    "name": "DTH-10",
+                    "power": 700,
+                    "weight": 500,
+                    "tag": "DTH_10",
+                    "fire_chance": 0.15,
+                    "tier": 10
+                },
+                "siege": null,
+                "max_ammo": 30,
+                "suspension": {
+                    "name": "Veles",
+                    "weight": 15500,
+                    "load_limit": 0,
+                    "tag": "Chassis_R239_Object_Veles",
+                    "traverse_speed": 20,
+                    "tier": 10,
+                    "steering_lock_angle": 0
+                },
+                "weight": 62000,
+                "armor": {
+                    "turret": {
+                        "front": 320,
+                        "sides": 120,
+                        "rear": 60
+                    },
+                    "hull": {
+                        "front": 370,
+                        "sides": 120,
+                        "rear": 40
+                    }
+                },
+                "hp": 2600,
+                "modules": {
+                    "gun_id": 73476,
+                    "suspension_id": 82178,
+                    "turret_id": 73219,
+                    "radio_id": 62471,
+                    "engine_id": 73733
+                },
+                "gun": {
+                    "move_down_arc": 7,
+                    "caliber": 152,
+                    "name": "152 mm D-73",
+                    "weight": 4370,
+                    "move_up_arc": 20,
+                    "fire_rate": 3.35,
+                    "dispersion": 0.4,
+                    "tag": "_152mm_D_73",
+                    "traverse_speed": 24,
+                    "reload_time": 17.9,
+                    "tier": 10,
+                    "aim_time": 2.8
+                },
+                "turret": {
+                    "name": "Veles",
+                    "weight": 12400,
+                    "view_range": 390,
+                    "hp": 520,
+                    "tag": "Turret_1_R239_Object_Veles",
+                    "traverse_speed": 20,
+                    "traverse_right_arc": 180,
+                    "tier": 10,
+                    "traverse_left_arc": 180
+                },
+                "hull_weight": 28830,
+                "radio": {
+                    "tier": 10,
+                    "signal_range": 750,
+                    "tag": "R_123V",
+                    "name": "R-123V",
+                    "weight": 100
+                },
+                "rapid": null,
+                "speed_forward": 28,
+                "hull_hp": 2080,
+                "speed_backward": 15,
+                "ammo": [
+                    {
+                        "penetration": [
+                            188,
+                            251,
+                            314
+                        ],
+                        "stun": null,
+                        "type": "ARMOR_PIERCING",
+                        "damage": [
+                            525,
+                            700,
+                            875
+                        ]
+                    },
+                    {
+                        "penetration": [
+                            240,
+                            320,
+                            400
+                        ],
+                        "stun": null,
+                        "type": "HOLLOW_CHARGE",
+                        "damage": [
+                            525,
+                            700,
+                            875
+                        ]
+                    },
+                    {
+                        "penetration": [
+                            68,
+                            90,
+                            113
+                        ],
+                        "stun": null,
+                        "type": "HIGH_EXPLOSIVE",
+                        "damage": [
+                            675,
+                            900,
+                            1125
+                        ]
+                    }
+                ],
+                "max_weight": 0
+            },
+            "turrets": [
+                73219
+            ]
+        },
+        "70657": {
+            "is_wheeled": false,
+            "radios": [
+                62727
+            ],
+            "is_premium": true,
+            "tag": "R236_Object_265_II",
+            "images": {
+                "small_icon": "http://api.worldoftanks.asia/static/2.77.0/wot/encyclopedia/vehicle/small/ussr-R236_Object_265_II.png",
+                "contour_icon": "http://api.worldoftanks.asia/static/2.77.0/wot/encyclopedia/vehicle/contour/ussr-R236_Object_265_II.png",
+                "big_icon": "http://api.worldoftanks.asia/static/2.77.0/wot/encyclopedia/vehicle/ussr-R236_Object_265_II.png"
+            },
+            "tank_id": 70657,
+            "suspensions": [
+                82434
+            ],
+            "provisions": [
+                6154491,
+                5378811,
+                5631995,
+                11771,
+                26107,
+                26363,
+                26619,
+                26875,
+                6154747,
+                27387,
+                5377787,
+                27643,
+                230651,
+                27899,
+                28155,
+                5631739,
+                12283,
+                28923,
+                48891,
+                12795,
+                29435,
+                3067,
+                46075,
+                29947,
+                29179,
+                28411,
+                30203,
+                47099,
+                14843,
+                15355,
+                6155003,
+                5631483,
+                52475,
+                29691,
+                251,
+                507,
+                16891,
+                763,
+                5377019,
+                1019,
+                1275,
+                1531,
+                5377275,
+                5376507,
+                51963,
+                52219,
+                14331,
+                52731,
+                17147,
+                28667,
+                52987,
+                5378043,
+                5378299,
+                5377531,
+                5378555,
+                39673,
+                39161,
+                39929,
+                29433,
+                40185,
+                40441,
+                40697,
+                40953,
+                41209,
+                29689,
+                41465,
+                23289,
+                25593,
+                26361,
+                27129,
+                27385,
+                27641,
+                27897,
+                28153,
+                12025,
+                12281,
+                30457,
+                12537,
+                29177,
+                13049,
+                14329,
+                13305,
+                29945,
+                30201,
+                11257,
+                14073,
+                30713,
+                14585,
+                16121,
+                14841,
+                30969,
+                15097,
+                11513,
+                31225,
+                24825,
+                16889,
+                31481,
+                15353,
+                28409,
+                24057,
+                18681,
+                31737,
+                22009,
+                19193,
+                28665,
+                19961,
+                20729,
+                28921,
+                17913,
+                38905,
+                38649,
+                22521,
+                39417
+            ],
+            "engines": [
+                73989
+            ],
+            "crew": [
+                {
+                    "roles": {
+                        "commander": "ผู้บังคับการ",
+                        "radioman": "พลวิทยุ"
+                    },
+                    "member_id": "commander"
+                },
+                {
+                    "roles": {
+                        "gunner": "พลปืน"
+                    },
+                    "member_id": "gunner"
+                },
+                {
+                    "roles": {
+                        "driver": "พลขับ"
+                    },
+                    "member_id": "driver"
+                },
+                {
+                    "roles": {
+                        "loader": "พลบรรจุ"
+                    },
+                    "member_id": "loader"
+                }
+            ],
+            "type": "heavyTank",
+            "guns": [
+                73732
+            ],
+            "multination": null,
+            "description": "Object 265-II 是苏联 265 工程的第二套方案，122 毫米 BL-13D-SD 主炮搭配低矮车体，延续了苏联重坦以均衡换取生存的设计哲学。",
+            "short_name": "Obj. 265-II",
+            "is_premium_igr": false,
+            "next_tanks": null,
+            "modules_tree": {
+                "82434": {
+                    "name": "Object 265-II",
+                    "next_modules": null,
+                    "next_tanks": null,
+                    "is_default": true,
+                    "price_xp": 0,
+                    "price_credit": 60000,
+                    "module_id": 82434,
+                    "type": "vehicleChassis"
+                },
+                "73475": {
+                    "name": "Object 265-II",
+                    "next_modules": null,
+                    "next_tanks": null,
+                    "is_default": true,
+                    "price_xp": 0,
+                    "price_credit": 60000,
+                    "module_id": 73475,
+                    "type": "vehicleTurret"
+                },
+                "73732": {
+                    "name": "122 mm BL-13D-SD",
+                    "next_modules": null,
+                    "next_tanks": null,
+                    "is_default": true,
+                    "price_xp": 0,
+                    "price_credit": 200000,
+                    "module_id": 73732,
+                    "type": "vehicleGun"
+                },
+                "73989": {
+                    "name": "V-12-5C",
+                    "next_modules": null,
+                    "next_tanks": null,
+                    "is_default": true,
+                    "price_xp": 0,
+                    "price_credit": 90000,
+                    "module_id": 73989,
+                    "type": "vehicleEngine"
+                },
+                "62727": {
+                    "name": "12RT-B",
+                    "next_modules": null,
+                    "next_tanks": null,
+                    "is_default": true,
+                    "price_xp": 0,
+                    "price_credit": 40000,
+                    "module_id": 62727,
+                    "type": "vehicleRadio"
+                }
+            },
+            "nation": "ussr",
+            "tier": 9,
+            "prices_xp": null,
+            "is_gift": false,
+            "name": "Object 265-II",
+            "price_gold": null,
+            "price_credit": null,
+            "default_profile": {
+                "engine": {
+                    "name": "V-12-5C",
+                    "power": 700,
+                    "weight": 1024,
+                    "tag": "V_12_5C",
+                    "fire_chance": 0.15,
+                    "tier": 9
+                },
+                "siege": {
+                    "suspension_traverse_speed": 1,
+                    "move_down_arc": 5,
+                    "switch_on_time": 0.0,
+                    "reload_time": 13.5,
+                    "move_up_arc": 4,
+                    "dispersion": 0.42,
+                    "switch_off_time": 0.0,
+                    "speed_backward": 12,
+                    "aim_time": 2.7
+                },
+                "max_ammo": 40,
+                "suspension": {
+                    "name": "Object 265-II",
+                    "weight": 14000,
+                    "load_limit": 0,
+                    "tag": "Chassis_R236_Object_265_II",
+                    "traverse_speed": 30,
+                    "tier": 9,
+                    "steering_lock_angle": 0
+                },
+                "weight": 56000,
+                "armor": {
+                    "turret": {
+                        "front": 280,
+                        "sides": 150,
+                        "rear": 120
+                    },
+                    "hull": {
+                        "front": 130,
+                        "sides": 75,
+                        "rear": 40
+                    }
+                },
+                "hp": 1900,
+                "modules": {
+                    "gun_id": 73732,
+                    "suspension_id": 82434,
+                    "turret_id": 73475,
+                    "radio_id": 62727,
+                    "engine_id": 73989
+                },
+                "gun": {
+                    "move_down_arc": 5,
+                    "caliber": 122,
+                    "name": "122 mm BL-13D-SD",
+                    "weight": 5580,
+                    "move_up_arc": 20,
+                    "fire_rate": 4.44,
+                    "dispersion": 0.42,
+                    "tag": "_122mm_BL_13D_dualgun",
+                    "traverse_speed": 26,
+                    "reload_time": 13.5,
+                    "tier": 9,
+                    "aim_time": 2.7
+                },
+                "turret": {
+                    "name": "Object 265-II",
+                    "weight": 11200,
+                    "view_range": 380,
+                    "hp": 380,
+                    "tag": "Turret_1_R236_Object_265_II",
+                    "traverse_speed": 20,
+                    "traverse_right_arc": 180,
+                    "tier": 9,
+                    "traverse_left_arc": 180
+                },
+                "hull_weight": 23796,
+                "radio": {
+                    "tier": 9,
+                    "signal_range": 670,
+                    "tag": "_12RT_B",
+                    "name": "12RT-B",
+                    "weight": 100
+                },
+                "rapid": null,
+                "speed_forward": 35,
+                "hull_hp": 1520,
+                "speed_backward": 12,
+                "ammo": [
+                    {
+                        "penetration": [
+                            183,
+                            244,
+                            305
+                        ],
+                        "stun": null,
+                        "type": "ARMOR_PIERCING",
+                        "damage": [
+                            330,
+                            440,
+                            550
+                        ]
+                    },
+                    {
+                        "penetration": [
+                            225,
+                            300,
+                            375
+                        ],
+                        "stun": null,
+                        "type": "HOLLOW_CHARGE",
+                        "damage": [
+                            330,
+                            440,
+                            550
+                        ]
+                    },
+                    {
+                        "penetration": [
+                            46,
+                            61,
+                            76
+                        ],
+                        "stun": null,
+                        "type": "HIGH_EXPLOSIVE",
+                        "damage": [
+                            398,
+                            530,
+                            663
+                        ]
+                    }
+                ],
+                "max_weight": 0
+            },
+            "turrets": [
+                73475
+            ]
+        },
+        "67633": {
+            "is_wheeled": false,
+            "radios": [
+                67127
+            ],
+            "is_premium": true,
+            "tag": "Ch72_Yongshi",
+            "images": {
+                "small_icon": "http://api.worldoftanks.asia/static/2.77.0/wot/encyclopedia/vehicle/small/china-Ch72_Yongshi.png",
+                "contour_icon": "http://api.worldoftanks.asia/static/2.77.0/wot/encyclopedia/vehicle/contour/china-Ch72_Yongshi.png",
+                "big_icon": "http://api.worldoftanks.asia/static/2.77.0/wot/encyclopedia/vehicle/china-Ch72_Yongshi.png"
+            },
+            "tank_id": 67633,
+            "suspensions": [
+                28978
+            ],
+            "provisions": [
+                5631995,
+                11771,
+                26107,
+                26363,
+                26619,
+                26875,
+                27131,
+                6155003,
+                27643,
+                27899,
+                28155,
+                28411,
+                28667,
+                28923,
+                48891,
+                29179,
+                29435,
+                6154491,
+                46075,
+                29947,
+                30203,
+                47099,
+                6154747,
+                14843,
+                15355,
+                5631483,
+                52475,
+                29691,
+                251,
+                507,
+                16891,
+                763,
+                1019,
+                12283,
+                230651,
+                1531,
+                51963,
+                52219,
+                14331,
+                52731,
+                17147,
+                52987,
+                4091,
+                1275,
+                12795,
+                27387,
+                5631739,
+                39673,
+                39161,
+                39929,
+                29433,
+                40185,
+                40441,
+                40697,
+                40953,
+                41209,
+                29689,
+                41465,
+                23289,
+                25593,
+                29945,
+                26361,
+                27129,
+                27385,
+                30201,
+                27641,
+                27897,
+                11769,
+                28409,
+                12281,
+                30457,
+                12537,
+                29177,
+                13049,
+                14329,
+                13305,
+                13561,
+                13817,
+                11257,
+                14073,
+                30713,
+                14585,
+                16121,
+                14841,
+                30969,
+                15097,
+                11513,
+                31225,
+                24825,
+                16889,
+                28153,
+                31481,
+                12025,
+                15353,
+                18681,
+                31737,
+                22009,
+                19193,
+                28665,
+                19961,
+                20729,
+                28921,
+                21241,
+                17913,
+                24057,
+                38905,
+                38649,
+                22521,
+                39417
+            ],
+            "engines": [
+                69941
+            ],
+            "crew": [
+                {
+                    "roles": {
+                        "commander": "ผู้บังคับการ",
+                        "radioman": "พลวิทยุ"
+                    },
+                    "member_id": "commander"
+                },
+                {
+                    "roles": {
+                        "gunner": "พลปืน"
+                    },
+                    "member_id": "gunner"
+                },
+                {
+                    "roles": {
+                        "driver": "พลขับ"
+                    },
+                    "member_id": "driver"
+                },
+                {
+                    "roles": {
+                        "loader": "พลบรรจุ"
+                    },
+                    "member_id": "loader"
+                }
+            ],
+            "type": "heavyTank",
+            "guns": [
+                67380
+            ],
+            "multination": null,
+            "description": "Yongshi——“勇士”。这台以 152 毫米重炮与东方装甲设计语汇构筑的十级重坦，延续了中国重坦线在火力投送与正面压制上的极致追求。",
+            "short_name": "Yongshi",
+            "is_premium_igr": false,
+            "next_tanks": null,
+            "modules_tree": {
+                "28978": {
+                    "name": "Yongshi",
+                    "next_modules": null,
+                    "next_tanks": null,
+                    "is_default": true,
+                    "price_xp": 0,
+                    "price_credit": 80000,
+                    "module_id": 28978,
+                    "type": "vehicleChassis"
+                },
+                "26419": {
+                    "name": "Yongshi",
+                    "next_modules": null,
+                    "next_tanks": null,
+                    "is_default": true,
+                    "price_xp": 0,
+                    "price_credit": 80000,
+                    "module_id": 26419,
+                    "type": "vehicleTurret"
+                },
+                "67380": {
+                    "name": "152 mm GM-45B",
+                    "next_modules": null,
+                    "next_tanks": null,
+                    "is_default": true,
+                    "price_xp": 0,
+                    "price_credit": 300000,
+                    "module_id": 67380,
+                    "type": "vehicleGun"
+                },
+                "69941": {
+                    "name": "V-2-54SCC",
+                    "next_modules": null,
+                    "next_tanks": null,
+                    "is_default": true,
+                    "price_xp": 0,
+                    "price_credit": 120000,
+                    "module_id": 69941,
+                    "type": "vehicleEngine"
+                },
+                "67127": {
+                    "name": "A-220A-2",
+                    "next_modules": null,
+                    "next_tanks": null,
+                    "is_default": true,
+                    "price_xp": 0,
+                    "price_credit": 55000,
+                    "module_id": 67127,
+                    "type": "vehicleRadio"
+                }
+            },
+            "nation": "china",
+            "tier": 10,
+            "prices_xp": null,
+            "is_gift": false,
+            "name": "Yongshi",
+            "price_gold": null,
+            "price_credit": null,
+            "default_profile": {
+                "engine": {
+                    "name": "V-2-54SCC",
+                    "power": 890,
+                    "weight": 1023,
+                    "tag": "V_2_54SCC",
+                    "fire_chance": 0.15,
+                    "tier": 10
+                },
+                "siege": null,
+                "max_ammo": 35,
+                "suspension": {
+                    "name": "Yongshi",
+                    "weight": 14750,
+                    "load_limit": 0,
+                    "tag": "Chassis_Ch72_Yongshi",
+                    "traverse_speed": 30,
+                    "tier": 10,
+                    "steering_lock_angle": 0
+                },
+                "weight": 59000,
+                "armor": {
+                    "turret": {
+                        "front": 270,
+                        "sides": 120,
+                        "rear": 80
+                    },
+                    "hull": {
+                        "front": 120,
+                        "sides": 120,
+                        "rear": 70
+                    }
+                },
+                "hp": 2100,
+                "modules": {
+                    "gun_id": 67380,
+                    "suspension_id": 28978,
+                    "turret_id": 26419,
+                    "radio_id": 67127,
+                    "engine_id": 69941
+                },
+                "gun": {
+                    "move_down_arc": 8,
+                    "caliber": 152,
+                    "name": "152 mm GM-45B",
+                    "weight": 4370,
+                    "move_up_arc": 20,
+                    "fire_rate": 3.41,
+                    "dispersion": 0.33,
+                    "tag": "_152mm_GM_45B",
+                    "traverse_speed": 24,
+                    "reload_time": 17.6,
+                    "tier": 10,
+                    "aim_time": 2.1
+                },
+                "turret": {
+                    "name": "Yongshi",
+                    "weight": 11800,
+                    "view_range": 390,
+                    "hp": 420,
+                    "tag": "Turret_1_Ch72_Yongshi",
+                    "traverse_speed": 25,
+                    "traverse_right_arc": 180,
+                    "tier": 10,
+                    "traverse_left_arc": 180
+                },
+                "hull_weight": 26597,
+                "radio": {
+                    "tier": 10,
+                    "signal_range": 750,
+                    "tag": "A_220A_2",
+                    "name": "A-220A-2",
+                    "weight": 160
+                },
+                "rapid": null,
+                "speed_forward": 40,
+                "hull_hp": 1680,
+                "speed_backward": 15,
+                "ammo": [
+                    {
+                        "penetration": [
+                            205,
+                            273,
+                            341
+                        ],
+                        "stun": null,
+                        "type": "ARMOR_PIERCING",
+                        "damage": [
+                            450,
+                            600,
+                            750
+                        ]
+                    },
+                    {
+                        "penetration": [
+                            242,
+                            323,
+                            404
+                        ],
+                        "stun": null,
+                        "type": "ARMOR_PIERCING_CR",
+                        "damage": [
+                            450,
+                            600,
+                            750
+                        ]
+                    },
+                    {
+                        "penetration": [
+                            68,
+                            90,
+                            113
+                        ],
+                        "stun": null,
+                        "type": "HIGH_EXPLOSIVE",
+                        "damage": [
+                            600,
+                            800,
+                            1000
+                        ]
+                    }
+                ],
+                "max_weight": 0
+            },
+            "turrets": [
+                26419
+            ]
+        },
+        "72193": {
+            "is_wheeled": false,
+            "radios": [
+                63751
+            ],
+            "is_premium": true,
+            "tag": "R236_Object_265_II_CFE_A",
+            "images": {
+                "small_icon": "http://api.worldoftanks.asia/static/2.77.0/wot/encyclopedia/vehicle/small/ussr-R236_Object_265_II_CFE_A.png",
+                "contour_icon": "http://api.worldoftanks.asia/static/2.77.0/wot/encyclopedia/vehicle/contour/ussr-R236_Object_265_II_CFE_A.png",
+                "big_icon": "http://api.worldoftanks.asia/static/2.77.0/wot/encyclopedia/vehicle/ussr-R236_Object_265_II_CFE_A.png"
+            },
+            "tank_id": 72193,
+            "suspensions": [
+                83202
+            ],
+            "provisions": [
+                6154491,
+                5378811,
+                5631995,
+                11771,
+                26107,
+                26363,
+                26619,
+                26875,
+                6154747,
+                27387,
+                5377787,
+                27643,
+                230651,
+                27899,
+                28155,
+                5631739,
+                12283,
+                28923,
+                48891,
+                12795,
+                29435,
+                3067,
+                46075,
+                29947,
+                29179,
+                28411,
+                30203,
+                47099,
+                14843,
+                15355,
+                6155003,
+                5631483,
+                52475,
+                29691,
+                251,
+                507,
+                16891,
+                763,
+                5377019,
+                1019,
+                1275,
+                1531,
+                5377275,
+                5376507,
+                51963,
+                52219,
+                14331,
+                52731,
+                17147,
+                28667,
+                52987,
+                5378043,
+                5378299,
+                5377531,
+                5378555,
+                39673,
+                39161,
+                39929,
+                29433,
+                40185,
+                40441,
+                40697,
+                40953,
+                41209,
+                29689,
+                41465,
+                23289,
+                25593,
+                26361,
+                27129,
+                27385,
+                27641,
+                27897,
+                28153,
+                12025,
+                12281,
+                30457,
+                12537,
+                29177,
+                13049,
+                14329,
+                13305,
+                29945,
+                30201,
+                11257,
+                14073,
+                30713,
+                14585,
+                16121,
+                14841,
+                30969,
+                15097,
+                11513,
+                31225,
+                24825,
+                16889,
+                31481,
+                15353,
+                28409,
+                24057,
+                18681,
+                31737,
+                22009,
+                19193,
+                28665,
+                19961,
+                20729,
+                28921,
+                17913,
+                38905,
+                38649,
+                22521,
+                39417
+            ],
+            "engines": [
+                74757
+            ],
+            "crew": [
+                {
+                    "roles": {
+                        "commander": "ผู้บังคับการ",
+                        "radioman": "พลวิทยุ"
+                    },
+                    "member_id": "commander"
+                },
+                {
+                    "roles": {
+                        "gunner": "พลปืน"
+                    },
+                    "member_id": "gunner"
+                },
+                {
+                    "roles": {
+                        "driver": "พลขับ"
+                    },
+                    "member_id": "driver"
+                },
+                {
+                    "roles": {
+                        "loader": "พลบรรจุ"
+                    },
+                    "member_id": "loader"
+                }
+            ],
+            "type": "heavyTank",
+            "guns": [
+                74500
+            ],
+            "multination": null,
+            "description": "Eclipse 与 Object 265-II 同源，122 毫米主炮与低矮车体之下，是一副被日蚀阴影笼罩的苏联重坦轮廓。",
+            "short_name": "Eclipse",
+            "is_premium_igr": false,
+            "next_tanks": null,
+            "modules_tree": {
+                "83202": {
+                    "name": "สุริยคราส",
+                    "next_modules": null,
+                    "next_tanks": null,
+                    "is_default": true,
+                    "price_xp": 0,
+                    "price_credit": 60000,
+                    "module_id": 83202,
+                    "type": "vehicleChassis"
+                },
+                "74499": {
+                    "name": "สุริยคราส",
+                    "next_modules": null,
+                    "next_tanks": null,
+                    "is_default": true,
+                    "price_xp": 0,
+                    "price_credit": 60000,
+                    "module_id": 74499,
+                    "type": "vehicleTurret"
+                },
+                "74500": {
+                    "name": "122 mm BL-13D-SD",
+                    "next_modules": null,
+                    "next_tanks": null,
+                    "is_default": true,
+                    "price_xp": 0,
+                    "price_credit": 200000,
+                    "module_id": 74500,
+                    "type": "vehicleGun"
+                },
+                "74757": {
+                    "name": "V-12-5C",
+                    "next_modules": null,
+                    "next_tanks": null,
+                    "is_default": true,
+                    "price_xp": 0,
+                    "price_credit": 90000,
+                    "module_id": 74757,
+                    "type": "vehicleEngine"
+                },
+                "63751": {
+                    "name": "12RT-B",
+                    "next_modules": null,
+                    "next_tanks": null,
+                    "is_default": true,
+                    "price_xp": 0,
+                    "price_credit": 40000,
+                    "module_id": 63751,
+                    "type": "vehicleRadio"
+                }
+            },
+            "nation": "ussr",
+            "tier": 9,
+            "prices_xp": null,
+            "is_gift": false,
+            "name": "Eclipse",
+            "price_gold": null,
+            "price_credit": null,
+            "default_profile": {
+                "engine": {
+                    "name": "V-12-5C",
+                    "power": 700,
+                    "weight": 1024,
+                    "tag": "V_12_5C_CFE_A",
+                    "fire_chance": 0.15,
+                    "tier": 9
+                },
+                "siege": {
+                    "suspension_traverse_speed": 1,
+                    "move_down_arc": 5,
+                    "switch_on_time": 0.0,
+                    "reload_time": 13.5,
+                    "move_up_arc": 4,
+                    "dispersion": 0.42,
+                    "switch_off_time": 0.0,
+                    "speed_backward": 12,
+                    "aim_time": 2.7
+                },
+                "max_ammo": 40,
+                "suspension": {
+                    "name": "สุริยคราส",
+                    "weight": 14000,
+                    "load_limit": 0,
+                    "tag": "Chassis_R236_Object_265_II_CFE_A",
+                    "traverse_speed": 30,
+                    "tier": 9,
+                    "steering_lock_angle": 0
+                },
+                "weight": 56000,
+                "armor": {
+                    "turret": {
+                        "front": 280,
+                        "sides": 150,
+                        "rear": 120
+                    },
+                    "hull": {
+                        "front": 130,
+                        "sides": 75,
+                        "rear": 40
+                    }
+                },
+                "hp": 1900,
+                "modules": {
+                    "gun_id": 74500,
+                    "suspension_id": 83202,
+                    "turret_id": 74499,
+                    "radio_id": 63751,
+                    "engine_id": 74757
+                },
+                "gun": {
+                    "move_down_arc": 5,
+                    "caliber": 122,
+                    "name": "122 mm BL-13D-SD",
+                    "weight": 5580,
+                    "move_up_arc": 20,
+                    "fire_rate": 4.44,
+                    "dispersion": 0.42,
+                    "tag": "_122mm_BL_13D_dualgun_CFE_A",
+                    "traverse_speed": 26,
+                    "reload_time": 13.5,
+                    "tier": 9,
+                    "aim_time": 2.7
+                },
+                "turret": {
+                    "name": "สุริยคราส",
+                    "weight": 11200,
+                    "view_range": 380,
+                    "hp": 380,
+                    "tag": "Turret_1_R236_Object_265_II_CFE_A",
+                    "traverse_speed": 20,
+                    "traverse_right_arc": 180,
+                    "tier": 9,
+                    "traverse_left_arc": 180
+                },
+                "hull_weight": 23796,
+                "radio": {
+                    "tier": 9,
+                    "signal_range": 670,
+                    "tag": "_12RT_B_CFE_A",
+                    "name": "12RT-B",
+                    "weight": 100
+                },
+                "rapid": null,
+                "speed_forward": 35,
+                "hull_hp": 1520,
+                "speed_backward": 12,
+                "ammo": [
+                    {
+                        "penetration": [
+                            183,
+                            244,
+                            305
+                        ],
+                        "stun": null,
+                        "type": "ARMOR_PIERCING",
+                        "damage": [
+                            330,
+                            440,
+                            550
+                        ]
+                    },
+                    {
+                        "penetration": [
+                            225,
+                            300,
+                            375
+                        ],
+                        "stun": null,
+                        "type": "HOLLOW_CHARGE",
+                        "damage": [
+                            330,
+                            440,
+                            550
+                        ]
+                    },
+                    {
+                        "penetration": [
+                            46,
+                            61,
+                            76
+                        ],
+                        "stun": null,
+                        "type": "HIGH_EXPLOSIVE",
+                        "damage": [
+                            398,
+                            530,
+                            663
+                        ]
+                    }
+                ],
+                "max_weight": 0
+            },
+            "turrets": [
+                74499
+            ]
+        },
+        "65681": {
+            "is_wheeled": false,
+            "radios": [
+                919
+            ],
+            "is_premium": true,
+            "tag": "Pl27_SDP_Wz_66T_CFE_D",
+            "images": {
+                "small_icon": "http://api.worldoftanks.asia/static/2.77.0/wot/encyclopedia/vehicle/small/poland-Pl27_SDP_Wz_66T_CFE_D.png",
+                "contour_icon": "http://api.worldoftanks.asia/static/2.77.0/wot/encyclopedia/vehicle/contour/poland-Pl27_SDP_Wz_66T_CFE_D.png",
+                "big_icon": "http://api.worldoftanks.asia/static/2.77.0/wot/encyclopedia/vehicle/poland-Pl27_SDP_Wz_66T_CFE_D.png"
+            },
+            "tank_id": 65681,
+            "suspensions": [
+                16786
+            ],
+            "provisions": [
+                5378811,
+                5631995,
+                11771,
+                26107,
+                26363,
+                26619,
+                26875,
+                27131,
+                6155003,
+                5377787,
+                27899,
+                28155,
+                5631739,
+                12283,
+                28923,
+                48891,
+                12795,
+                29435,
+                6154491,
+                46075,
+                29947,
+                29179,
+                28411,
+                30203,
+                47099,
+                6154747,
+                52219,
+                14843,
+                15355,
+                5631483,
+                52475,
+                29691,
+                16379,
+                28667,
+                251,
+                507,
+                16891,
+                763,
+                1019,
+                230651,
+                1531,
+                5377275,
+                5376507,
+                51963,
+                5377019,
+                14331,
+                52731,
+                17147,
+                52987,
+                5378043,
+                1275,
+                5378299,
+                5377531,
+                27387,
+                5378555,
+                23289,
+                39929,
+                29433,
+                40185,
+                40441,
+                40697,
+                40953,
+                41209,
+                29689,
+                41465,
+                25593,
+                39673,
+                29945,
+                26361,
+                27129,
+                27385,
+                30201,
+                27641,
+                27897,
+                28153,
+                28409,
+                28665,
+                30457,
+                12537,
+                29177,
+                13049,
+                14329,
+                13305,
+                13561,
+                13817,
+                11257,
+                14073,
+                30713,
+                16121,
+                31225,
+                30969,
+                15097,
+                11513,
+                11769,
+                24825,
+                16889,
+                31481,
+                12025,
+                15353,
+                18681,
+                31737,
+                22009,
+                19193,
+                19961,
+                20729,
+                28921,
+                21241,
+                17913,
+                24057,
+                39417
+            ],
+            "engines": [
+                16789
+            ],
+            "crew": [
+                {
+                    "roles": {
+                        "commander": "ผู้บังคับการ",
+                        "radioman": "พลวิทยุ"
+                    },
+                    "member_id": "commander"
+                },
+                {
+                    "roles": {
+                        "gunner": "พลปืน"
+                    },
+                    "member_id": "gunner"
+                },
+                {
+                    "roles": {
+                        "driver": "พลขับ"
+                    },
+                    "member_id": "driver"
+                },
+                {
+                    "roles": {
+                        "loader": "พลบรรจุ"
+                    },
+                    "member_id": "loader"
+                }
+            ],
+            "type": "AT-SPG",
+            "guns": [
+                13460
+            ],
+            "multination": null,
+            "description": "Dream Chaser（追梦者）延续了波兰可变口径火炮的技术路线，以 100/162 毫米两段式炮管兼顾穿甲与破甲能力；它是波兰工程师对“一炮多用”这一执念的又一次践行。",
+            "short_name": "Dream Chaser",
+            "is_premium_igr": false,
+            "next_tanks": null,
+            "modules_tree": {
+                "16786": {
+                    "name": "Dream Chaser",
+                    "next_modules": null,
+                    "next_tanks": null,
+                    "is_default": true,
+                    "price_xp": 0,
+                    "price_credit": 31200,
+                    "module_id": 16786,
+                    "type": "vehicleChassis"
+                },
+                "13460": {
+                    "name": "GG-100/162 mm K",
+                    "next_modules": null,
+                    "next_tanks": null,
+                    "is_default": true,
+                    "price_xp": 0,
+                    "price_credit": 215000,
+                    "module_id": 13460,
+                    "type": "vehicleGun"
+                },
+                "16789": {
+                    "name": "2x GTD-F",
+                    "next_modules": null,
+                    "next_tanks": null,
+                    "is_default": true,
+                    "price_xp": 0,
+                    "price_credit": 47600,
+                    "module_id": 16789,
+                    "type": "vehicleEngine"
+                },
+                "919": {
+                    "name": "R-123M",
+                    "next_modules": null,
+                    "next_tanks": null,
+                    "is_default": true,
+                    "price_xp": 0,
+                    "price_credit": 52000,
+                    "module_id": 919,
+                    "type": "vehicleRadio"
+                }
+            },
+            "nation": "poland",
+            "tier": 8,
+            "prices_xp": null,
+            "is_gift": false,
+            "name": "Dream Chaser",
+            "price_gold": null,
+            "price_credit": null,
+            "default_profile": {
+                "engine": {
+                    "name": "2x GTD-F",
+                    "power": 810,
+                    "weight": 2000,
+                    "tag": "GTD_F_x2_CFE_D",
+                    "fire_chance": 0.2,
+                    "tier": 8
+                },
+                "siege": null,
+                "max_ammo": 40,
+                "suspension": {
+                    "name": "Dream Chaser",
+                    "weight": 10380,
+                    "load_limit": 0,
+                    "tag": "Chassis_Pl27_SDP_Wz_66T_CFE_D",
+                    "traverse_speed": 32,
+                    "tier": 8,
+                    "steering_lock_angle": 0
+                },
+                "weight": 51000,
+                "armor": {
+                    "turret": null,
+                    "hull": {
+                        "front": 100,
+                        "sides": 70,
+                        "rear": 40
+                    }
+                },
+                "hp": 1300,
+                "modules": {
+                    "gun_id": 13460,
+                    "suspension_id": 16786,
+                    "turret_id": null,
+                    "radio_id": 919,
+                    "engine_id": 16789
+                },
+                "gun": {
+                    "move_down_arc": 7,
+                    "caliber": 100,
+                    "name": "GG-100/162 mm K",
+                    "weight": 2400,
+                    "move_up_arc": 15,
+                    "fire_rate": 3.75,
+                    "dispersion": 0.4,
+                    "tag": "GG_100_162_mm_K_CFE_D",
+                    "traverse_speed": 24,
+                    "reload_time": 16.0,
+                    "tier": 9,
+                    "aim_time": 2.7
+                },
+                "turret": {
+                    "name": "Dream Chaser",
+                    "weight": 100,
+                    "view_range": 350,
+                    "hp": 260,
+                    "tag": "Turret_1_Pl27_SDP_Wz_66T_CFE_D",
+                    "traverse_speed": null,
+                    "traverse_right_arc": 5,
+                    "tier": 8,
+                    "traverse_left_arc": 5
+                },
+                "hull_weight": 35720,
+                "radio": {
+                    "tier": 10,
+                    "signal_range": 730,
+                    "tag": "R_123M_CFE_D",
+                    "name": "R-123M",
+                    "weight": 100
+                },
+                "rapid": null,
+                "speed_forward": 45,
+                "hull_hp": 1040,
+                "speed_backward": 15,
+                "ammo": [
+                    {
+                        "penetration": [
+                            204,
+                            272,
+                            340
+                        ],
+                        "stun": null,
+                        "type": "ARMOR_PIERCING_CR",
+                        "damage": [
+                            600,
+                            800,
+                            1000
+                        ]
+                    },
+                    {
+                        "penetration": [
+                            222,
+                            296,
+                            370
+                        ],
+                        "stun": null,
+                        "type": "ARMOR_PIERCING_CR",
+                        "damage": [
+                            600,
+                            800,
+                            1000
+                        ]
+                    },
+                    {
+                        "penetration": [
+                            60,
+                            80,
+                            100
+                        ],
+                        "stun": null,
+                        "type": "HIGH_EXPLOSIVE",
+                        "damage": [
+                            600,
+                            800,
+                            1000
+                        ]
+                    }
+                ],
+                "max_weight": 0
+            },
+            "turrets": []
+        },
+        "68881": {
+            "is_wheeled": false,
+            "radios": [
+                73751
+            ],
+            "is_premium": true,
+            "tag": "G204_PzVI_Tiger_P_CFE_A",
+            "images": {
+                "small_icon": "http://api.worldoftanks.asia/static/2.77.0/wot/encyclopedia/vehicle/small/germany-G204_PzVI_Tiger_P_CFE_A.png",
+                "contour_icon": "http://api.worldoftanks.asia/static/2.77.0/wot/encyclopedia/vehicle/contour/germany-G204_PzVI_Tiger_P_CFE_A.png",
+                "big_icon": "http://api.worldoftanks.asia/static/2.77.0/wot/encyclopedia/vehicle/germany-G204_PzVI_Tiger_P_CFE_A.png"
+            },
+            "tank_id": 68881,
+            "suspensions": [
+                77330
+            ],
+            "provisions": [
+                11771,
+                26363,
+                26619,
+                26875,
+                27131,
+                6155003,
+                27899,
+                28155,
+                28411,
+                5631995,
+                28923,
+                48891,
+                29179,
+                29435,
+                6154491,
+                46075,
+                30203,
+                47099,
+                26107,
+                6154747,
+                14843,
+                15355,
+                5631483,
+                52475,
+                29691,
+                251,
+                507,
+                16891,
+                763,
+                1019,
+                29947,
+                12283,
+                230651,
+                1531,
+                2555,
+                51963,
+                52219,
+                14331,
+                52731,
+                17147,
+                28667,
+                52987,
+                1275,
+                12795,
+                27387,
+                5631739,
+                23033,
+                13049,
+                39673,
+                39929,
+                40185,
+                40441,
+                11769,
+                40697,
+                40953,
+                41209,
+                29689,
+                41465,
+                25337,
+                29945,
+                27129,
+                27385,
+                30201,
+                27641,
+                27897,
+                23801,
+                28153,
+                28409,
+                28665,
+                30457,
+                12537,
+                29177,
+                29433,
+                14329,
+                13305,
+                13561,
+                13817,
+                11257,
+                14073,
+                30713,
+                15097,
+                31225,
+                30969,
+                31481,
+                11513,
+                24569,
+                15865,
+                16633,
+                17657,
+                12025,
+                15353,
+                18425,
+                31737,
+                19193,
+                19705,
+                20473,
+                20985,
+                28921,
+                26105,
+                21753,
+                39417
+            ],
+            "engines": [
+                82709
+            ],
+            "crew": [
+                {
+                    "roles": {
+                        "commander": "ผู้บังคับการ",
+                        "radioman": "พลวิทยุ"
+                    },
+                    "member_id": "commander"
+                },
+                {
+                    "roles": {
+                        "gunner": "พลปืน"
+                    },
+                    "member_id": "gunner"
+                },
+                {
+                    "roles": {
+                        "driver": "พลขับ"
+                    },
+                    "member_id": "driver"
+                },
+                {
+                    "roles": {
+                        "loader": "พลบรรจุ"
+                    },
+                    "member_id": "loader"
+                }
+            ],
+            "type": "heavyTank",
+            "guns": [
+                153620
+            ],
+            "multination": null,
+            "description": "Tiger (P) Leoponsan 以保时捷虎（Tiger (P)）底盘为基础改造而成，保留 88 毫米 KwK 36 主炮与独特的电传动血统，在六级战场上是熟悉而又陌生的面孔。",
+            "short_name": "Tiger (P) Leo",
+            "is_premium_igr": false,
+            "next_tanks": null,
+            "modules_tree": {
+                "77330": {
+                    "name": "Tiger (P) Leoponsan",
+                    "next_modules": null,
+                    "next_tanks": null,
+                    "is_default": true,
+                    "price_xp": 0,
+                    "price_credit": 15000,
+                    "module_id": 77330,
+                    "type": "vehicleChassis"
+                },
+                "67347": {
+                    "name": "Tiger (P) Leoponsan",
+                    "next_modules": null,
+                    "next_tanks": null,
+                    "is_default": true,
+                    "price_xp": 0,
+                    "price_credit": 15000,
+                    "module_id": 67347,
+                    "type": "vehicleTurret"
+                },
+                "153620": {
+                    "name": "8,8 cm KwK 36 L/56 (45.01)",
+                    "next_modules": null,
+                    "next_tanks": null,
+                    "is_default": true,
+                    "price_xp": 0,
+                    "price_credit": 60000,
+                    "module_id": 153620,
+                    "type": "vehicleGun"
+                },
+                "82709": {
+                    "name": "2x Porsche Typ 101 (45.01)",
+                    "next_modules": null,
+                    "next_tanks": null,
+                    "is_default": true,
+                    "price_xp": 0,
+                    "price_credit": 30000,
+                    "module_id": 82709,
+                    "type": "vehicleEngine"
+                },
+                "73751": {
+                    "name": "FuG 7 (45.01)",
+                    "next_modules": null,
+                    "next_tanks": null,
+                    "is_default": true,
+                    "price_xp": 0,
+                    "price_credit": 15000,
+                    "module_id": 73751,
+                    "type": "vehicleRadio"
+                }
+            },
+            "nation": "germany",
+            "tier": 6,
+            "prices_xp": null,
+            "is_gift": false,
+            "name": "Tiger (P) Leoponsan",
+            "price_gold": null,
+            "price_credit": null,
+            "default_profile": {
+                "engine": {
+                    "name": "2x Porsche Typ 101 (45.01)",
+                    "power": 630,
+                    "weight": 720,
+                    "tag": "Porsche_Typ_101_45_01",
+                    "fire_chance": 0.2,
+                    "tier": 6
+                },
+                "siege": null,
+                "max_ammo": 60,
+                "suspension": {
+                    "name": "Tiger (P) Leoponsan",
+                    "weight": 14250,
+                    "load_limit": 0,
+                    "tag": "Chassis_G204_PzVI_Tiger_P_CFE_A",
+                    "traverse_speed": 28,
+                    "tier": 6,
+                    "steering_lock_angle": 0
+                },
+                "weight": 57000,
+                "armor": {
+                    "turret": {
+                        "front": 160,
+                        "sides": 80,
+                        "rear": 80
+                    },
+                    "hull": {
+                        "front": 160,
+                        "sides": 80,
+                        "rear": 80
+                    }
+                },
+                "hp": 1050,
+                "modules": {
+                    "gun_id": 153620,
+                    "suspension_id": 77330,
+                    "turret_id": 67347,
+                    "radio_id": 73751,
+                    "engine_id": 82709
+                },
+                "gun": {
+                    "move_down_arc": 8,
+                    "caliber": 88,
+                    "name": "8,8 cm KwK 36 L/56 (45.01)",
+                    "weight": 2050,
+                    "move_up_arc": 17,
+                    "fire_rate": 8.0,
+                    "dispersion": 0.38,
+                    "tag": "_88mm_KwK_36_L_56_45_01",
+                    "traverse_speed": 35,
+                    "reload_time": 7.5,
+                    "tier": 6,
+                    "aim_time": 2.3
+                },
+                "turret": {
+                    "name": "Tiger (P) Leoponsan",
+                    "weight": 11400,
+                    "view_range": 370,
+                    "hp": 210,
+                    "tag": "Turret_1_G204_PzVI_Tiger_P_CFE_A",
+                    "traverse_speed": 23,
+                    "traverse_right_arc": 180,
+                    "tier": 6,
+                    "traverse_left_arc": 180
+                },
+                "hull_weight": 28230,
+                "radio": {
+                    "tier": 6,
+                    "signal_range": 410,
+                    "tag": "FuG_7_45_01",
+                    "name": "FuG 7 (45.01)",
+                    "weight": 100
+                },
+                "rapid": null,
+                "speed_forward": 35,
+                "hull_hp": 840,
+                "speed_backward": 12,
+                "ammo": [
+                    {
+                        "penetration": [
+                            122,
+                            162,
+                            203
+                        ],
+                        "stun": null,
+                        "type": "ARMOR_PIERCING",
+                        "damage": [
+                            165,
+                            220,
+                            275
+                        ]
+                    },
+                    {
+                        "penetration": [
+                            149,
+                            199,
+                            249
+                        ],
+                        "stun": null,
+                        "type": "ARMOR_PIERCING_CR",
+                        "damage": [
+                            165,
+                            220,
+                            275
+                        ]
+                    },
+                    {
+                        "penetration": [
+                            33,
+                            44,
+                            55
+                        ],
+                        "stun": null,
+                        "type": "HIGH_EXPLOSIVE",
+                        "damage": [
+                            203,
+                            270,
+                            338
+                        ]
+                    }
+                ],
+                "max_weight": 0
+            },
+            "turrets": [
+                67347
+            ]
+        },
+        "70945": {
+            "is_wheeled": false,
+            "radios": [
+                29223
+            ],
+            "is_premium": true,
+            "tag": "A197_Jezevec",
+            "images": {
+                "small_icon": "http://api.worldoftanks.asia/static/2.77.0/wot/encyclopedia/vehicle/small/usa-A197_Jezevec.png",
+                "contour_icon": "http://api.worldoftanks.asia/static/2.77.0/wot/encyclopedia/vehicle/contour/usa-A197_Jezevec.png",
+                "big_icon": "http://api.worldoftanks.asia/static/2.77.0/wot/encyclopedia/vehicle/usa-A197_Jezevec.png"
+            },
+            "tank_id": 70945,
+            "suspensions": [
+                68642
+            ],
+            "provisions": [
+                5378811,
+                5631995,
+                11771,
+                25851,
+                26363,
+                26619,
+                26875,
+                6154747,
+                27387,
+                5377787,
+                27643,
+                230651,
+                27899,
+                28155,
+                5631739,
+                12283,
+                28923,
+                48891,
+                12795,
+                29435,
+                6154491,
+                46075,
+                29947,
+                29179,
+                28411,
+                30203,
+                47099,
+                26107,
+                52219,
+                14843,
+                15355,
+                6155003,
+                5631483,
+                52475,
+                29691,
+                251,
+                507,
+                16891,
+                763,
+                1019,
+                1275,
+                1531,
+                5377275,
+                5376507,
+                51963,
+                5377019,
+                14331,
+                52731,
+                17147,
+                28667,
+                52987,
+                5378043,
+                5378299,
+                5377531,
+                5378555,
+                28665,
+                39673,
+                39161,
+                39929,
+                29433,
+                40185,
+                40441,
+                40697,
+                40953,
+                41209,
+                29689,
+                41465,
+                23289,
+                25593,
+                25849,
+                26361,
+                27129,
+                27385,
+                27641,
+                11513,
+                23801,
+                28153,
+                12025,
+                24313,
+                12281,
+                30457,
+                12537,
+                29177,
+                13049,
+                14329,
+                13305,
+                29945,
+                30201,
+                11257,
+                14073,
+                30713,
+                14585,
+                16121,
+                14841,
+                30969,
+                15097,
+                15353,
+                27897,
+                31225,
+                16633,
+                24825,
+                31481,
+                28409,
+                18681,
+                31737,
+                22009,
+                19193,
+                19705,
+                20729,
+                28921,
+                17913,
+                38905,
+                38649,
+                22521,
+                39417
+            ],
+            "engines": [
+                49189
+            ],
+            "crew": [
+                {
+                    "roles": {
+                        "commander": "ผู้บังคับการ",
+                        "radioman": "พลวิทยุ"
+                    },
+                    "member_id": "commander"
+                },
+                {
+                    "roles": {
+                        "driver": "พลขับ"
+                    },
+                    "member_id": "driver"
+                },
+                {
+                    "roles": {
+                        "gunner": "พลปืน"
+                    },
+                    "member_id": "gunner"
+                },
+                {
+                    "roles": {
+                        "loader": "พลบรรจุ"
+                    },
+                    "member_id": "loader"
+                }
+            ],
+            "type": "mediumTank",
+            "guns": [
+                34340
+            ],
+            "multination": null,
+            "description": "Jezevec（捷克语“獾”）是美国九级中型坦克中的一个异数：轻至 30 吨的车体上架着一门苏系 85 毫米 D-58A 火炮，机动与火力被压缩进尽可能精简的装甲轮廓之中。",
+            "short_name": "Jezevec",
+            "is_premium_igr": false,
+            "next_tanks": null,
+            "modules_tree": {
+                "68642": {
+                    "name": "Jezevec",
+                    "next_modules": null,
+                    "next_tanks": null,
+                    "is_default": true,
+                    "price_xp": 0,
+                    "price_credit": 60000,
+                    "module_id": 68642,
+                    "type": "vehicleChassis"
+                },
+                "62243": {
+                    "name": "Jezevec",
+                    "next_modules": null,
+                    "next_tanks": null,
+                    "is_default": true,
+                    "price_xp": 0,
+                    "price_credit": 60000,
+                    "module_id": 62243,
+                    "type": "vehicleTurret"
+                },
+                "34340": {
+                    "name": "85 mm D-58A",
+                    "next_modules": null,
+                    "next_tanks": null,
+                    "is_default": true,
+                    "price_xp": 0,
+                    "price_credit": 200000,
+                    "module_id": 34340,
+                    "type": "vehicleGun"
+                },
+                "49189": {
+                    "name": "B-58A",
+                    "next_modules": null,
+                    "next_tanks": null,
+                    "is_default": true,
+                    "price_xp": 0,
+                    "price_credit": 90000,
+                    "module_id": 49189,
+                    "type": "vehicleEngine"
+                },
+                "29223": {
+                    "name": "Radiostanice R-123A",
+                    "next_modules": null,
+                    "next_tanks": null,
+                    "is_default": true,
+                    "price_xp": 0,
+                    "price_credit": 40000,
+                    "module_id": 29223,
+                    "type": "vehicleRadio"
+                }
+            },
+            "nation": "usa",
+            "tier": 9,
+            "prices_xp": null,
+            "is_gift": false,
+            "name": "Jezevec",
+            "price_gold": null,
+            "price_credit": null,
+            "default_profile": {
+                "engine": {
+                    "name": "B-58A",
+                    "power": 720,
+                    "weight": 500,
+                    "tag": "B_58A",
+                    "fire_chance": 0.15,
+                    "tier": 9
+                },
+                "siege": null,
+                "max_ammo": 100,
+                "suspension": {
+                    "name": "Jezevec",
+                    "weight": 7500,
+                    "load_limit": 0,
+                    "tag": "Chassis_A197_Jezevec",
+                    "traverse_speed": 50,
+                    "tier": 9,
+                    "steering_lock_angle": 0
+                },
+                "weight": 30000,
+                "armor": {
+                    "turret": {
+                        "front": 80,
+                        "sides": 50,
+                        "rear": 40
+                    },
+                    "hull": {
+                        "front": 30,
+                        "sides": 40,
+                        "rear": 35
+                    }
+                },
+                "hp": 1650,
+                "modules": {
+                    "gun_id": 34340,
+                    "suspension_id": 68642,
+                    "turret_id": 62243,
+                    "radio_id": 29223,
+                    "engine_id": 49189
+                },
+                "gun": {
+                    "move_down_arc": 8,
+                    "caliber": 85,
+                    "name": "85 mm D-58A",
+                    "weight": 1500,
+                    "move_up_arc": 18,
+                    "fire_rate": 10.91,
+                    "dispersion": 0.37,
+                    "tag": "_85_mm_D_58A",
+                    "traverse_speed": 35,
+                    "reload_time": 20.0,
+                    "tier": 9,
+                    "aim_time": 2.0
+                },
+                "turret": {
+                    "name": "Jezevec",
+                    "weight": 4000,
+                    "view_range": 380,
+                    "hp": 330,
+                    "tag": "Turret_1_A197_Jezevec",
+                    "traverse_speed": 46,
+                    "traverse_right_arc": 180,
+                    "tier": 9,
+                    "traverse_left_arc": 180
+                },
+                "hull_weight": 16100,
+                "radio": {
+                    "tier": 9,
+                    "signal_range": 670,
+                    "tag": "Radiostanice_R_113A",
+                    "name": "Radiostanice R-123A",
+                    "weight": 100
+                },
+                "rapid": null,
+                "speed_forward": 60,
+                "hull_hp": 1320,
+                "speed_backward": 20,
+                "ammo": [
+                    {
+                        "penetration": [
+                            176,
+                            234,
+                            293
+                        ],
+                        "stun": null,
+                        "type": "ARMOR_PIERCING",
+                        "damage": [
+                            135,
+                            180,
+                            225
+                        ]
+                    },
+                    {
+                        "penetration": [
+                            197,
+                            263,
+                            329
+                        ],
+                        "stun": null,
+                        "type": "ARMOR_PIERCING_CR",
+                        "damage": [
+                            135,
+                            180,
+                            225
+                        ]
+                    },
+                    {
+                        "penetration": [
+                            32,
+                            42,
+                            53
+                        ],
+                        "stun": null,
+                        "type": "HIGH_EXPLOSIVE",
+                        "damage": [
+                            225,
+                            300,
+                            375
+                        ]
+                    }
+                ],
+                "max_weight": 0
+            },
+            "turrets": [
+                62243
+            ]
+        },
+        "54417": {
+            "is_wheeled": false,
+            "radios": [
+                8599
+            ],
+            "is_premium": true,
+            "tag": "Pl38_63TP_Rycerski",
+            "images": {
+                "small_icon": "http://api.worldoftanks.asia/static/2.77.0/wot/encyclopedia/vehicle/small/poland-Pl38_63TP_Rycerski.png",
+                "contour_icon": "http://api.worldoftanks.asia/static/2.77.0/wot/encyclopedia/vehicle/contour/poland-Pl38_63TP_Rycerski.png",
+                "big_icon": "http://api.worldoftanks.asia/static/2.77.0/wot/encyclopedia/vehicle/poland-Pl38_63TP_Rycerski.png"
+            },
+            "tank_id": 54417,
+            "suspensions": [
+                15762
+            ],
+            "provisions": [
+                5378811,
+                5631995,
+                11771,
+                26107,
+                26363,
+                26619,
+                26875,
+                27131,
+                6155003,
+                5377787,
+                27643,
+                230651,
+                27899,
+                28155,
+                5631739,
+                12283,
+                28923,
+                48891,
+                12795,
+                29435,
+                6154491,
+                46075,
+                29947,
+                29179,
+                28411,
+                30203,
+                47099,
+                6154747,
+                52219,
+                14843,
+                15355,
+                52475,
+                29691,
+                16379,
+                251,
+                507,
+                16891,
+                17147,
+                1019,
+                1275,
+                1531,
+                763,
+                5377275,
+                5376507,
+                51963,
+                5377019,
+                14331,
+                5631483,
+                52731,
+                28667,
+                52987,
+                5378043,
+                5378299,
+                5377531,
+                27387,
+                5378555,
+                39673,
+                39161,
+                39929,
+                29433,
+                40185,
+                40441,
+                40697,
+                40953,
+                41209,
+                29689,
+                41465,
+                23289,
+                25593,
+                29945,
+                26361,
+                27129,
+                27385,
+                30201,
+                27641,
+                11513,
+                11769,
+                12025,
+                12281,
+                30457,
+                12537,
+                29177,
+                13049,
+                13305,
+                13561,
+                30713,
+                13817,
+                11257,
+                14073,
+                14329,
+                14585,
+                16121,
+                14841,
+                30969,
+                15097,
+                15353,
+                27897,
+                31225,
+                24825,
+                16889,
+                28153,
+                31481,
+                28409,
+                24057,
+                18681,
+                31737,
+                22009,
+                19193,
+                28665,
+                19961,
+                20729,
+                28921,
+                21241,
+                17913,
+                38905,
+                38649,
+                22521,
+                39417
+            ],
+            "engines": [
+                15765
+            ],
+            "crew": [
+                {
+                    "roles": {
+                        "commander": "ผู้บังคับการ",
+                        "radioman": "พลวิทยุ"
+                    },
+                    "member_id": "commander"
+                },
+                {
+                    "roles": {
+                        "gunner": "พลปืน"
+                    },
+                    "member_id": "gunner"
+                },
+                {
+                    "roles": {
+                        "driver": "พลขับ"
+                    },
+                    "member_id": "driver"
+                },
+                {
+                    "roles": {
+                        "loader": "พลบรรจุ"
+                    },
+                    "member_id": "loader"
+                }
+            ],
+            "type": "heavyTank",
+            "guns": [
+                17044
+            ],
+            "multination": null,
+            "description": "63TP Rycerski（波兰语意为“骑士的”）是波兰在 1960 年代围绕国产重型坦克构想展开的设计方案，122 毫米主炮与厚重的车体，寄托着波兰装甲工业希望独立于苏式谱系之外的雄心。",
+            "short_name": "63TP",
+            "is_premium_igr": false,
+            "next_tanks": null,
+            "modules_tree": {
+                "15762": {
+                    "name": "63TP Rycerski",
+                    "next_modules": null,
+                    "next_tanks": null,
+                    "is_default": true,
+                    "price_xp": 0,
+                    "price_credit": 60000,
+                    "module_id": 15762,
+                    "type": "vehicleChassis"
+                },
+                "14227": {
+                    "name": "63TP Rycerski",
+                    "next_modules": null,
+                    "next_tanks": null,
+                    "is_default": true,
+                    "price_xp": 0,
+                    "price_credit": 60000,
+                    "module_id": 14227,
+                    "type": "vehicleTurret"
+                },
+                "17044": {
+                    "name": "122 mm Wz. 53 (PCC)",
+                    "next_modules": null,
+                    "next_tanks": null,
+                    "is_default": true,
+                    "price_xp": 0,
+                    "price_credit": 200000,
+                    "module_id": 17044,
+                    "type": "vehicleGun"
+                },
+                "15765": {
+                    "name": "DNT-10 (R)",
+                    "next_modules": null,
+                    "next_tanks": null,
+                    "is_default": true,
+                    "price_xp": 0,
+                    "price_credit": 90000,
+                    "module_id": 15765,
+                    "type": "vehicleEngine"
+                },
+                "8599": {
+                    "name": "R-112 (R)",
+                    "next_modules": null,
+                    "next_tanks": null,
+                    "is_default": true,
+                    "price_xp": 0,
+                    "price_credit": 40000,
+                    "module_id": 8599,
+                    "type": "vehicleRadio"
+                }
+            },
+            "nation": "poland",
+            "tier": 9,
+            "prices_xp": null,
+            "is_gift": false,
+            "name": "63TP Rycerski",
+            "price_gold": null,
+            "price_credit": null,
+            "default_profile": {
+                "engine": {
+                    "name": "DNT-10 (R)",
+                    "power": 1000,
+                    "weight": 1025,
+                    "tag": "DNT_10_R",
+                    "fire_chance": 0.15,
+                    "tier": 9
+                },
+                "siege": null,
+                "max_ammo": 50,
+                "suspension": {
+                    "name": "63TP Rycerski",
+                    "weight": 15000,
+                    "load_limit": 0,
+                    "tag": "Chassis_Pl38_63TP_Rycerski",
+                    "traverse_speed": 35,
+                    "tier": 9,
+                    "steering_lock_angle": 0
+                },
+                "weight": 60000,
+                "armor": {
+                    "turret": {
+                        "front": 250,
+                        "sides": 80,
+                        "rear": 60
+                    },
+                    "hull": {
+                        "front": 145,
+                        "sides": 80,
+                        "rear": 60
+                    }
+                },
+                "hp": 1850,
+                "modules": {
+                    "gun_id": 17044,
+                    "suspension_id": 15762,
+                    "turret_id": 14227,
+                    "radio_id": 8599,
+                    "engine_id": 15765
+                },
+                "gun": {
+                    "move_down_arc": 9,
+                    "caliber": 122,
+                    "name": "122 mm Wz. 53 (PCC)",
+                    "weight": 2000,
+                    "move_up_arc": 20,
+                    "fire_rate": 4.88,
+                    "dispersion": 0.37,
+                    "tag": "_122mm_Wz_53_PCC",
+                    "traverse_speed": 33,
+                    "reload_time": 12.3,
+                    "tier": 9,
+                    "aim_time": 2.6
+                },
+                "turret": {
+                    "name": "63TP Rycerski",
+                    "weight": 12000,
+                    "view_range": 400,
+                    "hp": 370,
+                    "tag": "Turret_1_Pl38_63TP_Rycerski",
+                    "traverse_speed": 40,
+                    "traverse_right_arc": 180,
+                    "tier": 9,
+                    "traverse_left_arc": 180
+                },
+                "hull_weight": 29630,
+                "radio": {
+                    "tier": 9,
+                    "signal_range": 670,
+                    "tag": "R_112_R",
+                    "name": "R-112 (R)",
+                    "weight": 45
+                },
+                "rapid": null,
+                "speed_forward": 45,
+                "hull_hp": 1480,
+                "speed_backward": 15,
+                "ammo": [
+                    {
+                        "penetration": [
+                            197,
+                            263,
+                            329
+                        ],
+                        "stun": null,
+                        "type": "ARMOR_PIERCING",
+                        "damage": [
+                            338,
+                            450,
+                            563
+                        ]
+                    },
+                    {
+                        "penetration": [
+                            238,
+                            317,
+                            396
+                        ],
+                        "stun": null,
+                        "type": "HOLLOW_CHARGE",
+                        "damage": [
+                            338,
+                            450,
+                            563
+                        ]
+                    },
+                    {
+                        "penetration": [
+                            46,
+                            61,
+                            76
+                        ],
+                        "stun": null,
+                        "type": "HIGH_EXPLOSIVE",
+                        "damage": [
+                            405,
+                            540,
+                            675
+                        ]
+                    }
+                ],
+                "max_weight": 0
+            },
+            "turrets": [
+                14227
+            ]
+        },
+        "68113": {
+            "is_wheeled": false,
+            "radios": [
+                72983
+            ],
+            "is_premium": true,
+            "tag": "G89_Leopard1_CFE_A",
+            "images": {
+                "small_icon": "http://api.worldoftanks.asia/static/2.77.0/wot/encyclopedia/vehicle/small/germany-G89_Leopard1_CFE_A.png",
+                "contour_icon": "http://api.worldoftanks.asia/static/2.77.0/wot/encyclopedia/vehicle/contour/germany-G89_Leopard1_CFE_A.png",
+                "big_icon": "http://api.worldoftanks.asia/static/2.77.0/wot/encyclopedia/vehicle/germany-G89_Leopard1_CFE_A.png"
+            },
+            "tank_id": 68113,
+            "suspensions": [
+                76306
+            ],
+            "provisions": [
+                5631995,
+                11771,
+                26363,
+                26619,
+                26875,
+                27131,
+                6155003,
+                27643,
+                27899,
+                28155,
+                5631739,
+                12283,
+                28923,
+                48891,
+                29179,
+                29435,
+                6154491,
+                46075,
+                29947,
+                28411,
+                30203,
+                47099,
+                26107,
+                6154747,
+                14843,
+                15355,
+                5631483,
+                52475,
+                29691,
+                251,
+                507,
+                16891,
+                763,
+                1019,
+                230651,
+                1531,
+                2555,
+                51963,
+                52219,
+                14331,
+                52731,
+                17147,
+                28667,
+                52987,
+                1275,
+                12795,
+                27387,
+                28665,
+                23289,
+                39161,
+                39929,
+                29433,
+                40185,
+                40441,
+                11769,
+                40697,
+                40953,
+                41209,
+                29689,
+                41465,
+                25593,
+                25849,
+                29945,
+                26361,
+                27129,
+                27385,
+                30201,
+                27641,
+                27897,
+                23801,
+                28153,
+                12025,
+                24313,
+                12281,
+                30457,
+                12537,
+                29177,
+                13049,
+                14329,
+                13305,
+                13561,
+                13817,
+                11257,
+                14073,
+                30713,
+                14585,
+                39673,
+                14841,
+                30969,
+                15097,
+                11513,
+                16121,
+                31225,
+                16633,
+                24825,
+                31481,
+                15353,
+                28409,
+                18681,
+                31737,
+                22009,
+                19193,
+                19705,
+                20729,
+                20985,
+                28921,
+                17913,
+                38905,
+                38649,
+                22521,
+                39417
+            ],
+            "engines": [
+                81429
+            ],
+            "crew": [
+                {
+                    "roles": {
+                        "commander": "ผู้บังคับการ",
+                        "radioman": "พลวิทยุ"
+                    },
+                    "member_id": "commander"
+                },
+                {
+                    "roles": {
+                        "gunner": "พลปืน"
+                    },
+                    "member_id": "gunner"
+                },
+                {
+                    "roles": {
+                        "driver": "พลขับ"
+                    },
+                    "member_id": "driver"
+                },
+                {
+                    "roles": {
+                        "loader": "พลบรรจุ"
+                    },
+                    "member_id": "loader"
+                }
+            ],
+            "type": "mediumTank",
+            "guns": [
+                85524
+            ],
+            "multination": null,
+            "description": "Automaton（自动机）是一型以高度自动化为核心设想的德国中型坦克概念，105 毫米 L7A3 主炮与自动装弹机构相配，指向那个时代对“少人化战车”的想象。",
+            "short_name": "Automaton",
+            "is_premium_igr": false,
+            "next_tanks": null,
+            "modules_tree": {
+                "76306": {
+                    "name": "Automaton",
+                    "next_modules": null,
+                    "next_tanks": null,
+                    "is_default": true,
+                    "price_xp": 0,
+                    "price_credit": 82500,
+                    "module_id": 76306,
+                    "type": "vehicleChassis"
+                },
+                "66323": {
+                    "name": "Automaton",
+                    "next_modules": null,
+                    "next_tanks": null,
+                    "is_default": true,
+                    "price_xp": 0,
+                    "price_credit": 66000,
+                    "module_id": 66323,
+                    "type": "vehicleTurret"
+                },
+                "85524": {
+                    "name": "10,5 cm Bordkanone L7A3",
+                    "next_modules": null,
+                    "next_tanks": null,
+                    "is_default": true,
+                    "price_xp": 0,
+                    "price_credit": 290000,
+                    "module_id": 85524,
+                    "type": "vehicleGun"
+                },
+                "81429": {
+                    "name": "MTU MB 838 CaM-500A",
+                    "next_modules": null,
+                    "next_tanks": null,
+                    "is_default": true,
+                    "price_xp": 0,
+                    "price_credit": 95000,
+                    "module_id": 81429,
+                    "type": "vehicleEngine"
+                },
+                "72983": {
+                    "name": "SEM 25A",
+                    "next_modules": null,
+                    "next_tanks": null,
+                    "is_default": true,
+                    "price_xp": 0,
+                    "price_credit": 55000,
+                    "module_id": 72983,
+                    "type": "vehicleRadio"
+                }
+            },
+            "nation": "germany",
+            "tier": 10,
+            "prices_xp": null,
+            "is_gift": false,
+            "name": "Automaton",
+            "price_gold": null,
+            "price_credit": null,
+            "default_profile": {
+                "engine": {
+                    "name": "MTU MB 838 CaM-500A",
+                    "power": 830,
+                    "weight": 1700,
+                    "tag": "MTU_MB_838_CaM_500A_CFE_A",
+                    "fire_chance": 0.1,
+                    "tier": 10
+                },
+                "siege": null,
+                "max_ammo": 60,
+                "suspension": {
+                    "name": "Automaton",
+                    "weight": 10000,
+                    "load_limit": 0,
+                    "tag": "Chassis_G89_Leopard1_CFE_A",
+                    "traverse_speed": 50,
+                    "tier": 10,
+                    "steering_lock_angle": 0
+                },
+                "weight": 40000,
+                "armor": {
+                    "turret": {
+                        "front": 52,
+                        "sides": 60,
+                        "rear": 60
+                    },
+                    "hull": {
+                        "front": 70,
+                        "sides": 35,
+                        "rear": 25
+                    }
+                },
+                "hp": 1850,
+                "modules": {
+                    "gun_id": 85524,
+                    "suspension_id": 76306,
+                    "turret_id": 66323,
+                    "radio_id": 72983,
+                    "engine_id": 81429
+                },
+                "gun": {
+                    "move_down_arc": 9,
+                    "caliber": 105,
+                    "name": "10,5 cm Bordkanone L7A3",
+                    "weight": 1282,
+                    "move_up_arc": 20,
+                    "fire_rate": 6.45,
+                    "dispersion": 0.29,
+                    "tag": "_105mm_Bordkanone_L7A3_CFE_A",
+                    "traverse_speed": 35,
+                    "reload_time": 9.3,
+                    "tier": 10,
+                    "aim_time": 1.7
+                },
+                "turret": {
+                    "name": "Automaton",
+                    "weight": 7718,
+                    "view_range": 410,
+                    "hp": 370,
+                    "tag": "Turret_1_G89_Leopard1_CFE_A",
+                    "traverse_speed": 40,
+                    "traverse_right_arc": 180,
+                    "tier": 10,
+                    "traverse_left_arc": 180
+                },
+                "hull_weight": 18950,
+                "radio": {
+                    "tier": 10,
+                    "signal_range": 750,
+                    "tag": "SEM25_1_CFE_A",
+                    "name": "SEM 25A",
+                    "weight": 50
+                },
+                "rapid": null,
+                "speed_forward": 70,
+                "hull_hp": 1480,
+                "speed_backward": 23,
+                "ammo": [
+                    {
+                        "penetration": [
+                            209,
+                            278,
+                            348
+                        ],
+                        "stun": null,
+                        "type": "ARMOR_PIERCING_CR",
+                        "damage": [
+                            315,
+                            420,
+                            525
+                        ]
+                    },
+                    {
+                        "penetration": [
+                            242,
+                            323,
+                            404
+                        ],
+                        "stun": null,
+                        "type": "ARMOR_PIERCING_CR",
+                        "damage": [
+                            315,
+                            420,
+                            525
+                        ]
+                    },
+                    {
+                        "penetration": [
+                            79,
+                            105,
+                            131
+                        ],
+                        "stun": null,
+                        "type": "HIGH_EXPLOSIVE",
+                        "damage": [
+                            383,
+                            510,
+                            638
+                        ]
+                    }
+                ],
+                "max_weight": 0
+            },
+            "turrets": [
+                66323
             ]
         }
     }

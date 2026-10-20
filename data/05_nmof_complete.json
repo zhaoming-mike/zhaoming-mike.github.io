@@ -1,5 +1,5 @@
 {
-  "collected_at": "2026-10-19T22:00:37.541Z",
+  "collected_at": "2026-10-20T04:00:31.931Z",
   "source": "Wargaming Public API",
   "region": "asia",
   "base_url": "https://api.worldoftanks.asia",
@@ -19068,24 +19068,24 @@
       "role_i18n": "เจ้าหน้าที่การรบ",
       "joined_at": 1787815056,
       "created_at": 1733207490,
-      "last_battle_time": 1792373272,
-      "global_rating": 7930,
+      "last_battle_time": 1792461670,
+      "global_rating": 7931,
       "statistics": {
-        "battles": 8747,
-        "wins": 4557,
-        "losses": 3978,
+        "battles": 8752,
+        "wins": 4560,
+        "losses": 3980,
         "draws": 212,
         "winrate": "52.10",
-        "survived_battles": 3253,
-        "frags": 8695,
-        "damage_dealt": 14564424,
-        "damage_received": 10367393,
-        "xp": 7244777,
+        "survived_battles": 3255,
+        "frags": 8697,
+        "damage_dealt": 14571700,
+        "damage_received": 10373524,
+        "xp": 7249398,
         "max_xp": 2399,
         "max_damage": 7330,
         "max_frags": 8,
         "battle_avg_xp": 828,
-        "spotted": 9223,
+        "spotted": 9229,
         "capture_points": 5591,
         "dropped_capture_points": 4462,
         "tanking_factor": 0.25
@@ -19195,7 +19195,7 @@
           "16417": 41,
           "16657": 81,
           "16897": 17,
-          "17473": 77,
+          "17473": 78,
           "17937": 9,
           "19217": 35,
           "19281": 21,
@@ -19275,7 +19275,7 @@
           "66849": 70,
           "67121": 10,
           "67361": 14,
-          "67873": 244,
+          "67873": 248,
           "69153": 91
         },
         "top_tanks": [
@@ -19302,8 +19302,8 @@
           },
           {
             "tank_id": 67873,
-            "battles": 244,
-            "winrate": "53.69",
+            "battles": 248,
+            "winrate": "53.63",
             "avg_damage": 0,
             "mark_of_mastery": 3
           },
@@ -22764,5 +22764,5 @@
       }
     }
   ],
-  "_generated_at": "2026-10-19T22:00:37.541Z"
+  "_generated_at": "2026-10-20T04:00:31.931Z"
 }
